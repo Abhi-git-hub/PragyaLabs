@@ -14,19 +14,26 @@ export type RouteDef = {
   href: string;
   label: string;
   index: string;
-  phase: "phase-1" | "later";
   description: string;
 };
 
-/** Route architecture. Phase 1 ships placeholders; full scenes land later. */
+/**
+ * Route architecture. /lab redirects to /work — the LAB is the brand and
+ * its systems run inside the Work worlds, not a separate gallery.
+ */
 export const routes: RouteDef[] = [
-  { href: "/", index: "00", label: "Index", phase: "phase-1", description: "Narrative spine ACT 0–9, placeholders + Core playground." },
-  { href: "/work", index: "01", label: "Work", phase: "phase-1", description: "Project index." },
-  { href: "/work/saarthians", index: "02", label: "Saarthians", phase: "phase-1", description: "Flagship case-study shell." },
-  { href: "/work/[project]", index: "03", label: "Case study", phase: "phase-1", description: "Dynamic case-study template." },
-  { href: "/lab", index: "04", label: "Lab", phase: "phase-1", description: "Experiments index." },
-  { href: "/about", index: "05", label: "About", phase: "phase-1", description: "Person + philosophy shell." },
-  { href: "/contact", index: "06", label: "Contact", phase: "phase-1", description: "Contact shell (no fake channels)." },
+  { href: "/", index: "00", label: "Index", description: "Continuous narrative: arrival to loop." },
+  { href: "/work", index: "01", label: "Work", description: "Project worlds + specimen index." },
+  { href: "/work/saarthians", index: "02", label: "Saarthians", description: "Flagship case study." },
+  { href: "/work/[project]", index: "03", label: "Case study", description: "Dynamic case-study template." },
+  { href: "/lab", index: "—", label: "Lab", description: "Redirects to /work (gallery retired)." },
+  { href: "/about", index: "04", label: "About", description: "Readable personal story." },
+  { href: "/contact", index: "05", label: "Contact", description: "One channel, no dead forms." },
 ];
 
-export const nav = routes.filter((r) => !r.href.includes("["));
+/** Public navigation: brand + three destinations. Nothing else. */
+export const nav = [
+  { href: "/work", index: "01", label: "Work" },
+  { href: "/about", index: "02", label: "About" },
+  { href: "/contact", index: "03", label: "Contact" },
+];

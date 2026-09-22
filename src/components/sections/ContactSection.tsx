@@ -4,12 +4,12 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { site } from "@/config/site";
 
 /**
- * ACT 09 — CONTACT. The closing: one line, one action, one channel.
+ * CHAPTER 07 — CONTACT. The closing: one line, one action, one channel.
  * No generic form as the hero — a mailto that actually opens mail.
  */
 export function ContactSection() {
   return (
-    <SectionContainer index="09" eyebrow="Contact">
+    <SectionContainer index="07" eyebrow="Contact" id="contact" className="scroll-mt-20">
       <Reveal>
         <Eyebrow className="mb-6 text-faint">The closing</Eyebrow>
         <Display size="hero">

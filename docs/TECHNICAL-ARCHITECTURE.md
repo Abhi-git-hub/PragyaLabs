@@ -1,4 +1,4 @@
-# TECHNICAL ARCHITECTURE — Pragya Labs (Phase 3)
+# TECHNICAL ARCHITECTURE — Pragya Labs (Phase 3R)
 
 > Frontend only: no backend, no database, no auth, no CMS, no API routes.
 
@@ -14,28 +14,31 @@ possible (`generateStaticParams` for `/work/[project]`). SEO via per-route
 
 ```
 src/
-  app/            routes: page + layout + not-found + icon (placeholders wired)
+  app/            /, /work, /work/[project], /about, /contact;
+                  /lab redirects to /work (gallery retired, systems kept)
   components/
     layout/       SectionContainer, SiteFooter (shell, rhythm)
-    navigation/   SiteNav (fixed hairline bar + mobile menu)
+    navigation/   SiteNav (hide-on-scroll + progress hairline + mobile sheet)
     typography/   Display / Body / Eyebrow (the three voices)
     motion/       Reveal / Stagger, CursorProvider + Cursor (visible renderer),
-                  RouteTransition, EnvironmentLayer (poster-first video)
+                  RouteTransition, EnvironmentLayer (poster-first video),
+                  GlyphBand (scroll-excited chapter seams)
     3d/           BackgroundField (2D ambient), PragyaCoreScene + Canvas (dynamic,
-                  intro/scroll refs, quality tiers)
-    lab/          ExperimentShell + LabHall, ParticleLab / CursorLab / TypeLab
-                  (rAF 2D canvases, dynamic, gated)
+                  intro/scroll/surge refs, quality tiers)
+    lab/          ParticleLab (Saarthians data layer), RetrievalViz (RAG world);
+                  CursorLab + TypeLab persist as tuned prototypes behind the
+                  global cursor and glyph seams (rAF 2D, gated, tree-shaken
+                  when unimported)
     person/       Portrait (parallax + grain), Signature (screen-blend + light pass)
     projects/     ProjectCard (enriched rows), CaseStudy (verified-only),
-                  SystemFlow (Saarthians pipeline), ExperimentCard
-    sections/     HeroArrival (01), Thesis (02), Story (03), Work (04),
-                  LabTeaser (05), Stack (06), Philosophy (07), Person (08),
-                  ContactSection (09), Loop (10)
+                  SystemFlow (Saarthians pipeline), SaarthiansVisual (live layer)
+    sections/     HeroArrival, Thesis, Story→Origin, Work (worlds),
+                  Stack→Systems, Philosophy→Approach, Person, ContactSection, Loop
   hooks/          use-prefers-reduced-motion, use-pointer (rAF-friendly ref),
                   use-device-capability (high/reduced tiers)
   lib/            motion (GSAP registry + gate), smooth-scroll (Lenis),
                   metadata, cn (no clsx dependency)
-  data/           projects, experiments (typed, placeholders explicit),
+  data/           projects (typed, placeholders explicit),
                   story (owner-provided facts only), stack (evidence-linked)
   config/         site/routes, tokens mirror, cursor states
   styles/         tokens.css (source of truth) + globals.css (Tailwind v4 @theme)

@@ -9,6 +9,7 @@ import type { CapabilityTier } from "@/hooks/use-device-capability";
 
 export type ScrollProgressRef = { current: number };
 export type IntroProgressRef = { current: number };
+export type SurgeRef = { current: number };
 
 const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
 
@@ -25,10 +26,12 @@ const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
 function CoreRig({
   scrollRef,
   introRef,
+  surgeRef,
   quality,
 }: {
   scrollRef?: ScrollProgressRef;
   introRef?: IntroProgressRef;
+  surgeRef?: SurgeRef;
   quality: CapabilityTier;
 }) {
   const group = useRef<THREE.Group>(null!);
@@ -82,17 +85,20 @@ function CoreRig({
     const t = state.clock.elapsedTime;
     const p = state.pointer; // -1..1, provided by R3F
     const s = scrollRef?.current ?? 0;
+    // Surge: press consequence — decays fast, spikes light + scale.
+    const surge = surgeRef?.current ?? 0;
+    if (surgeRef && surge > 0) surgeRef.current = Math.max(0, surge - delta * 1.6);
 
     // Pointer parallax (lerped) + slow idle spin + scroll descent.
     g.rotation.y += delta * (0.12 + s * 0.5);
     g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, p.y * -0.28, 0.04);
     g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, p.x * 0.12, 0.04);
     g.position.y = -s * 1.4;
-    g.scale.setScalar((0.8 + 0.2 * intro) * (1 - s * 0.18));
+    g.scale.setScalar((0.8 + 0.2 * intro) * (1 - s * 0.18) * (1 + surge * 0.07));
 
     // Lighting response: pointer drags the energy lights across the crystal.
-    cyanLight.current.intensity = 18 + p.x * 7 + intro * 4;
-    violetLight.current.intensity = 14 - p.x * 5 + intro * 3;
+    cyanLight.current.intensity = 18 + p.x * 7 + intro * 4 + surge * 34;
+    violetLight.current.intensity = 14 - p.x * 5 + intro * 3 + surge * 22;
     cyanLight.current.position.x = -4 + p.x * 2.5;
     violetLight.current.position.y = 3 - p.y * 2;
 
@@ -174,10 +180,12 @@ function CoreRig({
 export function PragyaCoreScene({
   scrollRef,
   introRef,
+  surgeRef,
   quality = "high",
 }: {
   scrollRef?: ScrollProgressRef;
   introRef?: IntroProgressRef;
+  surgeRef?: SurgeRef;
   quality?: CapabilityTier;
 }) {
   const reduced = useMemo(() => prefersReducedMotion(), []);
@@ -191,7 +199,7 @@ export function PragyaCoreScene({
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[4, 5, 6]} intensity={1.4} color="#ffffff" />
-      <CoreRig scrollRef={scrollRef} introRef={introRef} quality={quality} />
+      <CoreRig scrollRef={scrollRef} introRef={introRef} surgeRef={surgeRef} quality={quality} />
     </Canvas>
   );
 }

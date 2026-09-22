@@ -27,11 +27,19 @@ export const storyBeats: StoryBeat[] = [
     ],
   },
   {
+    era: "Real work",
+    title: "Projects become systems",
+    lines: [
+      "Saarthians takes shape — material, people, and intelligence in one system.",
+      "Retrieval experiments and interface recreations sharpen the craft.",
+    ],
+  },
+  {
     era: "Now",
     title: "Pragya Labs",
     lines: [
-      "Real projects: Saarthians, retrieval experiments, interface recreations.",
       "One practice — creative engineering across AI, the web, and interaction.",
+      "The laboratory opens. The work continues.",
     ],
   },
 ];

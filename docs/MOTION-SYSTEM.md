@@ -1,8 +1,8 @@
-# MOTION SYSTEM — Pragya Labs (Phase 3)
+# MOTION SYSTEM — Pragya Labs (Phase 3R)
 
 > Tokens: `--pl-duration-*`, `--pl-ease-*`, `--pl-stagger-*`, `--pl-distance-*`
 > in `src/styles/tokens.css`, mirrored for JS in `src/config/tokens.ts`.
-> Primitives: `src/components/motion/Reveal.tsx`, `EnvironmentLayer`.
+> Primitives: `src/components/motion/Reveal.tsx`, `EnvironmentLayer`, `GlyphBand`.
 > Gate: `motionAllowed()` in `src/lib/motion.ts` + `usePrefersReducedMotion()`.
 
 ## Categories
@@ -18,16 +18,17 @@ Easing voice: one primary (`--pl-ease-lab` ≈ `expo.out`), one alternative
 (quart), linear for scrubbed/procedural. No bounce, no elastic, no springy
 overshoot — the lab is precise, not playful.
 
-## Signature interactions (1–2 BUILT in Phase 2, 3–5 documented)
+## Signature interactions (all BUILT; every effect answers "why HERE")
 
-1. Hero object reacts to cursor — BUILT: pointer parallax tilt + energy-light
-   response in `PragyaCoreScene`, staged by the `HeroArrival` load timeline.
-2. Object transforms as user scrolls — BUILT: descent + rotation + scale via
-   scrubbed 0..1 progress ref; environment breathes via `EnvironmentLayer`
-   parallax; hero type lifts away on a separate scrub.
-3. Project scene transitions dimensionally (index row → case study).
-4. Technology stack becomes an animated system (scroll-assembled diagram).
-5. Final scene reconstructs the opening visual (the loop, ACT—09).
+1. Hero object reacts to cursor — pointer parallax tilt + energy-light response,
+   staged by the load timeline; a press fires a light surge (`surgeRef`).
+2. Object transforms as user scrolls — descent + rotation + scale via scrubbed
+   0..1 progress ref; environment breathes via parallax; hero type lifts away.
+3. Work worlds carry the technique — particle field as Saarthians' live data
+   layer, retrieval diagram as the RAG story, glyph seams as chapter
+   transitions, spring cursor globally. No standalone demo gallery.
+4. Technology stack assembles on scroll — clip-reveal rows, evidence links.
+5. The Loop echoes the opening — reassembled Core + orbital path + the mark.
 
 ## Scroll choreography
 
@@ -58,10 +59,11 @@ state label, lerped follow, event-delegated `data-cursor` zones, desktop
 
 Hero media is poster-first (video fades in on canplay); the Thesis pin is
 skipped under reduced motion (static stack instead). Route transitions
-(`RouteTransition`): 350ms rise+fade + 1px energy sweep — premium, never
-annoying. Lab canvases are rAF-driven 2D with intersection/visibility gating
-and single-frame fallbacks under reduced motion. ACT—00 boot sequence
-(fast, skippable) remains Phase 4.
+(`RouteTransition`): 350ms rise+fade + 1px energy sweep. Lab engines
+(particles, springs, glyphs, retrieval) are rAF-driven 2D with
+intersection/visibility gating and single-frame fallbacks under reduced
+motion; `CursorLab`/`TypeLab` persist as the tuned prototypes behind the
+global cursor and glyph seams. ACT—00 boot sequence remains Phase 4.
 
 ## Reduced motion (foundation BEFORE major motion)
 

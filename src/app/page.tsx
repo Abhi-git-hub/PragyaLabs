@@ -1,29 +1,32 @@
 import { HeroArrival } from "@/components/sections/HeroArrival";
 import { Thesis } from "@/components/sections/Thesis";
-import { Story } from "@/components/sections/Story";
+import { Origin } from "@/components/sections/Story";
 import { Work } from "@/components/sections/Work";
-import { LabTeaser } from "@/components/sections/LabTeaser";
 import { Stack } from "@/components/sections/Stack";
 import { Philosophy } from "@/components/sections/Philosophy";
 import { Person } from "@/components/sections/Person";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { Loop } from "@/components/sections/Loop";
+import { GlyphBand } from "@/components/motion/GlyphBand";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "Pragya Labs — Digital systems engineered with intelligence." });
 
 /**
- * HOME — the full narrative: ARRIVAL → THESIS → STORY → WORK → LAB →
- * STACK → PHILOSOPHY → PERSON → CONTACT → LOOP. Visitor-facing only.
+ * HOME — one continuous experience: ARRIVAL (with thesis statement) →
+ * ORIGIN → WORK → SYSTEMS → APPROACH → PERSON → CONTACT → LOOP.
+ * Glyph seams carry progression between chapters. No demo galleries.
  */
 export default function HomePage() {
   return (
     <>
       <HeroArrival />
       <Thesis />
-      <Story />
+      <GlyphBand label="SYS—TRANSIT / 01" />
+      <Origin />
+      <GlyphBand label="SYS—TRANSIT / 02" />
       <Work />
-      <LabTeaser />
+      <GlyphBand label="SYS—TRANSIT / 03" />
       <Stack />
       <Philosophy />
       <Person />

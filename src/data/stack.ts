@@ -19,7 +19,7 @@ export const stack: StackCategory[] = [
     evidence: [
       { label: "Saarthians", href: "/work/saarthians" },
       { label: "X recreation", href: "/work/x-frontend-clone" },
-      { label: "This site", href: "/lab" },
+      { label: "This site", href: "/#work" },
     ],
   },
   {
@@ -49,7 +49,7 @@ export const stack: StackCategory[] = [
     items: ["Three.js", "WebGL", "Motion"],
     evidence: [
       { label: "Pragya Labs", href: "/" },
-      { label: "The Lab", href: "/lab" },
+      { label: "Work worlds", href: "/#work" },
     ],
   },
 ];

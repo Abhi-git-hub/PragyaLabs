@@ -10,7 +10,7 @@ import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
 
 /**
- * ACT 06 — THE STACK. Technology as an assembled system, not a skill grid.
+ * CHAPTER 04 — SYSTEMS. Technology as an assembled system, not a skill grid.
  * Categories draw themselves in on scroll; every item points at the project
  * that proves it. No percentages, no bars, no nonsense.
  */
@@ -41,7 +41,7 @@ export function Stack() {
   }, [reduced]);
 
   return (
-    <SectionContainer index="06" eyebrow="The stack">
+    <SectionContainer index="04" eyebrow="Systems" id="systems" className="scroll-mt-20">
       <Reveal>
         <Display size="md" className="max-w-[14ch]">
           Every tool earns its place.

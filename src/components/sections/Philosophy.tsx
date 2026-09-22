@@ -11,12 +11,12 @@ const principles = [
 ];
 
 /**
- * ACT 07 — THE PHILOSOPHY. Quiet editorial: five principles, sharp copy,
- * room to breathe. How the builder thinks, not LinkedIn inspiration.
+ * CHAPTER 05 — APPROACH. Concise and sharp: five principles, room to
+ * breathe. How the builder thinks — never motivational filler.
  */
 export function Philosophy() {
   return (
-    <SectionContainer index="07" eyebrow="The philosophy">
+    <SectionContainer index="05" eyebrow="Approach" id="approach" className="scroll-mt-20">
       <Reveal>
         <Display size="md" className="max-w-[12ch]">
           How the builder thinks.

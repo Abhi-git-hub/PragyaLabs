@@ -9,8 +9,9 @@ import { Signature } from "@/components/person/Signature";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 
 /**
- * ACT 10 — THE LOOP. The visit ends where it began: the Core reassembled
- * small, the mark beside it, the thesis restated. Complete, not abrupt.
+ * THE LOOP — visual echo, not a restart. The signature's line becomes a
+ * light trail, becomes an orbital path around the reassembled Core —
+ * reconnecting with the opening scene. Closure through continuity.
  */
 const Core = dynamic(() => import("@/components/3d/PragyaCoreCanvas").then((m) => m.PragyaCoreCanvas), {
   ssr: false,
@@ -59,10 +60,15 @@ export function Loop() {
             ↑ Return to arrival
           </Link>
         </Reveal>
-        <Reveal className="relative h-[46svh] border border-line bg-void/40 lg:h-auto lg:min-h-[420px]">
+        <Reveal className="relative h-[46svh] overflow-hidden border border-line bg-void/40 lg:h-auto lg:min-h-[420px]">
           <div className="absolute left-4 top-3 z-10">
             <span className="meta text-faint">OBJ—CORE/10 — reassembled</span>
           </div>
+          {/* Orbital echo: the signature line, become a path home */}
+          <div aria-hidden="true" className="orbit-ring orbit-a">
+            <span className="orbit-sat" />
+          </div>
+          <div aria-hidden="true" className="orbit-ring orbit-b" />
           {live && capability.webgl ? (
             <Core introRef={introRef.current} quality={capability.tier} className="h-full w-full" />
           ) : (

@@ -158,6 +158,47 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
 }
 
+/* Orbital echo (the loop): tilted hairline paths with a satellite.
+   A uniform ring's own rotation is invisible — the dot carries the motion. */
+.orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotateX(72deg);
+}
+.orbit-a {
+  width: 130%;
+  border: 1px solid rgb(53 233 255 / 0.15);
+  animation: orbit-spin 26s linear infinite;
+}
+.orbit-b {
+  width: 95%;
+  border: 1px solid rgb(139 92 255 / 0.2);
+}
+.orbit-sat {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--pl-accent-cyan);
+  box-shadow: var(--pl-glow-cyan);
+}
+@keyframes orbit-spin {
+  from {
+    transform: translate(-50%, -50%) rotateX(72deg) rotateZ(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotateX(72deg) rotateZ(360deg);
+  }
+}
+
 /* ---------- Reduced motion: foundation BEFORE major motion ----------
    All signature motion checks this first via JS; CSS kills residual animation. */
 @media (prefers-reduced-motion: reduce) {

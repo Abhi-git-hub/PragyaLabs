@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { IntroProgressRef, ScrollProgressRef } from "./PragyaCoreScene";
+import type { IntroProgressRef, ScrollProgressRef, SurgeRef } from "./PragyaCoreScene";
 import type { CapabilityTier } from "@/hooks/use-device-capability";
 
 const Scene = dynamic(
@@ -24,17 +24,19 @@ const Scene = dynamic(
 export function PragyaCoreCanvas({
   scrollRef,
   introRef,
+  surgeRef,
   quality = "high",
   className,
 }: {
   scrollRef?: ScrollProgressRef;
   introRef?: IntroProgressRef;
+  surgeRef?: SurgeRef;
   quality?: CapabilityTier;
   className?: string;
 }) {
   return (
     <div className={className ?? "h-full w-full"}>
-      <Scene scrollRef={scrollRef} introRef={introRef} quality={quality} />
+      <Scene scrollRef={scrollRef} introRef={introRef} surgeRef={surgeRef} quality={quality} />
     </div>
   );
 }

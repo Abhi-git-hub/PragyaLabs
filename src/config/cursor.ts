@@ -14,7 +14,7 @@ export const cursorConfig: Record<
   VIEW: { label: "View", scale: 3.2, mixBlend: false, note: "Project thumbnails." },
   OPEN: { label: "Open", scale: 2.4, mixBlend: false, note: "Case-study links." },
   DRAG: { label: "Drag", scale: 2.0, mixBlend: false, note: "Horizontal / orbital zones." },
-  EXPLORE: { label: "Explore", scale: 2.8, mixBlend: false, note: "Lab experiments." },
+  EXPLORE: { label: "Explore", scale: 2.8, mixBlend: false, note: "Work worlds + live layers." },
 };
 
 export const cursorRules = [

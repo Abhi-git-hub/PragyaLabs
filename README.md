@@ -1,10 +1,9 @@
-# Pragya Labs — Phase 3: Full Cinematic Experience
+# Pragya Labs — Phase 3R: One Continuous Experience
 
-**Thesis:** digital systems engineered with intelligence. **Status:** the real
-experience. Ten home chapters (Arrival → Thesis → Story → Work → Lab → Stack →
-Philosophy → Person → Contact → Loop), live lab specimens, evidence-based
-stack, story with approved portrait + signature. No demos, no scaffolding
-language on any public route.
+**Thesis:** digital systems engineered with intelligence. **Status:** recomposed.
+Seven home chapters (Arrival → Origin → Work → Systems → Approach → Person →
+Contact) plus thesis statement and orbital Loop echo. The LAB is the brand —
+its systems run inside the Work worlds. No demo galleries on any public route.
 
 ## Quickstart
 
@@ -22,23 +21,25 @@ npm run build
 ## What's inside
 
 - `src/app/` — routes: `/`, `/work`, `/work/saarthians`, `/work/[project]`,
-  `/lab`, `/about`, `/contact` (+ in-voice 404).
-- `src/components/` — layout, navigation, typography, motion, 3D, projects, sections.
+  `/about`, `/contact` (+ in-voice 404). `/lab` redirects to `/work`.
+- `src/components/` — layout, navigation, typography, motion, 3D, lab systems,
+  person, projects, sections.
 - `src/config/` + `src/styles/tokens.css` — design tokens (single source of truth).
-- `src/data/` — typed projects + experiments. Outcomes are `placeholder` until
-  verified — nothing is invented.
+- `src/data/` — typed projects (outcomes `placeholder` until verified),
+  story (owner-provided facts only), stack (evidence-linked).
 - `public/assets-manifest.json` — asset slots + naming system.
 - `docs/` — ART-DIRECTION, ASSET-BIBLE, MOTION-SYSTEM, EXPERIENCE-MAP,
   TECHNICAL-ARCHITECTURE.
 
 ## The experience
 
-`/` runs ten chapters: portal-video Arrival with materializing Core, pinned
-CODE × DESIGN × INTELLIGENCE Thesis, quiet Story (Class 10 → rebuilding →
-Pragya Labs), Saarthians system-flow Work proof, three live Lab specimens,
-evidence-linked Stack, editorial Philosophy, understated Person, "Let's build
-something" Contact, and a Loop that reassembles the Core. `/lab` hosts
-full-length specimens; `/about` the readable story; `/work` the index.
+`/` runs one story: layered Arrival (press the Core — it surges) with the
+CODE × DESIGN × INTELLIGENCE statement, Origin (portrait discovered
+slit→full, Class 10 → rebuilding → real work → Pragya Labs), Work worlds
+(Saarthians scrolled narrative + live data layer, RAG retrieval diagram,
+compact specimen), evidence-linked Systems, sharp Approach, understated
+Person, "Let's build something" Contact, and an orbital Loop echo.
+`/work` hosts the worlds + index; `/about` the readable story.
 
 ## Deployment workflow (permanent rule)
 

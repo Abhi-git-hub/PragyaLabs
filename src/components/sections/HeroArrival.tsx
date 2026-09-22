@@ -24,6 +24,7 @@ export function HeroArrival() {
   const cueRef = useRef<HTMLDivElement | null>(null);
   const scrollProgress = useRef({ current: 0 });
   const introProgress = useRef({ current: 0 });
+  const surge = useRef({ current: 0 });
   const [canvasLive, setCanvasLive] = useState(false);
   const capability = useDeviceCapability();
   const reduced = usePrefersReducedMotion();
@@ -159,9 +160,14 @@ export function HeroArrival() {
           </div>
         </div>
 
-        {/* Interactive visual field */}
+        {/* Interactive visual field — press it: the core answers with light */}
         <div ref={panelRef} className="relative lg:col-span-5">
-          <div className="relative h-[54svh] border border-line bg-void/40 backdrop-blur-[2px] lg:h-full lg:min-h-[62svh]">
+          <div
+            className="relative h-[54svh] border border-line bg-void/40 backdrop-blur-[2px] lg:h-full lg:min-h-[62svh]"
+            onPointerDown={() => {
+              surge.current.current = 1;
+            }}
+          >
             <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3">
               <span className="meta text-faint">OBJ—CORE/02</span>
               <span className="meta flex items-center gap-2 text-faint">
@@ -173,6 +179,7 @@ export function HeroArrival() {
               <PragyaCoreCanvas
                 scrollRef={scrollProgress.current}
                 introRef={introProgress.current}
+                surgeRef={surge.current}
                 quality={capability.tier}
                 className="h-full w-full"
               />
@@ -182,7 +189,7 @@ export function HeroArrival() {
               </div>
             )}
             <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between px-4 py-3">
-              <span className="meta text-faint">Pointer → tilt / light</span>
+              <span className="meta text-faint">Pointer → tilt / Press → surge</span>
               <span className="meta hidden text-faint sm:block">Scroll → descent</span>
             </div>
           </div>

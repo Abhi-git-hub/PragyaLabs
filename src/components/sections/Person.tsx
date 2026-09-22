@@ -6,12 +6,12 @@ import { Signature } from "@/components/person/Signature";
 import { person } from "@/data/story";
 
 /**
- * ACT 08 — THE PERSON. Understated identity: name, focus, coordinates.
- * "I build" — never a pedestal. The full story lives in ACT 03 and /about.
+ * CHAPTER 06 — PERSON. Understated identity: name, focus, coordinates.
+ * "I build" — never a pedestal. The full story lives in CHAPTER 02 and /about.
  */
 export function Person() {
   return (
-    <SectionContainer index="08" eyebrow="The person">
+    <SectionContainer index="06" eyebrow="Person" id="person" className="scroll-mt-20">
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <Display size="lg">
