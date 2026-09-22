@@ -157,6 +157,24 @@
       ]
     },
     {
+      "name": "portrait",
+      "assetId": "ASSET-10",
+      "purpose": "Personal story chapter + about page editorial portrait",
+      "kind": "2D",
+      "format": "jpg (responsive pair)",
+      "aspectRatio": "16:9",
+      "desktop": "1600w, 173KB",
+      "mobile": "900w, 53KB",
+      "priority": "P0",
+      "status": "production",
+      "notes": "Approved artwork (assets/me01.png): dark studio, cool blue rim light, planet backdrop. Baked motif furniture retained as artwork texture in full-frame use; signature cropped separately for screen-blend reuse (never a logo).",
+      "files": [
+        { "path": "public/person/portrait--web.jpg", "variant": "web", "required": true },
+        { "path": "public/person/portrait--mobile.jpg", "variant": "mobile", "required": true },
+        { "path": "public/person/signature--detail.jpg", "variant": "detail", "required": true }
+      ]
+    },
+    {
       "name": "brand-mark",
       "purpose": "Favicon / social avatar (vector, interim)",
       "kind": "2D",

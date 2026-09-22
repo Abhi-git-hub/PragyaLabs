@@ -1,4 +1,4 @@
-# MOTION SYSTEM — Pragya Labs (Phase 2)
+# MOTION SYSTEM — Pragya Labs (Phase 3)
 
 > Tokens: `--pl-duration-*`, `--pl-ease-*`, `--pl-stagger-*`, `--pl-distance-*`
 > in `src/styles/tokens.css`, mirrored for JS in `src/config/tokens.ts`.
@@ -50,20 +50,18 @@ mandatory before any new 3D scene ships.
 ## Cursor behavior
 
 States DEFAULT / VIEW / OPEN / DRAG / EXPLORE (`src/config/cursor.ts`).
-Contract live since Phase 1: `CursorProvider` + `useCursorIntent` + `data-cursor`
-attributes (already placed on cards, CTAs, lab specimens). Visible renderer
-deferred to Phase 3: dot + hairline ring, desktop `pointer:fine` only,
-**never on touch, never under reduced motion**.
+Visible renderer BUILT in Phase 3 (`Cursor.tsx`): dot + hairline ring with
+state label, lerped follow, event-delegated `data-cursor` zones, desktop
+`pointer:fine` only, **never on touch, never under reduced motion**.
 
 ## Loading & page transitions
 
-Phase 1: route-level `loading` skeletons were intentionally absent. Phase 2:
-hero media is poster-first (video fades in on canplay); the Thesis pin is
-skipped under reduced motion (static stack instead). The Phase 1 public motion
-test area was retired in 2.1 (demos don't belong on the public site); the
-motion language is exercised by the live scenes and documented here.
-ACT—00 boot sequence (fast, skippable) and cross-route transitions (mask
-wipes, no full-page fades) remain Phase 3.
+Hero media is poster-first (video fades in on canplay); the Thesis pin is
+skipped under reduced motion (static stack instead). Route transitions
+(`RouteTransition`): 350ms rise+fade + 1px energy sweep — premium, never
+annoying. Lab canvases are rAF-driven 2D with intersection/visibility gating
+and single-frame fallbacks under reduced motion. ACT—00 boot sequence
+(fast, skippable) remains Phase 4.
 
 ## Reduced motion (foundation BEFORE major motion)
 

@@ -1,7 +1,10 @@
-# Pragya Labs — Phase 2: Cinematic Experience
+# Pragya Labs — Phase 3: Full Cinematic Experience
 
-**Thesis:** digital systems engineered with intelligence. **Status:** experience build.
-SCENE 01 (Arrival) + SCENE 02 (Thesis) are live; remaining acts are documented placeholders.
+**Thesis:** digital systems engineered with intelligence. **Status:** the real
+experience. Ten home chapters (Arrival → Thesis → Story → Work → Lab → Stack →
+Philosophy → Person → Contact → Loop), live lab specimens, evidence-based
+stack, story with approved portrait + signature. No demos, no scaffolding
+language on any public route.
 
 ## Quickstart
 
@@ -30,13 +33,12 @@ npm run build
 
 ## The experience
 
-`/` opens with **SCENE 01 — Arrival**: portal-environment video (poster-first),
-materializing R3F Pragya Core (pointer tilt + light response, scroll descent),
-masked-line typography, layered load choreography. **SCENE 02 — Thesis** is a
-pinned 4-phase scroll system (CODE → DESIGN → INTELLIGENCE → convergence).
-The selected-systems index follows. Internal demos and placeholder acts were
-retired from public rendering in 2.1 — the site reads finished; the system
-(tokens, primitives, docs) stays internal.
+`/` runs ten chapters: portal-video Arrival with materializing Core, pinned
+CODE × DESIGN × INTELLIGENCE Thesis, quiet Story (Class 10 → rebuilding →
+Pragya Labs), Saarthians system-flow Work proof, three live Lab specimens,
+evidence-linked Stack, editorial Philosophy, understated Person, "Let's build
+something" Contact, and a Loop that reassembles the Core. `/lab` hosts
+full-length specimens; `/about` the readable story; `/work` the index.
 
 ## Deployment workflow (permanent rule)
 

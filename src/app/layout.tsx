@@ -4,6 +4,8 @@ import { SiteNav } from "@/components/navigation/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { BackgroundField } from "@/components/3d/BackgroundField";
 import { CursorProvider } from "@/components/motion/CursorProvider";
+import { Cursor } from "@/components/motion/Cursor";
+import { RouteTransition } from "@/components/motion/RouteTransition";
 import { SmoothScroll } from "@/lib/smooth-scroll";
 import { site } from "@/config/site";
 import "@/styles/globals.css";
@@ -33,7 +35,8 @@ export const viewport: Viewport = {
 
 /**
  * Global page shell: fonts, ambient background system, nav, footer.
- * Lenis smoothing + cursor architecture wrap every route.
+ * Lenis smoothing, contextual cursor, and subtle route transitions
+ * wrap every route.
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -47,11 +50,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <SiteNav />
             <main id="main" className="relative z-10 pt-14">
-              {children}
+              <RouteTransition>{children}</RouteTransition>
             </main>
             <div className="relative z-10">
               <SiteFooter />
             </div>
+            <Cursor />
           </SmoothScroll>
         </CursorProvider>
       </body>

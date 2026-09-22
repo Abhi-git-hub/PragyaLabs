@@ -2,8 +2,8 @@ import Link from "next/link";
 import type { Project } from "@/data/projects";
 
 /**
- * Editorial project row — hairlines + index numbers, no cards-as-glass.
- * Thumbnails wire in once production assets exist (see ASSET-BIBLE).
+ * Editorial project row — number, name, category, statement, technology.
+ * Hairlines + index numbers, no cards-as-glass.
  */
 export function ProjectCard({ project }: { project: Project }) {
   return (
@@ -20,6 +20,12 @@ export function ProjectCard({ project }: { project: Project }) {
         </span>
         <span className="meta mt-2 block">
           {project.category} — {project.year}
+        </span>
+        <span className="mt-2 block max-w-[62ch] text-sm leading-relaxed text-muted">
+          {project.summary}
+        </span>
+        <span className="meta mt-2 block text-faint">
+          {project.technologies.slice(0, 4).join(" / ")}
         </span>
       </span>
       <span className="meta hidden text-faint sm:block">{project.status}</span>

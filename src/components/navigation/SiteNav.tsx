@@ -18,6 +18,7 @@ export function SiteNav() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [pastHero, setPastHero] = useState(false);
+  const [progress, setProgress] = useState(0);
   const lastY = useRef(0);
   const reduced = usePrefersReducedMotion();
 
@@ -28,6 +29,8 @@ export function SiteNav() {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const y = window.scrollY;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        setProgress(max > 0 ? Math.min(1, y / max) : 0);
         setPastHero(y > window.innerHeight * 0.7);
         if (open || y <= 240) setHidden(false);
         else if (y > lastY.current + 4) setHidden(true);
@@ -50,12 +53,18 @@ export function SiteNav() {
         pastHero ? "bg-void/90" : "bg-void/60",
         hidden && !open ? "-translate-y-full" : "translate-y-0"
       )}
-    >      <a
+      >      <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-cyan focus:px-3 focus:py-2 focus:font-mono focus:text-xs focus:text-black"
       >
         Skip to content
       </a>
+      {/* Journey progress — 1px energy line under the bar */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-px origin-left bg-cyan/70"
+        style={{ transform: `scaleX(${progress})` }}
+      />
       <nav
         aria-label="Primary"
         className="mx-auto flex h-14 w-full max-w-[var(--pl-container)] items-center justify-between px-[var(--pl-gutter)]"

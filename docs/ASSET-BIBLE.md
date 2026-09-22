@@ -28,7 +28,8 @@
 | 08b | `project-stock-rag` | Case-study hero + thumb | avif/webp | 16:10 / 4:3 | 2400×1500 / 1200×900 | 1280×800 / 800×600 | P1 | planned |
 | 08c | `project-x-clone` | Case-study hero + thumb | avif/webp | 16:10 / 4:3 | 2400×1500 / 1200×900 | 1280×800 / 800×600 | P2 | planned |
 | — | `brand-mark` | Favicon / avatar (interim) | svg | 1:1 | 512² | 192² | P0 | production³ |
-| 09 | `portal-environment` | Arrival hero backdrop loop | mp4 + poster | 16:9 | 1280×720 / 7.8s | poster-first | P0 | production⁴ |
+| 09 | `portal-environment` | Arrival hero backdrop loop | mp4 + poster | 16:9 | 1280×720 / 7.8s | 640×360 cut | P0 | production⁴ |
+| 10 | `portrait` | Story + about editorial portrait | jpg pair | 16:9 | 1600w | 900w | P0 | production⁵ |
 
 ¹ Concept reference `public/hero/pragya-core--concept.png` (sourced from
 `assets/NeonDigitalCrystalCore.png`, the creative-exploration artifact). It is a
@@ -54,8 +55,14 @@ from the production file's own opening frame. Master is never served.
   ("EXPLORE / BUILD / EXPERIMENT / GROW", "DELHI / INDIA / GLOBAL BY DESIGN").
 - `uiLook2.png` — lab-atmosphere study: network-lit planet, light-edged
   monoliths, "IDEAS / INTERFACES / INTELLIGENCE / IMPACT" motif ladder.
+⁵ Approved artwork `assets/me01.png` (1672×941): dark studio, cool blue rim
+light, planet backdrop, integrated signature. Production: 1600w web (173KB)
++ 900w mobile (53KB) via next/image; signature cropped to
+`signature--detail.jpg` (42KB) for screen-blend reuse in story/about/loop —
+never a logo, never distorted.
 - `uiLook2Video.mp4` — portal-environment master (see ⁴ above). Baked text in
   the 0–2s intro; production cut removes it. Never served directly.
+- `me01.png` — portrait/signature master (see ⁵ above). Never served directly.
 
 These are direction inputs, not production assets. The production library
 (ASSET-01…08) will be authored from this language in Phase 2.

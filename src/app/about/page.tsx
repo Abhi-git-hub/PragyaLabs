@@ -1,28 +1,93 @@
-import { Display, Body } from "@/components/typography/Type";
-import { Reveal } from "@/components/motion/Reveal";
+import Link from "next/link";
+import { Display, Body, Eyebrow } from "@/components/typography/Type";
+import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { Portrait } from "@/components/person/Portrait";
+import { Signature } from "@/components/person/Signature";
+import { ProjectCard } from "@/components/projects/ProjectCard";
 import { site } from "@/config/site";
+import { person, storyBeats } from "@/data/story";
+import { getProject } from "@/data/projects";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "About — Pragya Labs" });
 
-/** Person + philosophy. No persona fiction — facts only. */
+/** The readable story: background, journey, focus, approach, work, contact. */
 export default function AboutPage() {
+  const featured = ["saarthians", "stock-rag", "x-frontend-clone"]
+    .map((slug) => getProject(slug))
+    .filter((p): p is NonNullable<typeof p> => p !== undefined);
+
   return (
-    <SectionContainer index="05" eyebrow="About — the person">
-      <Reveal>
-        <Display size="lg">Engineer, not persona.</Display>
-        <Body className="mt-6">
-          Pragya Labs is the practice of one creative engineer working across AI,
-          the web, and interaction — {site.location.toLowerCase()}, {site.year}.
-          Restraint as a feature: fewer, better systems.
-        </Body>
-        <dl className="meta mt-8 grid gap-3 border-t border-line pt-6 sm:grid-cols-3">
-          <div><dt className="text-faint">Discipline</dt><dd className="mt-1 text-bone">Creative engineering</dd></div>
-          <div><dt className="text-faint">Coordinates</dt><dd className="mt-1 text-bone">{site.location} — {site.year}</dd></div>
-          <div><dt className="text-faint">Thesis</dt><dd className="mt-1 normal-case tracking-normal text-bone">{site.thesis}</dd></div>
-        </dl>
-      </Reveal>
-    </SectionContainer>
+    <>
+      <SectionContainer index="05" eyebrow="About — the person">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
+          <Reveal>
+            <Display size="lg">Engineer, not persona.</Display>
+            <Body className="mt-6">
+              Pragya Labs is the practice of {person.name}, one creative engineer
+              working across AI, the web, and interaction — {site.location.toLowerCase()},{" "}
+              {site.year}. Restraint as a feature: fewer, better systems.
+            </Body>
+            <dl className="meta mt-8 grid gap-3 border-t border-line pt-6 sm:grid-cols-2">
+              <div><dt className="text-faint">Discipline</dt><dd className="mt-1 text-bone">Creative engineering</dd></div>
+              <div><dt className="text-faint">Coordinates</dt><dd className="mt-1 text-bone">{site.location} — {site.year}</dd></div>
+            </dl>
+          </Reveal>
+          <Reveal>
+            <Portrait className="h-[46svh] lg:h-full lg:min-h-[440px]" />
+            <div className="mt-3 flex items-center justify-between">
+              <Eyebrow className="text-faint">Abhi — Delhi, 2026</Eyebrow>
+              <Eyebrow className="text-faint">Fig. 01</Eyebrow>
+            </div>
+          </Reveal>
+        </div>
+      </SectionContainer>
+
+      <SectionContainer index="05—B" eyebrow="Journey">
+        <Stagger className="max-w-[880px]">
+          {storyBeats.map((beat) => (
+            <div key={beat.era} data-stagger-item className="border-t border-line py-8 last:border-b">
+              <Eyebrow className="text-cyan">{beat.era}</Eyebrow>
+              <h2 className="mt-3 font-display text-2xl uppercase md:text-4xl">{beat.title}</h2>
+              {beat.lines.map((line) => (
+                <p key={line} className="mt-3 max-w-[62ch] leading-relaxed text-muted">{line}</p>
+              ))}
+            </div>
+          ))}
+        </Stagger>
+      </SectionContainer>
+
+      <SectionContainer index="05—C" eyebrow="Approach + selected work">
+        <div className="grid gap-10 lg:grid-cols-2">
+          <Reveal>
+            <h2 className="font-display text-2xl uppercase md:text-3xl">Build before you brag.</h2>
+            <Body className="mt-4">
+              Complexity made invisible, motion that communicates, performance
+              treated as design, AI aimed at real problems. The work below is
+              the evidence.
+            </Body>
+            <div className="mt-8">
+              <p className="meta mb-2 text-faint">Signed</p>
+              <Signature className="max-w-[260px]" />
+            </div>
+          </Reveal>
+          <div>
+            {featured.map((p) => (
+              <ProjectCard key={p.slug} project={p} />
+            ))}
+          </div>
+        </div>
+        <Reveal>
+          <Link
+            href="/contact"
+            data-cursor="OPEN"
+            className="meta mt-10 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
+          >
+            Start a project →
+          </Link>
+        </Reveal>
+      </SectionContainer>
+    </>
   );
 }

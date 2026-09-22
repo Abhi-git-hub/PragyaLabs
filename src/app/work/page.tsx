@@ -22,7 +22,7 @@ export default function WorkPage() {
           <ProjectCard key={p.slug} project={p} />
         ))}
       </div>
-      <Eyebrow className="mt-8 text-faint">03 entries</Eyebrow>
+      <Eyebrow className="mt-8 text-faint">{String(projects.length).padStart(2, "0")} entries</Eyebrow>
     </SectionContainer>
   );
 }

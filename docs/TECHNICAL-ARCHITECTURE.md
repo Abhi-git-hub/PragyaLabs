@@ -1,4 +1,6 @@
-# TECHNICAL ARCHITECTURE — Pragya Labs (Phase 2)
+# TECHNICAL ARCHITECTURE — Pragya Labs (Phase 3)
+
+> Frontend only: no backend, no database, no auth, no CMS, no API routes.
 
 ## Framework & rendering
 
@@ -17,19 +19,24 @@ src/
     layout/       SectionContainer, SiteFooter (shell, rhythm)
     navigation/   SiteNav (fixed hairline bar + mobile menu)
     typography/   Display / Body / Eyebrow (the three voices)
-    motion/       Reveal / Stagger, CursorProvider (contract only),
-                  EnvironmentLayer (poster-first video backdrop)
+    motion/       Reveal / Stagger, CursorProvider + Cursor (visible renderer),
+                  RouteTransition, EnvironmentLayer (poster-first video)
     3d/           BackgroundField (2D ambient), PragyaCoreScene + Canvas (dynamic,
                   intro/scroll refs, quality tiers)
-    projects/     ProjectCard (editorial index row), CaseStudy (PROBLEM→…→
-                  EXPERIENCE, honest placeholders), ExperimentCard
-    sections/     HeroArrival (SCENE 01), Thesis (SCENE 02), ActPlaceholder,
-                  Type/Color/Motion demos
+    lab/          ExperimentShell + LabHall, ParticleLab / CursorLab / TypeLab
+                  (rAF 2D canvases, dynamic, gated)
+    person/       Portrait (parallax + grain), Signature (screen-blend + light pass)
+    projects/     ProjectCard (enriched rows), CaseStudy (verified-only),
+                  SystemFlow (Saarthians pipeline), ExperimentCard
+    sections/     HeroArrival (01), Thesis (02), Story (03), Work (04),
+                  LabTeaser (05), Stack (06), Philosophy (07), Person (08),
+                  ContactSection (09), Loop (10)
   hooks/          use-prefers-reduced-motion, use-pointer (rAF-friendly ref),
                   use-device-capability (high/reduced tiers)
   lib/            motion (GSAP registry + gate), smooth-scroll (Lenis),
                   metadata, cn (no clsx dependency)
-  data/           projects, experiments (typed, placeholders explicit)
+  data/           projects, experiments (typed, placeholders explicit),
+                  story (owner-provided facts only), stack (evidence-linked)
   config/         site/routes, tokens mirror, cursor states
   styles/         tokens.css (source of truth) + globals.css (Tailwind v4 @theme)
 ```
