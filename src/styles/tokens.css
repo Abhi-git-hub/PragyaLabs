@@ -1,0 +1,115 @@
+/**
+ * PRAGYA LABS — DESIGN TOKENS (single source of truth for CSS)
+ * Phase 1 foundation. Art direction: DARK MATTER / PRISMATIC INTELLIGENCE.
+ *
+ * Rules:
+ * - Color appears through light / reflection / energy / objects / motion.
+ * - No giant generic gradients. No glassmorphism soup. No SaaS cards.
+ * - Surfaces stay near-black; energy colors are accents, used sparingly.
+ */
+
+:root {
+  /* ---------- Color: base ---------- */
+  --pl-background: #060608; /* obsidian */
+  --pl-surface: #0b0c10; /* graphite */
+  --pl-surface-2: #12141a; /* polished graphite */
+  --pl-foreground: #f4f3ec; /* soft white (bone) */
+  --pl-muted: #9ba0ab; /* secondary text */
+  --pl-faint: #5b606b; /* tertiary / metadata dim */
+  --pl-border: rgb(244 243 236 / 0.09);
+  --pl-border-strong: rgb(244 243 236 / 0.16);
+
+  /* ---------- Color: energy (accents — light, not paint) ---------- */
+  --pl-accent-cyan: #35e9ff; /* electric cyan */
+  --pl-accent-blue: #4d7cff; /* spectral blue */
+  --pl-accent-violet: #8b5cff; /* ultraviolet */
+  --pl-accent-lime: #c6ff3d; /* controlled acid lime */
+
+  /* ---------- Materials ---------- */
+  --pl-chrome: linear-gradient(
+    135deg,
+    #f4f3ec 0%,
+    #9ba0ab 28%,
+    #3a3d46 50%,
+    #9ba0ab 72%,
+    #f4f3ec 100%
+  );
+
+  /* ---------- Typography ---------- */
+  --pl-font-display: "Anton", "Arial Narrow", sans-serif;
+  --pl-font-body: "Inter", system-ui, sans-serif;
+  --pl-font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Display scale (fluid, editorial). Display face is condensed; keep tight leading. */
+  --pl-text-hero: clamp(3.5rem, 12vw, 11rem);
+  --pl-text-display-lg: clamp(2.75rem, 7vw, 6rem);
+  --pl-text-display-md: clamp(2rem, 5vw, 4rem);
+  --pl-text-display-sm: clamp(1.5rem, 3.5vw, 2.5rem);
+
+  /* ---------- Spacing (4pt base) ---------- */
+  --pl-space-0: 0;
+  --pl-space-1: 0.25rem; /* 4 */
+  --pl-space-2: 0.5rem; /* 8 */
+  --pl-space-3: 0.75rem; /* 12 */
+  --pl-space-4: 1rem; /* 16 */
+  --pl-space-6: 1.5rem; /* 24 */
+  --pl-space-8: 2rem; /* 32 */
+  --pl-space-12: 3rem; /* 48 */
+  --pl-space-16: 4rem; /* 64 */
+  --pl-space-24: 6rem; /* 96 */
+  --pl-space-32: 8rem; /* 128 */
+  --pl-space-48: 12rem; /* 192 */
+
+  /* Section rhythm */
+  --pl-section-y: clamp(4rem, 10vw, 9rem);
+  --pl-container: 88rem; /* 1408 */
+  --pl-gutter: clamp(1.25rem, 4vw, 3rem);
+
+  /* ---------- Radius (lab = sharp by default) ---------- */
+  --pl-radius-none: 0;
+  --pl-radius-sm: 2px;
+  --pl-radius-md: 6px;
+  --pl-radius-lg: 12px;
+  --pl-radius-full: 9999px;
+
+  /* ---------- Shadow (restrained; glow reserved for energy) ---------- */
+  --pl-shadow-subtle: 0 1px 0 rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
+  --pl-glow-cyan: 0 0 24px -4px rgb(53 233 255 / 0.45);
+  --pl-glow-violet: 0 0 24px -4px rgb(139 92 255 / 0.45);
+  --pl-glow-lime: 0 0 24px -6px rgb(198 255 61 / 0.35);
+
+  /* ---------- Blur (backgrounds only, never content) ---------- */
+  --pl-blur-sm: 4px;
+  --pl-blur-md: 8px;
+  --pl-blur-lg: 16px;
+
+  /* ---------- Motion ---------- */
+  --pl-duration-instant: 120ms;
+  --pl-duration-fast: 200ms;
+  --pl-duration-base: 350ms;
+  --pl-duration-slow: 600ms;
+  --pl-duration-cinematic: 1000ms;
+  --pl-duration-epic: 1600ms;
+
+  --pl-ease-lab: cubic-bezier(0.22, 1, 0.36, 1); /* primary: out-expo-ish */
+  --pl-ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --pl-ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+  --pl-ease-linear: linear;
+
+  --pl-stagger-tight: 40ms;
+  --pl-stagger-base: 70ms;
+  --pl-stagger-loose: 120ms;
+
+  --pl-distance-micro: 12px;
+  --pl-distance-base: 24px;
+  --pl-distance-section: 48px;
+  --pl-distance-hero: 96px;
+
+  /* ---------- Breakpoints (see docs; compositions differ per band) ---------- */
+  --pl-bp-xs: 22.5rem; /* 360 */
+  --pl-bp-sm: 48rem; /* 768 */
+  --pl-bp-md: 64rem; /* 1024 */
+  --pl-bp-lg: 80rem; /* 1280 */
+  --pl-bp-xl: 90rem; /* 1440 */
+  --pl-bp-2xl: 120rem; /* 1920 */
+}

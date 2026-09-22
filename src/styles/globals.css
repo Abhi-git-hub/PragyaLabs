@@ -1,0 +1,109 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme inline {
+  --color-void: var(--pl-background);
+  --color-graphite: var(--pl-surface);
+  --color-graphite-2: var(--pl-surface-2);
+  --color-bone: var(--pl-foreground);
+  --color-muted: var(--pl-muted);
+  --color-faint: var(--pl-faint);
+  --color-line: var(--pl-border);
+  --color-line-strong: var(--pl-border-strong);
+  --color-cyan: var(--pl-accent-cyan);
+  --color-spectral: var(--pl-accent-blue);
+  --color-ultra: var(--pl-accent-violet);
+  --color-lime: var(--pl-accent-lime);
+
+  --font-display: var(--pl-font-display);
+  --font-body: var(--pl-font-body);
+  --font-mono: var(--pl-font-mono);
+}
+
+html {
+  scroll-behavior: auto; /* Lenis owns smoothing; never CSS smooth + JS smooth together */
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: var(--pl-background);
+  color: var(--pl-foreground);
+  font-family: var(--pl-font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--pl-accent-cyan);
+  color: #060608;
+}
+
+/* Visible focus for keyboard users — never remove without replacement. */
+:focus-visible {
+  outline: 2px solid var(--pl-accent-cyan);
+  outline-offset: 3px;
+  border-radius: var(--pl-radius-sm);
+}
+
+/* Refined scrollbar: graphite track, faint thumb. */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--pl-background);
+}
+::-webkit-scrollbar-thumb {
+  background: #23262e;
+  border: 2px solid var(--pl-background);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333844;
+}
+
+/* Editorial display defaults: condensed face, tight tracking, uppercase voice. */
+.font-display {
+  letter-spacing: 0.01em;
+}
+
+/* Technical metadata voice. */
+.meta {
+  font-family: var(--pl-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pl-muted);
+}
+
+/* Hairline rule used between lab sections. */
+.rule {
+  border-top: 1px solid var(--pl-border);
+}
+
+/* Chrome text treatment — use sparingly (one element per viewport max). */
+.text-chrome {
+  background: var(--pl-chrome);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Reduced motion: foundation BEFORE major motion ----------
+   All signature motion checks this first via JS; CSS kills residual animation. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
