@@ -27,7 +27,7 @@ export function SiteFooter() {
           <p className="meta mb-4 text-faint">Coordinates</p>
           <p className="meta">{site.location}</p>
           <p className="meta mt-2">{site.year}</p>
-          <p className="meta mt-2 text-faint">Phase 1 — Foundation</p>
+          <p className="meta mt-2 text-faint">SYS.ONLINE</p>
         </div>
       </div>
       <div className="border-t border-line">

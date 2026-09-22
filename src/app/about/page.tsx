@@ -1,4 +1,4 @@
-import { Display, Eyebrow, Body } from "@/components/typography/Type";
+import { Display, Body } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { site } from "@/config/site";
@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "About — Pragya Labs" });
 
-/** Person + philosophy shell. No persona fiction — facts only. */
+/** Person + philosophy. No persona fiction — facts only. */
 export default function AboutPage() {
   return (
     <SectionContainer index="05" eyebrow="About — the person">
@@ -22,7 +22,6 @@ export default function AboutPage() {
           <div><dt className="text-faint">Coordinates</dt><dd className="mt-1 text-bone">{site.location} — {site.year}</dd></div>
           <div><dt className="text-faint">Thesis</dt><dd className="mt-1 normal-case tracking-normal text-bone">{site.thesis}</dd></div>
         </dl>
-        <Eyebrow className="mt-8 text-faint">Full portrait + philosophy scene in Phase 2 (Act 06–07)</Eyebrow>
       </Reveal>
     </SectionContainer>
   );

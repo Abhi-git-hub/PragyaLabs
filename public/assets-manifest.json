@@ -146,12 +146,13 @@
       "format": "mp4 h264 (web) + jpg poster",
       "aspectRatio": "16:9",
       "desktop": "1280×720, 7.8s loop, 928KB",
-      "mobile": "poster-first; video on capable devices only",
+      "mobile": "640×360, 7.8s loop, 146KB (served via media-queried <source>)",
       "priority": "P0",
       "status": "production",
-      "notes": "Cut from assets/uiLook2Video.mp4 (trimmed baked-text intro 0–2s, audio stripped, 0.8s fade head/tail for seamless loop). Source master retains baked text and is never served.",
+      "notes": "Cut from assets/uiLook2Video.mp4 (trimmed baked-text intro 0–2s, audio stripped, 0.8s fade head/tail for seamless loop). Poster re-cut from the production file's own opening frame (no poster/video flash). Source master retains baked text and is never served.",
       "files": [
         { "path": "public/motion/portal-environment--web.mp4", "variant": "web", "required": true },
+        { "path": "public/motion/portal-environment--mobile.mp4", "variant": "mobile", "required": true },
         { "path": "public/motion/portal-environment--poster.jpg", "variant": "poster", "required": true }
       ]
     },

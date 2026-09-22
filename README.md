@@ -34,8 +34,9 @@ npm run build
 materializing R3F Pragya Core (pointer tilt + light response, scroll descent),
 masked-line typography, layered load choreography. **SCENE 02 — Thesis** is a
 pinned 4-phase scroll system (CODE → DESIGN → INTELLIGENCE → convergence).
-Foundation demos (typography / color / motion) and the selected-systems index
-follow the remaining act placeholders.
+The selected-systems index follows. Internal demos and placeholder acts were
+retired from public rendering in 2.1 — the site reads finished; the system
+(tokens, primitives, docs) stays internal.
 
 ## Deployment workflow (permanent rule)
 

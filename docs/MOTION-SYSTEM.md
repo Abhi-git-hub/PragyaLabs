@@ -59,9 +59,11 @@ deferred to Phase 3: dot + hairline ring, desktop `pointer:fine` only,
 
 Phase 1: route-level `loading` skeletons were intentionally absent. Phase 2:
 hero media is poster-first (video fades in on canplay); the Thesis pin is
-skipped under reduced motion (static stack instead). ACT—00 boot sequence
-(fast, skippable) and cross-route transitions (mask wipes, no full-page
-fades) remain Phase 3. Test area: `/` → Foundation F—03.
+skipped under reduced motion (static stack instead). The Phase 1 public motion
+test area was retired in 2.1 (demos don't belong on the public site); the
+motion language is exercised by the live scenes and documented here.
+ACT—00 boot sequence (fast, skippable) and cross-route transitions (mask
+wipes, no full-page fades) remain Phase 3.
 
 ## Reduced motion (foundation BEFORE major motion)
 

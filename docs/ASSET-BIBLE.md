@@ -41,8 +41,9 @@ variant is only needed if a shader pass is added later.
 production Core geometry language) is a Phase 2 P1.
 ⁴ Cut from master `assets/uiLook2Video.mp4` (1280×720 h264, 10s, 4.6MB):
 baked-text intro trimmed (clean from t=2.0s, verified frame-by-frame), audio
-stripped, 0.8s fade head/tail for a seamless-feeling loop, CRF 26 → 928KB +
-169KB poster. Master is never served.
+stripped, 0.8s fade head/tail for a seamless-feeling loop, CRF 26 → 928KB web
++ 146KB mobile cut (640×360, CRF 30, media-queried source) + poster re-cut
+from the production file's own opening frame. Master is never served.
 
 ## Concept references (masters in `assets/`, unserved)
 

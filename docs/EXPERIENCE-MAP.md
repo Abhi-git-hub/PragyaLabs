@@ -19,9 +19,12 @@
 | 08 | Contact | One channel | "Enter the lab" | Full-bleed CTA | Magnetic (desktop) | Loop reset | → /contact |
 | 09 | Loop | Closure | "Ends where it began" | Core reassembly | Scroll rewind | → ACT 00 | — |
 
-Foundation strip (after the acts): F—01 typography, F—02 color,
-F—03 motion test + selected-systems index preview. These validate the system in
-public and are absorbed/redesigned as the real scenes land.
+Public homepage (Phase 2.1 cleanup): SCENE 01 → SCENE 02 → selected-systems
+index → footer. No internal demos, no placeholder acts, no scaffolding
+language on any public route. The retired demo components
+(TypeSpecimen/ColorSystem/MotionTestArea/ActPlaceholder) were presentation
+only — the underlying tokens and primitives (`tokens.css`, `Reveal`,
+`Stagger`) remain the production system.
 
 ## Routes
 

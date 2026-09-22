@@ -7,15 +7,14 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "Work — Pragya Labs" });
 
-/** Project index. Full dimensional transitions land in Phase 2. */
+/** Project index — systems that exist, nothing invented. */
 export default function WorkPage() {
   return (
     <SectionContainer index="01" eyebrow="Work — project index">
       <Reveal>
         <Display size="lg">Selected systems.</Display>
         <Body className="mt-6">
-          Only systems that exist. Outcomes stay placeholder until verified —
-          nothing here is invented.
+          Only systems that exist. Each entry opens its dossier.
         </Body>
       </Reveal>
       <div className="mt-12">
@@ -23,7 +22,7 @@ export default function WorkPage() {
           <ProjectCard key={p.slug} project={p} />
         ))}
       </div>
-      <Eyebrow className="mt-8 text-faint">03 entries — dimensional preview in Phase 2</Eyebrow>
+      <Eyebrow className="mt-8 text-faint">03 entries</Eyebrow>
     </SectionContainer>
   );
 }

@@ -163,7 +163,7 @@ export function HeroArrival() {
         <div ref={panelRef} className="relative lg:col-span-5">
           <div className="relative h-[54svh] border border-line bg-void/40 backdrop-blur-[2px] lg:h-full lg:min-h-[62svh]">
             <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3">
-              <span className="meta text-faint">OBJ—CORE.R3F/02</span>
+              <span className="meta text-faint">OBJ—CORE/02</span>
               <span className="meta flex items-center gap-2 text-faint">
                 <span className="inline-block size-1.5 rounded-full bg-lime" aria-hidden="true" />
                 Live
