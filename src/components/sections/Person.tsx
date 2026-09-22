@@ -20,7 +20,7 @@ export function Person() {
             builds.
           </Display>
           <p className="mt-6 max-w-[52ch] text-base leading-relaxed text-muted md:text-lg">
-            {person.role} working across AI, the web, and interaction — {person.location.toLowerCase()},{" "}
+            {person.role} working across AI, the web, and interaction — {person.location},{" "}
             {person.year}. Currently inside Saarthians and this laboratory.
           </p>
           <Link

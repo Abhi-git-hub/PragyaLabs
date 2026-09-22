@@ -41,6 +41,6 @@ export const person = {
   role: "Creative engineer",
   location: "Delhi — India",
   year: "2026",
-  focus: ["Saarthians (in progress)", "Pragya Labs (this site)", "Select collaborations"],
+  focus: ["Saarthians (in progress)", "Pragya Labs (this site)", "Independent experiments"],
   areas: ["AI / retrieval", "Web / systems", "Interaction / motion"],
 } as const;
