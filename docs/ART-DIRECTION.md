@@ -61,7 +61,9 @@ type legibility via radial falloff scrims, never global brightening. Imagery
 subjects allowed: technological sculptures, computational objects, energy cores,
 orbital systems, neural structures, crystalline computation, data architecture,
 experimental interfaces. Reference `assets/NeonDigitalCrystalCore.png` (concept
-only) informed the Core prototype's chrome-ring + crystal + orbital language.
+only) informed the Core prototype's chrome-ring + crystal + orbital language;
+`assets/uiLook.png` / `assets/uiLook2.png` study the arrival composition and
+lab atmosphere (see ASSET-BIBLE).
 
 ## 6. Motion & interaction (summary — see MOTION-SYSTEM.md)
 

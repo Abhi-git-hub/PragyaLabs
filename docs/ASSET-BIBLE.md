@@ -39,6 +39,19 @@ variant is only needed if a shader pass is added later.
 ³ Interim vector mark at `src/app/icon.svg`; final brand mark (drawn from the
 production Core geometry language) is a Phase 2 P1.
 
+## Concept references (masters in `assets/`, unserved)
+
+- `NeonDigitalCrystalCore.png` — chrome-ring crystal + orbital language; informed
+  the procedural Core prototype.
+- `uiLook.png` — arrival composition study: obsidian waterscape, portal ring,
+  monoliths, PRAGYA LABS mass type + thesis lockup, hairline UI furniture
+  ("EXPLORE / BUILD / EXPERIMENT / GROW", "DELHI / INDIA / GLOBAL BY DESIGN").
+- `uiLook2.png` — lab-atmosphere study: network-lit planet, light-edged
+  monoliths, "IDEAS / INTERFACES / INTELLIGENCE / IMPACT" motif ladder.
+
+These are direction inputs, not production assets. The production library
+(ASSET-01…08) will be authored from this language in Phase 2.
+
 ## Per-asset delivery checklist (before `status: production`)
 
 source/master archived in `assets/` → web + mobile + thumb exported → AVIF/WebP
