@@ -1,8 +1,7 @@
-# Pragya Labs — Phase 1: Experience Foundation
+# Pragya Labs — Phase 2: Cinematic Experience
 
-**Thesis:** digital systems engineered with intelligence. **Status:** foundation.
-This repo is the public build log of a cinematic portfolio — currently
-architecture, tokens, docs, and one technical prototype, not the full site.
+**Thesis:** digital systems engineered with intelligence. **Status:** experience build.
+SCENE 01 (Arrival) + SCENE 02 (Thesis) are live; remaining acts are documented placeholders.
 
 ## Quickstart
 
@@ -29,12 +28,29 @@ npm run build
 - `docs/` — ART-DIRECTION, ASSET-BIBLE, MOTION-SYSTEM, EXPERIENCE-MAP,
   TECHNICAL-ARCHITECTURE.
 
-## The prototype
+## The experience
 
-`/` opens with the **Pragya Core Playground**: a pointer-reactive R3F crystal
-system with scroll-aware descent, proving the visual direction and the
-scroll→3D motion architecture before the full hero is built. Foundation demos
-(typography / color / motion) follow the ACT 0–9 placeholders.
+`/` opens with **SCENE 01 — Arrival**: portal-environment video (poster-first),
+materializing R3F Pragya Core (pointer tilt + light response, scroll descent),
+masked-line typography, layered load choreography. **SCENE 02 — Thesis** is a
+pinned 4-phase scroll system (CODE → DESIGN → INTELLIGENCE → convergence).
+Foundation demos (typography / color / motion) and the selected-systems index
+follow the remaining act placeholders.
+
+## Deployment workflow (permanent rule)
+
+GitHub `main` is production. The repo is connected to Vercel with Git
+integration: every push to `main` triggers a production deployment
+(preview deployments for other branches where applicable).
+
+At the end of every meaningful phase:
+
+1. `npm run lint` → 2. `npm run typecheck` → 3. tests if present →
+4. `npm run build` → 5. inspect `git diff` → 6. commit → 7. `push to main` →
+8. verify the Vercel deployment → 9. report URL + status.
+
+Never claim "deployed" without a verified deployment. No secrets in the repo:
+no `.env`, no tokens, no API keys.
 
 ## Rules for contributors (including future us)
 

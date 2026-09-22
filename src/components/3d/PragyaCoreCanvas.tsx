@@ -1,7 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { ScrollProgressRef } from "./PragyaCoreScene";
+import type { IntroProgressRef, ScrollProgressRef } from "./PragyaCoreScene";
+import type { CapabilityTier } from "@/hooks/use-device-capability";
 
 const Scene = dynamic(
   () => import("./PragyaCoreScene").then((m) => m.PragyaCoreScene),
@@ -17,18 +18,23 @@ const Scene = dynamic(
 
 /**
  * Dynamically-loaded Core canvas. Three.js never touches initial page JS —
- * the chunk loads only where this component is placed.
+ * the chunk loads only where this component is placed. Parents mount it
+ * only while its scene is near the viewport (intersection-aware).
  */
 export function PragyaCoreCanvas({
   scrollRef,
+  introRef,
+  quality = "high",
   className,
 }: {
   scrollRef?: ScrollProgressRef;
+  introRef?: IntroProgressRef;
+  quality?: CapabilityTier;
   className?: string;
 }) {
   return (
     <div className={className ?? "h-full w-full"}>
-      <Scene scrollRef={scrollRef} />
+      <Scene scrollRef={scrollRef} introRef={introRef} quality={quality} />
     </div>
   );
 }

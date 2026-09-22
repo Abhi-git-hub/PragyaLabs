@@ -4,10 +4,9 @@ import { createContext, useCallback, useContext, useMemo, useState, type ReactNo
 import type { CursorState } from "@/config/cursor";
 
 /**
- * Cursor architecture shell (Phase 1). Holds cursor state so sections can
- * declare intent via `useCursor()` / `data-cursor` today; the visible
- * cursor renderer + provider wiring land in Phase 2 (desktop only,
- * never on touch or reduced-motion).
+ * Cursor architecture shell. Holds cursor state so sections can declare
+ * intent via `useCursor()` / `data-cursor` today; the visible cursor
+ * renderer lands in Phase 3 (desktop only, never on touch or reduced-motion).
  */
 type CursorContextValue = {
   state: CursorState;

@@ -139,6 +139,23 @@
       "files": []
     },
     {
+      "name": "portal-environment",
+      "assetId": "ASSET-09",
+      "purpose": "Arrival hero backdrop — cinematic loop (text-free cut)",
+      "kind": "video",
+      "format": "mp4 h264 (web) + jpg poster",
+      "aspectRatio": "16:9",
+      "desktop": "1280×720, 7.8s loop, 928KB",
+      "mobile": "poster-first; video on capable devices only",
+      "priority": "P0",
+      "status": "production",
+      "notes": "Cut from assets/uiLook2Video.mp4 (trimmed baked-text intro 0–2s, audio stripped, 0.8s fade head/tail for seamless loop). Source master retains baked text and is never served.",
+      "files": [
+        { "path": "public/motion/portal-environment--web.mp4", "variant": "web", "required": true },
+        { "path": "public/motion/portal-environment--poster.jpg", "variant": "poster", "required": true }
+      ]
+    },
+    {
       "name": "brand-mark",
       "purpose": "Favicon / social avatar (vector, interim)",
       "kind": "2D",

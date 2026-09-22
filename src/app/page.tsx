@@ -1,4 +1,5 @@
-import { PlaygroundHero } from "@/components/sections/PlaygroundHero";
+import { HeroArrival } from "@/components/sections/HeroArrival";
+import { Thesis } from "@/components/sections/Thesis";
 import { ActPlaceholder, type ActDef } from "@/components/sections/ActPlaceholder";
 import { TypeSpecimen } from "@/components/sections/TypeSpecimen";
 import { ColorSystem } from "@/components/sections/ColorSystem";
@@ -13,14 +14,12 @@ import { buildMetadata } from "@/lib/metadata";
 export const metadata = buildMetadata({ title: "Pragya Labs — Digital systems engineered with intelligence." });
 
 /**
- * HOME — Phase 1 foundation.
- * Full cinematic scenes land incrementally; this page wires the narrative
- * spine (ACT 0–9), the Core prototype, and the design-system demos.
+ * HOME — Phase 2: the experience begins.
+ * SCENE 01 (Arrival) and SCENE 02 (Thesis) are fully built; the remaining
+ * acts hold their documented placeholders until their phase arrives.
  */
 const acts: ActDef[] = [
   { act: "ACT—00", title: "System initialization", message: "A boot sequence that establishes the lab: coordinates, discipline, status. Fast, technical, skippable.", visual: "Terminal-grade mono overlay dissolving into the core.", interaction: "None required — auto-plays, respects reduced motion by showing final state.", transition: "Dissolve into arrival.", cta: { label: "How it moves", href: "#foundation-motion" } },
-  { act: "ACT—01", title: "Arrival", message: "The visitor meets Pragya Labs: monumental display type beside the reactive core. This act is prototyped above.", visual: "Pragya Core + PRAGYA LABS mass type.", interaction: "Pointer parallax, scroll descent.", transition: "Core recedes, thesis rises." },
-  { act: "ACT—02", title: "The thesis", message: "Digital systems engineered with intelligence — stated once, at full scale.", visual: "Full-viewport editorial statement, masked reveals.", interaction: "Scroll-choreographed line reveals.", transition: "Mask wipe into work." },
   { act: "ACT—03", title: "The work", message: "Selected systems, indexed like lab specimens — no cards, no hype, no invented outcomes.", visual: "Hairline index rows with dimensional hover.", interaction: "VIEW cursor, dimensional preview.", transition: "Horizontal slide into the lab.", cta: { label: "Open the index", href: "/work" } },
   { act: "ACT—04", title: "The lab", message: "Experiments in progress. The visitor sees how thinking happens, not just what shipped.", visual: "AI planet / network sphere.", interaction: "EXPLORE cursor, draggable specimens.", transition: "Orbital rotation into stack.", cta: { label: "Enter the lab", href: "/lab" } },
   { act: "ACT—05", title: "The stack", message: "Technology as an animated system — every tool earns its place on screen.", visual: "Data monolith.", interaction: "Scroll-assembled system diagram.", transition: "Collapse into philosophy." },
@@ -33,7 +32,8 @@ const acts: ActDef[] = [
 export default function HomePage() {
   return (
     <>
-      <PlaygroundHero />
+      <HeroArrival />
+      <Thesis />
 
       {acts.map((act) => (
         <ActPlaceholder key={act.act} act={act} />

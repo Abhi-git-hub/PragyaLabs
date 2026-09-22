@@ -28,6 +28,7 @@
 | 08b | `project-stock-rag` | Case-study hero + thumb | avif/webp | 16:10 / 4:3 | 2400×1500 / 1200×900 | 1280×800 / 800×600 | P1 | planned |
 | 08c | `project-x-clone` | Case-study hero + thumb | avif/webp | 16:10 / 4:3 | 2400×1500 / 1200×900 | 1280×800 / 800×600 | P2 | planned |
 | — | `brand-mark` | Favicon / avatar (interim) | svg | 1:1 | 512² | 192² | P0 | production³ |
+| 09 | `portal-environment` | Arrival hero backdrop loop | mp4 + poster | 16:9 | 1280×720 / 7.8s | poster-first | P0 | production⁴ |
 
 ¹ Concept reference `public/hero/pragya-core--concept.png` (sourced from
 `assets/NeonDigitalCrystalCore.png`, the creative-exploration artifact). It is a
@@ -38,6 +39,10 @@ Phase 2 gate.
 variant is only needed if a shader pass is added later.
 ³ Interim vector mark at `src/app/icon.svg`; final brand mark (drawn from the
 production Core geometry language) is a Phase 2 P1.
+⁴ Cut from master `assets/uiLook2Video.mp4` (1280×720 h264, 10s, 4.6MB):
+baked-text intro trimmed (clean from t=2.0s, verified frame-by-frame), audio
+stripped, 0.8s fade head/tail for a seamless-feeling loop, CRF 26 → 928KB +
+169KB poster. Master is never served.
 
 ## Concept references (masters in `assets/`, unserved)
 
@@ -48,6 +53,8 @@ production Core geometry language) is a Phase 2 P1.
   ("EXPLORE / BUILD / EXPERIMENT / GROW", "DELHI / INDIA / GLOBAL BY DESIGN").
 - `uiLook2.png` — lab-atmosphere study: network-lit planet, light-edged
   monoliths, "IDEAS / INTERFACES / INTELLIGENCE / IMPACT" motif ladder.
+- `uiLook2Video.mp4` — portal-environment master (see ⁴ above). Baked text in
+  the 0–2s intro; production cut removes it. Never served directly.
 
 These are direction inputs, not production assets. The production library
 (ASSET-01…08) will be authored from this language in Phase 2.

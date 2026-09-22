@@ -1,16 +1,16 @@
-# EXPERIENCE MAP — Pragya Labs (Phase 1)
+# EXPERIENCE MAP — Pragya Labs (Phase 2)
 
 > Visitor journey: IDENTITY → THESIS → EXPERIMENTATION → WORK → TECHNOLOGY →
-> PHILOSOPHY → PERSON → CONTACT. Home wires ACT 0–9 as placeholders +
-> prototype; full scenes compose into `ActPlaceholder` slots in Phase 2.
+> PHILOSOPHY → PERSON → CONTACT. SCENE 01 + 02 are fully built; the rest hold
+> documented placeholders until their phase arrives.
 
 ## Home (`/`) — the narrative spine
 
 | Act | Section | Purpose | Message | Visual (planned) | Interaction (planned) | Transition | CTA |
 |---|---|---|---|---|---|---|---|
 | 00 | System init | Set the lab frame | "You are entering a system" | Mono boot overlay | Auto-play, skippable | Dissolve | → motion test |
-| 01 | Arrival | Identity impact | "Pragya Labs" as monument | Pragya Core + mass type (**prototyped**) | Pointer parallax, scroll descent | Core recedes | — |
-| 02 | Thesis | State the idea once | "Digital systems engineered with intelligence" | Full-viewport masked statement | Scroll line-reveals | Mask wipe | — |
+| 01 | Arrival | Identity impact | "Pragya Labs" as monument | Portal video + Core + mass type (**BUILT — `HeroArrival`**) | Layered load, pointer tilt/light, scroll descent | Core recedes | — |
+| 02 | Thesis | State the idea once | "CODE × DESIGN × INTELLIGENCE" | Pinned 4-phase scroll system (**BUILT — `Thesis`**) | Geometric → fluid → network → converge | Mask wipe | — |
 | 03 | Work | Prove with systems | "Selected, real, verified" | Hairline index, dimensional hover | VIEW cursor | Horizontal slide | → /work |
 | 04 | Lab | Show thinking | "Experiments in progress" | AI planet / network sphere | EXPLORE, draggable | Orbital rotation | → /lab |
 | 05 | Stack | Technology as system | "Every tool earns its place" | Data monolith | Scroll-assembled diagram | Collapse | — |
@@ -19,7 +19,7 @@
 | 08 | Contact | One channel | "Enter the lab" | Full-bleed CTA | Magnetic (desktop) | Loop reset | → /contact |
 | 09 | Loop | Closure | "Ends where it began" | Core reassembly | Scroll rewind | → ACT 00 | — |
 
-Foundation strip (after the acts, Phase 1 only): F—01 typography, F—02 color,
+Foundation strip (after the acts): F—01 typography, F—02 color,
 F—03 motion test + selected-systems index preview. These validate the system in
 public and are absorbed/redesigned as the real scenes land.
 
@@ -27,9 +27,11 @@ public and are absorbed/redesigned as the real scenes land.
 
 - `/work` — index of real systems; rows carry number/category/year/status.
   Dimensional preview + filters in Phase 2.
-- `/work/saarthians` — flagship shell; full narrative unlocks post-verification.
-- `/work/[project]` — shared case-study template (role → challenge → approach →
-  engineering → design → outcome; outcome stays `placeholder` until verified).
+- `/work/saarthians` — flagship case study on the shared `CaseStudy`
+  architecture (PROBLEM → SYSTEM → DESIGN → ENGINEERING → AI → SECURITY →
+  EXPERIENCE); sections render verified data, the rest is tagged pending.
+- `/work/[project]` — same template for all projects; outcome stays
+  `placeholder` until verified.
 - `/lab` — experiments with honest status labels (concept/prototype/live).
 - `/about` — person + philosophy; facts only, no persona fiction.
 - `/contact` — single channel; address placeholder until inbox is provisioned.

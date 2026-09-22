@@ -1,4 +1,4 @@
-# TECHNICAL ARCHITECTURE — Pragya Labs (Phase 1)
+# TECHNICAL ARCHITECTURE — Pragya Labs (Phase 2)
 
 ## Framework & rendering
 
@@ -17,11 +17,16 @@ src/
     layout/       SectionContainer, SiteFooter (shell, rhythm)
     navigation/   SiteNav (fixed hairline bar + mobile menu)
     typography/   Display / Body / Eyebrow (the three voices)
-    motion/       Reveal / Stagger, CursorProvider (contract only)
-    3d/           BackgroundField (2D ambient), PragyaCoreScene + Canvas (dynamic)
-    projects/     ProjectCard (editorial index row)
-    sections/     PlaygroundHero, ActPlaceholder, Type/Color/Motion demos
-  hooks/          use-prefers-reduced-motion, use-pointer (rAF-friendly ref)
+    motion/       Reveal / Stagger, CursorProvider (contract only),
+                  EnvironmentLayer (poster-first video backdrop)
+    3d/           BackgroundField (2D ambient), PragyaCoreScene + Canvas (dynamic,
+                  intro/scroll refs, quality tiers)
+    projects/     ProjectCard (editorial index row), CaseStudy (PROBLEM→…→
+                  EXPERIENCE, honest placeholders), ExperimentCard
+    sections/     HeroArrival (SCENE 01), Thesis (SCENE 02), ActPlaceholder,
+                  Type/Color/Motion demos
+  hooks/          use-prefers-reduced-motion, use-pointer (rAF-friendly ref),
+                  use-device-capability (high/reduced tiers)
   lib/            motion (GSAP registry + gate), smooth-scroll (Lenis),
                   metadata, cn (no clsx dependency)
   data/           projects, experiments (typed, placeholders explicit)
@@ -50,18 +55,23 @@ on hidden tab. No WebGL without a poster fallback and a mobile quality cut.
 ## Asset pipeline
 
 `assets/` (masters, unserved) → `public/` (production, AVIF/WebP, responsive
-pairs) → `next/image` with explicit dimensions. Manifest
+pairs, text-free video cuts) → `next/image` with explicit dimensions. Manifest
 (`public/assets-manifest.json`) + `npm run assets:check` gate every addition.
-Current production files: `src/app/icon.svg`, `public/hero/pragya-core--concept.png`
-(reference only).
+Production media: `src/app/icon.svg`, `public/hero/pragya-core--concept.png`
+(reference only), `public/motion/portal-environment--web.mp4` + poster (see
+ASSET-BIBLE ⁴ for the cut recipe: trim baked-text intro, strip audio, fade
+head/tail for the loop, CRF 26, faststart).
 
 ## Performance strategy
 
 Minimal client JS (server-first, dynamic 3D), `optimizePackageImports` for
-three/fiber/drei/gsap, self-hosted fonts, AVIF/WebP + responsive assets, lazy
-below-fold sections in Phase 2, GPU-conscious animation (transform/opacity
-only), Lenis desktop-only, progressive enhancement throughout. No library
-duplication: one tool per job (GSAP scroll, R3F 3D, CSS micro).
+three/fiber/drei/gsap, self-hosted fonts, AVIF/WebP + responsive assets,
+poster-first video (plays only in-viewport, high tier, full motion),
+intersection-aware canvases, capability tiers via `useDeviceCapability`
+(mobile / ≤4 cores / ≤4GB / no WebGL / data-saver → reduced), GPU-conscious
+animation (transform/opacity only), Lenis desktop-only, progressive
+enhancement throughout. No library duplication: one tool per job (GSAP scroll,
+R3F 3D, CSS micro).
 
 ## Accessibility strategy
 
@@ -72,7 +82,8 @@ before any signature motion, contrast-safe tokens (faint = metadata only),
 
 ## Toolchain
 
-`npm run dev | build | start | lint (eslint-config-next, zero warnings) |
+`npm run dev | build | start | lint (flat config: base JS + TS + Next
+core-web-vitals via @next/eslint-plugin-next, zero warnings) |
 typecheck (tsc --noEmit) | assets:check`. Dev requirement: **Node ≥ 22**
-(drei's `camera-controls` transitive dependency requires it; Node 20 installs
-with an EBADENGINE warning). No secrets, no `.env` in repo.
+(enforced via `engines`; drei's transitive `camera-controls` requires it).
+No secrets, no `.env` in repo.

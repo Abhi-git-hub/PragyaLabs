@@ -1,13 +1,14 @@
 import Link from "next/link";
-import { Display, Eyebrow, Body } from "@/components/typography/Type";
+import { Eyebrow } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { CaseStudy, CaseStudyHeader } from "@/components/projects/CaseStudy";
 import { getProject } from "@/data/projects";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "Saarthians — Pragya Labs" });
 
-/** Flagship case-study shell. Full narrative lands once content is verified. */
+/** Flagship case study. Sections render from verified data; the rest is tagged. */
 export default function SaarthiansPage() {
   const project = getProject("saarthians");
   if (!project) return null;
@@ -18,20 +19,9 @@ export default function SaarthiansPage() {
         <Eyebrow className="mb-4 text-faint">
           <Link href="/work" className="transition-colors hover:text-cyan">← Work index</Link>
         </Eyebrow>
-        <Display size="lg">{project.title}</Display>
-        <Body className="mt-6">{project.summary}</Body>
-        <dl className="meta mt-8 grid gap-3 border-t border-line pt-6 sm:grid-cols-3">
-          <div><dt className="text-faint">Year</dt><dd className="mt-1 text-bone">{project.year}</dd></div>
-          <div><dt className="text-faint">Status</dt><dd className="mt-1 text-bone">{project.status}</dd></div>
-          <div><dt className="text-faint">Outcome</dt><dd className="mt-1 text-lime">{project.outcome}</dd></div>
-        </dl>
-        <p className="meta mt-8 text-faint">
-          Stack — {project.technologies.join(" / ")}
-        </p>
-        <p className="meta mt-4 text-faint">
-          Full case study (challenge → approach → engineering → design) unlocks after verification. Phase 1 ships the shell.
-        </p>
       </Reveal>
+      <CaseStudyHeader project={project} />
+      <CaseStudy project={project} />
     </SectionContainer>
   );
 }
