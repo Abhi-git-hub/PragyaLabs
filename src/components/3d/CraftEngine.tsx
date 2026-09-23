@@ -12,6 +12,8 @@ const VERT = /* glsl */ `
   uniform float uTime;
   uniform float uProgress;
   uniform float uDisturb;
+  uniform float uShockAge;
+  uniform vec3 uShockOrigin;
   uniform vec3 uPointer;
   varying float vEnergy;
   varying vec3 vNormalW;
@@ -40,8 +42,17 @@ const VERT = /* glsl */ `
     float d = length(toP);
     float force = uDisturb * exp(-d * d * 0.35);
     p += (toP / max(d, 0.0001)) * force * 1.4;
+    // Shockwave — a struck match: an expanding ring of displacement + flash.
+    float shockBand = 0.0;
+    if (uShockAge >= 0.0) {
+      float front = uShockAge * 6.5;
+      vec3 sOff = p - uShockOrigin;
+      float sd = length(sOff);
+      shockBand = exp(-pow(sd - front, 2.0) / 1.4) * exp(-uShockAge * 1.5);
+      p += (sOff / max(sd, 0.0001)) * shockBand * 1.1;
+    }
     p += vec3(sin(uTime * 0.6 + aSeed * 12.0) * 0.05);
-    vEnergy = clamp(w1 * 0.5 + w2 * 0.7 + force * 1.2, 0.0, 1.5);
+    vEnergy = clamp(w1 * 0.5 + w2 * 0.7 + force * 1.2 + shockBand * 1.4, 0.0, 1.8);
     mat4 im = instanceMatrix;
     im[3].xyz = p;
     vec4 wp = modelMatrix * im * vec4(position, 1.0);
@@ -78,9 +89,11 @@ const FRAG = /* glsl */ `
  */
 function Lattice({
   progress,
+  shock,
   quality,
 }: {
   progress: React.MutableRefObject<number>;
+  shock: React.MutableRefObject<number>;
   quality: CapabilityTier;
 }) {
   const core = useRef<THREE.Mesh>(null!);
@@ -121,6 +134,8 @@ function Lattice({
       uTime: { value: 0 },
       uProgress: { value: 0 },
       uDisturb: { value: 0.55 },
+      uShockAge: { value: -1 },
+      uShockOrigin: { value: new THREE.Vector3(0, 0, 0) },
       uPointer: { value: new THREE.Vector3(0, 0, 0) },
       uCyan: { value: new THREE.Color(colors.accentCyan) },
       uViolet: { value: new THREE.Color(colors.accentViolet) },
@@ -142,7 +157,7 @@ function Lattice({
     [geometry, material]
   );
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
     const p = state.pointer;
     const prog = reduced ? 0.2 : progress.current;
@@ -153,6 +168,13 @@ function Lattice({
     const disturb = 0.35 + 0.65 * Math.sin(Math.min(prog, 1) * Math.PI);
     uniforms.uDisturb.value = THREE.MathUtils.lerp(uniforms.uDisturb.value, disturb, 0.05);
     uniforms.uPointer.value.set(p.x * 5, p.y * 3, Math.sin(t * 0.4) * 1.2);
+    // Shockwave aging — struck on pointerdown by the parent, dies in 2.5s.
+    if (shock.current >= 0) {
+      if (shock.current === 0) uniforms.uShockOrigin.value.copy(uniforms.uPointer.value);
+      shock.current += delta;
+      if (shock.current > 2.5) shock.current = -1;
+    }
+    uniforms.uShockAge.value = shock.current;
     // Camera: drift + pointer + scroll dolly into the new state.
     const up = uniforms.uProgress.value;
     cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.9, 0.03);
@@ -188,9 +210,11 @@ function Lattice({
 
 export function CraftEngineScene({
   progress,
+  shock,
   quality = "high",
 }: {
   progress: React.MutableRefObject<number>;
+  shock: React.MutableRefObject<number>;
   quality?: CapabilityTier;
 }) {
   const reduced = useMemo(() => prefersReducedMotion(), []);
@@ -207,7 +231,7 @@ export function CraftEngineScene({
       }}
     >
       <Suspense fallback={null}>
-        <Lattice progress={progress} quality={quality} />
+        <Lattice progress={progress} shock={shock} quality={quality} />
       </Suspense>
     </Canvas>
   );

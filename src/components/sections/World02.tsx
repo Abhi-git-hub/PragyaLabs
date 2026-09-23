@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
+import { cn } from "@/lib/cn";
 
 const Engine = dynamic(() => import("@/components/3d/CraftEngine").then((m) => m.CraftEngineScene), {
   ssr: false,
@@ -28,6 +29,7 @@ const STATIONS = [
 export function World02() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const progress = useRef(0);
+  const shock = useRef(-1);
   const [live, setLive] = useState(false);
   const [station, setStation] = useState(0);
   const capability = useDeviceCapability();
@@ -87,17 +89,39 @@ export function World02() {
   }
 
   return (
-    <section ref={wrapRef} aria-label="The lattice engine" className="relative h-[380vh]">
+    <section
+      ref={wrapRef}
+      aria-label="The lattice engine"
+      className="relative h-[380vh]"
+      onPointerDown={() => {
+        // Strike the lattice — a shockwave detonates from the pointer.
+        if (!reduced && shock.current < 0) shock.current = 0;
+      }}
+    >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0" aria-hidden="true">
           {live && capability.webgl ? (
-            <Engine progress={progress} quality={capability.tier} />
+            <Engine progress={progress} shock={shock} quality={capability.tier} />
           ) : (
             <div className="h-full w-full bg-void" />
           )}
         </div>
         <div className="relative z-10 mx-auto flex h-full w-full max-w-[var(--pl-container)] flex-col justify-end px-[var(--pl-gutter)] pb-20">
-          <p className="meta text-faint">World 02 — the lattice engine</p>
+          <div className="flex items-end justify-between gap-6">
+            <p className="meta text-faint">World 02 — the lattice engine</p>
+            {/* Journey rail — five ticks, the traveled ones lit */}
+            <div className="flex items-center gap-2" aria-hidden="true">
+              {STATIONS.map((s, i) => (
+                <span
+                  key={s.word}
+                  className={cn(
+                    "h-px transition-all duration-500",
+                    i <= station ? "w-8 bg-cyan" : "w-4 bg-line-strong"
+                  )}
+                />
+              ))}
+            </div>
+          </div>
           {/* Fixed height: word swaps never move the page */}
           <div key={station} className="mt-4 max-w-[60ch] min-h-[240px] md:min-h-[300px]">
             <p className="meta text-cyan">

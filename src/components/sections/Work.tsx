@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Display } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
+import { Magnetic } from "@/components/motion/Magnetic";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { SaarthiansSpace } from "@/components/3d/SaarthiansSpace";
 import { getProject } from "@/data/projects";
@@ -39,13 +40,15 @@ export function Work() {
           <p className="meta text-faint">
             {project.category} — {project.year} — {project.status}
           </p>
-          <Link
-            href={`/work/${project.slug}`}
-            data-cursor="OPEN"
-            className="meta mt-6 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
-          >
-            Open the case study →
-          </Link>
+          <Magnetic>
+            <Link
+              href={`/work/${project.slug}`}
+              data-cursor="OPEN"
+              className="meta mt-6 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
+            >
+              Open the case study →
+            </Link>
+          </Magnetic>
         </Reveal>
       </SectionContainer>
     </>

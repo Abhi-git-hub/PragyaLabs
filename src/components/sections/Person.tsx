@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
 import { Display } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
+import { Magnetic } from "@/components/motion/Magnetic";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { Signature } from "@/components/person/Signature";
 import { person } from "@/data/story";
@@ -23,13 +24,15 @@ export function Person() {
             {person.role} working across AI, the web, and interaction — {person.location},{" "}
             {person.year}. Currently inside Saarthians and this laboratory.
           </p>
-          <Link
-            href="/about"
-            data-cursor="OPEN"
-            className="meta mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
-          >
-            The longer story →
-          </Link>
+          <Magnetic>
+            <Link
+              href="/about"
+              data-cursor="OPEN"
+              className="meta mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
+            >
+              The longer story →
+            </Link>
+          </Magnetic>
         </Reveal>
         <Reveal className="flex flex-col justify-between gap-10">
           <dl className="meta grid gap-5 border-t border-line pt-6 sm:grid-cols-2">

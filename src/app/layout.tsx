@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { BackgroundField } from "@/components/3d/BackgroundField";
 import { CursorProvider } from "@/components/motion/CursorProvider";
 import { Cursor } from "@/components/motion/Cursor";
+import { Preloader } from "@/components/motion/Preloader";
 import { RouteTransition } from "@/components/motion/RouteTransition";
 import { SmoothScroll } from "@/lib/smooth-scroll";
 import { site } from "@/config/site";
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body className="bg-void font-body text-bone">
+        <Preloader />
         <CursorProvider>
           <SmoothScroll>
             {/* Ambient background system — fixed, non-interactive, GPU-capped */}
@@ -58,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <SiteFooter />
             </div>
             <Cursor />
+            <div className="film-grain" aria-hidden="true" />
           </SmoothScroll>
         </CursorProvider>
         <Analytics />
