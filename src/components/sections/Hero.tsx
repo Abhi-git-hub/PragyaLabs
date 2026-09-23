@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { Display } from "@/components/typography/Type";
+import { WordMachine } from "@/components/motion/WordMachine";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { duration } from "@/config/tokens";
@@ -27,6 +28,7 @@ export function Hero() {
   const ruleRef = useRef<HTMLDivElement | null>(null);
   const scrollProgress = useRef({ current: 0 });
   const introProgress = useRef({ current: 0 });
+  const beat = useRef(-1);
   const [live, setLive] = useState(false);
   const capability = useDeviceCapability();
   const reduced = usePrefersReducedMotion();
@@ -108,6 +110,7 @@ export function Hero() {
           <Chamber
             scrollRef={scrollProgress.current}
             introRef={introProgress.current}
+            beatRef={beat}
             quality={capability.tier}
           />
         ) : (
@@ -155,6 +158,14 @@ export function Hero() {
             aria-hidden="true"
             className="mt-7 h-px w-40 origin-left bg-cyan"
           />
+          <div className="mt-6">
+            <WordMachine
+              onBeat={() => {
+                if (beat.current < 0) beat.current = 0;
+                beat.current = Math.min(1, beat.current + 0.85);
+              }}
+            />
+          </div>
           <Display as="p" size="sm" className="mt-6 max-w-[20ch]">
             <span className="mask-line">
               <span data-hero-line>Digital systems</span>

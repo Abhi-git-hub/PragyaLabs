@@ -61,10 +61,12 @@ function Beacon({
   pointer,
   introRef,
   scroll,
+  beat,
 }: {
   pointer: React.MutableRefObject<{ x: number; y: number }>;
   introRef?: IntroProgressRef;
   scroll: React.MutableRefObject<number>;
+  beat?: React.MutableRefObject<number>;
 }) {
   const group = useRef<THREE.Group>(null!);
   const rings = useRef<Array<THREE.Mesh | null>>([]);
@@ -73,12 +75,18 @@ function Beacon({
   const beaconLight = useRef<THREE.PointLight>(null!);
   const reduced = useMemo(() => prefersReducedMotion(), []);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const intro = THREE.MathUtils.clamp(introRef?.current ?? 1, 0, 1);
     const s = scroll.current;
     const t = state.clock.elapsedTime;
     const g = group.current;
     const rise = reduced ? 1 : windowed(intro, 0.2, 0.7);
+    // Word-beat flare — each verb lands as light in the core.
+    let flare = 0;
+    if (beat && beat.current > 0 && !reduced) {
+      flare = beat.current;
+      beat.current = Math.max(0, beat.current - delta * 0.9);
+    }
     // Assemble on arrival, disperse on scroll — one transformation.
     const spread = reduced ? 0 : s * 1.35;
     g.position.y = THREE.MathUtils.lerp(-0.9, 0.15, rise) + s * 1.1;
@@ -90,7 +98,7 @@ function Beacon({
       const r = rings.current[i];
       if (!r) continue;
       const dir = i % 2 === 0 ? 1 : -1;
-      r.rotation.z = reduced ? i * 0.4 : t * (0.12 + i * 0.035) * dir + i * 0.35;
+      r.rotation.z = reduced ? i * 0.4 : t * (0.12 + i * 0.035) * (1 + flare * 2.2) * dir + i * 0.35;
       r.position.y = (i - (RINGS - 1) / 2) * (0.34 + spread * 0.42);
       const m = r.material as THREE.MeshStandardMaterial;
       m.opacity = fade * rise;
@@ -106,10 +114,10 @@ function Beacon({
       m.transparent = true;
     });
     if (coreMat.current) {
-      coreMat.current.emissiveIntensity = (1.6 + Math.sin(t * 1.8) * 0.7) * rise * fade + 0.15;
+      coreMat.current.emissiveIntensity = (1.6 + Math.sin(t * 1.8) * 0.7 + flare * 2.4) * rise * fade + 0.15;
     }
     if (beaconLight.current) {
-      beaconLight.current.intensity = 9 * rise * fade;
+      beaconLight.current.intensity = (9 + flare * 22) * rise * fade;
     }
   });
 
@@ -174,10 +182,12 @@ function Beacon({
 function Chamber({
   scrollRef,
   introRef,
+  beatRef,
   quality,
 }: {
   scrollRef?: ScrollProgressRef;
   introRef?: IntroProgressRef;
+  beatRef?: React.MutableRefObject<number>;
   quality: CapabilityTier;
 }) {
   const rig = useRef<THREE.Group>(null!);
@@ -395,7 +405,7 @@ function Chamber({
       </group>
 
       {/* THE BEACON — the object the opening is about */}
-      <Beacon pointer={pointer} introRef={introRef} scroll={scrollRef ?? { current: 0 }} />
+      <Beacon pointer={pointer} introRef={introRef} scroll={scrollRef ?? { current: 0 }} beat={beatRef} />
       {/* Faked floor bounce under the beacon */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.7, 0.02, -1.6]}>
         <planeGeometry args={[4.5, 4.5]} />
@@ -430,10 +440,12 @@ function Chamber({
 export function SignalChamberScene({
   scrollRef,
   introRef,
+  beatRef,
   quality = "high",
 }: {
   scrollRef?: ScrollProgressRef;
   introRef?: IntroProgressRef;
+  beatRef?: React.MutableRefObject<number>;
   quality?: CapabilityTier;
 }) {
   const reduced = useMemo(() => prefersReducedMotion(), []);
@@ -450,7 +462,7 @@ export function SignalChamberScene({
       }}
     >
       <Suspense fallback={null}>
-        <Chamber scrollRef={scrollRef} introRef={introRef} quality={quality} />
+        <Chamber scrollRef={scrollRef} introRef={introRef} beatRef={beatRef} quality={quality} />
       </Suspense>
     </Canvas>
   );
