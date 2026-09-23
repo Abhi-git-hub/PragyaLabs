@@ -1,8 +1,9 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { colors } from "@/config/tokens";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import type { CapabilityTier } from "@/hooks/use-device-capability";
@@ -103,8 +104,25 @@ function Chamber({
   const sweep = useRef<THREE.PointLight>(null!);
   const smokeA = useRef<THREE.MeshBasicMaterial>(null!);
   const smokeB = useRef<THREE.MeshBasicMaterial>(null!);
+  const rainMat = useRef<THREE.MeshBasicMaterial>(null!);
   const pointer = useRef({ x: 0, y: 0 });
   const reduced = useMemo(() => prefersReducedMotion(), []);
+  const { gl, scene } = useThree();
+
+  // Image-based lighting: procedural studio environment (the acquired EXRs
+  // use an encoding this pipeline cannot decode — documented in ASSET-BIBLE).
+  // Low intensity: reflections live on metal, the dark stays dark.
+  useEffect(() => {
+    const pmrem = new THREE.PMREMGenerator(gl);
+    const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environment = envTex;
+    scene.environmentIntensity = 0.22;
+    return () => {
+      scene.environment = null;
+      envTex.dispose();
+      pmrem.dispose();
+    };
+  }, [gl, scene]);
   const [pipes, plaster, rubber, shutter, bluemetal, instrument] = useLoader(
     THREE.TextureLoader,
     [...TEX_URLS]
@@ -151,13 +169,32 @@ function Chamber({
     return { texture: t, video };
   }, [reduced]);
 
+  // Rain film as the refraction boundary between worlds.
+  const rainTex = useMemo(() => {
+    if (reduced || typeof document === "undefined") return null;
+    const video = document.createElement("video");
+    video.src = "/film/rain--lens.mp4";
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "auto";
+    video.play().catch(() => undefined);
+    const t = new THREE.VideoTexture(video);
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.wrapS = THREE.RepeatWrapping;
+    return { texture: t, video };
+  }, [reduced]);
+
   useEffect(
     () => () => {
       smokeTex?.video.pause();
       smokeTex?.video.removeAttribute("src");
       smokeTex?.texture.dispose();
+      rainTex?.video.pause();
+      rainTex?.video.removeAttribute("src");
+      rainTex?.texture.dispose();
     },
-    [smokeTex]
+    [smokeTex, rainTex]
   );
 
   useFrame((state, delta) => {
@@ -168,10 +205,13 @@ function Chamber({
     const cam = state.camera;
     pointer.current.x = p.x;
     pointer.current.y = p.y;
+    // The state change: past 55% the chamber is behind glass — rain rises,
+    // the camera commits to the dive, the world hands off.
+    const dive = THREE.MathUtils.smoothstep(s, 0.45, 1);
 
     if (!reduced) {
-      // Slow approach + pointer parallax + scroll travel.
-      const tz = 9.2 - intro * 1.4 - s * 2.6;
+      // Slow approach + pointer parallax + scroll travel into the dive.
+      const tz = 9.2 - intro * 1.4 - s * 2.6 - dive * 2.2;
       cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.8, 0.03);
       cam.position.y = THREE.MathUtils.lerp(cam.position.y, 1.35 - p.y * 0.35 + s * 0.7, 0.04);
       cam.position.z = THREE.MathUtils.lerp(cam.position.z, tz, 0.03);
@@ -179,6 +219,10 @@ function Chamber({
       rig.current.rotation.y = p.x * 0.02;
       if (smokeA.current) smokeA.current.opacity = 0.32 * intro * (1 - s * 0.6);
       if (smokeB.current) smokeB.current.opacity = 0.16 * intro * (1 - s * 0.6);
+      if (rainMat.current) {
+        rainMat.current.opacity = 0.5 * dive * intro;
+        rainTex?.texture.offset.set((t * 0.008) % 1, 0);
+      }
       // Signal sweep — a slow rim light orbiting the dish.
       if (sweep.current) {
         const a = t * 0.35;
@@ -190,6 +234,7 @@ function Chamber({
       cam.lookAt(0, 1.3, -2.5);
       if (smokeA.current) smokeA.current.opacity = 0;
       if (smokeB.current) smokeB.current.opacity = 0;
+      if (rainMat.current) rainMat.current.opacity = 0;
     }
     void delta;
   });
@@ -336,6 +381,20 @@ function Chamber({
             />
           </mesh>
         </>
+      )}
+      {/* Rain refraction boundary — the world behind glass */}
+      {rainTex && (
+        <mesh position={[0, 2.4, 1.6]}>
+          <planeGeometry args={[15, 8.5]} />
+          <meshBasicMaterial
+            ref={rainMat}
+            map={rainTex.texture}
+            transparent
+            opacity={0}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+          />
+        </mesh>
       )}
       {/* Dust */}
       <points geometry={dust}>
