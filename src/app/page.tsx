@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
+import { Manifesto } from "@/components/sections/Manifesto";
 import { World02 } from "@/components/sections/World02";
 import { Work } from "@/components/sections/Work";
 import { Philosophy } from "@/components/sections/Philosophy";
@@ -11,14 +12,15 @@ import { buildMetadata } from "@/lib/metadata";
 export const metadata = buildMetadata({ title: "Pragya Labs — Digital systems engineered with intelligence." });
 
 /**
- * HOME — one piece of work: opening world → lattice engine → Saarthians
- * world → studio thinking → human → contact → quiet resolution.
+ * HOME — one piece of work: opening world → statement → lattice engine →
+ * Saarthians world → studio thinking → human → contact → quiet resolution.
  */
 export default function HomePage() {
   return (
     <>
       <SiteJsonLd />
       <Hero />
+      <Manifesto />
       <World02 />
       <Work />
       <Philosophy />

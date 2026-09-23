@@ -62,8 +62,10 @@ function Space({
   progress: React.MutableRefObject<number>;
   quality: CapabilityTier;
 }) {
-  const reduced = useMemo(() => prefersReducedMotion(), []);
   const ring = useRef<THREE.Mesh>(null!);
+  const panelMats = useRef<Array<THREE.MeshBasicMaterial | null>>([]);
+  const lookTarget = useRef({ x: 0 });
+  const reduced = useMemo(() => prefersReducedMotion(), []);
   const panels = useMemo(() => STATIONS.map((s, i) => wordTexture(s.word, i === STATIONS.length - 1)), []);
 
   const motes = useMemo(() => {
@@ -91,12 +93,26 @@ function Space({
     const t = state.clock.elapsedTime;
     const p = state.pointer;
     const cam = state.camera;
-    // Camera travels the depth between stations as scroll progresses.
-    const z = THREE.MathUtils.lerp(7.5, -7.5, progress.current);
-    cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.9, 0.04);
-    cam.position.y = THREE.MathUtils.lerp(cam.position.y, 0.4 - p.y * 0.4, 0.04);
-    cam.position.z = THREE.MathUtils.lerp(cam.position.z, reduced ? 0.5 : z, 0.06);
-    cam.lookAt(0, 0.2, -12);
+    // Eased journey — never linear: rest at each station, glide between.
+    const raw = THREE.MathUtils.clamp(progress.current, 0, 1);
+    const eased = raw * raw * (3 - 2 * raw);
+    const z = THREE.MathUtils.lerp(7.5, -7.5, eased);
+    cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.5, 0.03);
+    cam.position.y = THREE.MathUtils.lerp(cam.position.y, 0.4 - p.y * 0.3, 0.03);
+    cam.position.z = THREE.MathUtils.lerp(cam.position.z, reduced ? 0.5 : z, 0.05);
+    // Gaze follows the nearest panel — the journey always has a subject.
+    const nearest = Math.round(eased * (STATIONS.length - 1));
+    const gazeX = nearest === 0 || nearest === STATIONS.length - 1 ? 0 : nearest % 2 === 0 ? -0.6 : 0.6;
+    lookTarget.current.x = THREE.MathUtils.lerp(lookTarget.current.x, gazeX, 0.05);
+    cam.lookAt(lookTarget.current.x, 0.2, -12);
+    // Panels ignite as the camera nears, dissolve once passed — depth reads.
+    panelMats.current.forEach((m, i) => {
+      if (!m) return;
+      const pz = 4 - i * 3.6;
+      const dist = Math.abs(cam.position.z - pz);
+      const a = THREE.MathUtils.clamp(1.25 - dist / 5.5, 0, 1);
+      m.opacity = reduced ? 0.95 : a * a;
+    });
     if (!reduced && ring.current) ring.current.rotation.z = t * 0.12;
   });
 
@@ -109,10 +125,19 @@ function Space({
       {STATIONS.map((s, i) => {
         void s;
         const z = 4 - i * 3.6;
+        const x = (i % 2 === 0 ? -1.2 : 1.2) * (i === 0 || i === 4 ? 0 : 1);
         return (
-          <mesh key={i} position={[(i % 2 === 0 ? -1.4 : 1.4) * (i === 0 || i === 4 ? 0 : 1), 0.3, z]}>
+          <mesh key={i} position={[x, 0.3, z]}>
             <planeGeometry args={[7.2, 1.8]} />
-            <meshBasicMaterial map={panels[i]} transparent opacity={0.95} depthWrite={false} />
+            <meshBasicMaterial
+              ref={(m) => {
+                panelMats.current[i] = m;
+              }}
+              map={panels[i]}
+              transparent
+              opacity={0.95}
+              depthWrite={false}
+            />
           </mesh>
         );
       })}
@@ -202,7 +227,7 @@ export function SaarthiansSpace({ quality }: { quality: CapabilityTier }) {
   }, []);
 
   return (
-    <div ref={wrapRef} className="relative h-[340vh]" data-cursor="EXPLORE">
+    <div ref={wrapRef} className="relative h-[260vh]" data-cursor="EXPLORE">
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0" aria-hidden="true">
           <SpaceCanvas progress={progress} quality={quality} />
@@ -220,7 +245,7 @@ export function SaarthiansSpace({ quality }: { quality: CapabilityTier }) {
               ))}
             </ol>
           ) : (
-            <div key={station} className="max-w-[60ch]">
+            <div key={station} className="max-w-[60ch] min-h-[230px] md:min-h-[280px]">
               <p className="meta text-cyan">
                 0{station + 1} / 0{STATIONS.length}
               </p>

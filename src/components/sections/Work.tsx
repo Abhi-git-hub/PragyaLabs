@@ -21,9 +21,10 @@ export function Work() {
 
   return (
     <>
-      <SectionContainer eyebrow="The work" id="work" className="scroll-mt-20">
+      <SectionContainer eyebrow="Featured work" id="work" className="scroll-mt-20">
         <Reveal>
-          <Display size="md" className="max-w-[12ch]">
+          <p className="meta text-faint">product • engineering • intelligence</p>
+          <Display size="md" className="mt-4 max-w-[12ch]">
             Proof, not promises.
           </Display>
           <p className="mt-6 max-w-[62ch] text-base leading-relaxed text-muted md:text-lg">
