@@ -23,6 +23,10 @@ const XFeed = dynamic(
   () => import("@/components/projects/XFrontendVisual").then((m) => m.XFrontendVisual),
   { ssr: false, loading: () => <div className="h-full w-full bg-void" aria-hidden="true" /> }
 );
+const MajdoorSignal = dynamic(
+  () => import("@/components/projects/MajdoorVisual").then((m) => m.MajdoorVisual),
+  { ssr: false, loading: () => <div className="h-full w-full bg-void" aria-hidden="true" /> }
+);
 
 /**
  * CHAPTER 03 — WORK. Each project is its own visual world.
@@ -160,6 +164,57 @@ function RagWorld() {
   );
 }
 
+function MajdoorWorld() {
+  const project = getProject("majdoor-haq");
+  if (!project) return null;
+
+  return (
+    <div className="mt-20">
+      <Reveal>
+        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+          <span className="meta text-faint" aria-hidden="true">
+            {project.number}
+          </span>
+          <h3 className="font-display text-3xl uppercase md:text-5xl">{project.title}</h3>
+        </div>
+        <p className="meta mt-3 text-faint">
+          {project.category} — {project.year} — {project.status}
+        </p>
+        <p className="mt-4 max-w-[62ch] leading-relaxed text-muted">{project.problem}</p>
+      </Reveal>
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+        <div className="order-2 lg:order-1">
+          <ul className="space-y-4 border-t border-line pt-6">
+            {project.decisions.map((line) => (
+              <li key={line} className="max-w-[52ch] leading-relaxed text-muted">
+                {line}
+              </li>
+            ))}
+          </ul>
+          <Link
+            href={`/work/${project.slug}`}
+            data-cursor="OPEN"
+            className="meta mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
+          >
+            Open the dossier →
+          </Link>
+        </div>
+        <div className="order-1 lg:order-2">
+          <div className="relative h-[40svh] border border-line bg-void/40 md:h-[46vh]" data-cursor="EXPLORE">
+            <MajdoorSignal />
+            <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-4 py-3" aria-hidden="true">
+              <span className="meta text-faint">SYS—REACH / LIVE SIGNAL</span>
+            </div>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 px-4 py-3" aria-hidden="true">
+              <p className="meta text-faint">Press to reseed the broadcast</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function XWorld() {
   const project = getProject("x-frontend-clone");
   if (!project) return null;
@@ -168,9 +223,9 @@ function XWorld() {
     <div className="mt-20">
       <Reveal>
         <div aria-hidden="true">
-          <Eyebrow className="mb-2 text-faint">
-            {project.number} — compact specimen
-          </Eyebrow>
+            <Eyebrow className="mb-2 text-faint">
+              {project.number} — compact specimen
+            </Eyebrow>
         </div>
         <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
           <h3 className="font-display text-3xl uppercase md:text-5xl">{project.title}</h3>
@@ -220,6 +275,7 @@ export function Work() {
 
       <SaarthiansWorld />
       <RagWorld />
+      <MajdoorWorld />
       <XWorld />
     </SectionContainer>
   );

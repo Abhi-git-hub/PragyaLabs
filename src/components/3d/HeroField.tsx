@@ -10,9 +10,11 @@ import type { ScrollProgressRef } from "./PragyaCoreScene";
 
 function Field({ scrollRef, quality }: { scrollRef?: ScrollProgressRef; quality: CapabilityTier }) {
   const points = useRef<THREE.Points>(null!);
+  const dust = useRef<THREE.Points>(null!);
+  const born = useRef(-1);
   const reduced = useMemo(() => prefersReducedMotion(), []);
 
-  const { positions, colorsAttr } = useMemo(() => {
+  const field = useMemo(() => {
     const count = quality === "high" ? 1100 : 320;
     const positions = new Float32Array(count * 3);
     const colorsAttr = new Float32Array(count * 3);
@@ -33,8 +35,23 @@ function Field({ scrollRef, quality }: { scrollRef?: ScrollProgressRef; quality:
     return { positions, colorsAttr };
   }, [quality]);
 
+  const motes = useMemo(() => {
+    // Slow violet dust: depth behind the main field.
+    const count = quality === "high" ? 380 : 120;
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 20;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 11;
+      positions[i * 3 + 2] = -2 - Math.random() * 3;
+    }
+    return { positions };
+  }, [quality]);
+
   useFrame((state, delta) => {
     if (reduced) return;
+    if (born.current < 0) born.current = state.clock.elapsedTime;
+    const age = state.clock.elapsedTime - born.current;
+    const fade = Math.min(1, age / 2.2); // the field breathes in on arrival
     const t = state.clock.elapsedTime;
     const p = state.pointer;
     const s = scrollRef?.current ?? 0;
@@ -44,27 +61,47 @@ function Field({ scrollRef, quality }: { scrollRef?: ScrollProgressRef; quality:
     pts.rotation.x = p.y * -0.06;
     pts.position.y = -s * 1.1 + Math.sin(t * 0.24) * 0.08;
     const mat = pts.material as THREE.PointsMaterial;
-    mat.opacity = 0.75 * (1 - s * 0.85);
+    mat.opacity = 0.75 * fade * (1 - s * 0.85);
     mat.size = 0.035 + Math.sin(t * 0.8) * 0.004;
+    const mote = dust.current;
+    mote.rotation.y = -t * 0.008 + p.x * 0.05;
+    const moteMat = mote.material as THREE.PointsMaterial;
+    moteMat.opacity = 0.5 * fade * (1 - s * 0.9);
     void delta;
   });
 
   return (
-    <points ref={points}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        <bufferAttribute attach="attributes-color" args={[colorsAttr, 3]} />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.035}
-        vertexColors
-        transparent
-        opacity={0}
-        sizeAttenuation
-        depthWrite={false}
-        blending={THREE.AdditiveBlending}
-      />
-    </points>
+    <group>
+      <points ref={points}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[field.positions, 3]} />
+          <bufferAttribute attach="attributes-color" args={[field.colorsAttr, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.035}
+          vertexColors
+          transparent
+          opacity={0}
+          sizeAttenuation
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
+      <points ref={dust}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[motes.positions, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.06}
+          color={colors.accentViolet}
+          transparent
+          opacity={0}
+          sizeAttenuation
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
+    </group>
   );
 }
 
@@ -72,8 +109,8 @@ function Field({ scrollRef, quality }: { scrollRef?: ScrollProgressRef; quality:
  * HeroField — the hero's living layer (TRD §3). A GPU point field that
  * answers pointer (parallax drift) and scroll (dissolves as the thesis
  * arrives). Code-split + lazy: type paints first, canvas hydrates after.
- * Reduced motion / no WebGL / data-saver → renders nothing; the poster
- * and video carry the scene (fallback ladder, required).
+ * Reduced motion / no WebGL / data-saver → renders nothing; obsidian base
+ * plus typography carry the scene (fallback ladder, required).
  */
 export function HeroField({
   scrollRef,

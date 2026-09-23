@@ -110,7 +110,7 @@ export const projects: Project[] = [
     heroMedia: null,
     thumbnail: null,
     liveUrl: null,
-    repositoryUrl: null,
+    repositoryUrl: "https://github.com/Abhi-git-hub/Saarthians",
   },
   {
     slug: "stock-rag",
@@ -119,12 +119,14 @@ export const projects: Project[] = [
     category: "AI / Data / Retrieval",
     year: "2025",
     status: "experiment",
-    summary: "Financial-data retrieval experimentation: ingestion, embeddings, grounded answers.",
+    summary:
+      "Groq-powered RAG over 60 major Indian stocks across 9 sectors — real-time Yahoo Finance data, Streamlit UI.",
     problem:
       "Financial questions deserve answers grounded in real data — not generated confidence. This experiment builds the pipeline that makes grounding possible.",
     decisions: [
-      "Ingestion pipelines turning raw financial data into retrievable chunks",
-      "Embeddings tuned for retrieval quality over novelty",
+      "Groq-powered RAG pipeline over 60 major Indian stocks across 9 sectors",
+      "Real-time Yahoo Finance data ingested into retrievable chunks",
+      "Streamlit interface with dark and light themes",
       "Evaluation loops checking that answers trace back to source data",
     ],
     challenge: {
@@ -132,16 +134,54 @@ export const projects: Project[] = [
       body: "Generation is the easy part. The work is ingestion, chunking, and evaluation — iterating until the retrieved context is the right context.",
     },
     outcome: "Experiment — architecture documented, no performance claims.",
-    technologies: ["AI / RAG", "Data pipelines", "Embeddings", "Evaluation"],
+    technologies: ["Groq RAG", "Streamlit", "Yahoo Finance", "Embeddings", "Evaluation"],
     gallery: [],
     heroMedia: null,
     thumbnail: null,
     liveUrl: null,
-    repositoryUrl: null,
+    repositoryUrl: "https://github.com/Abhi-git-hub/stock-market-rag",
+  },
+  {
+    slug: "majdoor-haq",
+    number: "03",
+    title: "Majdoor Haq",
+    category: "Mobile Platform",
+    year: "2026",
+    status: "in-progress",
+    summary: "A Flutter-built mobile app whose name states the mission: the labourer's right.",
+    problem:
+      "Rights that can't be reached might as well not exist. Majdoor Haq is built to be reachable — on the devices workers already carry.",
+    decisions: [
+      "Flutter (Dart) — one codebase across everyday devices",
+      "Mobile-first: the mission lives where its people already are",
+      "Built in the open, in public",
+    ],
+    challenge: null,
+    outcome: "In progress — the case file opens as the build notes land.",
+    technologies: ["Flutter", "Dart", "Mobile"],
+    narrative: [
+      {
+        title: "Entry",
+        body: "Majdoor Haq — the labourer's right, carried in a pocket.",
+      },
+      {
+        title: "Interface",
+        body: "A Flutter surface built for reach: big touch, plain language, zero ceremony.",
+      },
+      {
+        title: "Current state",
+        body: "In progress. The case file opens as the build notes land.",
+      },
+    ],
+    gallery: [],
+    heroMedia: null,
+    thumbnail: null,
+    liveUrl: null,
+    repositoryUrl: "https://github.com/Abhi-git-hub/majdoor_haq",
   },
   {
     slug: "x-frontend-clone",
-    number: "03",
+    number: "04",
     title: "X.com Frontend Clone",
     category: "Frontend Engineering",
     year: "2024",
@@ -170,7 +210,7 @@ export const projects: Project[] = [
     heroMedia: null,
     thumbnail: null,
     liveUrl: null,
-    repositoryUrl: null,
+    repositoryUrl: "https://github.com/Abhi-git-hub/XComHomeClone",
   },
 ];
 

@@ -30,7 +30,7 @@ export default function ContactPage() {
           <p className="meta text-faint">
             {site.contact.email}
             <br />
-            {site.location} — replies from the lab
+            Replies within 12 hours — {site.location}
           </p>
         </div>
       </Reveal>

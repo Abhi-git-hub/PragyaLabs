@@ -30,7 +30,7 @@ export function ContactSection() {
             <br />
             Bring the problem and the timeline — the reply comes from the lab.
             <br />
-            {site.location}
+            Replies within 12 hours — {site.location}
           </p>
         </div>
       </Reveal>

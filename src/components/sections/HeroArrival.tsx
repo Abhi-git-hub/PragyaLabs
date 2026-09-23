@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { PragyaCoreCanvas } from "@/components/3d/PragyaCoreCanvas";
-import { EnvironmentLayer } from "@/components/motion/EnvironmentLayer";
 import { Display, Eyebrow } from "@/components/typography/Type";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -17,10 +16,9 @@ const HeroField = dynamic(() => import("@/components/3d/HeroField").then((m) => 
 });
 
 /**
- * SCENE 01 — ARRIVAL. The placeholder hero is now the real hero.
- * Layered load: environment → core materializes → typography reveals →
- * metadata → scroll cue → interactive. Pointer tilts the core and drags its
- * lights; scroll descends the core while the type lifts away.
+ * ARRIVAL. The background is a living system — no video, no poster frame.
+ * Layered load: atmosphere → particle field → core materializes →
+ * typography reveals → metadata → scroll cue → interactive.
  */
 export function HeroArrival() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -122,8 +120,11 @@ export function HeroArrival() {
       aria-label="Arrival — Pragya Labs hero"
       className="relative flex min-h-[100svh] flex-col overflow-clip"
     >
-      <div ref={envRef} className="absolute inset-0">
-        <EnvironmentLayer capability={capability} trigger={sectionRef} />
+      {/* Atmosphere: restrained static glows — the field does the moving */}
+      <div ref={envRef} className="absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0 bg-void" />
+        <div className="absolute left-1/2 top-[8%] h-[60vmin] w-[90vmin] -translate-x-1/2 [background:radial-gradient(ellipse_at_center,rgb(53_233_255/0.07),transparent_65%)]" />
+        <div className="absolute bottom-[-10%] right-[-5%] h-[55vmin] w-[70vmin] [background:radial-gradient(ellipse_at_center,rgb(139_92_255/0.08),transparent_65%)]" />
       </div>
       {/* Living layer: pointer-reactive particles above the media, below type */}
       <HeroField

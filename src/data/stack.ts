@@ -15,10 +15,11 @@ export const stack: StackCategory[] = [
   {
     id: "interface",
     title: "Interface",
-    items: ["React", "Next.js"],
+    items: ["React", "Next.js", "Flutter"],
     evidence: [
       { label: "Saarthians", href: "/work/saarthians" },
       { label: "X recreation", href: "/work/x-frontend-clone" },
+      { label: "Majdoor Haq", href: "/work/majdoor-haq" },
       { label: "This site", href: "/#work" },
     ],
   },

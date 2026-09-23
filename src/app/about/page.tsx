@@ -17,7 +17,7 @@ export const metadata = buildMetadata({ title: "About — Pragya Labs" });
 /** The readable story: background, journey, focus, approach, work, contact.
  *  Journey / principles / work all pull from single content sources (TRD §6). */
 export default function AboutPage() {
-  const featured = ["saarthians", "stock-rag", "x-frontend-clone"]
+  const featured = ["saarthians", "stock-rag", "majdoor-haq", "x-frontend-clone"]
     .map((slug) => getProject(slug))
     .filter((p): p is NonNullable<typeof p> => p !== undefined);
 
@@ -83,6 +83,32 @@ export default function AboutPage() {
               treated as design, AI aimed at real problems. The work below is
               the evidence.
             </Body>
+            <p className="mt-4 max-w-[52ch] leading-relaxed text-muted">
+              Working style, in one line: start from the person tapping glass —
+              earn every layer above them.
+            </p>
+            <div className="mt-8 grid grid-cols-2 gap-px bg-line">
+              <figure className="bg-void">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/person/detail--hands.jpg"
+                  alt="Detail — shoulder and sleeve in cool rim light"
+                  loading="lazy"
+                  className="block aspect-[4/3] w-full object-cover"
+                />
+                <figcaption className="meta px-4 py-2 text-faint">Detail 01 — at the bench</figcaption>
+              </figure>
+              <figure className="bg-void">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/person/detail--rim.jpg"
+                  alt="Detail — hair edged with cool blue rim light"
+                  loading="lazy"
+                  className="block aspect-[4/3] w-full object-cover"
+                />
+                <figcaption className="meta px-4 py-2 text-faint">Detail 02 — rim light study</figcaption>
+              </figure>
+            </div>
             <div className="mt-8">
               <p className="meta mb-2 text-faint">Signed</p>
               <Signature className="max-w-[260px]" />

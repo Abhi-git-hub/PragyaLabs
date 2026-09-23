@@ -148,13 +148,9 @@
       "desktop": "1280×720, 7.8s loop, 928KB",
       "mobile": "640×360, 7.8s loop, 146KB (served via media-queried <source>)",
       "priority": "P0",
-      "status": "production",
-      "notes": "Cut from assets/uiLook2Video.mp4 (trimmed baked-text intro 0–2s, audio stripped, 0.8s fade head/tail for seamless loop). Poster re-cut from the production file's own opening frame (no poster/video flash). Source master retains baked text and is never served.",
-      "files": [
-        { "path": "public/motion/portal-environment--web.mp4", "variant": "web", "required": true },
-        { "path": "public/motion/portal-environment--mobile.mp4", "variant": "mobile", "required": true },
-        { "path": "public/motion/portal-environment--poster.jpg", "variant": "poster", "required": true }
-      ]
+      "status": "retired",
+      "notes": "RETIRED per PRD §6.1: hero background replaced by the living HeroField particle system. Cut recipe preserved in docs/ASSET-BIBLE.md. Masters remain in assets/.",
+      "files": []
     },
     {
       "name": "portrait",
@@ -171,7 +167,9 @@
       "files": [
         { "path": "public/person/portrait--web.jpg", "variant": "web", "required": true },
         { "path": "public/person/portrait--mobile.jpg", "variant": "mobile", "required": true },
-        { "path": "public/person/signature--detail.jpg", "variant": "detail", "required": true }
+        { "path": "public/person/signature--detail.jpg", "variant": "detail", "required": true },
+        { "path": "public/person/detail--hands.jpg", "variant": "detail", "required": true },
+        { "path": "public/person/detail--rim.jpg", "variant": "detail", "required": true }
       ]
     },
     {
