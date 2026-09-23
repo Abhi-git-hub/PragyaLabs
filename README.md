@@ -1,9 +1,10 @@
-# Pragya Labs — Elevation Pass: Proof Over Polish
+# Pragya Labs — Studio Build: A Physical Place for Digital Work
 
-**Thesis:** digital systems engineered with intelligence. **Status:** elevated
-per PRD/TRD v1.0 — living hero layer, deepened case studies from a single
-content source, draw-on signature mark, SEO/observability wired, no invented
-facts. Unresolved owner inputs are tracked outside the repo, never filled.
+**Thesis:** digital systems engineered with intelligence. **Status:** recomposed
+as a serious digital studio experience — Signal Chamber hero from acquired
+raw materials, craft sequence from recorded footage, Saarthians world grounded
+in its real repository, four project worlds, no demo galleries, no HUD.
+The work is the protagonist; the studio is the world.
 
 ## Quickstart
 
@@ -33,13 +34,13 @@ npm run build
 
 ## The experience
 
-`/` runs one story: layered Arrival (press the Core — it surges) with the
-CODE × DESIGN × INTELLIGENCE statement, Origin (portrait discovered
-slit→full, Class 10 → rebuilding → real work → Pragya Labs), Work worlds
-(Saarthians scrolled narrative + live data layer, RAG retrieval diagram,
-compact specimen), evidence-linked Systems, sharp Approach, understated
-Person, "Let's build something" Contact, and an orbital Loop echo.
-`/work` hosts the worlds + index; `/about` the readable story.
+`/` runs one sequence: Signal Chamber arrival (procedural pipe architecture,
+instrument console, antenna dish, smoke + dust), craft studies (recorded
+machinery, interior, materials), Origin (portrait discovered, Class 10 →
+Pragya Labs), Work worlds (Saarthians narrative + live data, RAG diagram,
+Majdoor signal, X specimen), Approach, Person, Contact with a 12-hour reply
+promise, and an orbital Loop echo. `/work` hosts the worlds + index;
+`/about` the readable story with detail crops.
 
 ## Deployment workflow (permanent rule)
 

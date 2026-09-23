@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Eyebrow } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
@@ -43,7 +43,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
 
   return (
     <>
-      <SectionContainer index={project.number} eyebrow={project.category}>
+      <SectionContainer eyebrow={project.category}>
         <Reveal>
           <Eyebrow className="mb-4 text-faint">
             <Link href="/work" className="transition-colors hover:text-cyan">

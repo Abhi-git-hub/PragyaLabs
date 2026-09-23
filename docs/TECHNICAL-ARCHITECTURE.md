@@ -1,4 +1,4 @@
-# TECHNICAL ARCHITECTURE — Pragya Labs (Phase 3R)
+# TECHNICAL ARCHITECTURE — Pragya Labs (Studio Build)
 
 > Frontend only: no backend, no database, no auth, no CMS, no API routes.
 
@@ -21,21 +21,19 @@ src/
     navigation/   SiteNav (hide-on-scroll + progress hairline + mobile sheet)
     typography/   Display / Body / Eyebrow (the three voices)
     motion/       Reveal / Stagger, CursorProvider + Cursor (visible renderer),
-                  RouteTransition, EnvironmentLayer (poster-first video),
-                  GlyphBand (scroll-excited chapter seams)
-    3d/           BackgroundField (2D ambient), PragyaCoreScene + Canvas (dynamic,
-                  intro/scroll/surge refs, quality tiers), HeroField (pointer +
-                  scroll reactive particle veil, code-split, tiered fallback)
-    lab/          ParticleLab (Saarthians data layer), RetrievalViz (RAG world);
-                  CursorLab + TypeLab persist as tuned prototypes behind the
-                  global cursor and glyph seams (rAF 2D, gated, tree-shaken
-                  when unimported)
+                  RouteTransition, Film (gated video inserts)
+    3d/           SignalChamber (procedural pipe architecture, dish, console,
+                  smoke video layer, dust; intro/scroll refs, tiers),
+                  PragyaCoreScene + Canvas (Loop echo only),
+                  BackgroundField (2D ambient)
+    lab/          ParticleLab (Saarthians data layer), RetrievalViz (RAG world),
+                  MajdoorVisual (reach signal), XFrontendVisual (density study)
     person/       Portrait (parallax + grain), Signature = SignatureMark
-                  (authentic raster, clip-wipe draw-on + light pass)
+                  (authentic vector, clip-wipe draw-on + light pass)
     projects/     ProjectCard (enriched rows), CaseStudy (verified-only),
                   SystemFlow (Saarthians pipeline), SaarthiansVisual (live layer)
-    sections/     HeroArrival, Thesis, Story→Origin, Work (worlds),
-                  Stack→Systems, Philosophy→Approach, Person, ContactSection, Loop
+    sections/     Hero (Signal Chamber), CraftSequence, Story→Origin,
+                  Work (worlds), Philosophy→Approach, Person, ContactSection, Loop
   hooks/          use-prefers-reduced-motion, use-pointer (rAF-friendly ref),
                   use-device-capability (high/reduced tiers)
   lib/            motion (GSAP registry + gate), smooth-scroll (Lenis),
@@ -67,13 +65,11 @@ on hidden tab. No WebGL without a poster fallback and a mobile quality cut.
 
 ## Asset pipeline
 
-`assets/` (masters, unserved) → `public/` (production, AVIF/WebP, responsive
-pairs, text-free video cuts) → `next/image` with explicit dimensions. Manifest
-(`public/assets-manifest.json`) + `npm run assets:check` gate every addition.
-Production media: `src/app/icon.svg`, `public/hero/pragya-core--concept.png`
-(reference only), `public/motion/portal-environment--web.mp4` + poster (see
-ASSET-BIBLE ⁴ for the cut recipe: trim baked-text intro, strip audio, fade
-head/tail for the loop, CRF 26, faststart).
+`assets/` (masters, unserved) → `public/` (production: AVIF/WebP images,
+720p gated film with posters, 1024w texture maps) → `next/image` with explicit
+dimensions. Manifest (`public/assets-manifest.json`) + `npm run assets:check`
+gate every addition. Production media: `src/app/icon.svg`,
+`public/textures/*`, `public/film/*`, `public/person/*` (see ASSET-BIBLE).
 
 ## Performance strategy
 

@@ -16,7 +16,6 @@ export function SiteFooter() {
             {nav.map((r) => (
               <li key={r.href}>
                 <Link href={r.href} className="meta transition-colors hover:text-bone">
-                  <span className="mr-1.5 text-faint">{r.index}</span>
                   {r.label}
                 </Link>
               </li>
@@ -27,7 +26,7 @@ export function SiteFooter() {
           <p className="meta mb-4 text-faint">Coordinates</p>
           <p className="meta">{site.location}</p>
           <p className="meta mt-2">{site.year}</p>
-          <p className="meta mt-2 text-faint">SYS.ONLINE</p>
+          <p className="meta mt-2 text-faint">Independent studio</p>
         </div>
       </div>
       <div className="border-t border-line">

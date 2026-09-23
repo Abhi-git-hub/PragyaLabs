@@ -12,3 +12,6 @@ Thumbs.db
 
 .vercel
 .env*
+
+# Raw asset masters (hundreds of MB) live on disk only - never commit
+assets/

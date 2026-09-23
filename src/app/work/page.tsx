@@ -1,4 +1,4 @@
-import { Display, Eyebrow, Body } from "@/components/typography/Type";
+﻿import { Display, Eyebrow, Body } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { ProjectCard } from "@/components/projects/ProjectCard";
@@ -10,7 +10,7 @@ export const metadata = buildMetadata({ title: "Work — Pragya Labs" });
 /** Project index — systems that exist, nothing invented. */
 export default function WorkPage() {
   return (
-    <SectionContainer index="01" eyebrow="Work — project index">
+    <SectionContainer eyebrow="Work — project index">
       <Reveal>
         <Display size="lg">Selected systems.</Display>
         <Body className="mt-6">

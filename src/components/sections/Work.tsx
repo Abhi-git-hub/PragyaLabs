@@ -1,10 +1,11 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Display, Eyebrow } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
+import { Film } from "@/components/motion/Film";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { getProject } from "@/data/projects";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -111,8 +112,19 @@ function SaarthiansWorld() {
           </Link>
         </div>
         <div className="order-1 lg:order-2">
-          <div className="h-[52svh] border border-line bg-void/40 lg:sticky lg:top-24 lg:h-[72vh]">
-            <SaarthiansFlow step={active} total={steps.length} />
+          <div className="relative h-[52svh] overflow-hidden border border-line bg-void/40 lg:sticky lg:top-24 lg:h-[72vh]">
+            {/* Cinematic reference layer only — darkened past legibility, so no
+                AI-generated frame can ever read as product proof. */}
+            <div className="absolute inset-0 opacity-40" aria-hidden="true">
+              <Film
+                src="/film/saarthians--texture.mp4"
+                poster="/film/saarthians--texture--poster.jpg"
+                label="Saarthians cinematic reference texture"
+              />
+            </div>
+            <div className="absolute inset-0">
+              <SaarthiansFlow step={active} total={steps.length} />
+            </div>
           </div>
         </div>
       </div>
@@ -263,7 +275,7 @@ function XWorld() {
 
 export function Work() {
   return (
-    <SectionContainer index="03" eyebrow="The work" id="work" className="scroll-mt-20">
+    <SectionContainer eyebrow="The work" id="work" className="scroll-mt-20">
       <Reveal>
         <Display size="md" className="max-w-[12ch]">
           Proof, not promises.

@@ -1,48 +1,44 @@
-# EXPERIENCE MAP — Pragya Labs (Phase 3R)
+# EXPERIENCE MAP — Pragya Labs (Studio Build)
 
-> One continuous experience: ARRIVAL → ORIGIN → WORK → SYSTEMS → APPROACH →
-> PERSON → CONTACT → LOOP. The LAB is the brand — its systems run inside the
-> Work worlds, never as a separate gallery. No demos on any public route.
+> One continuous studio experience. The work is the protagonist; the studio
+> is the world; the person appears once, with authorship. No demo galleries,
+> no HUD, no dashboard.
 
-## Home (`/`) — one story, many visual moments
+## Home (`/`) — the sequence
 
-| # | Chapter | Purpose | Message | Visual | Interaction | Transition | CTA |
-|---|---|---|---|---|---|---|---|
-| 01 | Arrival | Something begins | "Pragya Labs" as monument | Layered scene: atmosphere + portal media + Core + mass type (`HeroArrival`) | Layered load, pointer tilt, press surge, scroll descent | Core recedes | — |
-| — | Thesis | State the idea | "CODE × DESIGN × INTELLIGENCE" | Pinned 4-phase scroll system (`Thesis`) | Geometric → fluid → network → converge | Glyph seam 01 | — |
-| 02 | Origin | Human origin | "Every system has an origin" | Portrait discovered slit→full, THEN→NOW beats + mark (`Origin`) | Scroll-reveal portrait, light-pass signature | Glyph seam 02 | → /about |
-| 03 | Work | Proof | "Proof, not promises" | Saarthians steps + live data layer; RAG retrieval diagram; compact specimen (`Work`) | Scrolled narrative, disturbed data, reseeded queries | Glyph seam 03 | → /work |
-| 04 | Systems | Technology as system | "Every tool earns its place" | Clip-reveal category system (`Stack`) | Evidence links per item | Collapse | — |
-| 05 | Approach | Restraint | "How the builder thinks" | Five principles, editorial (`Philosophy`) | Staggered entrances | Fade to person | — |
-| 06 | Person | Trust | "Abhi builds" | Identity + focus + signature (`Person`) | Quiet | Fade to contact | → /about |
-| 07 | Contact | One channel | "Let's build something" | Full-bleed CTA (`ContactSection`) | Hover (desktop) | Orbital echo | → /contact |
-| — | Loop | Echo, not restart | "Ends where it began" | Reassembled Core + orbital path + mark (`Loop`) | Intersection materialize | → 01 | ↑ top |
+| # | Chapter | Purpose | Message | Visual | Interaction | Transition |
+|---|---|---|---|---|---|---|
+| 01 | Signal Chamber | Something begins | "Pragya Labs" as place | Procedural pipe architecture, instrument console, antenna dish, smoke + dust (`Hero`) | Camera approach, pointer parallax, scroll travel | Falls into craft |
+| — | Craft | What the studio works with | "Recorded, not rendered" | Machinery / interior / material film studies (`CraftSequence`) | Gated playback | Hands to origin |
+| 02 | Origin | Human origin | "Every system has an origin" | Portrait discovered slit→full, THEN→NOW beats + vector mark (`Origin`) | Scroll-reveal portrait, draw-on signature | Resolves to work |
+| 03 | Work | Proof | "Proof, not promises" | Saarthians narrative + live data + texture; RAG diagram; Majdoor signal; X specimen (`Work`) | Scrolled narrative, disturbed data, reseeded queries | Assembles to approach |
+| 04 | Approach | Restraint | "How the builder thinks" | Five principles, editorial (`Philosophy`) | Staggered entrances | Fade to person |
+| 05 | Person | Authorship | "Abhi builds" | Identity + focus + vector mark (`Person`) | Quiet | Fade to contact |
+| 06 | Contact | One channel | "Let's build something" | Full-bleed CTA, 12-hour reply promise (`ContactSection`) | Hover (desktop) | Orbital echo |
+| — | Loop | Echo, not restart | "Ends where it began" | Reassembled Core + orbital path + mark (`Loop`) | Intersection materialize | → 01 |
 
-Continuity rule: chapter A's visual language bleeds into chapter B — glyph
-seams carry progression, the Core's orbital language returns in the Loop,
-the signature line becomes the orbital path.
+Continuity rule: chamber materials (pipes, shutter, smoke) echo through craft
+and work; the signature line becomes the orbital path; the loop returns the
+opening's industrial language.
 
 ## Routes
 
-- `/work` — project worlds + specimen index; rows carry number/category/year/status.
-- `/work/saarthians` — flagship case study: overview, live system-flow
-  diagram (USER → INTERFACE → AUTHORIZATION → DATA → AI → EXPERIENCE),
-  verified dossier sections.
-- `/work/[project]` — same template for all projects; outcome stays
-  `placeholder` until verified.
-- `/lab` — retired gallery; redirects to `/work`. Systems preserved under
-  `src/components/lab/` and run inside the Work worlds.
-- `/about` — readable story: portrait, journey, approach, selected work.
-- `/contact` — one channel, no dead forms.
-- `*` — in-voice 404 ("No specimen here") returning to index.
+- `/work` — project worlds + specimen index.
+- `/work/saarthians` — flagship: overview, live flow, verified dossier,
+  repo-verified facts (saarthians.online target, Vitest, Workers path).
+- `/work/[project]` — shared template; Majdoor Haq, Stock/RAG, X clone.
+- `/lab` — retired; redirects to `/work`.
+- `/about` — readable story: portrait, detail crops, journey, approach, work.
+- `/contact` — one channel, 12-hour reply commitment.
+- `*` — in-voice 404 returning to index.
 
 ## Mobile journey
 
-One deliberate vertical narrative: stacked chapters, type leads, lighter 3D,
-gated particles, ≥44px targets. Cursor physics and hover-only layers stay on
-fine pointers; touch gets the same story with half the effects.
+Vertical cinematic composition: one strong chamber object, shorter media,
+real UI prioritized, touch interactions, no hover dependency. Touch gets the
+same story; cursor physics and hover layers stay on fine pointers.
 
 ## Conversion logic
 
-One funnel, no traps: every chapter offers at most one CTA, all CTAs lead
-deeper into proof (work) or to contact. No newsletter, no popups, no fake socials.
+One funnel: chapters offer at most one CTA, leading into proof or contact.
+No newsletter, no popups, no fake socials, no invented metrics.

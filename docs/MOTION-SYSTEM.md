@@ -1,9 +1,10 @@
-# MOTION SYSTEM — Pragya Labs (Phase 3R)
+# MOTION SYSTEM — Pragya Labs (Studio Build)
 
-> Tokens: `--pl-duration-*`, `--pl-ease-*`, `--pl-stagger-*`, `--pl-distance-*`
-> in `src/styles/tokens.css`, mirrored for JS in `src/config/tokens.ts`.
-> Primitives: `src/components/motion/Reveal.tsx`, `EnvironmentLayer`, `GlyphBand`.
-> Gate: `motionAllowed()` in `src/lib/motion.ts` + `usePrefersReducedMotion()`.
+> Tokens: `--pl-duration-*`, `--pl-ease-*` in `src/styles/tokens.css`.
+> Primitives: `Reveal`, `Film` (gated video), `SignatureMark` (wipe + pass).
+> Gate: `motionAllowed()` + `usePrefersReducedMotion()`.
+> Voice: weighted, precise, cinematic, deliberate. No floating, no springs-as-toys,
+> no camera shake, nothing moving all at once.
 
 ## Categories
 
@@ -57,13 +58,11 @@ state label, lerped follow, event-delegated `data-cursor` zones, desktop
 
 ## Loading & page transitions
 
-Hero media is poster-first (video fades in on canplay); the Thesis pin is
-skipped under reduced motion (static stack instead). Route transitions
-(`RouteTransition`): 350ms rise+fade + 1px energy sweep. Lab engines
-(particles, springs, glyphs, retrieval) are rAF-driven 2D with
-intersection/visibility gating and single-frame fallbacks under reduced
-motion; `CursorLab`/`TypeLab` persist as the tuned prototypes behind the
-global cursor and glyph seams. ACT—00 boot sequence remains Phase 4.
+Type paints first; canvases hydrate after (dynamic, intersection-gated,
+single R3F canvas per viewport — never several running at once). Film
+inserts play only in viewport, pause offscreen/hidden, poster-first.
+Reduced motion: static composed frames everywhere — chamber, diagrams,
+signature whole, films still.
 
 ## Reduced motion (foundation BEFORE major motion)
 

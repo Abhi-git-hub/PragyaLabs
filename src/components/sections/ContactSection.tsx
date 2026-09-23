@@ -1,4 +1,4 @@
-import { Display, Eyebrow } from "@/components/typography/Type";
+﻿import { Display, Eyebrow } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { site } from "@/config/site";
@@ -9,7 +9,7 @@ import { site } from "@/config/site";
  */
 export function ContactSection() {
   return (
-    <SectionContainer index="07" eyebrow="Contact" id="contact" className="scroll-mt-20">
+    <SectionContainer eyebrow="Contact" id="contact" className="scroll-mt-20">
       <Reveal>
         <Eyebrow className="mb-6 text-faint">The closing</Eyebrow>
         <Display size="hero">

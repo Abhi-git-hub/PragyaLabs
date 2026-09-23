@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { Display, Eyebrow } from "@/components/typography/Type";
@@ -42,7 +42,7 @@ export function Origin() {
   }, [reduced]);
 
   return (
-    <SectionContainer index="02" eyebrow="Origin" id="origin" className="scroll-mt-20">
+    <SectionContainer eyebrow="Origin" id="origin" className="scroll-mt-20">
       <div ref={sectionRef}>
         <Reveal>
           <Display size="md" className="max-w-[14ch]">

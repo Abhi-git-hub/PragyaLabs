@@ -163,13 +163,56 @@
       "mobile": "900w, 53KB",
       "priority": "P0",
       "status": "production",
-      "notes": "Approved artwork (assets/me01.png): dark studio, cool blue rim light, planet backdrop. Baked motif furniture retained as artwork texture in full-frame use; signature cropped separately for screen-blend reuse (never a logo).",
+      "notes": "Approved artwork: dark studio, cool blue rim light, planet backdrop. Signature now served as authentic vector (signature.svg, dual-layer reveal); raster detail kept as fallback. Text-free detail crops expand the About set.",
       "files": [
         { "path": "public/person/portrait--web.jpg", "variant": "web", "required": true },
         { "path": "public/person/portrait--mobile.jpg", "variant": "mobile", "required": true },
-        { "path": "public/person/signature--detail.jpg", "variant": "detail", "required": true },
+        { "path": "public/person/signature.svg", "variant": "vector", "required": true },
+        { "path": "public/person/signature--detail.jpg", "variant": "detail", "required": false },
         { "path": "public/person/detail--hands.jpg", "variant": "detail", "required": true },
-        { "path": "public/person/detail--rim.jpg", "variant": "detail", "required": true }
+        { "path": "public/person/detail--rim.jpg", "variant": "detail", "required": true },
+        { "path": "public/person/antenna--web.jpg", "variant": "editorial", "required": true }
+      ]
+    },
+    {
+      "name": "studio-textures",
+      "purpose": "Signal Chamber surfaces: pipes, plaster, rubber floor, shutter columns, blue accent, instrument face",
+      "kind": "2D",
+      "format": "jpg diffuse maps, 1024w",
+      "aspectRatio": "1:1",
+      "desktop": "6 maps, 15–126KB each",
+      "mobile": "same maps (GPU-resident, shared)",
+      "priority": "P0",
+      "status": "production",
+      "notes": "Diffuse maps extracted from .blend zips (geometry authored procedurally — no Blender in pipeline). Cool-graded scenes; no yellow-dominant treatment.",
+      "files": [
+        { "path": "public/textures/pipes--web.jpg", "variant": "web", "required": true },
+        { "path": "public/textures/plaster--web.jpg", "variant": "web", "required": true },
+        { "path": "public/textures/rubber--web.jpg", "variant": "web", "required": true },
+        { "path": "public/textures/shutter--web.jpg", "variant": "web", "required": true },
+        { "path": "public/textures/bluemetal--web.jpg", "variant": "web", "required": true },
+        { "path": "public/textures/instrument--web.jpg", "variant": "web", "required": true }
+      ]
+    },
+    {
+      "name": "studio-film",
+      "purpose": "Masked atmosphere + craft inserts: smoke volumetric, lens rain, machinery, material macros, interior, Saarthians texture",
+      "kind": "video",
+      "format": "mp4 h264 + jpg posters",
+      "aspectRatio": "16:9",
+      "desktop": "7 cuts, 341KB–2.6MB",
+      "mobile": "same cuts (gated playback)",
+      "priority": "P0",
+      "status": "production",
+      "notes": "Cut from 4K/2K masters (147MB max) to 720p gated inserts. Saarthians cut is darkened/blurred transition texture only — never product proof (frames carry AI-generated UI text).",
+      "files": [
+        { "path": "public/film/smoke--atmos.mp4", "variant": "web", "required": true },
+        { "path": "public/film/rain--lens.mp4", "variant": "web", "required": true },
+        { "path": "public/film/lathe--craft.mp4", "variant": "web", "required": true },
+        { "path": "public/film/drop--macro.mp4", "variant": "web", "required": true },
+        { "path": "public/film/black--macro.mp4", "variant": "web", "required": true },
+        { "path": "public/film/interior--est.mp4", "variant": "web", "required": true },
+        { "path": "public/film/saarthians--texture.mp4", "variant": "web", "required": true }
       ]
     },
     {

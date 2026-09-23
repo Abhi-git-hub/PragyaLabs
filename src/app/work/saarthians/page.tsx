@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Display, Eyebrow } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
@@ -17,7 +17,7 @@ export default function SaarthiansPage() {
 
   return (
     <>
-      <SectionContainer index={project.number} eyebrow={project.category}>
+      <SectionContainer eyebrow={project.category}>
         <Reveal>
           <Eyebrow className="mb-4 text-faint">
             <Link href="/work" className="transition-colors hover:text-cyan">
@@ -27,7 +27,7 @@ export default function SaarthiansPage() {
         </Reveal>
         <CaseStudyHeader project={project} />
       </SectionContainer>
-      <SectionContainer index={`${project.number}—B`} eyebrow="How it runs">
+      <SectionContainer eyebrow="How it runs">
         <Reveal>
           <Display size="sm" className="max-w-[20ch]">
             One request, every layer.
@@ -37,7 +37,7 @@ export default function SaarthiansPage() {
           <SystemFlow project={project} />
         </Stagger>
       </SectionContainer>
-      <SectionContainer index={`${project.number}—C`} eyebrow="Dossier">
+      <SectionContainer eyebrow="Dossier">
         <CaseStudy
           project={project}
           visual={<SaarthiansVisual step={0} total={project.narrative?.length ?? 1} />}

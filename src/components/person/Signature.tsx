@@ -7,9 +7,8 @@ import { duration } from "@/config/tokens";
 import { cn } from "@/lib/cn";
 
 /**
- * SignatureMark — the authentic handwritten mark, drawn on in view.
- * The asset itself is never redrawn or substituted (raster stays raster);
- * a left-to-right clip wipe performs the stroke reveal, then a light pass
+ * SignatureMark — the authentic vector mark, revealed never redrawn.
+ * A left-to-right clip wipe performs the draw-on, then a light pass
  * settles it. Reduced motion: fully visible, no animation.
  * Sparingly placed: story, about, loop. Never a logo.
  */
@@ -56,13 +55,24 @@ export function Signature({ className }: { className?: string }) {
       role="img"
       aria-label="Abhi's handwritten signature"
     >
-      <div ref={wipeRef} className="w-full">
+      <div ref={wipeRef} className="relative w-full">
+        {/* Two-tone traced mark: inverted layer lifts the dark strokes to
+            white, native layer keeps the light strokes — stacked, the full
+            authentic mark reads on obsidian. No redrawing, only reveal. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/person/signature--detail.jpg"
+          src="/person/signature.svg"
           alt=""
           loading="lazy"
-          className="block w-full mix-blend-screen"
+          className="block w-full [filter:invert(1)]"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/person/signature.svg"
+          alt=""
+          loading="lazy"
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 block h-full w-full"
         />
       </div>
       <div

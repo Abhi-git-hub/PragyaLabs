@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Display } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
@@ -11,7 +11,7 @@ import { person } from "@/data/story";
  */
 export function Person() {
   return (
-    <SectionContainer index="06" eyebrow="Person" id="person" className="scroll-mt-20">
+    <SectionContainer eyebrow="Person" id="person" className="scroll-mt-20">
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <Display size="lg">

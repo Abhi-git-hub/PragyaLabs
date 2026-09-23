@@ -30,6 +30,8 @@
 | — | `brand-mark` | Favicon / avatar (interim) | svg | 1:1 | 512² | 192² | P0 | production³ |
 | 09 | `portal-environment` | Arrival hero backdrop loop | mp4 + poster | 16:9 | 1280×720 / 7.8s | 640×360 cut | P0 | **retired** ⁴ |
 | 10 | `portrait` | Story + about editorial portrait | jpg pair | 16:9 | 1600w | 900w | P0 | production⁵ |
+| 11 | `studio-textures` | Signal Chamber surfaces (pipes, plaster, rubber, shutter, blue metal, instrument) | jpg 1024w | 1:1 | 15–126KB each | shared | P0 | production⁶ |
+| 12 | `studio-film` | Masked atmosphere + craft inserts (smoke, rain, lathe, macros, interior, Saarthians texture) | mp4 + posters | 16:9 | 341KB–2.6MB | gated | P0 | production⁷ |
 
 ¹ Concept reference `public/hero/pragya-core--concept.png` (sourced from
 `assets/NeonDigitalCrystalCore.png`, the creative-exploration artifact). It is a
@@ -55,13 +57,27 @@ Masters remain in `assets/`; production files removed from `public/`.
   ("EXPLORE / BUILD / EXPERIMENT / GROW", "DELHI / INDIA / GLOBAL BY DESIGN").
 - `uiLook2.png` — lab-atmosphere study: network-lit planet, light-edged
   monoliths, "IDEAS / INTERFACES / INTELLIGENCE / IMPACT" motif ladder.
-⁵ Approved artwork `assets/me01.png` (1672×941): dark studio, cool blue rim
-light, planet backdrop, integrated signature. Production: 1600w web (173KB)
-+ 900w mobile (53KB) via next/image; signature cropped to
-`signature--detail.jpg` (42KB) for screen-blend reuse in story/about/loop —
-never a logo, never distorted. Elevation adds two text-free detail crops
-from the same artwork (`detail--hands.jpg`, `detail--rim.jpg`) so the About
-page shows real moments, not one portrait doing all the work.
+⁵ Approved artwork: dark studio, cool blue rim light, planet backdrop.
+Signature served as authentic vector `signature.svg` (dual-layer reveal);
+text-free detail crops (`detail--hands.jpg`, `detail--rim.jpg`) expand the
+About set. Antenna photograph graded cool (`antenna--web.jpg`, 69KB).
+Concept masters removed from `assets/` after production; retained in git history.
+⁶ Diffuse maps extracted from `.blend` zips (geometry authored procedurally —
+no Blender in pipeline): pipes trim sheet, plaster, rubber, shutter, blue
+metal, instrument face. 1024w, q4.
+⁷ Cut from 4K/2K masters to gated 720p inserts with posters. `saarthians--texture`
+is darkened/blurred past legibility — transition texture ONLY, never product
+proof: its frames carry AI-generated UI text (verified frame-by-frame).
+
+## Open asset gap (§27) — Saarthians product captures
+
+- SCENE: Saarthians world S01–S08 + case-study gallery.
+- WHY MISSING: no real screenshots or screen recordings supplied; the only
+  footage (`saarthians.mp4`) is AI-generated UI and cannot serve as proof.
+- SPEC: full-viewport captures (landing, learning/assessment, teacher
+  workspace, student workspace, notes/tests/progress, AI tutor) + one ≤15s
+  screen recording of a real flow, 16:9, real text legible, no staging.
+- INTERIM: narrative rail + architecture diagrams + masked texture.
 - `uiLook2Video.mp4` — portal-environment master (see ⁴ above). Baked text in
   the 0–2s intro; production cut removes it. Never served directly.
 - `me01.png` — portrait/signature master (see ⁵ above). Never served directly.

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Display, Body, Eyebrow } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
@@ -24,7 +24,7 @@ export default function AboutPage() {
   return (
     <>
       <SiteJsonLd />
-      <SectionContainer index="05" eyebrow="About — the person">
+      <SectionContainer eyebrow="About — the person">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <Reveal>
             <Display size="lg">Engineer, not persona.</Display>
@@ -56,7 +56,7 @@ export default function AboutPage() {
         </div>
       </SectionContainer>
 
-      <SectionContainer index="05—B" eyebrow="Journey">
+      <SectionContainer eyebrow="Journey">
         <Stagger className="max-w-[880px]">
           {storyBeats.map((beat) => (
             <div key={beat.era} data-stagger-item className="border-t border-line py-8 last:border-b">
@@ -72,7 +72,7 @@ export default function AboutPage() {
         </Stagger>
       </SectionContainer>
 
-      <SectionContainer index="05—C" eyebrow="Approach + selected work">
+      <SectionContainer eyebrow="Approach + selected work">
         <div className="grid gap-10 lg:grid-cols-2">
           <Reveal>
             <h2 className="font-display text-2xl uppercase md:text-3xl">

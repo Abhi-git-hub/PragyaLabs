@@ -1,4 +1,4 @@
-import { Display, Body } from "@/components/typography/Type";
+﻿import { Display, Body } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { site } from "@/config/site";
@@ -9,7 +9,7 @@ export const metadata = buildMetadata({ title: "Contact — Pragya Labs" });
 /** Contact. One channel, no dead forms — framing matches homepage (PRD §6.7). */
 export default function ContactPage() {
   return (
-    <SectionContainer index="06" eyebrow="Contact">
+    <SectionContainer eyebrow="Contact">
       <Reveal>
         <Display size="hero">
           Let&apos;s build

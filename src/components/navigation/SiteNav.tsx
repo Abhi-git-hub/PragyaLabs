@@ -84,7 +84,6 @@ export function SiteNav() {
                   pathname === r.href ? "text-bone" : "text-faint"
                 )}
               >
-                <span className="mr-1.5 text-faint">{r.index}</span>
                 {r.label}
               </Link>
             </li>
@@ -93,8 +92,6 @@ export function SiteNav() {
 
         <div className="hidden items-center gap-3 md:flex">
           <span className="meta text-faint">{site.location}</span>
-          <span className="inline-block size-1.5 rounded-full bg-lime" aria-hidden="true" />
-          <span className="meta text-faint">SYS.ONLINE</span>
         </div>
 
         <button
@@ -122,7 +119,6 @@ export function SiteNav() {
                     pathname === r.href ? "text-bone" : "text-muted"
                   )}
                 >
-                  <span className="meta text-faint">{r.index}</span>
                   {r.label}
                 </Link>
               </li>

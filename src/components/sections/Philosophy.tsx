@@ -1,4 +1,4 @@
-import { Display, Eyebrow } from "@/components/typography/Type";
+﻿import { Display, Eyebrow } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { principles } from "@/data/principles";
@@ -10,7 +10,7 @@ import { principles } from "@/data/principles";
  */
 export function Philosophy() {
   return (
-    <SectionContainer index="05" eyebrow="Approach" id="approach" className="scroll-mt-20">
+    <SectionContainer eyebrow="Approach" id="approach" className="scroll-mt-20">
       <Reveal>
         <Display size="md" className="max-w-[12ch]">
           How the builder thinks.

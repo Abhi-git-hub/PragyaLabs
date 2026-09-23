@@ -42,7 +42,7 @@ export function Loop() {
     <section ref={sectionRef} aria-label="The loop" className="rule">
       <div className="mx-auto grid w-full max-w-[var(--pl-container)] gap-10 px-[var(--pl-gutter)] py-[var(--pl-section-y)] lg:grid-cols-2">
         <Reveal className="flex flex-col justify-center">
-          <Eyebrow className="mb-6 text-faint">ACT—10 / The loop</Eyebrow>
+          <Eyebrow className="mb-6 text-faint">The loop</Eyebrow>
           <Display size="md" className="max-w-[12ch]">
             Ends where it began.
           </Display>
@@ -61,9 +61,6 @@ export function Loop() {
           </Link>
         </Reveal>
         <Reveal className="relative h-[46svh] overflow-hidden border border-line bg-void/40 lg:h-auto lg:min-h-[420px]">
-          <div className="absolute left-4 top-3 z-10" aria-hidden="true">
-            <span className="meta text-faint">OBJ—CORE/10 — reassembled</span>
-          </div>
           {/* Orbital echo: the signature line, become a path home */}
           <div aria-hidden="true" className="orbit-ring orbit-a">
             <span className="orbit-sat" />

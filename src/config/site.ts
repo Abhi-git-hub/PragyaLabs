@@ -31,9 +31,10 @@ export const routes: RouteDef[] = [
   { href: "/contact", index: "05", label: "Contact", description: "One channel, no dead forms." },
 ];
 
-/** Public navigation: brand + three destinations. Nothing else. */
+/** Public navigation: studio destinations. Nothing else. */
 export const nav = [
-  { href: "/work", index: "01", label: "Work" },
-  { href: "/about", index: "02", label: "About" },
-  { href: "/contact", index: "03", label: "Contact" },
+  { href: "/work", label: "Work" },
+  { href: "/#approach", label: "Approach" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];

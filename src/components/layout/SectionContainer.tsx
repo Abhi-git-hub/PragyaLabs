@@ -1,17 +1,15 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-/** Standard lab section container: rhythm, gutters, max width.
- *  HUD index/eyebrow are decorative system chrome (PRD §6.6) — hidden from AT. */
+/** Standard section container: rhythm, gutters, max width.
+ *  Eyebrows are plain editorial labels — no index numbers, no HUD. */
 export function SectionContainer({
   id,
-  index,
   eyebrow,
   className,
   children,
 }: {
   id?: string;
-  index?: string;
   eyebrow?: string;
   className?: string;
   children: ReactNode;
@@ -25,10 +23,9 @@ export function SectionContainer({
         className
       )}
     >
-      {(index ?? eyebrow) && (
-        <div className="mb-8 flex items-baseline justify-between gap-4 md:mb-12" aria-hidden="true">
-          {index && <span className="meta text-faint">{index}</span>}
-          {eyebrow && <span className="meta">{eyebrow}</span>}
+      {eyebrow && (
+        <div className="mb-8 md:mb-12">
+          <span className="meta text-faint">{eyebrow}</span>
         </div>
       )}
       {children}
