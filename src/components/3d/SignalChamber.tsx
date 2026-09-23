@@ -3,7 +3,6 @@
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { colors } from "@/config/tokens";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import type { CapabilityTier } from "@/hooks/use-device-capability";
@@ -27,6 +26,12 @@ function prepare(t: THREE.Texture, rx: number, ry: number): THREE.Texture {
   return t;
 }
 
+/** Staged window: maps intro 0..1 into a 0..1 ramp between two marks. */
+function windowed(intro: number, from: number, to: number): number {
+  const t = THREE.MathUtils.clamp((intro - from) / Math.max(to - from, 0.001), 0, 1);
+  return t * t * (3 - 2 * t);
+}
+
 /** Soft radial sheen — faked floor bounce under the dish. */
 function useSheen(): THREE.Texture {
   return useMemo(() => {
@@ -45,10 +50,17 @@ function useSheen(): THREE.Texture {
 }
 
 /** Procedural parabolic dish — the signal motif, built not loaded.
- *  The head tracks the pointer: the instrument watches back. */
-function Dish({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: number }> }) {
+ *  The head tracks the pointer; the body rises out of darkness on arrival. */
+function Dish({
+  pointer,
+  introRef,
+}: {
+  pointer: React.MutableRefObject<{ x: number; y: number }>;
+  introRef?: IntroProgressRef;
+}) {
   const group = useRef<THREE.Group>(null!);
   const tipMat = useRef<THREE.MeshStandardMaterial>(null!);
+  const reduced = useMemo(() => prefersReducedMotion(), []);
   const geometry = useMemo(() => {
     const pts: THREE.Vector2[] = [];
     for (let i = 0; i <= 24; i++) {
@@ -59,12 +71,18 @@ function Dish({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: num
   }, []);
 
   useFrame((state) => {
-    const t = state.clock.elapsedTime;
+    const intro = THREE.MathUtils.clamp(introRef?.current ?? 1, 0, 1);
+    const rise = reduced ? 1 : windowed(intro, 0.25, 0.75);
     const g = group.current;
-    // Tracking: slow servo toward the visitor, never twitchy.
-    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, -0.5 + pointer.current.x * 0.45, 0.03);
-    g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, -0.5 - pointer.current.y * 0.22, 0.03);
-    if (tipMat.current) tipMat.current.emissiveIntensity = 2.6 + Math.sin(t * 2.2) * 1.2;
+    g.position.y = THREE.MathUtils.lerp(-0.7, 0, rise);
+    const s = 0.9 + 0.1 * rise;
+    g.scale.setScalar(s);
+    if (!reduced) {
+      const t = state.clock.elapsedTime;
+      g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, -0.5 + pointer.current.x * 0.45, 0.03);
+      g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, -0.5 - pointer.current.y * 0.22, 0.03);
+      if (tipMat.current) tipMat.current.emissiveIntensity = (2.6 + Math.sin(t * 2.2) * 1.2) * rise;
+    }
   });
 
   return (
@@ -102,31 +120,49 @@ function Chamber({
 }) {
   const rig = useRef<THREE.Group>(null!);
   const sweep = useRef<THREE.PointLight>(null!);
+  const keyLight = useRef<THREE.DirectionalLight>(null!);
+  const cyanLight = useRef<THREE.PointLight>(null!);
+  const violetLight = useRef<THREE.PointLight>(null!);
+  const warmLight = useRef<THREE.PointLight>(null!);
+  const ambient = useRef<THREE.AmbientLight>(null!);
   const smokeA = useRef<THREE.MeshBasicMaterial>(null!);
   const smokeB = useRef<THREE.MeshBasicMaterial>(null!);
   const rainMat = useRef<THREE.MeshBasicMaterial>(null!);
   const pointer = useRef({ x: 0, y: 0 });
   const reduced = useMemo(() => prefersReducedMotion(), []);
   const { gl, scene } = useThree();
+  const [pipes, plaster, rubber, shutter, bluemetal, instrument] = useLoader(
+    THREE.TextureLoader,
+    [...TEX_URLS]
+  );
 
-  // Image-based lighting: procedural studio environment (the acquired EXRs
-  // use an encoding this pipeline cannot decode — documented in ASSET-BIBLE).
-  // Low intensity: reflections live on metal, the dark stays dark.
+  // Intentional dark-studio IBL: a black room with three cool strips.
+  // No HDRI sky, no generic studio look — reflections stay directional.
   useEffect(() => {
+    const env = new THREE.Scene();
+    env.background = new THREE.Color("#000000");
+    const strip = (color: string, intensity: number, w: number, h: number, x: number, y: number, z: number) => {
+      const m = new THREE.Mesh(
+        new THREE.PlaneGeometry(w, h),
+        new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(intensity) })
+      );
+      m.position.set(x, y, z);
+      m.lookAt(0, 0, 0);
+      env.add(m);
+    };
+    strip("#9fd8ff", 5.5, 6, 1.6, -6, 3.5, 1); // cool key, left
+    strip("#8b5cff", 3.2, 4, 1.2, 6, 2, -1); // violet kicker, right
+    strip("#3a4a6b", 1.6, 8, 2, 0, 7, 0); // dim cold top
     const pmrem = new THREE.PMREMGenerator(gl);
-    const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    const envTex = pmrem.fromScene(env, 0.04).texture;
     scene.environment = envTex;
-    scene.environmentIntensity = 0.22;
+    scene.environmentIntensity = 0.5;
     return () => {
       scene.environment = null;
       envTex.dispose();
       pmrem.dispose();
     };
   }, [gl, scene]);
-  const [pipes, plaster, rubber, shutter, bluemetal, instrument] = useLoader(
-    THREE.TextureLoader,
-    [...TEX_URLS]
-  );
 
   const maps = useMemo(
     () => ({
@@ -205,9 +241,19 @@ function Chamber({
     const cam = state.camera;
     pointer.current.x = p.x;
     pointer.current.y = p.y;
+    // The arrival staging: darkness → environment → object → identity.
+    const lights = reduced ? 1 : windowed(intro, 0, 0.55);
+    const haze = reduced ? 1 : windowed(intro, 0.35, 1);
     // The state change: past 55% the chamber is behind glass — rain rises,
     // the camera commits to the dive, the world hands off.
-    const dive = THREE.MathUtils.smoothstep(s, 0.45, 1);
+    const dive = reduced ? 0 : THREE.MathUtils.smoothstep(s, 0.45, 1);
+
+    // Physically staged lighting rig — everything wakes in order.
+    if (ambient.current) ambient.current.intensity = 0.32 * lights;
+    if (keyLight.current) keyLight.current.intensity = 0.85 * lights;
+    if (cyanLight.current) cyanLight.current.intensity = 14 * lights;
+    if (violetLight.current) violetLight.current.intensity = 11 * lights;
+    if (warmLight.current) warmLight.current.intensity = 7 * lights;
 
     if (!reduced) {
       // Slow approach + pointer parallax + scroll travel into the dive.
@@ -217,8 +263,8 @@ function Chamber({
       cam.position.z = THREE.MathUtils.lerp(cam.position.z, tz, 0.03);
       cam.lookAt(0, 1.3 - s * 0.4, -2.5);
       rig.current.rotation.y = p.x * 0.02;
-      if (smokeA.current) smokeA.current.opacity = 0.32 * intro * (1 - s * 0.6);
-      if (smokeB.current) smokeB.current.opacity = 0.16 * intro * (1 - s * 0.6);
+      if (smokeA.current) smokeA.current.opacity = 0.32 * haze * (1 - s * 0.6);
+      if (smokeB.current) smokeB.current.opacity = 0.16 * haze * (1 - s * 0.6);
       if (rainMat.current) {
         rainMat.current.opacity = 0.5 * dive * intro;
         rainTex?.texture.offset.set((t * 0.008) % 1, 0);
@@ -227,7 +273,7 @@ function Chamber({
       if (sweep.current) {
         const a = t * 0.35;
         sweep.current.position.set(2.9 + Math.cos(a) * 2.8, 1.9 + Math.sin(t * 0.5) * 0.5, -2.6 + Math.sin(a) * 2.8);
-        sweep.current.intensity = 5 + Math.sin(t * 0.7) * 1.5;
+        sweep.current.intensity = (5 + Math.sin(t * 0.7) * 1.5) * lights;
       }
     } else {
       cam.position.set(0, 1.35, 7.8);
@@ -235,6 +281,7 @@ function Chamber({
       if (smokeA.current) smokeA.current.opacity = 0;
       if (smokeB.current) smokeB.current.opacity = 0;
       if (rainMat.current) rainMat.current.opacity = 0;
+      if (sweep.current) sweep.current.intensity = 5;
     }
     void delta;
   });
@@ -242,13 +289,13 @@ function Chamber({
   return (
     <group ref={rig}>
       <fog attach="fog" args={[colors.background, 10, 22]} />
-      <ambientLight intensity={0.32} color="#2a3350" />
-      <directionalLight position={[-5, 6, 4]} intensity={0.85} color="#9db8ff" />
-      <pointLight position={[-2.4, 1.6, -1.2]} intensity={14} distance={9} color={colors.accentCyan} />
-      <pointLight position={[4.5, 2.5, -4]} intensity={11} distance={10} color={colors.accentViolet} />
+      <ambientLight ref={ambient} intensity={0.32} color="#2a3350" />
+      <directionalLight ref={keyLight} position={[-5, 6, 4]} intensity={0.85} color="#9db8ff" />
+      <pointLight ref={cyanLight} position={[-2.4, 1.6, -1.2]} intensity={14} distance={9} color={colors.accentCyan} />
+      <pointLight ref={violetLight} position={[4.5, 2.5, -4]} intensity={11} distance={10} color={colors.accentViolet} />
       <pointLight ref={sweep} position={[5.7, 1.9, -2.6]} intensity={5} distance={8} color={colors.accentCyan} />
       {/* One restrained warm practical — the lamp in the dark */}
-      <pointLight position={[-4.4, 2.6, -3.4]} intensity={7} distance={8} color="#ffb46b" />
+      <pointLight ref={warmLight} position={[-4.4, 2.6, -3.4]} intensity={7} distance={8} color="#ffb46b" />
       <mesh position={[-4.4, 2.6, -3.4]}>
         <sphereGeometry args={[0.05, 10, 10]} />
         <meshBasicMaterial color="#ffcf99" />
@@ -337,7 +384,7 @@ function Chamber({
       </group>
 
       {/* The antenna — hero anchor that watches back */}
-      <Dish pointer={pointer} />
+      <Dish pointer={pointer} introRef={introRef} />
       <mesh position={[2.9, 1.1, -2.6]}>
         <cylinderGeometry args={[0.09, 0.13, 2.2, 12]} />
         <meshStandardMaterial color="#565c66" roughness={0.5} metalness={0.8} />
