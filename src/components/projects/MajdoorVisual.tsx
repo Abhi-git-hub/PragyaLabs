@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -44,13 +44,13 @@ export function MajdoorVisual() {
       // Handset outline
       const pw = Math.min(w * 0.24, 120);
       const ph = pw * 2.05;
-      ctx.strokeStyle = "rgba(244,243,236,0.5)";
+      ctx.strokeStyle = "rgba(242,241,234,0.5)";
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.roundRect(cx - pw / 2, cy - ph / 2, pw, ph, 18);
       ctx.stroke();
       // Signal dot
-      ctx.fillStyle = "#35e9ff";
+      ctx.fillStyle = "#3dffa2";
       ctx.beginPath();
       ctx.arc(cx, cy, 5, 0, Math.PI * 2);
       ctx.fill();

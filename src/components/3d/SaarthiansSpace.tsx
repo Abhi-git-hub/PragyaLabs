@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
@@ -47,7 +47,7 @@ function wordTexture(word: string, accent: boolean): THREE.CanvasTexture {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.font = "700 120px Arial, sans-serif";
-  ctx.fillStyle = accent ? "#35e9ff" : "rgba(244,243,236,0.92)";
+  ctx.fillStyle = accent ? "#3dffa2" : "rgba(242,241,234,0.92)";
   ctx.fillText(word, 512, 128);
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;

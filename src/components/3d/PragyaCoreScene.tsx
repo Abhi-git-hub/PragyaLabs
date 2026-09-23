@@ -196,6 +196,10 @@ export function PragyaCoreScene({
       gl={{ antialias: quality === "high", alpha: true, powerPreference: "high-performance" }}
       frameloop={reduced ? "demand" : "always"}
       aria-hidden="true"
+      onCreated={({ gl }) => {
+        gl.toneMapping = THREE.ACESFilmicToneMapping;
+        gl.toneMappingExposure = 1.1;
+      }}
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[4, 5, 6]} intensity={1.4} color="#ffffff" />

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
 import type { IntroProgressRef, ScrollProgressRef, SurgeRef } from "./PragyaCoreScene";
@@ -10,7 +10,7 @@ const Scene = dynamic(
     ssr: false,
     loading: () => (
       <div className="flex h-full w-full items-center justify-center" aria-hidden="true">
-        <div className="size-48 rounded-full border border-line opacity-60 [background:radial-gradient(circle_at_50%_40%,rgb(53_233_255/0.14),transparent_65%)]" />
+        <div className="size-48 rounded-full border border-line opacity-60 [background:radial-gradient(circle_at_50%_40%,rgb(61_255_162/0.12),transparent_65%)]" />
       </div>
     ),
   }

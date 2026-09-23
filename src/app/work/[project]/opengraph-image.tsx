@@ -1,4 +1,4 @@
-import { ImageResponse } from "next/og";
+﻿import { ImageResponse } from "next/og";
 import { getProject } from "@/data/projects";
 
 /** Per-case-study social cards, generated from the project record. */
@@ -20,16 +20,16 @@ export default function ProjectOgImage({ params }: { params: { project: string }
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#060608",
-          color: "#F4F3EC",
+          background: "#050608",
+          color: "#F2F1EA",
           fontFamily: "Arial, sans-serif",
         }}
       >
-        <div style={{ fontSize: 28, letterSpacing: 6, color: "#35E9FF" }}>
+        <div style={{ fontSize: 28, letterSpacing: 6, color: "#3DFFA2" }}>
           {category.toUpperCase()}
         </div>
         <div style={{ fontSize: 96, fontWeight: 700, marginTop: 16 }}>{title}</div>
-        <div style={{ fontSize: 28, marginTop: 16, color: "#9BA0AB" }}>Pragya Labs — case study</div>
+        <div style={{ fontSize: 28, marginTop: 16, color: "#B3B8B3" }}>Pragya Labs — case study</div>
       </div>
     ),
     { ...size }

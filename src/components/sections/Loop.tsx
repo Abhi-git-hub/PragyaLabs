@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -70,7 +70,7 @@ export function Loop() {
             <Core introRef={introRef.current} quality={capability.tier} className="h-full w-full" />
           ) : (
             <div className="flex h-full w-full items-center justify-center" aria-hidden="true">
-              <div className="size-40 rounded-full border border-line opacity-60 [background:radial-gradient(circle_at_50%_40%,rgb(139_92_255/0.16),transparent_65%)]" />
+              <div className="size-40 rounded-full border border-line opacity-60 [background:radial-gradient(circle_at_50%_40%,rgb(22_143_98/0.2),transparent_65%)]" />
             </div>
           )}
         </Reveal>

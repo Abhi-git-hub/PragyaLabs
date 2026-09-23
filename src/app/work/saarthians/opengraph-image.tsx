@@ -1,4 +1,4 @@
-import { ImageResponse } from "next/og";
+﻿import { ImageResponse } from "next/og";
 import { getProject } from "@/data/projects";
 
 export const size = { width: 1200, height: 630 };
@@ -20,8 +20,8 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#060608",
-          color: "#f4f3ec",
+          background: "#050608",
+          color: "#f2f1ea",
           padding: "64px",
           fontFamily: "sans-serif",
         }}
@@ -33,11 +33,11 @@ export default async function Image() {
             fontSize: 22,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#5b606b",
+            color: "#737b78",
           }}
         >
           <span>PRAGYA LABS</span>
-          <span style={{ color: "#35e9ff" }}>{category}</span>
+          <span style={{ color: "#3dffa2" }}>{category}</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <div
@@ -51,9 +51,9 @@ export default async function Image() {
           >
             {title}
           </div>
-          <div style={{ fontSize: 28, color: "#9ba0ab" }}>{year}</div>
+          <div style={{ fontSize: 28, color: "#b3b8b3" }}>{year}</div>
         </div>
-        <div style={{ fontSize: 20, color: "#5b606b", letterSpacing: 2, textTransform: "uppercase" }}>
+        <div style={{ fontSize: 20, color: "#737b78", letterSpacing: 2, textTransform: "uppercase" }}>
           Digital systems engineered with intelligence.
         </div>
       </div>

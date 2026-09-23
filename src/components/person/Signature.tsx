@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
@@ -78,7 +78,7 @@ export function Signature({ className }: { className?: string }) {
       <div
         ref={passRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 w-1/3 [background:linear-gradient(100deg,transparent,rgb(53_233_255/0.16),transparent)]"
+        className="pointer-events-none absolute inset-y-0 w-1/3 [background:linear-gradient(100deg,transparent,rgb(61_255_162/0.14),transparent)]"
       />
     </div>
   );

@@ -1,38 +1,40 @@
 /**
  * PRAGYA LABS — DESIGN TOKENS (single source of truth for CSS)
- * Phase 1 foundation. Art direction: DARK MATTER / PRISMATIC INTELLIGENCE.
+ * Studio system: obsidian base, porcelain text, phosphor signal.
+ * Visual ratio ≈ 82–88% dark / 8–13% neutral / 2–5% phosphor.
  *
  * Rules:
- * - Color appears through light / reflection / energy / objects / motion.
+ * - Phosphor is a signal, not paint: active / responding / transforming only.
  * - No giant generic gradients. No glassmorphism soup. No SaaS cards.
- * - Surfaces stay near-black; energy colors are accents, used sparingly.
+ * - No blue/purple cyberpunk washes. No gold/yellow neon.
+ * - Surfaces stay near-black; energy arrives through light and motion.
  */
 
 :root {
   /* ---------- Color: base ---------- */
-  --pl-background: #060608; /* obsidian */
-  --pl-surface: #0b0c10; /* graphite */
-  --pl-surface-2: #12141a; /* polished graphite */
-  --pl-foreground: #f4f3ec; /* soft white (bone) */
-  --pl-muted: #9ba0ab; /* secondary text */
-  --pl-faint: #5b606b; /* tertiary / metadata dim */
-  --pl-border: rgb(244 243 236 / 0.09);
-  --pl-border-strong: rgb(244 243 236 / 0.16);
+  --pl-background: #050608; /* obsidian */
+  --pl-surface: #0b0f12; /* graphite */
+  --pl-surface-2: #12181a; /* lifted graphite */
+  --pl-foreground: #f2f1ea; /* porcelain */
+  --pl-muted: #b3b8b3; /* secondary text */
+  --pl-faint: #737b78; /* quiet metadata */
+  --pl-border: rgb(242 241 234 / 0.09);
+  --pl-border-strong: rgb(242 241 234 / 0.16);
 
-  /* ---------- Color: energy (accents — light, not paint) ---------- */
-  --pl-accent-cyan: #35e9ff; /* electric cyan */
-  --pl-accent-blue: #4d7cff; /* spectral blue */
-  --pl-accent-violet: #8b5cff; /* ultraviolet */
-  --pl-accent-lime: #c6ff3d; /* controlled acid lime */
+  /* ---------- Color: signal (phosphor family — light, not paint) ---------- */
+  --pl-accent-cyan: #3dffa2; /* phosphor — the one signal accent */
+  --pl-accent-blue: #7dfdc4; /* light phosphor — secondary glow, large text */
+  --pl-accent-violet: #168f62; /* deep phosphor — fills, borders, fields */
+  --pl-accent-lime: #c9fff0; /* ice highlight — live status only */
 
   /* ---------- Materials ---------- */
   --pl-chrome: linear-gradient(
     135deg,
-    #f4f3ec 0%,
-    #9ba0ab 28%,
-    #3a3d46 50%,
-    #9ba0ab 72%,
-    #f4f3ec 100%
+    #f2f1ea 0%,
+    #b3b8b3 28%,
+    #2a3130 50%,
+    #b3b8b3 72%,
+    #f2f1ea 100%
   );
 
   /* ---------- Typography ---------- */
@@ -72,11 +74,11 @@
   --pl-radius-lg: 12px;
   --pl-radius-full: 9999px;
 
-  /* ---------- Shadow (restrained; glow reserved for energy) ---------- */
+  /* ---------- Shadow (restrained; glow reserved for signal) ---------- */
   --pl-shadow-subtle: 0 1px 0 rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
-  --pl-glow-cyan: 0 0 24px -4px rgb(53 233 255 / 0.45);
-  --pl-glow-violet: 0 0 24px -4px rgb(139 92 255 / 0.45);
-  --pl-glow-lime: 0 0 24px -6px rgb(198 255 61 / 0.35);
+  --pl-glow-cyan: 0 0 24px -4px rgb(61 255 162 / 0.4);
+  --pl-glow-violet: 0 0 24px -4px rgb(22 143 98 / 0.5);
+  --pl-glow-lime: 0 0 24px -6px rgb(201 255 240 / 0.3);
 
   /* ---------- Blur (backgrounds only, never content) ---------- */
   --pl-blur-sm: 4px;

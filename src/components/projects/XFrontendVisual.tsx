@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -42,11 +42,11 @@ export function XFrontendVisual() {
       ctx.clearRect(0, 0, w, h);
 
       // Sidebar rail
-      ctx.fillStyle = "rgb(244 243 236 / 0.04)";
+      ctx.fillStyle = "rgb(242 241 234 / 0.04)";
       ctx.fillRect(w * 0.08, h * 0.1, w * 0.14, h * 0.8);
       for (let i = 0; i < 5; i++) {
         const y = h * (0.18 + i * 0.12);
-        ctx.fillStyle = i === Math.floor(pulse * 5) % 5 ? "rgb(53 233 255 / 0.55)" : "rgb(244 243 236 / 0.18)";
+        ctx.fillStyle = i === Math.floor(pulse * 5) % 5 ? "rgb(61 255 162 / 0.55)" : "rgb(242 241 234 / 0.18)";
         ctx.fillRect(w * 0.11, y, w * 0.08, 3);
       }
 
@@ -57,35 +57,35 @@ export function XFrontendVisual() {
       for (let i = 0; i < rows; i++) {
         const y = h * (0.1 + i * 0.13);
         const active = Math.abs(((t * 0.4 + i * 0.15) % 1) - 0.5) < 0.08;
-        ctx.strokeStyle = active ? "rgb(53 233 255 / 0.45)" : "rgb(244 243 236 / 0.1)";
+        ctx.strokeStyle = active ? "rgb(61 255 162 / 0.45)" : "rgb(242 241 234 / 0.1)";
         ctx.lineWidth = 1;
         ctx.strokeRect(feedX, y, feedW, h * 0.11);
         // Avatar
-        ctx.fillStyle = active ? "rgb(53 233 255 / 0.35)" : "rgb(244 243 236 / 0.12)";
+        ctx.fillStyle = active ? "rgb(61 255 162 / 0.35)" : "rgb(242 241 234 / 0.12)";
         ctx.beginPath();
         ctx.arc(feedX + 18, y + h * 0.035, 8, 0, Math.PI * 2);
         ctx.fill();
         // Lines of content
-        ctx.fillStyle = "rgb(244 243 236 / 0.22)";
+        ctx.fillStyle = "rgb(242 241 234 / 0.22)";
         ctx.fillRect(feedX + 36, y + h * 0.025, feedW * 0.55, 3);
-        ctx.fillStyle = "rgb(244 243 236 / 0.12)";
+        ctx.fillStyle = "rgb(242 241 234 / 0.12)";
         ctx.fillRect(feedX + 36, y + h * 0.05, feedW * 0.72, 3);
         ctx.fillRect(feedX + 36, y + h * 0.07, feedW * 0.48, 3);
         // Action row
         for (let a = 0; a < 4; a++) {
           ctx.fillStyle =
-            active && a === 1 ? "rgb(198 255 61 / 0.5)" : "rgb(244 243 236 / 0.1)";
+            active && a === 1 ? "rgb(201 255 240 / 0.5)" : "rgb(242 241 234 / 0.1)";
           ctx.fillRect(feedX + 36 + a * 28, y + h * 0.09, 16, 2);
         }
       }
 
       // Trends panel
-      ctx.fillStyle = "rgb(244 243 236 / 0.03)";
+      ctx.fillStyle = "rgb(242 241 234 / 0.03)";
       ctx.fillRect(w * 0.78, h * 0.1, w * 0.14, h * 0.5);
       for (let i = 0; i < 4; i++) {
-        ctx.fillStyle = "rgb(244 243 236 / 0.14)";
+        ctx.fillStyle = "rgb(242 241 234 / 0.14)";
         ctx.fillRect(w * 0.8, h * (0.16 + i * 0.1), w * 0.1, 2);
-        ctx.fillStyle = "rgb(244 243 236 / 0.08)";
+        ctx.fillStyle = "rgb(242 241 234 / 0.08)";
         ctx.fillRect(w * 0.8, h * (0.18 + i * 0.1), w * 0.08, 2);
       }
 

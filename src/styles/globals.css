@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "./tokens.css";
 
 @theme inline {
@@ -43,7 +43,7 @@ body {
 
 ::selection {
   background: var(--pl-accent-cyan);
-  color: #060608;
+  color: #050608;
 }
 
 /* Visible focus for keyboard users — never remove without replacement. */
@@ -171,12 +171,12 @@ body {
 }
 .orbit-a {
   width: 130%;
-  border: 1px solid rgb(53 233 255 / 0.15);
+  border: 1px solid rgb(61 255 162 / 0.15);
   animation: orbit-spin 26s linear infinite;
 }
 .orbit-b {
   width: 95%;
-  border: 1px solid rgb(139 92 255 / 0.2);
+  border: 1px solid rgb(22 143 98 / 0.25);
 }
 .orbit-sat {
   position: absolute;

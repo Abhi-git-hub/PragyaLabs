@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
-import { cn } from "@/lib/cn";
 
 const Engine = dynamic(() => import("@/components/3d/CraftEngine").then((m) => m.CraftEngineScene), {
   ssr: false,
@@ -99,14 +98,15 @@ export function World02() {
         </div>
         <div className="relative z-10 mx-auto flex h-full w-full max-w-[var(--pl-container)] flex-col justify-end px-[var(--pl-gutter)] pb-20">
           <p className="meta text-faint">World 02 — the lattice engine</p>
-          <div key={station} className="mt-4 max-w-[60ch]">
+          {/* Fixed height: word swaps never move the page */}
+          <div key={station} className="mt-4 max-w-[60ch] min-h-[240px] md:min-h-[300px]">
             <p className="meta text-cyan">
               0{station + 1} / 0{STATIONS.length}
             </p>
             <h2 className="mt-3 font-display text-4xl uppercase leading-tight md:text-6xl">
               {STATIONS[station].word}
             </h2>
-            <p className={cn("mt-3 text-muted")}>{STATIONS[station].line}</p>
+            <p className="mt-3 text-muted">{STATIONS[station].line}</p>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
@@ -96,7 +96,7 @@ export function Hero() {
             quality={capability.tier}
           />
         ) : (
-          <div className="h-full w-full [background:radial-gradient(ellipse_60%_50%_at_50%_42%,rgb(53_233_255/0.06),transparent_70%)]" />
+          <div className="h-full w-full [background:radial-gradient(ellipse_60%_50%_at_50%_42%,rgb(61_255_162/0.06),transparent_70%)]" />
         )}
       </div>
       {/* Legibility falloff + vignette — the frame holds together */}

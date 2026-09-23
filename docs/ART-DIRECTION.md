@@ -13,19 +13,19 @@ portfolio they scroll past. Discovery order: identity → thesis → experimenta
 → work → technology → philosophy → person → contact. Every section must answer
 "what happens here" in one sentence or be cut.
 
-## 2. Visual direction — DARK MATTER / PRISMATIC INTELLIGENCE
+## 2. Visual direction — OBSIDIAN / PHOSPHOR SIGNAL
 
-**Base (80/15):** obsidian `#060608`, graphite `#0B0C10` / `#12141A`, soft bone
-white `#F4F3EC` for type. Rooms stay near-black.
+**Base (82–88%):** obsidian `#050608`, graphite `#0B0F12` / `#12181A`,
+porcelain `#F2F1EA` for type (8–13% neutral). Rooms stay near-black.
 
-**Energy (5%):** electric cyan `#35E9FF`, spectral blue `#4D7CFF`, ultraviolet
-`#8B5CFF`, controlled acid lime `#C6FF3D`. Energy arrives **through light,
-reflection, particles, objects, and motion** — never as flat background fills.
+**Signal (2–5%):** phosphor `#3DFFA2`, light phosphor `#7DFDC4`, deep
+phosphor `#168F62`, ice `#C9FFF0`. Green is a signal, not a background:
+it appears when something is active, responding, transforming, important.
+No blue/purple cyberpunk washes. No gold/yellow neon.
 
-**Signal accent (locked):** electric cyan is the one deliberate accent —
+**Signal accent (locked):** phosphor is the one deliberate accent —
 link hovers, one decisive word per key headline, the signature draw-on,
-active states, focus ring. WCAG AA verified for text/interactive use on
-obsidian before lock-in. Lime is reserved for live status only
+active states, focus ring. Ice is reserved for live status only
 (`Live`, `in-progress`, experiment states) — never decoration, never body.
 
 **Materials:** chrome (one element per viewport max, `text-chrome`), smoked glass
@@ -38,10 +38,10 @@ futuristic cities), fake stats/clients/awards/testimonials, copied layouts.
 ## 3. Color system
 
 Tokens: `--pl-background/surface/surface-2/foreground/muted/faint/border`,
-`--pl-accent-cyan/blue/violet/lime`. Usage law: 80% obsidian/graphite, 15% bone,
-5% energy. Contrast: bone-on-obsidian ≈ 19:1; muted `#9BA0AB` on obsidian ≈ 7:1
-(body-safe); faint `#5B606B` is metadata-only, never body text. Lime-on-black for
-status microcopy only. Live demo: `/` → Foundation F—02.
+`--pl-accent-*` (phosphor family). Usage law: 82–88% dark, 8–13% neutral,
+2–5% signal. Contrast: porcelain-on-obsidian ≈ 19:1; muted `#B3B8B3` on
+obsidian ≈ 8:1 (body-safe); faint `#737B78` is metadata-only, never body
+text. Ice-on-black for status microcopy only.
 
 ## 4. Typography (evaluated, documented choice)
 

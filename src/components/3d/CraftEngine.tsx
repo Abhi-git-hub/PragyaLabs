@@ -29,7 +29,10 @@ const VERT = /* glsl */ `
     vec3 dir = normalize(base + vec3(0.0001));
     vec3 shell = dir * 3.4;
     float w1 = smoothstep(0.18, 0.45, uProgress) * (1.0 - smoothstep(0.62, 0.85, uProgress));
-    float w2 = smoothstep(0.55, 0.8, uProgress);
+    // Finale: the shell releases back into field — the form becomes
+    // material for whatever follows, never finishing into a dead ball.
+    float release = 1.0 - smoothstep(0.9, 1.0, uProgress);
+    float w2 = smoothstep(0.55, 0.8, uProgress) * release;
     vec3 p = mix(base, wave, w1);
     p = mix(p, shell, w2);
     // Pointer disturbance — a pressure field that pushes matter aside.
@@ -156,9 +159,10 @@ function Lattice({
     cam.position.y = THREE.MathUtils.lerp(cam.position.y, -p.y * 0.5, 0.03);
     cam.position.z = THREE.MathUtils.lerp(cam.position.z, 10 - up * 4.2, 0.05);
     cam.lookAt(0, 0, 0);
-    // The core anchors the final state — grows out of the lattice end.
+    // The core anchors the late state, then dissolves with the shell —
+    // form becomes field again, ready to be the next transformation.
     if (core.current && coreMat.current) {
-      const g = THREE.MathUtils.smoothstep(up, 0.78, 1);
+      const g = THREE.MathUtils.smoothstep(up, 0.78, 0.92) * (1 - THREE.MathUtils.smoothstep(up, 0.93, 1));
       core.current.scale.setScalar(Math.max(g * 2.3, 0.0001));
       core.current.rotation.y = t * 0.15;
       core.current.rotation.x = t * 0.08;
@@ -197,6 +201,10 @@ export function CraftEngineScene({
       gl={{ antialias: quality === "high", alpha: true, powerPreference: "high-performance" }}
       frameloop={reduced ? "demand" : "always"}
       aria-hidden="true"
+      onCreated={({ gl }) => {
+        gl.toneMapping = THREE.ACESFilmicToneMapping;
+        gl.toneMappingExposure = 1.1;
+      }}
     >
       <Suspense fallback={null}>
         <Lattice progress={progress} quality={quality} />

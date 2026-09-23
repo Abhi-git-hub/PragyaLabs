@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -60,7 +60,7 @@ export function RetrievalViz() {
       const qx = 0.12 + cycle * 0.76;
 
       // Rails
-      ctx.strokeStyle = "rgba(244,243,236,0.12)";
+      ctx.strokeStyle = "rgba(242,241,234,0.12)";
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(0.06 * w, 0.5 * h);
@@ -85,15 +85,15 @@ export function RetrievalViz() {
         const target = qx > c.x - 0.02 ? 1 : 0;
         c.lit += (target - c.lit) * (reduced ? 1 : 0.08);
         if (cycle < 0.02) c.lit = 0;
-        node(c.x, c.y, 3 + c.lit * 3, c.lit > 0.5 ? "#35e9ff" : "#5b606b", 0.35 + c.lit * 0.65);
+        node(c.x, c.y, 3 + c.lit * 3, c.lit > 0.5 ? "#3dffa2" : "#737b78", 0.35 + c.lit * 0.65);
       }
 
       // Query pulse + answer beam
       const pulseA = cycle < 0.85 ? 0.9 : Math.max(0, 1 - (cycle - 0.85) / 0.15);
-      node(qx, 0.5, 5, "#f4f3ec", pulseA);
-      node(origin.x, origin.y, 6, "#8b5cff", 0.9);
+      node(qx, 0.5, 5, "#f2f1ea", pulseA);
+      node(origin.x, origin.y, 6, "#168f62", 0.9);
       const beam = cycle > 0.7 ? (cycle - 0.7) / 0.3 : 0;
-      node(answer.x, answer.y, 6 + beam * 4, "#c6ff3d", 0.5 + beam * 0.5);
+      node(answer.x, answer.y, 6 + beam * 4, "#c9fff0", 0.5 + beam * 0.5);
 
       // Labels
       ctx.font = `10px "JetBrains Mono", monospace`;

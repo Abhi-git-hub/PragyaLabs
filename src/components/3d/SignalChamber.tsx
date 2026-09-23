@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
@@ -150,8 +150,8 @@ function Chamber({
       m.lookAt(0, 0, 0);
       env.add(m);
     };
-    strip("#9fd8ff", 5.5, 6, 1.6, -6, 3.5, 1); // cool key, left
-    strip("#8b5cff", 3.2, 4, 1.2, 6, 2, -1); // violet kicker, right
+    strip("#c9fff0", 5.5, 6, 1.6, -6, 3.5, 1); // ice key, left
+    strip("#168f62", 3.2, 4, 1.2, 6, 2, -1); // deep phosphor kicker, right
     strip("#3a4a6b", 1.6, 8, 2, 0, 7, 0); // dim cold top
     const pmrem = new THREE.PMREMGenerator(gl);
     const envTex = pmrem.fromScene(env, 0.04).texture;
@@ -290,7 +290,7 @@ function Chamber({
     <group ref={rig}>
       <fog attach="fog" args={[colors.background, 10, 22]} />
       <ambientLight ref={ambient} intensity={0.32} color="#2a3350" />
-      <directionalLight ref={keyLight} position={[-5, 6, 4]} intensity={0.85} color="#9db8ff" />
+      <directionalLight ref={keyLight} position={[-5, 6, 4]} intensity={0.85} color="#cfe8d8" />
       <pointLight ref={cyanLight} position={[-2.4, 1.6, -1.2]} intensity={14} distance={9} color={colors.accentCyan} />
       <pointLight ref={violetLight} position={[4.5, 2.5, -4]} intensity={11} distance={10} color={colors.accentViolet} />
       <pointLight ref={sweep} position={[5.7, 1.9, -2.6]} intensity={5} distance={8} color={colors.accentCyan} />
@@ -327,11 +327,11 @@ function Chamber({
       {/* Foreground silhouettes — dark mass at the frame edges for depth */}
       <mesh position={[-4.6, 2.2, 2.4]} rotation={[0, 0.25, 0.06]}>
         <cylinderGeometry args={[0.5, 0.5, 9, 14]} />
-        <meshStandardMaterial color="#0b0c10" roughness={0.85} metalness={0.3} />
+        <meshStandardMaterial color="#0b0f12" roughness={0.85} metalness={0.3} />
       </mesh>
       <mesh position={[4.8, 1.6, 2.8]} rotation={[0, -0.2, -0.05]}>
         <cylinderGeometry args={[0.38, 0.38, 8, 14]} />
-        <meshStandardMaterial color="#0b0c10" roughness={0.85} metalness={0.3} />
+        <meshStandardMaterial color="#0b0f12" roughness={0.85} metalness={0.3} />
       </mesh>
       {/* Overhead pipe runs */}
       {[3.4, 4.0, 2.8].map((y, i) => (
@@ -375,7 +375,7 @@ function Chamber({
           <meshStandardMaterial
             map={maps.instrument}
             emissiveMap={maps.instrument}
-            emissive="#9fd8ff"
+            emissive="#c9fff0"
             emissiveIntensity={0.5}
             roughness={0.5}
             metalness={0.3}
@@ -476,6 +476,11 @@ export function SignalChamberScene({
       gl={{ antialias: quality === "high", alpha: true, powerPreference: "high-performance" }}
       frameloop={reduced ? "demand" : "always"}
       aria-hidden="true"
+      onCreated={({ gl }) => {
+        // Deliberate grade: filmic rolloff, controlled phosphor, deep blacks kept.
+        gl.toneMapping = THREE.ACESFilmicToneMapping;
+        gl.toneMappingExposure = 1.1;
+      }}
     >
       <Suspense fallback={null}>
         <Chamber scrollRef={scrollRef} introRef={introRef} quality={quality} />
