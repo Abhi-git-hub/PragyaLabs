@@ -117,13 +117,13 @@ function Beacon({
       coreMat.current.emissiveIntensity = (1.6 + Math.sin(t * 1.8) * 0.7 + flare * 2.4) * rise * fade + 0.15;
     }
     if (beaconLight.current) {
-      beaconLight.current.intensity = (9 + flare * 22) * rise * fade;
+      beaconLight.current.intensity = (11 + flare * 22) * rise * fade;
     }
   });
 
   return (
-    <group position={[2.7, 0, -1.6]}>
-      <group ref={group}>
+    <group position={[2.2, 0, -0.9]}>
+      <group ref={group} scale={1.18}>
         {Array.from({ length: RINGS }).map((_, i) => (
           <mesh
             key={i}
@@ -168,7 +168,7 @@ function Beacon({
             />
           </mesh>
         ))}
-        <pointLight ref={beaconLight} position={[0, 1, 0.6]} intensity={9} distance={7} color={colors.accentCyan} />
+        <pointLight ref={beaconLight} position={[0, 1, 0.6]} intensity={11} distance={8} color={colors.accentCyan} />
       </group>
       {/* Mast grounding the object in the architecture */}
       <mesh position={[0, -0.85, 0]}>
@@ -276,11 +276,11 @@ function Chamber({
     const haze = reduced ? 1 : windowed(intro, 0.35, 1);
 
     // Physically staged lighting rig — everything wakes in order.
-    if (ambient.current) ambient.current.intensity = 0.32 * lights;
-    if (keyLight.current) keyLight.current.intensity = 0.85 * lights;
-    if (cyanLight.current) cyanLight.current.intensity = 14 * lights;
-    if (violetLight.current) violetLight.current.intensity = 11 * lights;
-    if (warmLight.current) warmLight.current.intensity = 7 * lights;
+    if (ambient.current) ambient.current.intensity = 0.5 * lights;
+    if (keyLight.current) keyLight.current.intensity = 1.05 * lights;
+    if (cyanLight.current) cyanLight.current.intensity = 18 * lights;
+    if (violetLight.current) violetLight.current.intensity = 13 * lights;
+    if (warmLight.current) warmLight.current.intensity = 8 * lights;
 
     if (!reduced) {
       // Slow approach + pointer parallax + scroll travel toward the beacon.
@@ -288,7 +288,7 @@ function Chamber({
       cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.8, 0.03);
       cam.position.y = THREE.MathUtils.lerp(cam.position.y, 1.35 - p.y * 0.35 + s * 0.7, 0.04);
       cam.position.z = THREE.MathUtils.lerp(cam.position.z, tz, 0.03);
-      cam.lookAt(0.9, 1.2 - s * 0.4, -1.8);
+      cam.lookAt(0.5, 1.2 - s * 0.4, -1.8);
       rig.current.rotation.y = p.x * 0.02;
       // Atmosphere breathes in with the haze window — dust then sheen.
       if (dustMat.current) dustMat.current.opacity = 0.55 * haze;
@@ -296,12 +296,12 @@ function Chamber({
       // Signal sweep — a slow rim light orbiting the beacon.
       if (sweep.current) {
         const a = t * 0.35;
-        sweep.current.position.set(2.7 + Math.cos(a) * 2.8, 1.9 + Math.sin(t * 0.5) * 0.5, -1.6 + Math.sin(a) * 2.8);
-        sweep.current.intensity = (5 + Math.sin(t * 0.7) * 1.5) * lights;
+        sweep.current.position.set(2.2 + Math.cos(a) * 2.8, 1.9 + Math.sin(t * 0.5) * 0.5, -0.9 + Math.sin(a) * 2.8);
+        sweep.current.intensity = (6 + Math.sin(t * 0.7) * 1.5) * lights;
       }
     } else {
       cam.position.set(0, 1.35, 7.8);
-      cam.lookAt(0.9, 1.2, -1.8);
+      cam.lookAt(0.5, 1.2, -1.8);
       if (sweep.current) sweep.current.intensity = 5;
     }
     void delta;
@@ -309,14 +309,14 @@ function Chamber({
 
   return (
     <group ref={rig}>
-      <fog attach="fog" args={[colors.background, 10, 22]} />
-      <ambientLight ref={ambient} intensity={0.32} color="#2a3350" />
-      <directionalLight ref={keyLight} position={[-5, 6, 4]} intensity={0.85} color="#cfe8d8" />
-      <pointLight ref={cyanLight} position={[-2.4, 1.6, -1.2]} intensity={14} distance={9} color={colors.accentCyan} />
-      <pointLight ref={violetLight} position={[4.5, 2.5, -4]} intensity={11} distance={10} color={colors.accentViolet} />
-      <pointLight ref={sweep} position={[5.7, 1.9, -2.6]} intensity={5} distance={8} color={colors.accentCyan} />
+      <fog attach="fog" args={[colors.background, 11, 24]} />
+      <ambientLight ref={ambient} intensity={0.5} color="#2a3350" />
+      <directionalLight ref={keyLight} position={[-5, 6, 4]} intensity={1.05} color="#cfe8d8" />
+      <pointLight ref={cyanLight} position={[-2.4, 1.6, -1.2]} intensity={18} distance={9} color={colors.accentCyan} />
+      <pointLight ref={violetLight} position={[4.5, 2.5, -4]} intensity={13} distance={10} color={colors.accentViolet} />
+      <pointLight ref={sweep} position={[5.7, 1.9, -2.6]} intensity={6} distance={8} color={colors.accentCyan} />
       {/* One restrained warm practical — the lamp in the dark */}
-      <pointLight ref={warmLight} position={[-4.4, 2.6, -3.4]} intensity={7} distance={8} color="#ffb46b" />
+      <pointLight ref={warmLight} position={[-4.4, 2.6, -3.4]} intensity={8} distance={8} color="#ffb46b" />
       <mesh position={[-4.4, 2.6, -3.4]}>
         <sphereGeometry args={[0.05, 10, 10]} />
         <meshBasicMaterial color="#ffcf99" />
@@ -407,7 +407,7 @@ function Chamber({
       {/* THE BEACON — the object the opening is about */}
       <Beacon pointer={pointer} introRef={introRef} scroll={scrollRef ?? { current: 0 }} beat={beatRef} />
       {/* Faked floor bounce under the beacon */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.7, 0.02, -1.6]}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.2, 0.02, -0.9]}>
         <planeGeometry args={[4.5, 4.5]} />
         <meshBasicMaterial
           ref={sheenMat}

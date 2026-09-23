@@ -100,8 +100,12 @@ body {
   display: block;
   overflow: hidden;
 }
-.mask-line > span {
+.mask-line > span[data-hero-line] {
   display: block;
+  will-change: transform;
+}
+.mask-line > span[data-hero-char] {
+  display: inline-block;
   will-change: transform;
 }
 
