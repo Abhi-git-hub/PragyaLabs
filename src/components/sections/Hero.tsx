@@ -24,6 +24,7 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const typeRef = useRef<HTMLDivElement | null>(null);
   const cueRef = useRef<HTMLDivElement | null>(null);
+  const ruleRef = useRef<HTMLDivElement | null>(null);
   const scrollProgress = useRef({ current: 0 });
   const introProgress = useRef({ current: 0 });
   const [live, setLive] = useState(false);
@@ -50,13 +51,27 @@ export function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
       tl.to(introProgress.current, { current: 1, duration: duration.epic + 0.4 }, 0.15)
+        // Character cascade — each letter rises with a whisper of rotation.
+        .fromTo(
+          "[data-hero-char]",
+          { yPercent: 118, rotate: 5 },
+          { yPercent: 0, rotate: 0, duration: duration.cinematic, stagger: 0.045 },
+          0.45
+        )
         .fromTo(
           lines ?? [],
           { yPercent: 112 },
           { yPercent: 0, duration: duration.cinematic, stagger: 0.12 },
-          0.5
+          0.9
         )
-        .fromTo(cueRef.current, { opacity: 0 }, { opacity: 1, duration: duration.base }, "-=0.4");
+        // Phosphor rule draws itself beneath the statement.
+        .fromTo(
+          ruleRef.current,
+          { scaleX: 0 },
+          { scaleX: 1, duration: duration.slow, ease: "expo.inOut" },
+          "-=0.7"
+        )
+        .fromTo(cueRef.current, { opacity: 0 }, { opacity: 1, duration: duration.base }, "-=0.3");
     }, sectionRef);
     return () => ctx.revert();
   }, [reduced]);
@@ -105,24 +120,41 @@ export function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(180deg, rgb(6 6 8 / 0.55) 0%, rgb(6 6 8 / 0.12) 40%, rgb(6 6 8 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(6 6 8 / 0.55) 100%)",
+            "linear-gradient(180deg, rgb(5 6 8 / 0.55) 0%, rgb(5 6 8 / 0.12) 40%, rgb(5 6 8 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(5 6 8 / 0.55) 100%)",
         }}
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] flex-1 flex-col justify-end px-[var(--pl-gutter)] pb-16 pt-28">
         <div ref={typeRef}>
-          <h1 className="font-display uppercase leading-[0.92]">
-            <span className="mask-line">
-              <span data-hero-line className="text-[clamp(3.8rem,13vw,11rem)]">
-                Pragya
-              </span>
+          <h1 className="font-display uppercase leading-[0.92]" aria-label="Pragya Labs">
+            <span className="mask-line" aria-hidden="true">
+              {"Pragya".split("").map((ch, i) => (
+                <span
+                  key={i}
+                  data-hero-char
+                  className="inline-block text-[clamp(3.8rem,13vw,11rem)] will-change-transform"
+                >
+                  {ch}
+                </span>
+              ))}
             </span>
-            <span className="mask-line">
-              <span data-hero-line className="text-chrome text-[clamp(3.8rem,13vw,11rem)]">
-                Labs
-              </span>
+            <span className="mask-line" aria-hidden="true">
+              {"Labs".split("").map((ch, i) => (
+                <span
+                  key={i}
+                  data-hero-char
+                  className="text-chrome inline-block text-[clamp(3.8rem,13vw,11rem)] will-change-transform"
+                >
+                  {ch}
+                </span>
+              ))}
             </span>
           </h1>
+          <div
+            ref={ruleRef}
+            aria-hidden="true"
+            className="mt-7 h-px w-40 origin-left bg-cyan"
+          />
           <Display as="p" size="sm" className="mt-6 max-w-[20ch]">
             <span className="mask-line">
               <span data-hero-line>Digital systems</span>

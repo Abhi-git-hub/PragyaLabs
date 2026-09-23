@@ -32,7 +32,7 @@ function windowed(intro: number, from: number, to: number): number {
   return t * t * (3 - 2 * t);
 }
 
-/** Soft radial sheen — faked floor bounce under the dish. */
+/** Soft radial sheen — faked floor bounce under the beacon. */
 function useSheen(): THREE.Texture {
   return useMemo(() => {
     const c = document.createElement("canvas");
@@ -49,62 +49,124 @@ function useSheen(): THREE.Texture {
   }, []);
 }
 
-/** Procedural parabolic dish — the signal motif, built not loaded.
- *  The head tracks the pointer; the body rises out of darkness on arrival. */
-function Dish({
+const RINGS = 7;
+
+/**
+ * THE BEACON — a transmitter assembling itself as you arrive.
+ * Seven rings orbit a phosphor core; satellites trace its signal.
+ * Scroll disperses it into the journey — arrival becomes departure.
+ * The one object the opening is about.
+ */
+function Beacon({
   pointer,
   introRef,
+  scroll,
 }: {
   pointer: React.MutableRefObject<{ x: number; y: number }>;
   introRef?: IntroProgressRef;
+  scroll: React.MutableRefObject<number>;
 }) {
   const group = useRef<THREE.Group>(null!);
-  const tipMat = useRef<THREE.MeshStandardMaterial>(null!);
+  const rings = useRef<Array<THREE.Mesh | null>>([]);
+  const sats = useRef<Array<THREE.Mesh | null>>([]);
+  const coreMat = useRef<THREE.MeshStandardMaterial>(null!);
+  const beaconLight = useRef<THREE.PointLight>(null!);
   const reduced = useMemo(() => prefersReducedMotion(), []);
-  const geometry = useMemo(() => {
-    const pts: THREE.Vector2[] = [];
-    for (let i = 0; i <= 24; i++) {
-      const r = (i / 24) * 1.15;
-      pts.push(new THREE.Vector2(Math.max(r, 0.001), r * r * 0.5));
-    }
-    return new THREE.LatheGeometry(pts, 48);
-  }, []);
 
   useFrame((state) => {
     const intro = THREE.MathUtils.clamp(introRef?.current ?? 1, 0, 1);
-    const rise = reduced ? 1 : windowed(intro, 0.25, 0.75);
+    const s = scroll.current;
+    const t = state.clock.elapsedTime;
     const g = group.current;
-    g.position.y = THREE.MathUtils.lerp(-0.7, 0, rise);
-    const s = 0.9 + 0.1 * rise;
-    g.scale.setScalar(s);
-    if (!reduced) {
-      const t = state.clock.elapsedTime;
-      g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, -0.5 + pointer.current.x * 0.45, 0.03);
-      g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, -0.5 - pointer.current.y * 0.22, 0.03);
-      if (tipMat.current) tipMat.current.emissiveIntensity = (2.6 + Math.sin(t * 2.2) * 1.2) * rise;
+    const rise = reduced ? 1 : windowed(intro, 0.2, 0.7);
+    // Assemble on arrival, disperse on scroll — one transformation.
+    const spread = reduced ? 0 : s * 1.35;
+    g.position.y = THREE.MathUtils.lerp(-0.9, 0.15, rise) + s * 1.1;
+    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, pointer.current.x * 0.22, 0.04);
+    g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, -pointer.current.y * 0.12, 0.04);
+    const fade = 1 - s * 0.75;
+
+    for (let i = 0; i < RINGS; i++) {
+      const r = rings.current[i];
+      if (!r) continue;
+      const dir = i % 2 === 0 ? 1 : -1;
+      r.rotation.z = reduced ? i * 0.4 : t * (0.12 + i * 0.035) * dir + i * 0.35;
+      r.position.y = (i - (RINGS - 1) / 2) * (0.34 + spread * 0.42);
+      const m = r.material as THREE.MeshStandardMaterial;
+      m.opacity = fade * rise;
+      m.transparent = true;
+    }
+    sats.current.forEach((sat, i) => {
+      if (!sat) return;
+      const a = (reduced ? 1 : t * (0.3 + i * 0.12)) + (i * Math.PI * 2) / 3;
+      const rr = 1.9 + spread * 1.3;
+      sat.position.set(Math.cos(a) * rr, 0.4 + Math.sin(t * 0.5 + i) * 0.3 + spread * 0.8, Math.sin(a) * rr);
+      const m = sat.material as THREE.MeshStandardMaterial;
+      m.opacity = fade * rise;
+      m.transparent = true;
+    });
+    if (coreMat.current) {
+      coreMat.current.emissiveIntensity = (1.6 + Math.sin(t * 1.8) * 0.7) * rise * fade + 0.15;
+    }
+    if (beaconLight.current) {
+      beaconLight.current.intensity = 9 * rise * fade;
     }
   });
 
   return (
-    <group position={[2.9, 0.4, -2.6]}>
-      <group ref={group} rotation={[-0.5, -0.5, 0.15]}>
-        <mesh geometry={geometry}>
-          <meshStandardMaterial color="#aeb6c2" metalness={0.65} roughness={0.3} side={THREE.DoubleSide} />
+    <group position={[2.7, 0, -1.6]}>
+      <group ref={group}>
+        {Array.from({ length: RINGS }).map((_, i) => (
+          <mesh
+            key={i}
+            ref={(m) => {
+              rings.current[i] = m;
+            }}
+            rotation={[Math.PI / 2.15, 0.12 * i, 0]}
+          >
+            <torusGeometry args={[0.55 + i * 0.16, 0.032, 12, 64]} />
+            <meshStandardMaterial color="#8f979e" roughness={0.35} metalness={0.9} />
+          </mesh>
+        ))}
+        {/* Core column with phosphor slits */}
+        <mesh>
+          <cylinderGeometry args={[0.11, 0.14, 2.5, 16]} />
+          <meshStandardMaterial color="#1c2026" roughness={0.5} metalness={0.7} />
         </mesh>
-        <mesh position={[0, 0.42, 0.62]} rotation={[0.5, 0, 0]}>
-          <cylinderGeometry args={[0.03, 0.03, 0.9, 8]} />
-          <meshStandardMaterial color="#3a3f47" metalness={0.9} roughness={0.4} />
-        </mesh>
-        <mesh position={[0, 0.22, 0.98]}>
-          <sphereGeometry args={[0.06, 12, 12]} />
-          <meshStandardMaterial
-            ref={tipMat}
-            color={colors.accentCyan}
-            emissive={colors.accentCyan}
-            emissiveIntensity={3}
-          />
-        </mesh>
+        {[0.5, 1.25, 2.0].map((y) => (
+          <mesh key={y} position={[0, y - 0.55, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[0.125, 0.022, 8, 32]} />
+            <meshStandardMaterial
+              ref={y === 1.25 ? coreMat : undefined}
+              color={colors.accentCyan}
+              emissive={colors.accentCyan}
+              emissiveIntensity={1.6}
+            />
+          </mesh>
+        ))}
+        {/* Signal satellites */}
+        {[0, 1, 2].map((i) => (
+          <mesh
+            key={i}
+            ref={(m) => {
+              sats.current[i] = m;
+            }}
+          >
+            <sphereGeometry args={[i === 0 ? 0.07 : 0.045, 12, 12]} />
+            <meshStandardMaterial
+              color={i === 0 ? colors.accentCyan : colors.foreground}
+              emissive={i === 0 ? colors.accentCyan : "#000000"}
+              emissiveIntensity={i === 0 ? 2.5 : 0}
+            />
+          </mesh>
+        ))}
+        <pointLight ref={beaconLight} position={[0, 1, 0.6]} intensity={9} distance={7} color={colors.accentCyan} />
       </group>
+      {/* Mast grounding the object in the architecture */}
+      <mesh position={[0, -0.85, 0]}>
+        <cylinderGeometry args={[0.16, 0.24, 1.7, 12]} />
+        <meshStandardMaterial color="#3a4048" roughness={0.55} metalness={0.8} />
+      </mesh>
     </group>
   );
 }
@@ -125,10 +187,9 @@ function Chamber({
   const violetLight = useRef<THREE.PointLight>(null!);
   const warmLight = useRef<THREE.PointLight>(null!);
   const ambient = useRef<THREE.AmbientLight>(null!);
-  const smokeA = useRef<THREE.MeshBasicMaterial>(null!);
-  const smokeB = useRef<THREE.MeshBasicMaterial>(null!);
-  const rainMat = useRef<THREE.MeshBasicMaterial>(null!);
   const pointer = useRef({ x: 0, y: 0 });
+  const dustMat = useRef<THREE.PointsMaterial>(null!);
+  const sheenMat = useRef<THREE.MeshBasicMaterial>(null!);
   const reduced = useMemo(() => prefersReducedMotion(), []);
   const { gl, scene } = useThree();
   const [pipes, plaster, rubber, shutter, bluemetal, instrument] = useLoader(
@@ -152,7 +213,7 @@ function Chamber({
     };
     strip("#c9fff0", 5.5, 6, 1.6, -6, 3.5, 1); // ice key, left
     strip("#168f62", 3.2, 4, 1.2, 6, 2, -1); // deep phosphor kicker, right
-    strip("#3a4a6b", 1.6, 8, 2, 0, 7, 0); // dim cold top
+    strip("#3a4a44", 1.6, 8, 2, 0, 7, 0); // dim cold top
     const pmrem = new THREE.PMREMGenerator(gl);
     const envTex = pmrem.fromScene(env, 0.04).texture;
     scene.environment = envTex;
@@ -190,48 +251,7 @@ function Chamber({
     return geo;
   }, [quality]);
 
-  // Smoke film as masked volumetric layers (additive over black).
-  const smokeTex = useMemo(() => {
-    if (reduced || typeof document === "undefined") return null;
-    const video = document.createElement("video");
-    video.src = "/film/smoke--atmos.mp4";
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "auto";
-    video.play().catch(() => undefined);
-    const t = new THREE.VideoTexture(video);
-    t.colorSpace = THREE.SRGBColorSpace;
-    return { texture: t, video };
-  }, [reduced]);
-
-  // Rain film as the refraction boundary between worlds.
-  const rainTex = useMemo(() => {
-    if (reduced || typeof document === "undefined") return null;
-    const video = document.createElement("video");
-    video.src = "/film/rain--lens.mp4";
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "auto";
-    video.play().catch(() => undefined);
-    const t = new THREE.VideoTexture(video);
-    t.colorSpace = THREE.SRGBColorSpace;
-    t.wrapS = THREE.RepeatWrapping;
-    return { texture: t, video };
-  }, [reduced]);
-
-  useEffect(
-    () => () => {
-      smokeTex?.video.pause();
-      smokeTex?.video.removeAttribute("src");
-      smokeTex?.texture.dispose();
-      rainTex?.video.pause();
-      rainTex?.video.removeAttribute("src");
-      rainTex?.texture.dispose();
-    },
-    [smokeTex, rainTex]
-  );
+  // Pure realtime — no video layers in the hero. The medium is the message.
 
   useFrame((state, delta) => {
     const intro = THREE.MathUtils.clamp(introRef?.current ?? 1, 0, 1);
@@ -244,9 +264,6 @@ function Chamber({
     // The arrival staging: darkness → environment → object → identity.
     const lights = reduced ? 1 : windowed(intro, 0, 0.55);
     const haze = reduced ? 1 : windowed(intro, 0.35, 1);
-    // The state change: past 55% the chamber is behind glass — rain rises,
-    // the camera commits to the dive, the world hands off.
-    const dive = reduced ? 0 : THREE.MathUtils.smoothstep(s, 0.45, 1);
 
     // Physically staged lighting rig — everything wakes in order.
     if (ambient.current) ambient.current.intensity = 0.32 * lights;
@@ -256,31 +273,25 @@ function Chamber({
     if (warmLight.current) warmLight.current.intensity = 7 * lights;
 
     if (!reduced) {
-      // Slow approach + pointer parallax + scroll travel into the dive.
-      const tz = 9.2 - intro * 1.4 - s * 2.6 - dive * 2.2;
+      // Slow approach + pointer parallax + scroll travel toward the beacon.
+      const tz = 9.2 - intro * 1.4 - s * 2.6;
       cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.8, 0.03);
       cam.position.y = THREE.MathUtils.lerp(cam.position.y, 1.35 - p.y * 0.35 + s * 0.7, 0.04);
       cam.position.z = THREE.MathUtils.lerp(cam.position.z, tz, 0.03);
-      cam.lookAt(0, 1.3 - s * 0.4, -2.5);
+      cam.lookAt(0.9, 1.2 - s * 0.4, -1.8);
       rig.current.rotation.y = p.x * 0.02;
-      if (smokeA.current) smokeA.current.opacity = 0.32 * haze * (1 - s * 0.6);
-      if (smokeB.current) smokeB.current.opacity = 0.16 * haze * (1 - s * 0.6);
-      if (rainMat.current) {
-        rainMat.current.opacity = 0.5 * dive * intro;
-        rainTex?.texture.offset.set((t * 0.008) % 1, 0);
-      }
-      // Signal sweep — a slow rim light orbiting the dish.
+      // Atmosphere breathes in with the haze window — dust then sheen.
+      if (dustMat.current) dustMat.current.opacity = 0.55 * haze;
+      if (sheenMat.current) sheenMat.current.opacity = 0.14 * haze;
+      // Signal sweep — a slow rim light orbiting the beacon.
       if (sweep.current) {
         const a = t * 0.35;
-        sweep.current.position.set(2.9 + Math.cos(a) * 2.8, 1.9 + Math.sin(t * 0.5) * 0.5, -2.6 + Math.sin(a) * 2.8);
+        sweep.current.position.set(2.7 + Math.cos(a) * 2.8, 1.9 + Math.sin(t * 0.5) * 0.5, -1.6 + Math.sin(a) * 2.8);
         sweep.current.intensity = (5 + Math.sin(t * 0.7) * 1.5) * lights;
       }
     } else {
       cam.position.set(0, 1.35, 7.8);
-      cam.lookAt(0, 1.3, -2.5);
-      if (smokeA.current) smokeA.current.opacity = 0;
-      if (smokeB.current) smokeB.current.opacity = 0;
-      if (rainMat.current) rainMat.current.opacity = 0;
+      cam.lookAt(0.9, 1.2, -1.8);
       if (sweep.current) sweep.current.intensity = 5;
     }
     void delta;
@@ -329,7 +340,7 @@ function Chamber({
         <cylinderGeometry args={[0.5, 0.5, 9, 14]} />
         <meshStandardMaterial color="#0b0f12" roughness={0.85} metalness={0.3} />
       </mesh>
-      <mesh position={[4.8, 1.6, 2.8]} rotation={[0, -0.2, -0.05]}>
+      <mesh position={[5.4, 1.6, 2.8]} rotation={[0, -0.2, -0.05]}>
         <cylinderGeometry args={[0.38, 0.38, 8, 14]} />
         <meshStandardMaterial color="#0b0f12" roughness={0.85} metalness={0.3} />
       </mesh>
@@ -383,16 +394,13 @@ function Chamber({
         </mesh>
       </group>
 
-      {/* The antenna — hero anchor that watches back */}
-      <Dish pointer={pointer} introRef={introRef} />
-      <mesh position={[2.9, 1.1, -2.6]}>
-        <cylinderGeometry args={[0.09, 0.13, 2.2, 12]} />
-        <meshStandardMaterial color="#565c66" roughness={0.5} metalness={0.8} />
-      </mesh>
-      {/* Faked floor bounce under the dish */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.9, 0.02, -2.6]}>
+      {/* THE BEACON — the object the opening is about */}
+      <Beacon pointer={pointer} introRef={introRef} scroll={scrollRef ?? { current: 0 }} />
+      {/* Faked floor bounce under the beacon */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.7, 0.02, -1.6]}>
         <planeGeometry args={[4.5, 4.5]} />
         <meshBasicMaterial
+          ref={sheenMat}
           map={sheen}
           color={colors.accentCyan}
           transparent
@@ -402,50 +410,10 @@ function Chamber({
         />
       </mesh>
 
-      {/* Smoke volumetric layers */}
-      {smokeTex && (
-        <>
-          <mesh position={[0, 2.6, -0.8]}>
-            <planeGeometry args={[17, 9.5]} />
-            <meshBasicMaterial
-              ref={smokeA}
-              map={smokeTex.texture}
-              transparent
-              opacity={0}
-              depthWrite={false}
-              blending={THREE.AdditiveBlending}
-            />
-          </mesh>
-          <mesh position={[-3, 2.2, -3.2]} rotation={[0, Math.PI, 0]}>
-            <planeGeometry args={[12, 7]} />
-            <meshBasicMaterial
-              ref={smokeB}
-              map={smokeTex.texture}
-              transparent
-              opacity={0}
-              depthWrite={false}
-              blending={THREE.AdditiveBlending}
-            />
-          </mesh>
-        </>
-      )}
-      {/* Rain refraction boundary — the world behind glass */}
-      {rainTex && (
-        <mesh position={[0, 2.4, 1.6]}>
-          <planeGeometry args={[15, 8.5]} />
-          <meshBasicMaterial
-            ref={rainMat}
-            map={rainTex.texture}
-            transparent
-            opacity={0}
-            depthWrite={false}
-            blending={THREE.AdditiveBlending}
-          />
-        </mesh>
-      )}
       {/* Dust */}
       <points geometry={dust}>
         <pointsMaterial
+          ref={dustMat}
           color={colors.accentCyan}
           size={0.03}
           transparent
@@ -477,7 +445,6 @@ export function SignalChamberScene({
       frameloop={reduced ? "demand" : "always"}
       aria-hidden="true"
       onCreated={({ gl }) => {
-        // Deliberate grade: filmic rolloff, controlled phosphor, deep blacks kept.
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.toneMappingExposure = 1.1;
       }}
