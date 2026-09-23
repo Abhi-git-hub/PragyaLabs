@@ -6,18 +6,33 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "Contact — Pragya Labs" });
 
-/** Contact. One channel, no dead forms. */
+/** Contact. One channel, no dead forms — framing matches homepage (PRD §6.7). */
 export default function ContactPage() {
   return (
     <SectionContainer index="06" eyebrow="Contact">
       <Reveal>
-        <Display size="hero">Enter the lab.</Display>
+        <Display size="hero">
+          Let&apos;s build
+          <br />
+          something<span className="text-cyan">.</span>
+        </Display>
         <Body className="mt-6">
-          One clear channel. Write to the lab — {site.location}.
+          Bring the problem and the timeline — the reply comes from the lab.
         </Body>
-        <p className="meta mt-8 border border-line px-5 py-4 text-bone">
-          {site.contact.email}
-        </p>
+        <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+          <a
+            href={`mailto:${site.contact.email}?subject=Project%20inquiry%20—%20Pragya%20Labs`}
+            data-cursor="OPEN"
+            className="group inline-flex w-fit items-center gap-4 border border-line-strong px-7 py-4 transition-colors hover:border-cyan"
+          >
+            <span className="meta text-bone transition-colors group-hover:text-cyan">Start a project →</span>
+          </a>
+          <p className="meta text-faint">
+            {site.contact.email}
+            <br />
+            {site.location} — replies from the lab
+          </p>
+        </div>
       </Reveal>
     </SectionContainer>
   );

@@ -8,6 +8,7 @@ import { Person } from "@/components/sections/Person";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { Loop } from "@/components/sections/Loop";
 import { GlyphBand } from "@/components/motion/GlyphBand";
+import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "Pragya Labs — Digital systems engineered with intelligence." });
@@ -20,6 +21,7 @@ export const metadata = buildMetadata({ title: "Pragya Labs — Digital systems 
 export default function HomePage() {
   return (
     <>
+      <SiteJsonLd />
       <HeroArrival />
       <Thesis />
       <GlyphBand label="SYS—TRANSIT / 01" />

@@ -61,7 +61,7 @@ export function Loop() {
           </Link>
         </Reveal>
         <Reveal className="relative h-[46svh] overflow-hidden border border-line bg-void/40 lg:h-auto lg:min-h-[420px]">
-          <div className="absolute left-4 top-3 z-10">
+          <div className="absolute left-4 top-3 z-10" aria-hidden="true">
             <span className="meta text-faint">OBJ—CORE/10 — reassembled</span>
           </div>
           {/* Orbital echo: the signature line, become a path home */}

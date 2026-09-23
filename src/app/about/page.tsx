@@ -5,14 +5,17 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { Portrait } from "@/components/person/Portrait";
 import { Signature } from "@/components/person/Signature";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/config/site";
-import { person, storyBeats } from "@/data/story";
+import { storyBeats } from "@/data/story";
+import { principles } from "@/data/principles";
 import { getProject } from "@/data/projects";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "About — Pragya Labs" });
 
-/** The readable story: background, journey, focus, approach, work, contact. */
+/** The readable story: background, journey, focus, approach, work, contact.
+ *  Journey / principles / work all pull from single content sources (TRD §6). */
 export default function AboutPage() {
   const featured = ["saarthians", "stock-rag", "x-frontend-clone"]
     .map((slug) => getProject(slug))
@@ -20,23 +23,32 @@ export default function AboutPage() {
 
   return (
     <>
+      <SiteJsonLd />
       <SectionContainer index="05" eyebrow="About — the person">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <Reveal>
             <Display size="lg">Engineer, not persona.</Display>
             <Body className="mt-6">
-              Pragya Labs is the practice of {person.name}, one creative engineer
-              working across AI, the web, and interaction — {site.location.toLowerCase()},{" "}
-              {site.year}. Restraint as a feature: fewer, better systems.
+              One engineer, {site.location} — building systems where AI earns
+              its place and interfaces disappear. This page is the longer
+              version: the face, the path, the method, and the work it produced.
             </Body>
             <dl className="meta mt-8 grid gap-3 border-t border-line pt-6 sm:grid-cols-2">
-              <div><dt className="text-faint">Discipline</dt><dd className="mt-1 text-bone">Creative engineering</dd></div>
-              <div><dt className="text-faint">Coordinates</dt><dd className="mt-1 text-bone">{site.location} — {site.year}</dd></div>
+              <div>
+                <dt className="text-faint">Discipline</dt>
+                <dd className="mt-1 text-bone">Creative engineering</dd>
+              </div>
+              <div>
+                <dt className="text-faint">Coordinates</dt>
+                <dd className="mt-1 text-bone">
+                  {site.location} — {site.year}
+                </dd>
+              </div>
             </dl>
           </Reveal>
           <Reveal>
             <Portrait className="h-[46svh] lg:h-full lg:min-h-[440px]" />
-            <div className="mt-3 flex items-center justify-between">
+            <div className="mt-3 flex items-center justify-between" aria-hidden="true">
               <Eyebrow className="text-faint">Abhi — Delhi, 2026</Eyebrow>
               <Eyebrow className="text-faint">Fig. 01</Eyebrow>
             </div>
@@ -51,7 +63,9 @@ export default function AboutPage() {
               <Eyebrow className="text-cyan">{beat.era}</Eyebrow>
               <h2 className="mt-3 font-display text-2xl uppercase md:text-4xl">{beat.title}</h2>
               {beat.lines.map((line) => (
-                <p key={line} className="mt-3 max-w-[62ch] leading-relaxed text-muted">{line}</p>
+                <p key={line} className="mt-3 max-w-[62ch] leading-relaxed text-muted">
+                  {line}
+                </p>
               ))}
             </div>
           ))}
@@ -61,7 +75,9 @@ export default function AboutPage() {
       <SectionContainer index="05—C" eyebrow="Approach + selected work">
         <div className="grid gap-10 lg:grid-cols-2">
           <Reveal>
-            <h2 className="font-display text-2xl uppercase md:text-3xl">Build before you brag.</h2>
+            <h2 className="font-display text-2xl uppercase md:text-3xl">
+              {principles[4]?.title ?? "Build before you brag."}
+            </h2>
             <Body className="mt-4">
               Complexity made invisible, motion that communicates, performance
               treated as design, AI aimed at real problems. The work below is

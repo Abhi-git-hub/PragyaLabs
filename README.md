@@ -1,9 +1,9 @@
-# Pragya Labs — Phase 3R: One Continuous Experience
+# Pragya Labs — Elevation Pass: Proof Over Polish
 
-**Thesis:** digital systems engineered with intelligence. **Status:** recomposed.
-Seven home chapters (Arrival → Origin → Work → Systems → Approach → Person →
-Contact) plus thesis statement and orbital Loop echo. The LAB is the brand —
-its systems run inside the Work worlds. No demo galleries on any public route.
+**Thesis:** digital systems engineered with intelligence. **Status:** elevated
+per PRD/TRD v1.0 — living hero layer, deepened case studies from a single
+content source, draw-on signature mark, SEO/observability wired, no invented
+facts. Unresolved owner inputs are tracked outside the repo, never filled.
 
 ## Quickstart
 

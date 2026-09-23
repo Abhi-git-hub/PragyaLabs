@@ -21,13 +21,19 @@ export function SaarthiansVisual({ step, total }: { step: number; total: number 
   return (
     <div className="relative h-full w-full" data-cursor="EXPLORE">
       <ParticleLab />
-      <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-4 py-3">
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-4 py-3"
+        aria-hidden="true"
+      >
         <span className="meta text-faint">SYS—SAARTHIANS / LIVE DATA</span>
         <span className="meta text-faint">
           {String(step + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </span>
       </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between px-4 py-3">
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between px-4 py-3"
+        aria-hidden="true"
+      >
         <span className="meta text-faint">Move to disturb — click to detonate</span>
       </div>
     </div>

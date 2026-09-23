@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Anton, Inter, JetBrains_Mono } from "next/font/google";
 import { SiteNav } from "@/components/navigation/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -36,7 +38,7 @@ export const viewport: Viewport = {
 /**
  * Global page shell: fonts, ambient background system, nav, footer.
  * Lenis smoothing, contextual cursor, and subtle route transitions
- * wrap every route.
+ * wrap every route. Analytics + Speed Insights report real-user CWV (TRD §11).
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -58,6 +60,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Cursor />
           </SmoothScroll>
         </CursorProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -21,7 +21,12 @@ white `#F4F3EC` for type. Rooms stay near-black.
 **Energy (5%):** electric cyan `#35E9FF`, spectral blue `#4D7CFF`, ultraviolet
 `#8B5CFF`, controlled acid lime `#C6FF3D`. Energy arrives **through light,
 reflection, particles, objects, and motion** — never as flat background fills.
-Lime is a signal color (status, active states), not decoration.
+
+**Signal accent (locked):** electric cyan is the one deliberate accent —
+link hovers, one decisive word per key headline, the signature draw-on,
+active states, focus ring. WCAG AA verified for text/interactive use on
+obsidian before lock-in. Lime is reserved for live status only
+(`Live`, `in-progress`, experiment states) — never decoration, never body.
 
 **Materials:** chrome (one element per viewport max, `text-chrome`), smoked glass
 (background scrims only), crystal/polished graphite (3D surfaces).

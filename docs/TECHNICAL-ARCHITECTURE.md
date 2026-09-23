@@ -24,12 +24,14 @@ src/
                   RouteTransition, EnvironmentLayer (poster-first video),
                   GlyphBand (scroll-excited chapter seams)
     3d/           BackgroundField (2D ambient), PragyaCoreScene + Canvas (dynamic,
-                  intro/scroll/surge refs, quality tiers)
+                  intro/scroll/surge refs, quality tiers), HeroField (pointer +
+                  scroll reactive particle veil, code-split, tiered fallback)
     lab/          ParticleLab (Saarthians data layer), RetrievalViz (RAG world);
                   CursorLab + TypeLab persist as tuned prototypes behind the
                   global cursor and glyph seams (rAF 2D, gated, tree-shaken
                   when unimported)
-    person/       Portrait (parallax + grain), Signature (screen-blend + light pass)
+    person/       Portrait (parallax + grain), Signature = SignatureMark
+                  (authentic raster, clip-wipe draw-on + light pass)
     projects/     ProjectCard (enriched rows), CaseStudy (verified-only),
                   SystemFlow (Saarthians pipeline), SaarthiansVisual (live layer)
     sections/     HeroArrival, Thesis, Story→Origin, Work (worlds),
@@ -38,7 +40,8 @@ src/
                   use-device-capability (high/reduced tiers)
   lib/            motion (GSAP registry + gate), smooth-scroll (Lenis),
                   metadata, cn (no clsx dependency)
-  data/           projects (typed, placeholders explicit),
+  data/           projects (single source: problem/decisions/challenge/
+                  outcome/gallery, metrics omitted until real),
                   story (owner-provided facts only), stack (evidence-linked)
   config/         site/routes, tokens mirror, cursor states
   styles/         tokens.css (source of truth) + globals.css (Tailwind v4 @theme)
@@ -86,9 +89,18 @@ R3F 3D, CSS micro).
 ## Accessibility strategy
 
 Landmarks + skip link + one `h1`/route, visible cyan focus, keyboard-operable
-menu, decorative canvases `aria-hidden`, reduced-motion final-state rendering
-before any signature motion, contrast-safe tokens (faint = metadata only),
-44px+ touch targets, status never color-alone.
+menu, decorative HUD labels + canvases `aria-hidden`, reduced-motion
+final-state rendering before any signature motion, contrast-safe tokens
+(signal cyan ≈13.8:1 on obsidian, faint = metadata only), 44px+ touch targets,
+status never color-alone.
+
+## Observability & SEO
+
+Vercel Analytics + Speed Insights in the root layout (first-party, minimal).
+`sitemap.ts` + `robots.ts` cover all routes incl. generated case studies;
+per-case OG images via `opengraph-image.tsx`; Organization/Person JSON-LD on
+`/` and `/about`. Lighthouse CI workflow asserts performance ≥90 and LCP
+≤2s on hero/case routes per PR.
 
 ## Toolchain
 

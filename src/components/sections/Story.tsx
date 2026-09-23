@@ -54,7 +54,7 @@ export function Origin() {
             <div ref={revealRef} className="relative">
               <Portrait className="h-[54svh] lg:h-[68vh]" />
             </div>
-            <div className="mt-3 flex items-center justify-between">
+            <div className="mt-3 flex items-center justify-between" aria-hidden="true">
               <Eyebrow className="text-faint">Discovered, not presented — keep scrolling</Eyebrow>
               <Eyebrow className="text-faint">Fig. 01</Eyebrow>
             </div>

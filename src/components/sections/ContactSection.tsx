@@ -28,7 +28,9 @@ export function ContactSection() {
           <p className="meta text-faint">
             {site.contact.email}
             <br />
-            {site.location} — replies from the lab
+            Bring the problem and the timeline — the reply comes from the lab.
+            <br />
+            {site.location}
           </p>
         </div>
       </Reveal>

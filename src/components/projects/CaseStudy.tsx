@@ -1,102 +1,126 @@
+import Image from "next/image";
+import type { ReactNode } from "react";
 import { Display } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import type { Project } from "@/data/projects";
 import { cn } from "@/lib/cn";
 
-function isPending(value: string): boolean {
-  return value.trimStart().toLowerCase().startsWith("placeholder");
-}
-
-function verifiedList(values: string[]): string[] {
-  return values.filter((v) => !isPending(v));
-}
-
-function matchTech(project: Project, pattern: RegExp): string[] {
-  return project.technologies.filter((t) => pattern.test(t));
-}
-
-type Section = { index: string; title: string; body: React.ReactNode };
+type Section = { index: string; title: string; body: ReactNode };
 
 /**
- * Case-study architecture: PROBLEM → SYSTEM → DESIGN → ENGINEERING →
- * AI → SECURITY → EXPERIENCE. Only verified content renders — sections
- * without verified material are withheld (never invented, never announced).
- * The full seven-section structure activates as each narrative is verified.
+ * Case-study template (PRD §6.4): Entry → Problem → Approach → Visual proof →
+ * Challenge → Outcome → Stack. Gallery renders when real assets exist;
+ * `visual` (interactive diagram) stands in honestly until then.
  */
-export function CaseStudy({ project }: { project: Project }) {
-  const aiSignals = matchTech(project, /ai|rag|llm|embedding|retrieval|grounding|agent/i);
-  const securitySignals = matchTech(project, /rls|security|auth|supabase|postgres|policy|test/i);
-
-  const candidates: Array<Section | null> = [
-    isPending(project.challenge)
-      ? null
-      : { index: "S—01", title: "Problem", body: <p>{project.challenge}</p> },
-    isPending(project.approach)
-      ? null
-      : {
-          index: "S—02",
-          title: "System",
-          body: (
-            <>
-              <p>{project.approach}</p>
-              <p className="meta mt-4 text-faint">Stack — {project.technologies.join(" / ")}</p>
-            </>
-          ),
-        },
-    verifiedList(project.design).length === 0
-      ? null
-      : {
-          index: "S—03",
-          title: "Design",
-          body: (
-            <ul className="space-y-2">
-              {verifiedList(project.design).map((d, i) => (
-                <li key={i}>{d}</li>
-              ))}
-            </ul>
-          ),
-        },
-    verifiedList(project.engineering).length === 0
-      ? null
-      : {
-          index: "S—04",
-          title: "Engineering",
-          body: (
-            <ul className="space-y-2">
-              {verifiedList(project.engineering).map((d, i) => (
-                <li key={i}>{d}</li>
-              ))}
-            </ul>
-          ),
-        },
-    aiSignals.length === 0
-      ? null
-      : { index: "S—05", title: "AI", body: <p>{aiSignals.join(" / ")}</p> },
-    securitySignals.length === 0
-      ? null
-      : { index: "S—06", title: "Security", body: <p>{securitySignals.join(" / ")}</p> },
-    isPending(project.outcome)
-      ? null
-      : { index: "S—07", title: "Experience", body: <p>{project.outcome}</p> },
+export function CaseStudy({
+  project,
+  visual,
+}: {
+  project: Project;
+  visual?: ReactNode;
+}) {
+  const sections: Section[] = [
+    { index: "S—01", title: "Problem", body: <p>{project.problem}</p> },
+    {
+      index: "S—02",
+      title: "Approach",
+      body: (
+        <ul className="space-y-3">
+          {project.decisions.map((d, i) => (
+            <li key={i} className="flex gap-3">
+              <span aria-hidden="true" className="meta mt-1 text-cyan">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span>{d}</span>
+            </li>
+          ))}
+        </ul>
+      ),
+    },
+    ...(project.challenge
+      ? [
+          {
+            index: "S—03",
+            title: project.challenge.title,
+            body: <p>{project.challenge.body}</p>,
+          } as Section,
+        ]
+      : []),
+    {
+      index: "S—04",
+      title: "Outcome",
+      body: <p>{project.outcome}</p>,
+    },
+    {
+      index: "S—05",
+      title: "Stack",
+      body: <p className="meta leading-loose text-bone">{project.technologies.join(" / ")}</p>,
+    },
   ];
 
-  const sections = candidates.filter((s): s is Section => s !== null);
-  if (sections.length === 0) return null;
-
   return (
-    <Stagger className="mt-14 space-y-0">
-      {sections.map((s) => (
-        <article
-          key={s.index}
-          data-stagger-item
-          className="grid gap-3 border-t border-line py-8 last:border-b md:grid-cols-[88px_220px_1fr] md:gap-8"
-        >
-          <span className="meta text-faint">{s.index}</span>
-          <h2 className="font-display text-2xl uppercase md:text-3xl">{s.title}</h2>
-          <div className="max-w-[62ch] text-base leading-relaxed text-muted">{s.body}</div>
-        </article>
-      ))}
-    </Stagger>
+    <>
+      {(visual || project.gallery.length > 0) && (
+        <div className="mt-14">
+          <p className="meta mb-4 text-faint" aria-hidden="true">
+            Visual proof
+          </p>
+          {visual && (
+            <div className="relative h-[46svh] border border-line bg-void/40 md:h-[52vh]">
+              {visual}
+            </div>
+          )}
+          {project.gallery.length > 0 && (
+            <Stagger className={cn("grid gap-px bg-line md:grid-cols-2", visual ? "mt-px" : undefined)}>
+              {project.gallery.map((g) => (
+                <figure key={g.src} data-stagger-item className="bg-void">
+                  <Image
+                    src={g.src}
+                    alt={g.alt}
+                    width={g.width}
+                    height={g.height}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="block w-full"
+                    loading="lazy"
+                  />
+                  {g.caption && (
+                    <figcaption className="meta px-5 py-3 text-faint">{g.caption}</figcaption>
+                  )}
+                </figure>
+              ))}
+            </Stagger>
+          )}
+        </div>
+      )}
+      <Stagger className="mt-14 space-y-0">
+        {sections.slice(0, 2).map((s) => (
+          <article
+            key={s.index}
+            data-stagger-item
+            className="grid gap-3 border-t border-line py-8 last:border-b md:grid-cols-[88px_220px_1fr] md:gap-8"
+          >
+            <span className="meta text-faint" aria-hidden="true">{s.index}</span>
+            <h2 className="font-display text-2xl uppercase md:text-3xl">{s.title}</h2>
+            <div className="max-w-[62ch] text-base leading-relaxed text-muted">{s.body}</div>
+          </article>
+        ))}
+      </Stagger>
+      <Stagger className="mt-14 space-y-0">
+        {sections.slice(2).map((s) => (
+          <article
+            key={s.index}
+            data-stagger-item
+            className="grid gap-3 border-t border-line py-8 last:border-b md:grid-cols-[88px_220px_1fr] md:gap-8"
+          >
+            <span className="meta text-faint" aria-hidden="true">
+              {s.index}
+            </span>
+            <h2 className="font-display text-2xl uppercase md:text-3xl">{s.title}</h2>
+            <div className="max-w-[62ch] text-base leading-relaxed text-muted">{s.body}</div>
+          </article>
+        ))}
+      </Stagger>
+    </>
   );
 }
 
@@ -105,8 +129,8 @@ export function CaseStudyHeader({ project }: { project: Project }) {
   const facts = [
     { term: "Year", value: project.year },
     { term: "Status", value: project.status },
-    ...(isPending(project.role) ? [] : [{ term: "Role", value: project.role }]),
-    ...(isPending(project.outcome) ? [] : [{ term: "Outcome", value: project.outcome }]),
+    ...(project.liveUrl ? [{ term: "Live", value: project.liveUrl }] : []),
+    ...(project.repositoryUrl ? [{ term: "Code", value: project.repositoryUrl }] : []),
   ];
 
   return (
@@ -119,7 +143,21 @@ export function CaseStudyHeader({ project }: { project: Project }) {
         {facts.map(({ term, value }) => (
           <div key={term}>
             <dt className="text-faint">{term}</dt>
-            <dd className={cn("mt-1", term === "Outcome" ? "text-lime" : "text-bone")}>{value}</dd>
+            <dd className={cn("mt-1", term === "Status" ? "text-lime" : "text-bone")}>
+              {term === "Live" || term === "Code" ? (
+                <a
+                  href={value}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-cursor="OPEN"
+                  className="transition-colors hover:text-cyan"
+                >
+                  Open →
+                </a>
+              ) : (
+                value
+              )}
+            </dd>
           </div>
         ))}
       </dl>

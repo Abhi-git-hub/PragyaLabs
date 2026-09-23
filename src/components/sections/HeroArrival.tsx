@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { PragyaCoreCanvas } from "@/components/3d/PragyaCoreCanvas";
 import { EnvironmentLayer } from "@/components/motion/EnvironmentLayer";
 import { Display, Eyebrow } from "@/components/typography/Type";
@@ -8,6 +9,12 @@ import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { duration } from "@/config/tokens";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
+
+// Living particle veil — split out so type paints before WebGL hydrates.
+const HeroField = dynamic(() => import("@/components/3d/HeroField").then((m) => m.HeroField), {
+  ssr: false,
+  loading: () => null,
+});
 
 /**
  * SCENE 01 — ARRIVAL. The placeholder hero is now the real hero.
@@ -118,11 +125,18 @@ export function HeroArrival() {
       <div ref={envRef} className="absolute inset-0">
         <EnvironmentLayer capability={capability} trigger={sectionRef} />
       </div>
+      {/* Living layer: pointer-reactive particles above the media, below type */}
+      <HeroField
+        scrollRef={scrollProgress.current}
+        quality={capability.tier}
+        live={canvasLive}
+        className="absolute inset-0 z-[1]"
+      />
 
       <div className="relative z-10 mx-auto grid w-full max-w-[var(--pl-container)] flex-1 gap-10 px-[var(--pl-gutter)] pb-14 pt-24 md:pt-28 lg:grid-cols-12 lg:gap-8">
         {/* Typography field */}
         <div ref={typeRef} className="flex flex-col justify-end lg:col-span-7">
-          <div className="mb-6 flex items-center justify-between gap-4 md:mb-8">
+          <div className="mb-6 flex items-center justify-between gap-4 md:mb-8" aria-hidden="true">
             <Eyebrow className="text-cyan">SYS.ONLINE — Arrival / 01</Eyebrow>
             <Eyebrow className="hidden text-faint sm:block">Delhi — India / 2026</Eyebrow>
           </div>
@@ -154,9 +168,7 @@ export function HeroArrival() {
             </Display>
           </div>
           <div ref={metaRef} className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
-            <p className="meta text-faint">Creative engineering</p>
-            <p className="meta text-faint">AI / Web / Interaction</p>
-            <p className="meta text-lime">Interactive — move / scroll</p>
+            <p className="meta text-bone">No team. No template. Systems built to work.</p>
           </div>
         </div>
 
@@ -168,7 +180,7 @@ export function HeroArrival() {
               surge.current.current = 1;
             }}
           >
-            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3">
+            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3" aria-hidden="true">
               <span className="meta text-faint">OBJ—CORE/02</span>
               <span className="meta flex items-center gap-2 text-faint">
                 <span className="inline-block size-1.5 rounded-full bg-lime" aria-hidden="true" />
@@ -188,7 +200,7 @@ export function HeroArrival() {
                 <div className="size-48 rounded-full border border-line opacity-60 [background:radial-gradient(circle_at_50%_40%,rgb(53_233_255/0.14),transparent_65%)]" />
               </div>
             )}
-            <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between px-4 py-3">
+            <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between px-4 py-3" aria-hidden="true">
               <span className="meta text-faint">Pointer → tilt / Press → surge</span>
               <span className="meta hidden text-faint sm:block">Scroll → descent</span>
             </div>
@@ -201,7 +213,7 @@ export function HeroArrival() {
         className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] items-center gap-4 px-[var(--pl-gutter)] pb-8"
       >
         <div className="cue-line" aria-hidden="true" />
-        <p className="meta text-faint">Scroll to explore</p>
+        <p className="meta text-faint">Scroll — the system responds</p>
       </div>
     </section>
   );

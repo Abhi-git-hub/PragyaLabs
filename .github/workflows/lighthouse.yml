@@ -1,0 +1,38 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    paths:
+      - "src/app/**"
+      - "src/components/**"
+      - "public/**"
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: C:\Users\hp\Desktop\PragyaLabs\package-lock.json
+      - run: npm ci
+        working-directory: C:\Users\hp\Desktop\PragyaLabs
+      - run: npm run build
+        working-directory: C:\Users\hp\Desktop\PragyaLabs
+      - name: Start production server
+        run: |
+          (npm run start &)
+          npx --yes wait-on http://localhost:3000
+        working-directory: C:\Users\hp\Desktop\PragyaLabs
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://localhost:3000/
+            http://localhost:3000/work/saarthians
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 2
+          configPath: ./lighthouserc.json

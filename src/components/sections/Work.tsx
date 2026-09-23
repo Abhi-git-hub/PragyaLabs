@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 import { Display, Eyebrow } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
-import { ProjectCard } from "@/components/projects/ProjectCard";
 import { getProject } from "@/data/projects";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
@@ -20,26 +19,21 @@ const RagDiagram = dynamic(
   () => import("@/components/lab/RetrievalViz").then((m) => m.RetrievalViz),
   { ssr: false, loading: () => <div className="h-full w-full bg-void" aria-hidden="true" /> }
 );
+const XFeed = dynamic(
+  () => import("@/components/projects/XFrontendVisual").then((m) => m.XFrontendVisual),
+  { ssr: false, loading: () => <div className="h-full w-full bg-void" aria-hidden="true" /> }
+);
 
 /**
  * CHAPTER 03 — WORK. Each project is its own visual world.
- * Saarthians: a scrolled system narrative beside its live data layer.
- * Stock/RAG: a living retrieval diagram. X recreation: a compact specimen.
+ * Narrative beats and summaries come from `data/projects` — never duplicated here.
  */
-
-const STEPS = [
-  { title: "Entry", body: "Saarthians — an AI-grounded learning platform where material, people, and intelligence meet." },
-  { title: "Interface", body: "A Next.js workspace uniting students and teachers in one surface." },
-  { title: "Authorization", body: "Supabase row-level security — every classroom sees only its own data." },
-  { title: "Data", body: "A materials pipeline with PDF grounding feeding everything above it." },
-  { title: "AI", body: "A tutor that answers from the material — retrieval over reverie." },
-  { title: "Security + testing", body: "Policies and systems verified live, not assumed." },
-  { title: "Current state", body: "In progress. The system runs, and keeps growing." },
-];
 
 const RAG_BEATS = ["Data", "Retrieval", "Reasoning", "Answer"];
 
 function SaarthiansWorld() {
+  const project = getProject("saarthians");
+  const steps = project?.narrative ?? [];
   const railRef = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(0);
   const reduced = usePrefersReducedMotion();
@@ -72,25 +66,31 @@ function SaarthiansWorld() {
     return () => ctx.revert();
   }, [reduced]);
 
+  if (!project || steps.length === 0) return null;
+
   return (
     <div className="mt-12">
       <Reveal>
         <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-          <span className="meta text-faint">01</span>
-          <h3 className="font-display text-3xl uppercase md:text-5xl">Saarthians</h3>
+          <span className="meta text-faint" aria-hidden="true">
+            {project.number}
+          </span>
+          <h3 className="font-display text-3xl uppercase md:text-5xl">{project.title}</h3>
         </div>
-        <p className="meta mt-3 text-faint">Education platform — 2025–2026 — in progress</p>
+        <p className="meta mt-3 text-faint">
+          {project.category} — {project.year} — {project.status}
+        </p>
       </Reveal>
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         <div ref={railRef} className="order-2 space-y-0 lg:order-1">
-          {STEPS.map((s, i) => (
+          {steps.map((s, i) => (
             <div
               key={s.title}
               data-step
               className={cn("border-t border-line py-6 last:border-b", i === active && "border-line-strong")}
             >
               <div className="flex items-baseline gap-4">
-                <span className={cn("meta", i === active ? "text-cyan" : "text-faint")}>
+                <span className={cn("meta", i === active ? "text-cyan" : "text-faint")} aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h4 className="font-display text-xl uppercase md:text-2xl">{s.title}</h4>
@@ -99,7 +99,7 @@ function SaarthiansWorld() {
             </div>
           ))}
           <Link
-            href="/work/saarthians"
+            href={`/work/${project.slug}`}
             data-cursor="OPEN"
             className="meta mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
           >
@@ -108,7 +108,7 @@ function SaarthiansWorld() {
         </div>
         <div className="order-1 lg:order-2">
           <div className="h-[52svh] border border-line bg-void/40 lg:sticky lg:top-24 lg:h-[72vh]">
-            <SaarthiansFlow step={active} total={STEPS.length} />
+            <SaarthiansFlow step={active} total={steps.length} />
           </div>
         </div>
       </div>
@@ -117,26 +117,30 @@ function SaarthiansWorld() {
 }
 
 function RagWorld() {
+  const project = getProject("stock-rag");
+  if (!project) return null;
+
   return (
     <div className="mt-20">
       <Reveal>
         <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-          <span className="meta text-faint">02</span>
+          <span className="meta text-faint" aria-hidden="true">
+            {project.number}
+          </span>
           <h3 className="font-display text-3xl uppercase md:text-5xl">Stock / RAG</h3>
         </div>
-        <p className="meta mt-3 text-faint">AI / Data / Retrieval — 2025 — experiment</p>
-        <p className="mt-4 max-w-[62ch] leading-relaxed text-muted">
-          An experiment in grounded answers over financial data. No performance
-          claims — the architecture is the story.
+        <p className="meta mt-3 text-faint">
+          {project.category} — {project.year} — {project.status}
         </p>
+        <p className="mt-4 max-w-[62ch] leading-relaxed text-muted">{project.problem}</p>
       </Reveal>
       <Reveal className="mt-8">
         <div className="relative h-[46svh] border border-line bg-void/40 md:h-[52vh]" data-cursor="EXPLORE">
           <RagDiagram />
-          <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-4 py-3">
+          <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-4 py-3" aria-hidden="true">
             <span className="meta text-faint">SYS—RETRIEVAL / LIVE DIAGRAM</span>
           </div>
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 px-4 py-3">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 px-4 py-3" aria-hidden="true">
             <p className="meta text-faint">
               {RAG_BEATS.join("  →  ")} — press to reseed the query
             </p>
@@ -145,7 +149,7 @@ function RagWorld() {
       </Reveal>
       <Reveal>
         <Link
-          href="/work/stock-rag"
+          href={`/work/${project.slug}`}
           data-cursor="OPEN"
           className="meta mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
         >
@@ -156,9 +160,53 @@ function RagWorld() {
   );
 }
 
-export function Work() {
-  const xclone = getProject("x-frontend-clone");
+function XWorld() {
+  const project = getProject("x-frontend-clone");
+  if (!project) return null;
 
+  return (
+    <div className="mt-20">
+      <Reveal>
+        <div aria-hidden="true">
+          <Eyebrow className="mb-2 text-faint">
+            {project.number} — compact specimen
+          </Eyebrow>
+        </div>
+        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+          <h3 className="font-display text-3xl uppercase md:text-5xl">{project.title}</h3>
+        </div>
+        <p className="meta mt-3 text-faint">
+          {project.category} — {project.year} — {project.status}
+        </p>
+      </Reveal>
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+        <Reveal>
+          <ul className="space-y-4 border-t border-line pt-6">
+            {(project.breakdown ?? [project.summary]).map((line) => (
+              <li key={line} className="max-w-[52ch] leading-relaxed text-muted">
+                {line}
+              </li>
+            ))}
+          </ul>
+          <Link
+            href={`/work/${project.slug}`}
+            data-cursor="OPEN"
+            className="meta mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
+          >
+            Open the specimen →
+          </Link>
+        </Reveal>
+        <Reveal>
+          <div className="relative h-[40svh] border border-line bg-void/40 md:h-[46vh]">
+            <XFeed />
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  );
+}
+
+export function Work() {
   return (
     <SectionContainer index="03" eyebrow="The work" id="work" className="scroll-mt-20">
       <Reveal>
@@ -172,15 +220,7 @@ export function Work() {
 
       <SaarthiansWorld />
       <RagWorld />
-
-      {xclone && (
-        <div className="mt-20">
-          <Reveal>
-            <Eyebrow className="mb-2 text-faint">03 — compact specimen</Eyebrow>
-          </Reveal>
-          <ProjectCard project={xclone} />
-        </div>
-      )}
+      <XWorld />
     </SectionContainer>
   );
 }
