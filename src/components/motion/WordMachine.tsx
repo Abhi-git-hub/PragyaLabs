@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -84,12 +84,12 @@ export function WordMachine({ onBeat }: { onBeat?: () => void }) {
       {/* Ghost echo — the word's afterimage, trailing behind in outline */}
       <p
         aria-hidden="true"
-        className="font-display pointer-events-none absolute inset-0 -translate-x-4 uppercase leading-none tracking-wide text-transparent text-[clamp(2.6rem,7vw,5.5rem)] [-webkit-text-stroke:1px_rgb(61_255_162/0.35)]"
+        className="font-display pointer-events-none absolute inset-0 -translate-x-4 uppercase leading-none tracking-wide text-transparent text-[clamp(2rem,5.2vw,4.2rem)] [-webkit-text-stroke:1px_rgb(61_255_162/0.35)]"
       >
         {word}
         <span>.</span>
       </p>
-      <p className="font-display relative uppercase leading-none tracking-wide text-[clamp(2.6rem,7vw,5.5rem)]">
+      <p className="font-display relative uppercase leading-none tracking-wide text-[clamp(2rem,5.2vw,4.2rem)]">
         <span className="sr-only">{word}. </span>
         <span aria-hidden="true">
           {word.split("").map((ch, i) => (

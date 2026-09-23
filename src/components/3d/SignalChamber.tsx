@@ -288,7 +288,7 @@ function Chamber({
       cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.8, 0.03);
       cam.position.y = THREE.MathUtils.lerp(cam.position.y, 1.35 - p.y * 0.35 + s * 0.7, 0.04);
       cam.position.z = THREE.MathUtils.lerp(cam.position.z, tz, 0.03);
-      cam.lookAt(0.5, 1.2 - s * 0.4, -1.8);
+      cam.lookAt(-0.7, 1.2 - s * 0.4, -1.8);
       rig.current.rotation.y = p.x * 0.02;
       // Atmosphere breathes in with the haze window — dust then sheen.
       if (dustMat.current) dustMat.current.opacity = 0.55 * haze;
@@ -301,7 +301,7 @@ function Chamber({
       }
     } else {
       cam.position.set(0, 1.35, 7.8);
-      cam.lookAt(0.5, 1.2, -1.8);
+      cam.lookAt(-0.7, 1.2, -1.8);
       if (sweep.current) sweep.current.intensity = 5;
     }
     void delta;
@@ -397,7 +397,7 @@ function Chamber({
             map={maps.instrument}
             emissiveMap={maps.instrument}
             emissive="#c9fff0"
-            emissiveIntensity={0.5}
+            emissiveIntensity={0.32}
             roughness={0.5}
             metalness={0.3}
           />

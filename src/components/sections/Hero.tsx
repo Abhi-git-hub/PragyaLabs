@@ -26,6 +26,7 @@ export function Hero() {
   const typeRef = useRef<HTMLDivElement | null>(null);
   const cueRef = useRef<HTMLDivElement | null>(null);
   const ruleRef = useRef<HTMLDivElement | null>(null);
+  const machineRef = useRef<HTMLDivElement | null>(null);
   const scrollProgress = useRef({ current: 0 });
   const introProgress = useRef({ current: 0 });
   const beat = useRef(-1);
@@ -62,9 +63,9 @@ export function Hero() {
         )
         .fromTo(
           lines ?? [],
-          { yPercent: 112 },
-          { yPercent: 0, duration: duration.cinematic, stagger: 0.12 },
-          0.9
+          { yPercent: 112, filter: "blur(10px)" },
+          { yPercent: 0, filter: "blur(0px)", duration: duration.cinematic, stagger: 0.16 },
+          1.0
         )
         // Phosphor rule draws itself beneath the statement.
         .fromTo(
@@ -93,6 +94,12 @@ export function Hero() {
         opacity: 0,
         ease: "none",
         scrollTrigger: { trigger: el, start: "top top", end: "75% top", scrub: true },
+      });
+      gsap.to(machineRef.current, {
+        yPercent: -30,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: { trigger: el, start: "top top", end: "60% top", scrub: true },
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -158,7 +165,7 @@ export function Hero() {
             aria-hidden="true"
             className="mt-7 h-px w-40 origin-left bg-cyan"
           />
-          <Display as="p" size="sm" className="mt-6 max-w-[20ch]">
+          <Display as="p" size="md" className="mt-10 max-w-[16ch]">
             <span className="mask-line">
               <span data-hero-line>Digital systems</span>
             </span>
@@ -167,16 +174,19 @@ export function Hero() {
             </span>
             <span className="mask-line">
               <span data-hero-line>
-                intelligence<span className="text-cyan">.</span>
+                intelligence<span className="text-cyan [text-shadow:0_0_28px_rgb(61_255_162/0.55)]">.</span>
               </span>
             </span>
           </Display>
         </div>
       </div>
 
-      {/* The bridge — large, centered, between headline and Beacon.
-          Static in flow on mobile, absolute center stage on desktop. */}
-      <div className="relative z-[5] mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] pb-10 lg:absolute lg:left-1/2 lg:top-[40%] lg:mx-0 lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:-translate-y-1/2 lg:px-0 lg:pb-0">
+      {/* The bridge — offset right of the headline, clear breathing room.
+          Static in flow on mobile, staged right-of-center on desktop. */}
+      <div
+        ref={machineRef}
+        className="relative z-[5] mx-auto mt-10 w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] lg:absolute lg:left-[57%] lg:top-[38%] lg:mx-0 lg:mt-0 lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:-translate-y-1/2 lg:px-0"
+      >
         <WordMachine
           onBeat={() => {
             if (beat.current < 0) beat.current = 0;
@@ -187,10 +197,13 @@ export function Hero() {
 
       <div
         ref={cueRef}
-        className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] items-center gap-4 px-[var(--pl-gutter)] pb-8"
+        className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] items-center justify-between gap-4 px-[var(--pl-gutter)] pb-8"
       >
-        <div className="cue-line" aria-hidden="true" />
-        <p className="meta text-faint">Scroll — the chamber responds</p>
+        <div className="flex items-center gap-4">
+          <div className="cue-line" aria-hidden="true" />
+          <p className="meta text-faint">Scroll — the chamber responds</p>
+        </div>
+        <p className="meta hidden text-faint sm:block">Delhi — India / 2026</p>
       </div>
     </section>
   );
