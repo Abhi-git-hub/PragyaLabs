@@ -78,6 +78,14 @@ proof: its frames carry AI-generated UI text (verified frame-by-frame).
   workspace, student workspace, notes/tests/progress, AI tutor) + one ≤15s
   screen recording of a real flow, 16:9, real text legible, no staging.
 - INTERIM: narrative rail + architecture diagrams + masked texture.
+
+## Standing gaps (PRD v2 — assets described but NOT in repo)
+
+- Raw screen recordings for all three projects (Reel + galleries blocked;
+  no Reel player ships until real footage lands — never stock/AI filler).
+- Workspace/reshoot photography (current portrait stands; no selfies ship).
+- Cloudflare screenshots/exports beyond the described 10-country,
+  mobile-majority summary (request-level detail unconfirmed).
 - `uiLook2Video.mp4` — portal-environment master (see ⁴ above). Baked text in
   the 0–2s intro; production cut removes it. Never served directly.
 - `me01.png` — portrait/signature master (see ⁵ above). Never served directly.

@@ -49,7 +49,21 @@ export function CaseStudy({
     {
       index: "S—04",
       title: "Outcome",
-      body: <p>{project.outcome}</p>,
+      body: (
+        <>
+          <p>{project.outcome}</p>
+          {project.metrics && project.metrics.length > 0 && (
+            <dl className="meta mt-5 grid gap-3 border-t border-line pt-5 sm:grid-cols-2">
+              {project.metrics.map((m) => (
+                <div key={m.label}>
+                  <dt className="text-faint">{m.label}</dt>
+                  <dd className="mt-1 text-bone">{m.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </>
+      ),
     },
     {
       index: "S—05",

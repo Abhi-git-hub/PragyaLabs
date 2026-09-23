@@ -56,7 +56,11 @@ against dark matter without needing weight range; Inter disappears correctly as
 body; JetBrains Mono gives the lab its instrument-panel voice. Considered and
 rejected: Space Grotesk (overused in AI-startup aesthetics), Archivo (needs more
 tuning to feel distinct), IBM Plex Mono (warmer, less precise at small sizes).
-Loaded via `next/font/google` (self-hosted, zero layout shift). Live demo: `/` → F—01.
+Loaded via `next/font/google` (self-hosted, zero layout shift).
+PRD v2 proposed Clash Display for hero moments — declined: Anton is the
+established, approved voice and a mid-stream display swap would trade
+identity continuity for novelty. JetBrains Mono already satisfies the v2
+mono requirement.
 Components: `src/components/typography/Type.tsx` (`Display`, `Body`, `Eyebrow`).
 
 ## 5. Lighting & imagery

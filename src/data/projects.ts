@@ -40,6 +40,9 @@ export type Project = {
   decisions: string[];
   challenge: CaseChallenge | null;
   outcome: string;
+  /** Optional honest metrics — omitted entirely unless real (PRD v2 §6.4).
+   *  Never raw request totals framed as users. */
+  metrics?: { label: string; value: string }[];
   technologies: string[];
   /** Main-experience feature flag — only visually-ready work is featured.
    *  Unfeatured projects keep their routes but leave the listings. */
@@ -80,7 +83,12 @@ export const projects: Project[] = [
       title: "Answers that stay grounded",
       body: "A tutor is only useful when it answers from the classroom's material instead of generating fog — so retrieval comes first, generation second, and every answer traces back to source.",
     },
-    outcome: "In progress — the system runs, and keeps growing.",
+    outcome:
+      "Live in production, with real usage across 10 countries — including India, the US, Indonesia, and the Netherlands — and predominantly mobile.",
+    metrics: [
+      { label: "Countries reached", value: "10" },
+      { label: "Primary devices", value: "Mobile" },
+    ],
     technologies: ["Next.js", "Supabase", "AI / RAG", "Postgres RLS", "Tailwind CSS", "Vitest", "Cloudflare Workers", "PDF grounding"],
     narrative: [
       {
@@ -109,7 +117,7 @@ export const projects: Project[] = [
       },
       {
         title: "Current state",
-        body: "In progress. The system runs, and keeps growing.",
+        body: "Live in production — real usage across 10 countries, predominantly mobile.",
       },
     ],
     gallery: [],

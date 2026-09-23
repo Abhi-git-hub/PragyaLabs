@@ -98,6 +98,15 @@ per-case OG images via `opengraph-image.tsx`; Organization/Person JSON-LD on
 `/` and `/about`. Lighthouse CI workflow asserts performance ≥90 and LCP
 ≤2s on hero/case routes per PR.
 
+## Live stats (optional, TRD v2 §3.4)
+
+`GET /api/stats` proxies Cloudflare Analytics server-side. Enable with env
+vars (Vercel project settings — never committed):
+`CF_API_TOKEN` (Analytics:Read on the zone) + `CF_ZONE_ID`. Cached 5 min
+(`revalidate: 300`). Without them the route 503s and `<LiveStats/>` renders
+nothing — the token never touches the client bundle. Monitor the route's
+latency/error rate in Speed Insights if enabled.
+
 ## Toolchain
 
 `npm run dev | build | start | lint (flat config: base JS + TS + Next

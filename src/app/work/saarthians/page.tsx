@@ -5,6 +5,7 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { CaseStudy, CaseStudyHeader } from "@/components/projects/CaseStudy";
 import { SystemFlow } from "@/components/projects/SystemFlow";
 import { SaarthiansVisual } from "@/components/projects/SaarthiansVisual";
+import { LiveStats } from "@/components/projects/LiveStats";
 import { getProject } from "@/data/projects";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -42,6 +43,9 @@ export default function SaarthiansPage() {
           project={project}
           visual={<SaarthiansVisual step={0} total={project.narrative?.length ?? 1} />}
         />
+        <div className="mt-8">
+          <LiveStats />
+        </div>
       </SectionContainer>
     </>
   );
