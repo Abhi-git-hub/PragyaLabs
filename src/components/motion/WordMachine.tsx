@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
 import { duration } from "@/config/tokens";
-import { cn } from "@/lib/cn";
 
 const WORDS = ["visualise", "create", "achieve"];
 
@@ -48,14 +47,15 @@ export function WordMachine({ onBeat }: { onBeat?: () => void }) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         chars,
-        { yPercent: 115, opacity: 0, filter: "blur(6px)", skewY: 4 },
+        { yPercent: 115, opacity: 0, filter: "blur(8px)", skewY: 5, scale: 0.94 },
         {
           yPercent: 0,
           opacity: 1,
           filter: "blur(0px)",
           skewY: 0,
+          scale: 1,
           duration: duration.slow,
-          stagger: 0.028,
+          stagger: 0.032,
           ease: "expo.out",
           overwrite: "auto",
         }
@@ -66,7 +66,7 @@ export function WordMachine({ onBeat }: { onBeat?: () => void }) {
 
   if (!live) {
     return (
-      <p className="font-display text-2xl uppercase tracking-wide md:text-3xl" aria-label="visualise. create. achieve.">
+      <p className="font-display text-3xl uppercase tracking-wide md:text-4xl" aria-label="visualise. create. achieve.">
         visualise<span className="text-cyan">.</span> create<span className="text-cyan">.</span> achieve
         <span className="text-cyan">.</span>
       </p>
@@ -77,19 +77,27 @@ export function WordMachine({ onBeat }: { onBeat?: () => void }) {
   return (
     <div
       ref={wrapRef}
-      className={cn("overflow-hidden")}
+      className="relative overflow-hidden"
       aria-live="off"
       aria-label={`visualise. create. achieve. — now showing ${word}`}
     >
-      <p className="font-display uppercase leading-none tracking-wide text-[clamp(1.9rem,5.5vw,3.6rem)]">
+      {/* Ghost echo — the word's afterimage, trailing behind in outline */}
+      <p
+        aria-hidden="true"
+        className="font-display pointer-events-none absolute inset-0 -translate-x-4 uppercase leading-none tracking-wide text-transparent text-[clamp(2.6rem,7vw,5.5rem)] [-webkit-text-stroke:1px_rgb(61_255_162/0.35)]"
+      >
+        {word}
+        <span>.</span>
+      </p>
+      <p className="font-display relative uppercase leading-none tracking-wide text-[clamp(2.6rem,7vw,5.5rem)]">
         <span className="sr-only">{word}. </span>
         <span aria-hidden="true">
           {word.split("").map((ch, i) => (
-            <span key={`${word}-${i}`} data-word-char className="inline-block will-change-transform">
+            <span key={`${word}-${i}`} data-word-char className="inline-block origin-left will-change-transform">
               {ch}
             </span>
           ))}
-          <span data-word-char className="inline-block text-cyan will-change-transform">
+          <span data-word-char className="inline-block origin-left text-cyan will-change-transform">
             .
           </span>
         </span>

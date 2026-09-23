@@ -158,14 +158,6 @@ export function Hero() {
             aria-hidden="true"
             className="mt-7 h-px w-40 origin-left bg-cyan"
           />
-          <div className="mt-6">
-            <WordMachine
-              onBeat={() => {
-                if (beat.current < 0) beat.current = 0;
-                beat.current = Math.min(1, beat.current + 0.85);
-              }}
-            />
-          </div>
           <Display as="p" size="sm" className="mt-6 max-w-[20ch]">
             <span className="mask-line">
               <span data-hero-line>Digital systems</span>
@@ -180,6 +172,17 @@ export function Hero() {
             </span>
           </Display>
         </div>
+      </div>
+
+      {/* The bridge — large, centered, between headline and Beacon.
+          Static in flow on mobile, absolute center stage on desktop. */}
+      <div className="relative z-[5] mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] pb-10 lg:absolute lg:left-1/2 lg:top-[40%] lg:mx-0 lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:-translate-y-1/2 lg:px-0 lg:pb-0">
+        <WordMachine
+          onBeat={() => {
+            if (beat.current < 0) beat.current = 0;
+            beat.current = Math.min(1, beat.current + 0.85);
+          }}
+        />
       </div>
 
       <div
