@@ -99,13 +99,13 @@ export function Hero() {
           <div className="h-full w-full [background:radial-gradient(ellipse_60%_50%_at_50%_42%,rgb(53_233_255/0.06),transparent_70%)]" />
         )}
       </div>
-      {/* Legibility falloff */}
+      {/* Legibility falloff + vignette — the frame holds together */}
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(180deg, rgb(6 6 8 / 0.55) 0%, rgb(6 6 8 / 0.12) 40%, rgb(6 6 8 / 0.28) 68%, var(--pl-background) 100%)",
+            "linear-gradient(180deg, rgb(6 6 8 / 0.55) 0%, rgb(6 6 8 / 0.12) 40%, rgb(6 6 8 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(6 6 8 / 0.55) 100%)",
         }}
       />
 

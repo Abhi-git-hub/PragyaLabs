@@ -134,7 +134,7 @@ function SaarthiansWorld() {
 
 function RagWorld() {
   const project = getProject("stock-rag");
-  if (!project) return null;
+  if (!project?.featured) return null;
 
   return (
     <div className="mt-20">
@@ -178,7 +178,7 @@ function RagWorld() {
 
 function MajdoorWorld() {
   const project = getProject("majdoor-haq");
-  if (!project) return null;
+  if (!project?.featured) return null;
 
   return (
     <div className="mt-20">
@@ -229,7 +229,7 @@ function MajdoorWorld() {
 
 function XWorld() {
   const project = getProject("x-frontend-clone");
-  if (!project) return null;
+  if (!project?.featured) return null;
 
   return (
     <div className="mt-20">

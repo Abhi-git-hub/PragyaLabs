@@ -7,8 +7,9 @@ import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "Work — Pragya Labs" });
 
-/** Project index — systems that exist, nothing invented. */
+/** Project index — featured systems only. The studio shows finished proof. */
 export default function WorkPage() {
+  const featured = projects.filter((p) => p.featured);
   return (
     <SectionContainer eyebrow="Work — project index">
       <Reveal>
@@ -18,11 +19,11 @@ export default function WorkPage() {
         </Body>
       </Reveal>
       <div className="mt-12">
-        {projects.map((p) => (
+        {featured.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}
       </div>
-      <Eyebrow className="mt-8 text-faint">{String(projects.length).padStart(2, "0")} entries</Eyebrow>
+      <Eyebrow className="mt-8 text-faint">{String(featured.length).padStart(2, "0")} entries</Eyebrow>
     </SectionContainer>
   );
 }

@@ -1,24 +1,23 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { colors } from "@/config/tokens";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import type { CapabilityTier } from "@/hooks/use-device-capability";
 import type { ScrollProgressRef, IntroProgressRef } from "./PragyaCoreScene";
 
-const TEX = {
-  pipes: "/textures/pipes--web.jpg",
-  plaster: "/textures/plaster--web.jpg",
-  rubber: "/textures/rubber--web.jpg",
-  shutter: "/textures/shutter--web.jpg",
-  bluemetal: "/textures/bluemetal--web.jpg",
-  instrument: "/textures/instrument--web.jpg",
-};
+const TEX_URLS = [
+  "/textures/pipes--web.jpg",
+  "/textures/plaster--web.jpg",
+  "/textures/rubber--web.jpg",
+  "/textures/shutter--web.jpg",
+  "/textures/bluemetal--web.jpg",
+  "/textures/instrument--web.jpg",
+] as const;
 
-function tex(url: string, rx = 1, ry = 1): THREE.Texture {
-  const t = new THREE.TextureLoader().load(url);
+function prepare(t: THREE.Texture, rx: number, ry: number): THREE.Texture {
   t.wrapS = THREE.RepeatWrapping;
   t.wrapT = THREE.RepeatWrapping;
   t.repeat.set(rx, ry);
@@ -27,30 +26,66 @@ function tex(url: string, rx = 1, ry = 1): THREE.Texture {
   return t;
 }
 
-/** Procedural parabolic dish — the signal motif, built not loaded. */
-function Dish({ position, rotation }: { position: [number, number, number]; rotation: [number, number, number] }) {
+/** Soft radial sheen — faked floor bounce under the dish. */
+function useSheen(): THREE.Texture {
+  return useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = 256;
+    c.height = 256;
+    const ctx = c.getContext("2d")!;
+    const g = ctx.createRadialGradient(128, 128, 8, 128, 128, 128);
+    g.addColorStop(0, "rgba(255,255,255,0.85)");
+    g.addColorStop(0.5, "rgba(255,255,255,0.25)");
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 256, 256);
+    return new THREE.CanvasTexture(c);
+  }, []);
+}
+
+/** Procedural parabolic dish — the signal motif, built not loaded.
+ *  The head tracks the pointer: the instrument watches back. */
+function Dish({ pointer }: { pointer: React.MutableRefObject<{ x: number; y: number }> }) {
+  const group = useRef<THREE.Group>(null!);
+  const tipMat = useRef<THREE.MeshStandardMaterial>(null!);
   const geometry = useMemo(() => {
     const pts: THREE.Vector2[] = [];
-    for (let i = 0; i <= 20; i++) {
-      const r = (i / 20) * 1.15;
+    for (let i = 0; i <= 24; i++) {
+      const r = (i / 24) * 1.15;
       pts.push(new THREE.Vector2(Math.max(r, 0.001), r * r * 0.5));
     }
-    return new THREE.LatheGeometry(pts, 40);
+    return new THREE.LatheGeometry(pts, 48);
   }, []);
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
+    const g = group.current;
+    // Tracking: slow servo toward the visitor, never twitchy.
+    g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, -0.5 + pointer.current.x * 0.45, 0.03);
+    g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, -0.5 - pointer.current.y * 0.22, 0.03);
+    if (tipMat.current) tipMat.current.emissiveIntensity = 2.6 + Math.sin(t * 2.2) * 1.2;
+  });
+
   return (
-    <group position={position} rotation={rotation}>
-      <mesh geometry={geometry}>
-        <meshStandardMaterial color="#aeb6c2" metalness={0.65} roughness={0.32} side={THREE.DoubleSide} />
-      </mesh>
-      {/* Feed arm + signal tip */}
-      <mesh position={[0, 0.42, 0.62]} rotation={[0.5, 0, 0]}>
-        <cylinderGeometry args={[0.03, 0.03, 0.9, 8]} />
-        <meshStandardMaterial color="#3a3f47" metalness={0.9} roughness={0.4} />
-      </mesh>
-      <mesh position={[0, 0.22, 0.98]}>
-        <sphereGeometry args={[0.06, 12, 12]} />
-        <meshStandardMaterial color={colors.accentCyan} emissive={colors.accentCyan} emissiveIntensity={3} />
-      </mesh>
+    <group position={[2.9, 0.4, -2.6]}>
+      <group ref={group} rotation={[-0.5, -0.5, 0.15]}>
+        <mesh geometry={geometry}>
+          <meshStandardMaterial color="#aeb6c2" metalness={0.65} roughness={0.3} side={THREE.DoubleSide} />
+        </mesh>
+        <mesh position={[0, 0.42, 0.62]} rotation={[0.5, 0, 0]}>
+          <cylinderGeometry args={[0.03, 0.03, 0.9, 8]} />
+          <meshStandardMaterial color="#3a3f47" metalness={0.9} roughness={0.4} />
+        </mesh>
+        <mesh position={[0, 0.22, 0.98]}>
+          <sphereGeometry args={[0.06, 12, 12]} />
+          <meshStandardMaterial
+            ref={tipMat}
+            color={colors.accentCyan}
+            emissive={colors.accentCyan}
+            emissiveIntensity={3}
+          />
+        </mesh>
+      </group>
     </group>
   );
 }
@@ -65,24 +100,31 @@ function Chamber({
   quality: CapabilityTier;
 }) {
   const rig = useRef<THREE.Group>(null!);
-  const smokeMat = useRef<THREE.MeshBasicMaterial>(null!);
-  const tipMat = useRef<THREE.MeshStandardMaterial>(null!);
+  const sweep = useRef<THREE.PointLight>(null!);
+  const smokeA = useRef<THREE.MeshBasicMaterial>(null!);
+  const smokeB = useRef<THREE.MeshBasicMaterial>(null!);
+  const pointer = useRef({ x: 0, y: 0 });
   const reduced = useMemo(() => prefersReducedMotion(), []);
+  const [pipes, plaster, rubber, shutter, bluemetal, instrument] = useLoader(
+    THREE.TextureLoader,
+    [...TEX_URLS]
+  );
 
   const maps = useMemo(
     () => ({
-      pipes: tex(TEX.pipes, 3, 1),
-      plaster: tex(TEX.plaster, 2, 1),
-      rubber: tex(TEX.rubber, 5, 5),
-      shutter: tex(TEX.shutter, 1.5, 2),
-      bluemetal: tex(TEX.bluemetal, 1, 1),
-      instrument: tex(TEX.instrument, 1, 1),
+      pipes: prepare(pipes, 3, 1),
+      plaster: prepare(plaster, 2, 1),
+      rubber: prepare(rubber, 5, 5),
+      shutter: prepare(shutter, 1.5, 2),
+      bluemetal: prepare(bluemetal, 1, 1),
+      instrument: prepare(instrument, 1, 1),
     }),
-    []
+    [pipes, plaster, rubber, shutter, bluemetal, instrument]
   );
+  const sheen = useSheen();
 
   const dust = useMemo(() => {
-    const count = quality === "high" ? 240 : 90;
+    const count = quality === "high" ? 260 : 90;
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 14;
@@ -94,7 +136,7 @@ function Chamber({
     return geo;
   }, [quality]);
 
-  // Smoke film as masked volumetric layer (additive over black).
+  // Smoke film as masked volumetric layers (additive over black).
   const smokeTex = useMemo(() => {
     if (reduced || typeof document === "undefined") return null;
     const video = document.createElement("video");
@@ -106,8 +148,17 @@ function Chamber({
     video.play().catch(() => undefined);
     const t = new THREE.VideoTexture(video);
     t.colorSpace = THREE.SRGBColorSpace;
-    return t;
+    return { texture: t, video };
   }, [reduced]);
+
+  useEffect(
+    () => () => {
+      smokeTex?.video.pause();
+      smokeTex?.video.removeAttribute("src");
+      smokeTex?.texture.dispose();
+    },
+    [smokeTex]
+  );
 
   useFrame((state, delta) => {
     const intro = THREE.MathUtils.clamp(introRef?.current ?? 1, 0, 1);
@@ -115,21 +166,30 @@ function Chamber({
     const p = state.pointer;
     const t = state.clock.elapsedTime;
     const cam = state.camera;
+    pointer.current.x = p.x;
+    pointer.current.y = p.y;
 
     if (!reduced) {
       // Slow approach + pointer parallax + scroll travel.
-      const tz = 9.2 - intro * 1.4 - s * 2.4;
+      const tz = 9.2 - intro * 1.4 - s * 2.6;
       cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.8, 0.03);
       cam.position.y = THREE.MathUtils.lerp(cam.position.y, 1.35 - p.y * 0.35 + s * 0.7, 0.04);
       cam.position.z = THREE.MathUtils.lerp(cam.position.z, tz, 0.03);
       cam.lookAt(0, 1.3 - s * 0.4, -2.5);
       rig.current.rotation.y = p.x * 0.02;
-      if (smokeMat.current) smokeMat.current.opacity = 0.3 * intro * (1 - s * 0.6);
-      if (tipMat.current) tipMat.current.emissiveIntensity = 2.4 + Math.sin(t * 2.2) * 1.1 + intro;
+      if (smokeA.current) smokeA.current.opacity = 0.32 * intro * (1 - s * 0.6);
+      if (smokeB.current) smokeB.current.opacity = 0.16 * intro * (1 - s * 0.6);
+      // Signal sweep — a slow rim light orbiting the dish.
+      if (sweep.current) {
+        const a = t * 0.35;
+        sweep.current.position.set(2.9 + Math.cos(a) * 2.8, 1.9 + Math.sin(t * 0.5) * 0.5, -2.6 + Math.sin(a) * 2.8);
+        sweep.current.intensity = 5 + Math.sin(t * 0.7) * 1.5;
+      }
     } else {
       cam.position.set(0, 1.35, 7.8);
       cam.lookAt(0, 1.3, -2.5);
-      if (smokeMat.current) smokeMat.current.opacity = 0;
+      if (smokeA.current) smokeA.current.opacity = 0;
+      if (smokeB.current) smokeB.current.opacity = 0;
     }
     void delta;
   });
@@ -141,6 +201,7 @@ function Chamber({
       <directionalLight position={[-5, 6, 4]} intensity={0.85} color="#9db8ff" />
       <pointLight position={[-2.4, 1.6, -1.2]} intensity={14} distance={9} color={colors.accentCyan} />
       <pointLight position={[4.5, 2.5, -4]} intensity={11} distance={10} color={colors.accentViolet} />
+      <pointLight ref={sweep} position={[5.7, 1.9, -2.6]} intensity={5} distance={8} color={colors.accentCyan} />
       {/* One restrained warm practical — the lamp in the dark */}
       <pointLight position={[-4.4, 2.6, -3.4]} intensity={7} distance={8} color="#ffb46b" />
       <mesh position={[-4.4, 2.6, -3.4]}>
@@ -148,10 +209,16 @@ function Chamber({
         <meshBasicMaterial color="#ffcf99" />
       </mesh>
 
-      {/* Floor — dark rubber */}
+      {/* Floor — dark rubber, map doubled as roughness variation */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
         <planeGeometry args={[30, 30]} />
-        <meshStandardMaterial map={maps.rubber} color="#8a8d94" roughness={0.92} metalness={0.08} />
+        <meshStandardMaterial
+          map={maps.rubber}
+          roughnessMap={maps.rubber}
+          color="#8a8d94"
+          roughness={0.92}
+          metalness={0.08}
+        />
       </mesh>
       {/* Back wall — plaster */}
       <mesh position={[0, 4, -7]}>
@@ -165,12 +232,27 @@ function Chamber({
           <meshStandardMaterial map={maps.shutter} color="#9a9da3" roughness={0.7} metalness={0.45} />
         </mesh>
       ))}
+      {/* Foreground silhouettes — dark mass at the frame edges for depth */}
+      <mesh position={[-4.6, 2.2, 2.4]} rotation={[0, 0.25, 0.06]}>
+        <cylinderGeometry args={[0.5, 0.5, 9, 14]} />
+        <meshStandardMaterial color="#0b0c10" roughness={0.85} metalness={0.3} />
+      </mesh>
+      <mesh position={[4.8, 1.6, 2.8]} rotation={[0, -0.2, -0.05]}>
+        <cylinderGeometry args={[0.38, 0.38, 8, 14]} />
+        <meshStandardMaterial color="#0b0c10" roughness={0.85} metalness={0.3} />
+      </mesh>
       {/* Overhead pipe runs */}
       {[3.4, 4.0, 2.8].map((y, i) => (
         <group key={y}>
           <mesh position={[0, y, -4.6]} rotation={[0, 0, Math.PI / 2]}>
             <cylinderGeometry args={[0.2 - i * 0.03, 0.2 - i * 0.03, 15, 20]} />
-            <meshStandardMaterial map={maps.pipes} color="#b9bec6" roughness={0.38} metalness={0.85} />
+            <meshStandardMaterial
+              map={maps.pipes}
+              roughnessMap={maps.pipes}
+              color="#b9bec6"
+              roughness={0.5}
+              metalness={0.85}
+            />
           </mesh>
           {[-4, 0, 4].map((x) => (
             <mesh key={x} position={[x, y, -4.6]}>
@@ -209,26 +291,51 @@ function Chamber({
         </mesh>
       </group>
 
-      {/* The antenna — hero anchor, abstracted in 3D */}
-      <Dish position={[2.9, 0.4, -2.6]} rotation={[-0.5, -0.5, 0.15]} />
+      {/* The antenna — hero anchor that watches back */}
+      <Dish pointer={pointer} />
       <mesh position={[2.9, 1.1, -2.6]}>
         <cylinderGeometry args={[0.09, 0.13, 2.2, 12]} />
         <meshStandardMaterial color="#565c66" roughness={0.5} metalness={0.8} />
       </mesh>
+      {/* Faked floor bounce under the dish */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.9, 0.02, -2.6]}>
+        <planeGeometry args={[4.5, 4.5]} />
+        <meshBasicMaterial
+          map={sheen}
+          color={colors.accentCyan}
+          transparent
+          opacity={0.14}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
 
-      {/* Smoke volumetric layer */}
+      {/* Smoke volumetric layers */}
       {smokeTex && (
-        <mesh position={[0, 2.6, -0.8]}>
-          <planeGeometry args={[17, 9.5]} />
-          <meshBasicMaterial
-            ref={smokeMat}
-            map={smokeTex}
-            transparent
-            opacity={0}
-            depthWrite={false}
-            blending={THREE.AdditiveBlending}
-          />
-        </mesh>
+        <>
+          <mesh position={[0, 2.6, -0.8]}>
+            <planeGeometry args={[17, 9.5]} />
+            <meshBasicMaterial
+              ref={smokeA}
+              map={smokeTex.texture}
+              transparent
+              opacity={0}
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+            />
+          </mesh>
+          <mesh position={[-3, 2.2, -3.2]} rotation={[0, Math.PI, 0]}>
+            <planeGeometry args={[12, 7]} />
+            <meshBasicMaterial
+              ref={smokeB}
+              map={smokeTex.texture}
+              transparent
+              opacity={0}
+              depthWrite={false}
+              blending={THREE.AdditiveBlending}
+            />
+          </mesh>
+        </>
       )}
       {/* Dust */}
       <points geometry={dust}>
@@ -264,7 +371,9 @@ export function SignalChamberScene({
       frameloop={reduced ? "demand" : "always"}
       aria-hidden="true"
     >
-      <Chamber scrollRef={scrollRef} introRef={introRef} quality={quality} />
+      <Suspense fallback={null}>
+        <Chamber scrollRef={scrollRef} introRef={introRef} quality={quality} />
+      </Suspense>
     </Canvas>
   );
 }

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Typed project data — the single content source (TRD §5).
  * Rule: no invented outcomes, metrics, or claims. Unresolved facts stay
  * out of this file — never plausible filler. Galleries omit until real
@@ -41,7 +41,9 @@ export type Project = {
   challenge: CaseChallenge | null;
   outcome: string;
   technologies: string[];
-  /** Homepage / flagship scroll narrative — optional, single-sourced. */
+  /** Main-experience feature flag — only visually-ready work is featured.
+   *  Unfeatured projects keep their routes but leave the listings. */
+  featured: boolean;
   narrative?: NarrativeBeat[];
   /** Compact specimen: short breakdown when the project stays visually smaller. */
   breakdown?: string[];
@@ -56,6 +58,7 @@ export const projects: Project[] = [
   {
     slug: "saarthians",
     number: "01",
+    featured: true,
     title: "Saarthians",
     category: "Education Platform",
     year: "2025–2026",
@@ -112,12 +115,13 @@ export const projects: Project[] = [
     gallery: [],
     heroMedia: null,
     thumbnail: null,
-    liveUrl: null,
+    liveUrl: "https://saarthians.online",
     repositoryUrl: "https://github.com/Abhi-git-hub/Saarthians",
   },
   {
     slug: "stock-rag",
     number: "02",
+    featured: false,
     title: "Stock / RAG System",
     category: "AI / Data / Retrieval",
     year: "2025",
@@ -147,6 +151,7 @@ export const projects: Project[] = [
   {
     slug: "majdoor-haq",
     number: "03",
+    featured: false,
     title: "Majdoor Haq",
     category: "Mobile Platform",
     year: "2026",
@@ -185,6 +190,7 @@ export const projects: Project[] = [
   {
     slug: "x-frontend-clone",
     number: "04",
+    featured: false,
     title: "X.com Frontend Clone",
     category: "Frontend Engineering",
     year: "2024",

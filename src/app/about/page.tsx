@@ -19,7 +19,7 @@ export const metadata = buildMetadata({ title: "About — Pragya Labs" });
 export default function AboutPage() {
   const featured = ["saarthians", "stock-rag", "majdoor-haq", "x-frontend-clone"]
     .map((slug) => getProject(slug))
-    .filter((p): p is NonNullable<typeof p> => p !== undefined);
+    .filter((p): p is NonNullable<typeof p> => p !== undefined && p.featured);
 
   return (
     <>
