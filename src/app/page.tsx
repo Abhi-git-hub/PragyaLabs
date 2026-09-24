@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
+import { Metamorphosis } from "@/components/sections/Metamorphosis";
 import { Manifesto } from "@/components/sections/Manifesto";
 import { World02 } from "@/components/sections/World02";
 import { Work } from "@/components/sections/Work";
@@ -20,6 +21,7 @@ export default function HomePage() {
     <>
       <SiteJsonLd />
       <Hero />
+      <Metamorphosis />
       <Manifesto />
       <World02 />
       <Work />
