@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -46,6 +47,8 @@ export function Statement() {
       // Orbital objects drift through at different depths.
       tl.fromTo(".statement-orbit-a", { yPercent: 18, rotate: -8 }, { yPercent: -18, rotate: 8, duration: 2 }, 0);
       tl.fromTo(".statement-orbit-b", { yPercent: 26, rotate: 10 }, { yPercent: -26, rotate: -10, duration: 2 }, 0);
+      // Blue-metal accent breathes behind the words — the controlled accent beat.
+      tl.fromTo(".statement-metal", { yPercent: 12, opacity: 0.1 }, { yPercent: -12, opacity: 0.2, duration: 2 }, 0);
     }, wrapRef);
     return () => ctx.revert();
   }, [reduced]);
@@ -67,6 +70,20 @@ export function Statement() {
   return (
     <section ref={wrapRef} aria-label="Statement" className="relative h-[260vh]">
       <div className="statement-stage relative flex h-[100svh] flex-col overflow-hidden">
+        {/* Blue-metal accent — cool painted surface behind the belief */}
+        <div aria-hidden="true" className="statement-metal pointer-events-none absolute inset-0 opacity-10">
+          <Image
+            src="/textures/bluemetal--web.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+            style={{
+              maskImage: "radial-gradient(ellipse 70% 60% at 30% 50%, black 20%, transparent 75%)",
+              WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 30% 50%, black 20%, transparent 75%)",
+            }}
+          />
+        </div>
         {/* Orbital objects — symmetric, drifting, depth-sorted */}
         <div
           aria-hidden="true"
