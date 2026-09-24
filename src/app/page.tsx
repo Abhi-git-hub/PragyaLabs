@@ -2,6 +2,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Metamorphosis } from "@/components/sections/Metamorphosis";
 import { Statement } from "@/components/sections/Statement";
 import { FeaturedWork } from "@/components/sections/FeaturedWork";
+import { Immersive } from "@/components/sections/Immersive";
 import { TransitionBand } from "@/components/motion/TransitionBand";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
@@ -10,7 +11,7 @@ export const metadata = buildMetadata({ title: "Pragya Labs — Digital systems 
 
 /**
  * HOME — one continuous system: opening world → metamorphosis →
- * statement → featured work. Everything below is cut until it earns it.
+ * statement → featured work → ember chapter. Cut below until earned.
  */
 export default function HomePage() {
   return (
@@ -22,6 +23,7 @@ export default function HomePage() {
       <Statement />
       <TransitionBand label="Refraction seam — belief to proof" />
       <FeaturedWork />
+      <Immersive />
     </>
   );
 }
