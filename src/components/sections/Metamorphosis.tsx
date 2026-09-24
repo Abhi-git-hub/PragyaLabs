@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
-import { cn } from "@/lib/cn";
 
 const Engine = dynamic(() => import("@/components/3d/Metamorphosis").then((m) => m.MetamorphosisScene), {
   ssr: false,
@@ -27,7 +26,6 @@ export function Metamorphosis() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const progress = useRef(0);
   const [live, setLive] = useState(false);
-  const [station, setStation] = useState(0);
   const capability = useDeviceCapability();
   const reduced = usePrefersReducedMotion();
 
@@ -53,12 +51,6 @@ export function Metamorphosis() {
         start: "top bottom",
         end: "bottom top",
         scrub: true,
-        onUpdate: (self) => {
-          setStation((prev) => {
-            const next = Math.min(STATIONS.length - 1, Math.floor(self.progress * STATIONS.length));
-            return next === prev ? prev : next;
-          });
-        },
       },
     });
     return () => {
@@ -85,7 +77,10 @@ export function Metamorphosis() {
   }
 
   return (
-    <section ref={wrapRef} aria-label="Metamorphosis" className="relative h-[320vh]">
+    <section ref={wrapRef} aria-label="Metamorphosis — procedural craft engine" className="relative h-[320vh]">
+      <span className="sr-only">
+        A procedural WebGL system in three states: precise seed, energy knot, rising signal helix.
+      </span>
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0" aria-hidden="true">
           {live && capability.webgl ? (
@@ -93,31 +88,6 @@ export function Metamorphosis() {
           ) : (
             <div className="h-full w-full bg-void" />
           )}
-        </div>
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-[var(--pl-container)] flex-col justify-end px-[var(--pl-gutter)] pb-20">
-          <div className="flex items-end justify-between gap-6">
-            <p className="meta text-faint">Form → energy → signal</p>
-            <div className="flex items-center gap-2" aria-hidden="true">
-              {STATIONS.map((s, i) => (
-                <span
-                  key={s.word}
-                  className={cn(
-                    "h-px transition-all duration-500",
-                    i <= station ? "w-8 bg-cyan" : "w-4 bg-line-strong"
-                  )}
-                />
-              ))}
-            </div>
-          </div>
-          <div key={station} className="mt-4 max-w-[60ch] min-h-[220px] md:min-h-[260px]">
-            <p className="meta text-cyan">
-              0{station + 1} / 0{STATIONS.length}
-            </p>
-            <h2 className="mt-3 font-display text-4xl uppercase leading-tight md:text-6xl">
-              {STATIONS[station].word}
-            </h2>
-            <p className="mt-3 text-muted">{STATIONS[station].line}</p>
-          </div>
         </div>
       </div>
     </section>

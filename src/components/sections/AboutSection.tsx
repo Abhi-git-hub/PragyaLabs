@@ -320,7 +320,7 @@ export function AboutSection() {
         {/* Second photograph + contact rise as the first recedes */}
         <div className="absolute inset-x-0 bottom-0 z-10 pb-14">
           <div className="mx-auto grid w-full max-w-[var(--pl-container)] gap-8 px-[var(--pl-gutter)] md:grid-cols-2 md:items-end">
-            <div ref={photo2Ref} className="relative hidden overflow-hidden border border-line md:block">
+            <div ref={photo2Ref} className="relative order-2 overflow-hidden border border-line md:order-none md:block">
               <Image
                 src="/person/workspace2--web.jpg"
                 alt="Abhi at the work desk, looking up from the screen"

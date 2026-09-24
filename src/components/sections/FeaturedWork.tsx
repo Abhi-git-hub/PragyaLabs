@@ -101,10 +101,10 @@ export function FeaturedWork() {
             </p>
             <p className="mt-4 max-w-[52ch] leading-relaxed text-muted">{project.summary}</p>
           </div>
-          <div className="relative hidden min-h-[280px] md:block" aria-hidden="true">
+          <div className="relative md:min-h-[280px]" aria-hidden="true">
             <video
               ref={previewRef}
-              className="pointer-events-none absolute left-0 top-0 h-[200px] w-[320px] border border-line-strong object-cover opacity-0 shadow-2xl transition-opacity duration-300"
+              className="pointer-events-none absolute left-0 top-0 hidden h-[200px] w-[320px] border border-line-strong object-cover opacity-0 shadow-2xl transition-opacity duration-300 md:block"
               src="/film/saarthians--feature.mp4"
               muted
               loop
@@ -112,7 +112,15 @@ export function FeaturedWork() {
               preload="none"
               tabIndex={-1}
             />
-            <p className="meta absolute bottom-0 right-0 text-faint">hover — the film follows</p>
+            {/* Mobile: the film stacks in flow — nothing hidden, nothing overlapping */}
+            <div className="aspect-video w-full border border-line-strong md:hidden">
+              <Film
+                src="/film/saarthians--feature.mp4"
+                poster="/film/saarthians--feature--poster.jpg"
+                label="Saarthians concept film"
+              />
+            </div>
+            <p className="meta absolute bottom-0 right-0 hidden text-faint md:block">hover — the film follows</p>
           </div>
         </div>
       </div>
