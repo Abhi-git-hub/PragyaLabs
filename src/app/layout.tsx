@@ -8,6 +8,7 @@ import { BackgroundField } from "@/components/3d/BackgroundField";
 import { CursorProvider } from "@/components/motion/CursorProvider";
 import { Cursor } from "@/components/motion/Cursor";
 import { Preloader } from "@/components/motion/Preloader";
+import { ScrollCurves } from "@/components/motion/ScrollCurves";
 import { RouteTransition } from "@/components/motion/RouteTransition";
 import { SmoothScroll } from "@/lib/smooth-scroll";
 import { site } from "@/config/site";
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
               <BackgroundField />
             </div>
+            <ScrollCurves />
             <SiteNav />
             <main id="main" className="relative z-10 pt-14">
               <RouteTransition>{children}</RouteTransition>

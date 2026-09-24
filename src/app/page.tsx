@@ -1,20 +1,14 @@
 import { Hero } from "@/components/sections/Hero";
 import { Metamorphosis } from "@/components/sections/Metamorphosis";
-import { Manifesto } from "@/components/sections/Manifesto";
-import { World02 } from "@/components/sections/World02";
-import { Work } from "@/components/sections/Work";
-import { Philosophy } from "@/components/sections/Philosophy";
-import { Person } from "@/components/sections/Person";
-import { ContactSection } from "@/components/sections/ContactSection";
-import { Loop } from "@/components/sections/Loop";
+import { Statement } from "@/components/sections/Statement";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({ title: "Pragya Labs — Digital systems engineered with intelligence." });
 
 /**
- * HOME — one piece of work: opening world → statement → lattice engine →
- * Saarthians world → studio thinking → human → contact → quiet resolution.
+ * HOME — one continuous system: opening world → metamorphosis →
+ * statement. Everything below is cut until it earns its place.
  */
 export default function HomePage() {
   return (
@@ -22,13 +16,7 @@ export default function HomePage() {
       <SiteJsonLd />
       <Hero />
       <Metamorphosis />
-      <Manifesto />
-      <World02 />
-      <Work />
-      <Philosophy />
-      <Person />
-      <ContactSection />
-      <Loop />
+      <Statement />
     </>
   );
 }
