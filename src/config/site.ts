@@ -7,7 +7,7 @@ export const site = {
   disciplines: ["Creative Engineering", "AI / Web / Interaction"] as string[],
   url: "https://pragyalabs.dev",
   author: "Pragya",
-  contact: { email: "hello@pragyalabs.dev", status: "placeholder" as const },
+  contact: { email: "number1abhiyadav@gmail.com", phone: "+91 93112 30129" },
 } as const;
 
 export type RouteDef = {

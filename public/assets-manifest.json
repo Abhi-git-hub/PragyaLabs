@@ -171,6 +171,10 @@
         { "path": "public/person/signature--detail.jpg", "variant": "detail", "required": false },
         { "path": "public/person/detail--hands.jpg", "variant": "detail", "required": true },
         { "path": "public/person/detail--rim.jpg", "variant": "detail", "required": true },
+        { "path": "public/person/workspace--web.jpg", "variant": "web", "required": true },
+        { "path": "public/person/workspace--mobile.jpg", "variant": "mobile", "required": true },
+        { "path": "public/person/workspace2--web.jpg", "variant": "web", "required": true },
+        { "path": "public/person/workspace2--mobile.jpg", "variant": "mobile", "required": true },
         { "path": "public/person/antenna--web.jpg", "variant": "editorial", "required": true }
       ]
     },

@@ -28,6 +28,13 @@ export default function ContactPage() {
             <span className="meta text-bone transition-colors group-hover:text-cyan">Start a project →</span>
           </a>
           <p className="meta text-faint">
+            <a
+              href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
+              className="text-bone transition-colors hover:text-cyan"
+            >
+              {site.contact.phone}
+            </a>
+            <br />
             {site.contact.email}
             <br />
             Replies within 12 hours — {site.location}
