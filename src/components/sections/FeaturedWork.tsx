@@ -133,16 +133,28 @@ export function FeaturedWork() {
         </p>
       </div>
 
-      <Reveal className="mt-12">
-        <Display size="sm" className="max-w-[24ch]">
+      <Reveal className="relative mt-12 overflow-hidden border border-line p-6 md:p-10">
+        {/* Plaster backdrop — the chamber's wall returns behind the promise */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.13]"
+          style={{
+            backgroundImage: "url(/textures/plaster--web.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            maskImage: "linear-gradient(100deg, black 30%, transparent 80%)",
+            WebkitMaskImage: "linear-gradient(100deg, black 30%, transparent 80%)",
+          }}
+        />
+        <Display size="sm" className="relative max-w-[24ch]">
           Concept.Design.Development.Authentication.Security.Deployment.
         </Display>
-        <p className="mt-4 text-xl text-bone md:text-2xl">We are all covered.</p>
+        <p className="relative mt-4 text-xl text-bone md:text-2xl">We are all covered.</p>
         <Magnetic>
           <Link
             href={`/work/${project.slug}`}
             data-cursor="OPEN"
-            className="meta mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
+            className="meta relative mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
           >
             Open the case study →
           </Link>

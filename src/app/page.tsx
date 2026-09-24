@@ -2,6 +2,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Metamorphosis } from "@/components/sections/Metamorphosis";
 import { Statement } from "@/components/sections/Statement";
 import { FeaturedWork } from "@/components/sections/FeaturedWork";
+import { TransitionBand } from "@/components/motion/TransitionBand";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -17,7 +18,9 @@ export default function HomePage() {
       <SiteJsonLd />
       <Hero />
       <Metamorphosis />
+      <TransitionBand label="Refraction seam — chamber to belief" />
       <Statement />
+      <TransitionBand label="Refraction seam — belief to proof" />
       <FeaturedWork />
     </>
   );

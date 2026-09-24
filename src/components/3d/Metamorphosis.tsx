@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { colors } from "@/config/tokens";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -53,6 +53,7 @@ function Engine({
   const { gl, scene } = useThree();
   const ray = useMemo(() => new THREE.Raycaster(), []);
   const hovered = useRef<string | null>(null);
+  const iceLight = useRef<THREE.PointLight>(null!);
 
   const HELIX = quality === "high" ? 220 : 110;
 
@@ -117,6 +118,8 @@ function Engine({
       m.opacity = helixW * 0.9;
     }
     if (shellMat.current) shellMat.current.uniforms.uIntensity.value = seedW * (0.5 + excite * 0.9);
+    // Ice rim strengthens as the room greens — the color journey in light.
+    if (iceLight.current) iceLight.current.intensity = 3 + prog * 11;
 
     // The room travels too: obsidian → deep green-black → graphite lift.
     const c = bg.current;
@@ -137,6 +140,8 @@ function Engine({
       <ambientLight intensity={0.5} color="#24352c" />
       <directionalLight position={[-4, 5, 6]} intensity={1.0} color="#d8efe2" />
       <pointLight position={[3, -1, 3]} intensity={10} distance={14} color={colors.accentCyan} />
+      <pointLight ref={iceLight} position={[-4, 3, -2]} intensity={3} distance={16} color={colors.accentBlue} />
+      <ChamberEcho />
       {/* STATE 1 — FORM: precise wireframe seed + fresnel aura */}
       <group ref={seed} name="seed">
         <mesh name="seed">
@@ -218,6 +223,45 @@ function HelixPlacer({
     mesh.instanceMatrix.needsUpdate = true;
   }, [helixRef, data]);
   return null;
+}
+
+/**
+ * ChamberEcho — the opening world's matter returns: dark rubber floor
+ * and ribbed shutter monoliths flank the lattice. Same studio, same matter.
+ */
+function ChamberEcho() {
+  const [rubber, shutter] = useLoader(THREE.TextureLoader, [
+    "/textures/rubber--web.jpg",
+    "/textures/shutter--web.jpg",
+  ]);
+  const maps = useMemo(() => {
+    for (const [t, rx, ry] of [
+      [rubber, 5, 5],
+      [shutter, 1.5, 2],
+    ] as Array<[THREE.Texture, number, number]>) {
+      t.wrapS = THREE.RepeatWrapping;
+      t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set(rx, ry);
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.anisotropy = 4;
+    }
+    return { rubber, shutter };
+  }, [rubber, shutter]);
+
+  return (
+    <group>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.4, 0]}>
+        <planeGeometry args={[30, 30]} />
+        <meshStandardMaterial map={maps.rubber} color="#8a8d94" roughness={0.92} metalness={0.08} />
+      </mesh>
+      {[-6.4, 6.4].map((x) => (
+        <mesh key={x} position={[x, 0.5, -2]}>
+          <boxGeometry args={[1.4, 8, 1.4]} />
+          <meshStandardMaterial map={maps.shutter} color="#9a9da3" roughness={0.7} metalness={0.45} />
+        </mesh>
+      ))}
+    </group>
+  );
 }
 
 export function MetamorphosisScene({
