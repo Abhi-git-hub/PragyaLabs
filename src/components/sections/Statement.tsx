@@ -11,7 +11,7 @@ import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
  * travels obsidian → deep green → graphite. Scrubbed both directions:
  * scroll up undoes every reveal. Our own words, Lusion's mechanic.
  */
-const WORDS = ["BUILT", "LIVE,", "NEVER", "RENDERED."];
+const WORDS = ["BOLD", "IDEAS,", "COME TO", "LIFE."];
 
 export function Statement() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -55,7 +55,7 @@ export function Statement() {
       <section aria-label="Statement" className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] py-[var(--pl-section-y)]">
         <p className="meta text-faint">What we believe</p>
         <h2 className="mt-4 font-display text-4xl uppercase leading-tight md:text-6xl">
-          Built <span className="text-cyan">live</span>, never rendered.
+          Bold ideas, <span className="text-cyan">come to life</span>.
         </h2>
         <p className="mt-6 max-w-[62ch] leading-relaxed text-muted">
           We combine design, motion, 3D and development to create immersive web experiences.
@@ -99,7 +99,7 @@ export function Statement() {
               <span key={w} className="block overflow-hidden">
                 <span
                   data-state-word={i}
-                  className={w === "LIVE," ? "block text-cyan" : "block"}
+                  className={w === "LIFE." ? "block text-cyan" : "block"}
                   style={{ fontSize: "clamp(3rem,9vw,7.5rem)" }}
                 >
                   {w}
