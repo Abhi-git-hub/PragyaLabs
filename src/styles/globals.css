@@ -226,6 +226,33 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
+/* One-shot ripple — a single expanding ring when the film lands. */
+.ripple-once {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--pl-accent-cyan);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple-expand 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+}
+@keyframes ripple-expand {
+  from {
+    width: 40px;
+    height: 40px;
+    opacity: 0.9;
+  }
+  to {
+    width: min(90vmin, 760px);
+    height: min(90vmin, 760px);
+    opacity: 0;
+  }
+}
+
 /* ---------- Reduced motion: foundation BEFORE major motion ----------
    All signature motion checks this first via JS; CSS kills residual animation. */
 @media (prefers-reduced-motion: reduce) {

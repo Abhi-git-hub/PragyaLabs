@@ -204,7 +204,7 @@
       "mobile": "same cuts (gated playback)",
       "priority": "P0",
       "status": "production",
-      "notes": "Cut from 4K/2K masters (147MB max) to 720p gated inserts. Saarthians cut is darkened/blurred transition texture only — never product proof (frames carry AI-generated UI text).",
+      "notes": "Cut from 4K/2K masters (147MB max) to 720p gated inserts. Saarthians texture cut is darkened/blurred transition material only; the feature cut is the full concept film, captioned honestly — never presented as screenshots.",
       "files": [
         { "path": "public/film/smoke--atmos.mp4", "variant": "web", "required": true },
         { "path": "public/film/rain--lens.mp4", "variant": "web", "required": true },
@@ -212,7 +212,9 @@
         { "path": "public/film/drop--macro.mp4", "variant": "web", "required": true },
         { "path": "public/film/black--macro.mp4", "variant": "web", "required": true },
         { "path": "public/film/interior--est.mp4", "variant": "web", "required": true },
-        { "path": "public/film/saarthians--texture.mp4", "variant": "web", "required": true }
+        { "path": "public/film/saarthians--texture.mp4", "variant": "web", "required": true },
+        { "path": "public/film/saarthians--feature.mp4", "variant": "web", "required": true },
+        { "path": "public/film/saarthians--feature--poster.jpg", "variant": "poster", "required": true }
       ]
     },
     {
