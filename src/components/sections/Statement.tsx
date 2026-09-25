@@ -35,14 +35,21 @@ export function Statement() {
         0
       );
       tl.to(".statement-stage", { backgroundColor: "rgb(11,15,18)", duration: 1 }, 1);
-      // Words ignite letter by letter — cascade, glow sweep, tightening track.
+      // Words ignite letter by letter — the word lands whole first (order
+      // guaranteed), then letters settle with rotation and blur.
       WORDS.forEach((_, i) => {
         const at = 0.15 + i * 0.42;
         tl.fromTo(
-          `[data-state-char="${i}"]`,
-          { opacity: 0, y: 70, rotate: 4, filter: "blur(12px)" },
-          { opacity: 1, y: 0, rotate: 0, filter: "blur(0px)", duration: 0.4, stagger: 0.035 },
+          `[data-state-word="${i}"]`,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.1 },
           at
+        );
+        tl.fromTo(
+          `[data-state-char="${i}"]`,
+          { y: 46, rotate: 3, filter: "blur(8px)" },
+          { y: 0, rotate: 0, filter: "blur(0px)", duration: 0.38, stagger: 0.022 },
+          at + 0.02
         );
         tl.fromTo(
           `[data-state-word="${i}"]`,
