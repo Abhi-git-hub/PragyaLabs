@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { Display } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
@@ -68,7 +69,24 @@ export function CaseStudy({
     {
       index: "S—05",
       title: "Stack",
-      body: <p className="meta leading-loose text-bone">{project.technologies.join(" / ")}</p>,
+      body: (
+        <>
+          <p className="meta leading-loose text-bone">{project.technologies.join(" / ")}</p>
+          {project.relatedServices.length > 0 && (
+            <p className="meta mt-4 leading-loose">
+              <span className="text-faint">Proves — </span>
+              {project.relatedServices.map((r, i) => (
+                <span key={r.href}>
+                  {i > 0 && <span className="text-faint"> / </span>}
+                  <Link href={r.href} data-cursor="OPEN" className="text-muted transition-colors hover:text-cyan">
+                    {r.label} →
+                  </Link>
+                </span>
+              ))}
+            </p>
+          )}
+        </>
+      ),
     },
   ];
 
@@ -149,7 +167,7 @@ export function CaseStudyHeader({ project }: { project: Project }) {
 
   return (
     <Reveal>
-      <Display size="lg">{project.title}</Display>
+      <Display as="h1" size="lg">{project.title}</Display>
       <p className="mt-6 max-w-[62ch] text-base leading-relaxed text-muted md:text-lg">
         {project.summary}
       </p>

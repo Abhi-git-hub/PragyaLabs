@@ -55,6 +55,8 @@ export type Project = {
   thumbnail: ProjectMedia | null;
   liveUrl: string | null;
   repositoryUrl: string | null;
+  /** Services this project evidences — renders both directions. */
+  relatedServices: { label: string; href: string }[];
 };
 
 export const projects: Project[] = [
@@ -125,6 +127,11 @@ export const projects: Project[] = [
     thumbnail: null,
     liveUrl: "https://saarthians.online",
     repositoryUrl: "https://github.com/Abhi-git-hub/Saarthians",
+    relatedServices: [
+      { label: "AI development", href: "/services/ai-development" },
+      { label: "Software development", href: "/services/software-development" },
+      { label: "Web development", href: "/services/web-development" },
+    ],
   },
   {
     slug: "stock-rag",
@@ -155,6 +162,7 @@ export const projects: Project[] = [
     thumbnail: null,
     liveUrl: null,
     repositoryUrl: "https://github.com/Abhi-git-hub/stock-market-rag",
+    relatedServices: [{ label: "AI development", href: "/services/ai-development" }],
   },
   {
     slug: "majdoor-haq",
@@ -194,6 +202,10 @@ export const projects: Project[] = [
     thumbnail: null,
     liveUrl: null,
     repositoryUrl: "https://github.com/Abhi-git-hub/majdoor_haq",
+    relatedServices: [
+      { label: "Web development", href: "/services/web-development" },
+      { label: "Software development", href: "/services/software-development" },
+    ],
   },
   {
     slug: "x-frontend-clone",
@@ -228,6 +240,10 @@ export const projects: Project[] = [
     thumbnail: null,
     liveUrl: null,
     repositoryUrl: "https://github.com/Abhi-git-hub/XComHomeClone",
+    relatedServices: [
+      { label: "Web development", href: "/services/web-development" },
+      { label: "Creative technology", href: "/services/creative-technology" },
+    ],
   },
 ];
 

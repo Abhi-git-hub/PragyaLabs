@@ -4,14 +4,19 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/metadata";
 
-export const metadata = buildMetadata({ title: "Contact — Pragya Labs" });
+export const metadata = buildMetadata({
+  title: "Contact — Start a Project | Pragya Labs",
+  description:
+    "Start a project with Pragya Labs. One clear channel, replies within 12 hours. Delhi, India — working worldwide.",
+  canonical: "/contact",
+});
 
 /** Contact. One channel, no dead forms — framing matches homepage (PRD §6.7). */
 export default function ContactPage() {
   return (
     <SectionContainer eyebrow="Contact">
       <Reveal>
-        <Display size="hero">
+        <Display as="h1" size="hero">
           Let&apos;s build
           <br />
           something<span className="text-cyan">.</span>

@@ -5,7 +5,12 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 import { projects } from "@/data/projects";
 import { buildMetadata } from "@/lib/metadata";
 
-export const metadata = buildMetadata({ title: "Work — Pragya Labs" });
+export const metadata = buildMetadata({
+  title: "Selected Work — Systems & Case Studies | Pragya Labs",
+  description:
+    "Shipped systems with evidence: AI platforms, retrieval experiments and frontend engineering — each with its dossier.",
+  canonical: "/work",
+});
 
 /** Project index — featured systems only. The studio shows finished proof. */
 export default function WorkPage() {
@@ -13,7 +18,7 @@ export default function WorkPage() {
   return (
     <SectionContainer eyebrow="Work — project index">
       <Reveal>
-        <Display size="lg">Selected systems.</Display>
+        <Display as="h1" size="lg">Selected systems.</Display>
         <Body className="mt-6">
           Only systems that exist. Each entry opens its dossier.
         </Body>

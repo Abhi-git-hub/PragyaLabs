@@ -9,7 +9,12 @@ import { LiveStats } from "@/components/projects/LiveStats";
 import { getProject } from "@/data/projects";
 import { buildMetadata } from "@/lib/metadata";
 
-export const metadata = buildMetadata({ title: "Saarthians — Pragya Labs" });
+export const metadata = buildMetadata({
+  title: "Saarthians — AI-Grounded Learning Platform Case Study | Pragya Labs",
+  description:
+    "How Saarthians was engineered: Next.js workspace, Supabase row-level security, PDF-grounded tutoring AI, live in production across 10 countries.",
+  canonical: "/work/saarthians",
+});
 
 /** Flagship case study: overview, live system flow, dossier, visual proof. */
 export default function SaarthiansPage() {

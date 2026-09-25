@@ -199,7 +199,8 @@ function DustVeil() {
  * across it; then the photo recedes into negative space and the second
  * photograph rises with the contact lines. Authorship, revealed by scroll.
  */
-export function AboutSection() {
+export function AboutSection({ standalone = false }: { standalone?: boolean }) {
+  const Heading = standalone ? "h1" : "h2";
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const progress = useRef(0);
   const sigRef = useRef<HTMLDivElement | null>(null);
@@ -268,9 +269,9 @@ export function AboutSection() {
     return (
       <section aria-label="About" className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] py-[var(--pl-section-y)]">
         <p className="meta text-faint">The engineer</p>
-        <h2 className="mt-4 font-display text-4xl uppercase leading-tight md:text-6xl">
+        <Heading className="mt-4 font-display text-4xl uppercase leading-tight md:text-6xl">
           Abhi builds.
-        </h2>
+        </Heading>
         <p className="mt-6 max-w-[62ch] leading-relaxed text-muted">
           One engineer, Delhi — India. Systems where AI earns its place and interfaces disappear.
         </p>
@@ -333,11 +334,11 @@ export function AboutSection() {
               <p className="meta absolute bottom-3 left-4 text-bone/80">At the desk — Delhi, 2026</p>
             </div>
             <div ref={contactRef}>
-              <h2 className="font-display text-4xl uppercase leading-tight md:text-6xl">
+              <Heading className="font-display text-4xl uppercase leading-tight md:text-6xl">
                 Abhi
                 <br />
                 builds<span className="text-cyan">.</span>
-              </h2>
+              </Heading>
               <p className="mt-4 max-w-[52ch] leading-relaxed text-muted">
                 One engineer. Systems where AI earns its place and interfaces disappear.
               </p>
