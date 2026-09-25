@@ -4,6 +4,7 @@ import { Statement } from "@/components/sections/Statement";
 import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { Immersive } from "@/components/sections/Immersive";
 import { AboutSection } from "@/components/sections/AboutSection";
+import { ServicesStrip } from "@/components/sections/ServicesStrip";
 import { TransitionBand } from "@/components/motion/TransitionBand";
 import { SiteJsonLd, WebSiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
@@ -17,7 +18,7 @@ export const metadata = buildMetadata({
 
 /**
  * HOME — one continuous system: opening world → metamorphosis →
- * statement → featured work → ember chapter → human world.
+ * statement → featured work → ember chapter → services spine → human world.
  * Cut below until earned.
  */
 export default function HomePage() {
@@ -32,6 +33,7 @@ export default function HomePage() {
       <TransitionBand label="Refraction seam — belief to proof" />
       <FeaturedWork />
       <Immersive />
+      <ServicesStrip />
       <AboutSection />
     </>
   );
