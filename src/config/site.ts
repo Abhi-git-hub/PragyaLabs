@@ -5,7 +5,7 @@ export const site = {
   location: "Delhi — India",
   year: "2026",
   disciplines: ["Creative Engineering", "AI / Web / Interaction"] as string[],
-  url: "https://pragyalabs.online",
+  url: "https://www.pragyalabs.online",
   author: "Pragya",
   contact: { email: "number1abhiyadav@gmail.com", phone: "+91 93112 30129" },
 } as const;
