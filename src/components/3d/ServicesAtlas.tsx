@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { colors } from "@/config/tokens";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -86,6 +86,7 @@ function Atlas({
   const halo = useRef<THREE.Mesh>(null!);
   const mat = useRef<THREE.PointsMaterial>(null!);
   const settled = useRef(false);
+  const shards = useRef<THREE.Group | null>(null);
   const reduced = useMemo(() => prefersReducedMotion(), []);
   const COUNT = quality === "high" ? 900 : 350;
 
@@ -159,6 +160,12 @@ function Atlas({
       halo.current.rotation.z = t * 0.1;
       (halo.current.material as THREE.MeshBasicMaterial).opacity = hw * 0.5;
     }
+    // Material shards orbit the field — the studio's blue metal, drifting.
+    if (shards.current && !reduced) {
+      shards.current.rotation.y = t * 0.08 + p.x * 0.25;
+      shards.current.rotation.x = Math.sin(t * 0.12) * 0.15 - p.y * 0.1;
+      shards.current.position.y = prog * 1.2;
+    }
     const cam = state.camera;
     cam.position.x = THREE.MathUtils.lerp(cam.position.x, p.x * 0.8, 0.03);
     cam.position.y = THREE.MathUtils.lerp(cam.position.y, -p.y * 0.4 + prog * 0.5, 0.04);
@@ -188,6 +195,42 @@ function Atlas({
         <torusGeometry args={[3.1, 0.025, 8, 100]} />
         <meshBasicMaterial color={colors.accentCyan} transparent opacity={0} depthWrite={false} />
       </mesh>
+      <ShardRing groupRef={shards} />
+    </group>
+  );
+}
+
+/**
+ * ShardRing — ten blue-metal fragments orbiting the atlas slowly.
+ * Same matter as the chamber's accent plate, encountered mid-journey.
+ */
+const SHARDS = 10;
+
+function ShardRing({ groupRef }: { groupRef: React.MutableRefObject<THREE.Group | null> }) {
+  const bluemetal = useLoader(THREE.TextureLoader, "/textures/bluemetal--web.jpg");
+  const map = useMemo(() => {
+    bluemetal.wrapS = THREE.RepeatWrapping;
+    bluemetal.wrapT = THREE.RepeatWrapping;
+    bluemetal.colorSpace = THREE.SRGBColorSpace;
+    bluemetal.anisotropy = 4;
+    return bluemetal;
+  }, [bluemetal]);
+
+  return (
+    <group ref={groupRef}>
+      {Array.from({ length: SHARDS }).map((_, i) => {
+        const a = (i / SHARDS) * Math.PI * 2;
+        return (
+          <mesh
+            key={i}
+            position={[Math.cos(a) * 5.2, Math.sin(a * 2) * 1.6, Math.sin(a) * 5.2 - 1]}
+            rotation={[i * 0.7, a, i * 0.3]}
+          >
+            <boxGeometry args={[0.5, 0.34, 0.08]} />
+            <meshStandardMaterial map={map} color="#aebfd4" roughness={0.5} metalness={0.6} />
+          </mesh>
+        );
+      })}
     </group>
   );
 }

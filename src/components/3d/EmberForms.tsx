@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { colors } from "@/config/tokens";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -133,6 +133,7 @@ function Forms({
       <directionalLight position={[-4, 5, 6]} intensity={1.0} color="#ffe3c4" />
       <pointLight position={[3, -1, 3]} intensity={11} distance={14} color={EMBER} />
       <pointLight position={[-3, 2, -2]} intensity={8} distance={12} color={colors.accentCyan} />
+      <EmberFloor />
       {/* Copper knot — craft */}
       <mesh ref={knot} name="knot" position={[-1.8, 0, 0]}>
         <torusKnotGeometry args={quality === "high" ? [1.0, 0.3, 200, 32] : [1.0, 0.3, 110, 20]} />
@@ -188,6 +189,29 @@ function findNamed(o: THREE.Object3D | null): string | null {
     cur = cur.parent;
   }
   return null;
+}
+
+/**
+ * EmberFloor — the chamber's rubber, heat-tinted for this world.
+ * Same studio matter, graded by firelight instead of phosphor.
+ */
+function EmberFloor() {
+  const rubber = useLoader(THREE.TextureLoader, "/textures/rubber--web.jpg");
+  const map = useMemo(() => {
+    rubber.wrapS = THREE.RepeatWrapping;
+    rubber.wrapT = THREE.RepeatWrapping;
+    rubber.repeat.set(5, 5);
+    rubber.colorSpace = THREE.SRGBColorSpace;
+    rubber.anisotropy = 4;
+    return rubber;
+  }, [rubber]);
+
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.2, 0]}>
+      <planeGeometry args={[30, 30]} />
+      <meshStandardMaterial map={map} color="#7d6a58" roughness={0.9} metalness={0.1} />
+    </mesh>
+  );
 }
 
 export function EmberFormsScene({
