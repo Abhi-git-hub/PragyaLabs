@@ -36,7 +36,8 @@ export function Statement() {
       );
       tl.to(".statement-stage", { backgroundColor: "rgb(11,15,18)", duration: 1 }, 1);
       // Words ignite letter by letter — the word lands whole first (order
-      // guaranteed), then letters settle with rotation and blur.
+      // guaranteed), then letters settle. LIFE. stays one solid gradient
+      // word: per-letter filters break background-clip rendering in Chrome.
       WORDS.forEach((_, i) => {
         const at = 0.15 + i * 0.42;
         tl.fromTo(
@@ -45,23 +46,33 @@ export function Statement() {
           { opacity: 1, duration: 0.1 },
           at
         );
-        tl.fromTo(
-          `[data-state-char="${i}"]`,
-          { y: 46, rotate: 3, filter: "blur(8px)" },
-          { y: 0, rotate: 0, filter: "blur(0px)", duration: 0.38, stagger: 0.022 },
-          at + 0.02
-        );
+        if (WORDS[i] !== "LIFE.") {
+          tl.fromTo(
+            `[data-state-char="${i}"]`,
+            { y: 46, rotate: 3, filter: "blur(8px)" },
+            { y: 0, rotate: 0, filter: "blur(0px)", duration: 0.38, stagger: 0.022 },
+            at + 0.02
+          );
+        }
         tl.fromTo(
           `[data-state-word="${i}"]`,
-          { letterSpacing: "0.14em", textShadow: "0 0 0px rgb(61 255 162 / 0)" },
-          { letterSpacing: "0.01em", textShadow: "0 0 30px rgb(61 255 162 / 0.5)", duration: 0.35 },
+          { letterSpacing: "0.14em" },
+          { letterSpacing: "0.01em", duration: 0.35 },
           at
         );
-        tl.to(
-          `[data-state-word="${i}"]`,
-          { textShadow: "0 0 6px rgb(61 255 162 / 0.12)", duration: 0.4 },
-          at + 0.35
-        );
+        if (WORDS[i] !== "LIFE.") {
+          tl.fromTo(
+            `[data-state-word="${i}"]`,
+            { textShadow: "0 0 0px rgb(61 255 162 / 0)" },
+            { textShadow: "0 0 30px rgb(61 255 162 / 0.5)", duration: 0.35 },
+            at
+          );
+          tl.to(
+            `[data-state-word="${i}"]`,
+            { textShadow: "0 0 6px rgb(61 255 162 / 0.12)", duration: 0.4 },
+            at + 0.35
+          );
+        }
       });
       // Ghost echo drifts against the scroll — the words leave light behind.
       tl.fromTo(".statement-echo", { yPercent: -14 }, { yPercent: 14, duration: 2 }, 0);
@@ -146,32 +157,40 @@ export function Statement() {
               ))}
             </div>
             <h2 className="font-display relative uppercase leading-[0.95]">
-              {WORDS.map((w, i) => (
-                <span key={w} className="block overflow-hidden pb-1">
-                  <span
-                    data-state-word={i}
-                    className="block will-change-transform"
-                    style={
-                      w === "LIFE."
-                        ? {
-                            fontSize: "clamp(3rem,9vw,7.5rem)",
-                            backgroundImage: "linear-gradient(100deg, #3DFFA2 10%, #C9FFF0 45%, #3DFFA2 90%)",
-                            backgroundSize: "220% 100%",
-                            WebkitBackgroundClip: "text",
-                            backgroundClip: "text",
-                            color: "transparent",
-                          }
-                        : { fontSize: "clamp(3rem,9vw,7.5rem)", color: "var(--pl-foreground)" }
-                    }
-                  >
-                    {w.split("").map((ch, j) => (
-                      <span key={j} data-state-char={i} className="inline-block will-change-transform">
-                        {ch === " " ? " " : ch}
-                      </span>
-                    ))}
+              {WORDS.map((w, i) =>
+                w === "LIFE." ? (
+                  <span key={w} className="block overflow-hidden pb-1">
+                    <span
+                      data-state-word={i}
+                      className="block will-change-transform"
+                      style={{
+                        fontSize: "clamp(3rem,9vw,7.5rem)",
+                        backgroundImage: "linear-gradient(100deg, #3DFFA2 10%, #C9FFF0 45%, #3DFFA2 90%)",
+                        backgroundSize: "220% 100%",
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        color: "transparent",
+                      }}
+                    >
+                      {w}
+                    </span>
                   </span>
-                </span>
-              ))}
+                ) : (
+                  <span key={w} className="block overflow-hidden pb-1">
+                    <span
+                      data-state-word={i}
+                      className="block will-change-transform"
+                      style={{ fontSize: "clamp(3rem,9vw,7.5rem)", color: "var(--pl-foreground)" }}
+                    >
+                      {w.split("").map((ch, j) => (
+                        <span key={j} data-state-char={i} className="inline-block will-change-transform">
+                          {ch === " " ? " " : ch}
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                )
+              )}
             </h2>
           </div>
         </div>
