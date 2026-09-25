@@ -35,15 +35,29 @@ export function Statement() {
         0
       );
       tl.to(".statement-stage", { backgroundColor: "rgb(11,15,18)", duration: 1 }, 1);
-      // Words ignite one by one.
+      // Words ignite letter by letter — cascade, glow sweep, tightening track.
       WORDS.forEach((_, i) => {
+        const at = 0.15 + i * 0.42;
+        tl.fromTo(
+          `[data-state-char="${i}"]`,
+          { opacity: 0, y: 70, rotate: 4, filter: "blur(12px)" },
+          { opacity: 1, y: 0, rotate: 0, filter: "blur(0px)", duration: 0.4, stagger: 0.035 },
+          at
+        );
         tl.fromTo(
           `[data-state-word="${i}"]`,
-          { opacity: 0.08, y: 60, filter: "blur(10px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5 },
-          0.15 + i * 0.42
+          { letterSpacing: "0.14em", textShadow: "0 0 0px rgb(61 255 162 / 0)" },
+          { letterSpacing: "0.01em", textShadow: "0 0 30px rgb(61 255 162 / 0.5)", duration: 0.35 },
+          at
+        );
+        tl.to(
+          `[data-state-word="${i}"]`,
+          { textShadow: "0 0 6px rgb(61 255 162 / 0.12)", duration: 0.4 },
+          at + 0.35
         );
       });
+      // Ghost echo drifts against the scroll — the words leave light behind.
+      tl.fromTo(".statement-echo", { yPercent: -14 }, { yPercent: 14, duration: 2 }, 0);
       // Orbital objects drift through at different depths.
       tl.fromTo(".statement-orbit-a", { yPercent: 18, rotate: -8 }, { yPercent: -18, rotate: 8, duration: 2 }, 0);
       tl.fromTo(".statement-orbit-b", { yPercent: 26, rotate: 10 }, { yPercent: -26, rotate: -10, duration: 2 }, 0);
@@ -111,19 +125,48 @@ export function Statement() {
               See the proof →
             </Link>
           </div>
-          <h2 className="font-display uppercase leading-[0.95]">
-            {WORDS.map((w, i) => (
-              <span key={w} className="block overflow-hidden">
-                <span
-                  data-state-word={i}
-                  className={w === "LIFE." ? "block text-cyan" : "block"}
-                  style={{ fontSize: "clamp(3rem,9vw,7.5rem)" }}
-                >
+          <div className="relative">
+            {/* Ghost echo — outlined afterimage drifting against the words */}
+            <div
+              aria-hidden="true"
+              className="statement-echo pointer-events-none absolute inset-0 select-none font-display uppercase leading-[0.95] text-transparent"
+              style={{ fontSize: "clamp(3rem,9vw,7.5rem)", WebkitTextStroke: "1px rgb(61 255 162 / 0.22)" }}
+            >
+              {WORDS.map((w) => (
+                <span key={w} className="block">
                   {w}
                 </span>
-              </span>
-            ))}
-          </h2>
+              ))}
+            </div>
+            <h2 className="font-display relative uppercase leading-[0.95]">
+              {WORDS.map((w, i) => (
+                <span key={w} className="block overflow-hidden pb-1">
+                  <span
+                    data-state-word={i}
+                    className="block will-change-transform"
+                    style={
+                      w === "LIFE."
+                        ? {
+                            fontSize: "clamp(3rem,9vw,7.5rem)",
+                            backgroundImage: "linear-gradient(100deg, #3DFFA2 10%, #C9FFF0 45%, #3DFFA2 90%)",
+                            backgroundSize: "220% 100%",
+                            WebkitBackgroundClip: "text",
+                            backgroundClip: "text",
+                            color: "transparent",
+                          }
+                        : { fontSize: "clamp(3rem,9vw,7.5rem)", color: "var(--pl-foreground)" }
+                    }
+                  >
+                    {w.split("").map((ch, j) => (
+                      <span key={j} data-state-char={i} className="inline-block will-change-transform">
+                        {ch === " " ? " " : ch}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+              ))}
+            </h2>
+          </div>
         </div>
       </div>
     </section>
