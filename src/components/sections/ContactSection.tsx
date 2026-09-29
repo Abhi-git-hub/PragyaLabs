@@ -1,6 +1,7 @@
 ﻿import { Display, Eyebrow } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { Magnetic } from "@/components/motion/Magnetic";
+import { ContactLink } from "@/components/seo/ContactLink";
 import { Marquee } from "@/components/motion/Marquee";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { site } from "@/config/site";
@@ -24,15 +25,14 @@ export function ContactSection() {
           </Display>
           <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
             <Magnetic strength={10}>
-              <a
+              <ContactLink
                 href={`mailto:${site.contact.email}?subject=Project%20inquiry%20—%20Pragya%20Labs`}
-                data-cursor="OPEN"
                 className="group inline-flex w-fit items-center gap-4 border border-line-strong px-7 py-4 transition-colors hover:border-cyan"
               >
                 <span className="meta text-bone transition-colors group-hover:text-cyan">
                   Start a project →
                 </span>
-              </a>
+              </ContactLink>
             </Magnetic>
             <p className="meta text-faint">
               {site.contact.email}

@@ -91,3 +91,37 @@ export function BreadcrumbListJsonLd({ items }: { items: { name: string; url: st
     />
   );
 }
+
+/** TechArticle for case studies — headline, author, about tech. No ratings. */
+export function TechArticleJsonLd({
+  headline,
+  description,
+  url,
+  about,
+}: {
+  headline: string;
+  description: string;
+  url: string;
+  about: string[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline,
+    description,
+    url,
+    inLanguage: "en",
+    author: {
+      "@type": "Person",
+      name: person.name,
+      jobTitle: person.role,
+    },
+    about: about.map((name) => ({ "@type": "Thing", name })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}

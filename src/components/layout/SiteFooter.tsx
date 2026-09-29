@@ -25,6 +25,11 @@ export function SiteFooter() {
                 Services
               </Link>
             </li>
+            <li>
+              <Link href="/insights" className="meta transition-colors hover:text-bone">
+                Insights
+              </Link>
+            </li>
           </ul>
         </nav>
         <div>

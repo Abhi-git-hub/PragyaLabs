@@ -1,5 +1,6 @@
 ﻿import { Display, Body } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
+import { ContactLink } from "@/components/seo/ContactLink";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/metadata";
@@ -25,13 +26,12 @@ export default function ContactPage() {
           Bring the problem and the timeline — the reply comes from the lab.
         </Body>
         <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
-          <a
+          <ContactLink
             href={`mailto:${site.contact.email}?subject=Project%20inquiry%20—%20Pragya%20Labs`}
-            data-cursor="OPEN"
             className="group inline-flex w-fit items-center gap-4 border border-line-strong px-7 py-4 transition-colors hover:border-cyan"
           >
             <span className="meta text-bone transition-colors group-hover:text-cyan">Start a project →</span>
-          </a>
+          </ContactLink>
           <p className="meta text-faint">
             <a
               href={`tel:${site.contact.phone.replace(/\s/g, "")}`}

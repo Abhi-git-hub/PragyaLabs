@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion, prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
+import { ContactLink } from "@/components/seo/ContactLink";
 import { site } from "@/config/site";
 import { cn } from "@/lib/cn";
 
@@ -344,14 +345,14 @@ export function AboutSection({ standalone = false }: { standalone?: boolean }) {
               </p>
               <div className={cn("mt-6 space-y-2")}>
                 <p>
-                  <a href={`tel:${site.contact.phone.replace(/\s/g, "")}`} data-cursor="OPEN" className="meta text-bone transition-colors hover:text-cyan">
+                  <ContactLink href={`tel:${site.contact.phone.replace(/\s/g, "")}`} className="meta text-bone transition-colors hover:text-cyan">
                     {site.contact.phone}
-                  </a>
+                  </ContactLink>
                 </p>
                 <p>
-                  <a href={`mailto:${site.contact.email}`} data-cursor="OPEN" className="meta text-bone transition-colors hover:text-cyan">
+                  <ContactLink href={`mailto:${site.contact.email}`} className="meta text-bone transition-colors hover:text-cyan">
                     {site.contact.email}
-                  </a>
+                  </ContactLink>
                 </p>
                 <p className="meta mt-3 text-faint">Replies within 12 hours</p>
               </div>

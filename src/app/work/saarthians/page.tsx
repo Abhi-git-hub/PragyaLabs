@@ -7,6 +7,8 @@ import { SystemFlow } from "@/components/projects/SystemFlow";
 import { SaarthiansVisual } from "@/components/projects/SaarthiansVisual";
 import { LiveStats } from "@/components/projects/LiveStats";
 import { getProject } from "@/data/projects";
+import { site } from "@/config/site";
+import { TechArticleJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
@@ -23,6 +25,12 @@ export default function SaarthiansPage() {
 
   return (
     <>
+      <TechArticleJsonLd
+        headline={`${project.title} — AI-grounded learning platform case study`}
+        description={project.summary}
+        url={`${site.url}/work/saarthians`}
+        about={project.technologies}
+      />
       <SectionContainer eyebrow={project.category}>
         <Reveal>
           <Eyebrow className="mb-4 text-faint">

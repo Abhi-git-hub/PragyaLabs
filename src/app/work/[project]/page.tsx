@@ -10,7 +10,7 @@ import { XFrontendVisual } from "@/components/projects/XFrontendVisual";
 import { RetrievalViz } from "@/components/lab/RetrievalViz";
 import { getProject, getProjectSlugs } from "@/data/projects";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
-import { BreadcrumbListJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbListJsonLd, TechArticleJsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -56,6 +56,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
         items={trail
           .filter((t) => t.href)
           .map((t) => ({ name: t.label, url: `${site.url}${t.href}` }))}
+      />
+      <TechArticleJsonLd
+        headline={`${project.title} — case study`}
+        description={project.summary}
+        url={`${site.url}/work/${slug}`}
+        about={project.technologies}
       />
       <SectionContainer eyebrow={project.category}>
         <Reveal>

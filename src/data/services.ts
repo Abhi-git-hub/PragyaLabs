@@ -63,8 +63,9 @@ export const services: Service[] = [
       { label: "Stock/RAG retrieval experiment", href: "/work/stock-rag" },
     ],
     related: [
+      { label: "RAG systems deep dive", href: "/services/rag-systems" },
+      { label: "AI assistants deep dive", href: "/services/ai-assistants" },
       { label: "Software development", href: "/services/software-development" },
-      { label: "Web development", href: "/services/web-development" },
     ],
     faq: [
       {
@@ -246,6 +247,120 @@ export const services: Service[] = [
       {
         q: "Can you do restrained work too?",
         a: "Yes. The same discipline builds quiet, fast marketing sites — interactivity is applied where it earns its place.",
+      },
+    ],
+  },
+  {
+    slug: "rag-systems",
+    kicker: "Grounded retrieval",
+    title: "RAG Development Services | Pragya Labs",
+    metaDescription:
+      "Grounded retrieval systems over your documents — RAG pipelines with evaluation, built for production. Proof from shipped work inside.",
+    h1: "Retrieval you can trust",
+    lede:
+      "We build retrieval-augmented generation systems that answer from your documents — ingested, chunked, retrieved, evaluated — and serve them behind real auth to real users.",
+    forWho: [
+      "Education teams needing tutors that answer from real material",
+      "Businesses sitting on documents and data they cannot query",
+      "Founders whose AI demo needs a production backbone",
+    ],
+    problems: [
+      "AI answers that sound confident but cannot be traced to source data",
+      "Retrieval pipelines nobody evaluated before launch",
+      "Demos that never survive production traffic, auth, or real users",
+    ],
+    process: [
+      {
+        title: "Ground first",
+        body: "Ingestion, chunking and retrieval come before generation. If the retrieved context is wrong, nothing downstream can fix it.",
+      },
+      {
+        title: "Evaluate honestly",
+        body: "Answers are checked against source material in loops, not vibes. What cannot be measured is not shipped.",
+      },
+      {
+        title: "Ship behind auth",
+        body: "Row-level access, real user boundaries and tested policies — the system runs for actual classrooms and customers.",
+      },
+    ],
+    stack: ["Retrieval-augmented generation (RAG)", "Embeddings", "Groq + LLMs", "Supabase Postgres RLS", "Evaluation loops"],
+    proof: [
+      { label: "Saarthians — PDF-grounded tutor", href: "/work/saarthians" },
+      { label: "Stock/RAG retrieval experiment", href: "/work/stock-rag" },
+    ],
+    related: [
+      { label: "AI development", href: "/services/ai-development" },
+      { label: "AI assistants", href: "/services/ai-assistants" },
+    ],
+    faq: [
+      {
+        q: "How much does a RAG system cost to build?",
+        a: "It depends on data volume, evaluation depth and auth complexity — typical ranges, never fixed quotes, are scoped on a call after seeing your documents.",
+      },
+      {
+        q: "How long does it take?",
+        a: "A working prototype in weeks; a production system with evaluation and auth in months. Timelines are committed per project, not promised here.",
+      },
+      {
+        q: "What do you need from us?",
+        a: "Your documents, access to the people who know them, and one person who can say yes. We handle ingestion through deployment.",
+      },
+    ],
+  },
+  {
+    slug: "ai-assistants",
+    kicker: "Assistants teams trust",
+    title: "Enterprise AI Assistant Development | Pragya Labs",
+    metaDescription:
+      "AI assistants for teams and classrooms — grounded in your material, secured by role, tested before launch. Built by Pragya Labs.",
+    h1: "Assistants your team can trust",
+    lede:
+      "We build AI assistants that answer from your material, respect who is asking, and get tested before anyone depends on them — for classrooms, teams, and operations.",
+    forWho: [
+      "Education operators needing safe, curriculum-grounded tutors",
+      "Operations teams drowning in repeat questions",
+      "Founders adding AI to an existing product",
+    ],
+    problems: [
+      "Generic chatbot wrappers with no grounding in company material",
+      "No role awareness — every user sees everything",
+      "AI features launched without testing",
+    ],
+    process: [
+      {
+        title: "Anchor to material",
+        body: "Curriculum and documents become the source of truth — the assistant retrieves before it speaks.",
+      },
+      {
+        title: "Bound by role",
+        body: "Students, teachers and admins each see their own scope, enforced in the data layer.",
+      },
+      {
+        title: "Prove before launch",
+        body: "Smoke-tested flows and evaluation loops. Nothing ships on hope.",
+      },
+    ],
+    stack: ["RAG pipelines", "LLM integrations", "Supabase auth + RLS", "Vitest + smoke tests"],
+    proof: [
+      { label: "Saarthians tutor + workspace", href: "/work/saarthians" },
+      { label: "Stock/RAG evaluation pattern", href: "/work/stock-rag" },
+    ],
+    related: [
+      { label: "AI development", href: "/services/ai-development" },
+      { label: "RAG systems", href: "/services/rag-systems" },
+    ],
+    faq: [
+      {
+        q: "Do you build custom AI or integrate existing tools?",
+        a: "Both, with a bias toward grounded systems: retrieval pipelines and assistants wired to your data, not generic chatbot wrappers.",
+      },
+      {
+        q: "Who sees what inside the assistant?",
+        a: "Role-scoped retrieval — enforced in the database layer, so a student can never reach a teacher's scope.",
+      },
+      {
+        q: "What does testing cover?",
+        a: "User flows end to end, plus groundedness checks that answers trace to source material.",
       },
     ],
   },
