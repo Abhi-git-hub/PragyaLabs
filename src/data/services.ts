@@ -117,7 +117,7 @@ export const services: Service[] = [
     ],
     stack: ["Next.js App Router", "React", "Tailwind CSS", "Performance budgets", "Responsive systems"],
     proof: [
-      { label: "X.com frontend recreation", href: "/work/x-frontend-clone" },
+      { label: "Adhyayan Classes — live MERN site", href: "/work/adhyayan-classes" },
       { label: "Saarthians — Next.js platform", href: "/work/saarthians" },
     ],
     related: [
@@ -131,7 +131,7 @@ export const services: Service[] = [
       },
       {
         q: "Can you rebuild our slow frontend?",
-        a: "Yes. Rebuilds start from frame budgets and interaction timing — the X.com recreation is a working reference for dense, high-frequency UI.",
+        a: "Yes. Rebuilds start from frame budgets and interaction timing — the Adhyayan Classes production site is a working reference for responsive, content-dense UI.",
       },
       {
         q: "Do you handle deployment?",
@@ -229,7 +229,7 @@ export const services: Service[] = [
     stack: ["Three.js / React Three Fiber", "GSAP ScrollTrigger", "Procedural systems", "Motion design", "WebGL performance budgets"],
     proof: [
       { label: "This website — the proof", href: "/" },
-      { label: "X.com recreation — motion reference", href: "/work/x-frontend-clone" },
+      { label: "Adhyayan Classes — recorded walkthrough", href: "/work/adhyayan-classes" },
     ],
     related: [
       { label: "Web development", href: "/services/web-development" },

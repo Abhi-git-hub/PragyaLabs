@@ -10,7 +10,7 @@ import nextPlugin from "@next/eslint-plugin-next";
  * Next.js flat config (core-web-vitals) from @next/eslint-plugin-next.
  */
 const eslintConfig = defineConfig([
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "AbhiMailer/**"]),
   js.configs.recommended,
   ...tseslint.configs.recommended,
   nextPlugin.flatConfig.coreWebVitals,

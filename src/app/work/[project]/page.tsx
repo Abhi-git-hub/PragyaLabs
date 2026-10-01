@@ -6,7 +6,7 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 import { CaseStudy, CaseStudyHeader } from "@/components/projects/CaseStudy";
 import { SystemFlow } from "@/components/projects/SystemFlow";
 import { SaarthiansVisual } from "@/components/projects/SaarthiansVisual";
-import { XFrontendVisual } from "@/components/projects/XFrontendVisual";
+import { AdhyayanVisual } from "@/components/projects/AdhyayanVisual";
 import { RetrievalViz } from "@/components/lab/RetrievalViz";
 import { getProject, getProjectSlugs } from "@/data/projects";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ project: 
 function CaseVisual({ slug }: { slug: string }) {
   if (slug === "saarthians") return <SaarthiansVisual step={0} total={7} />;
   if (slug === "stock-rag") return <RetrievalViz />;
-  if (slug === "x-frontend-clone") return <XFrontendVisual />;
+  if (slug === "adhyayan-classes") return <AdhyayanVisual />;
   return null;
 }
 

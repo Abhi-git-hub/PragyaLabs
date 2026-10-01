@@ -27,11 +27,12 @@ src/
                   PragyaCoreScene + Canvas (Loop echo only),
                   BackgroundField (2D ambient)
     lab/          ParticleLab (Saarthians data layer), RetrievalViz (RAG world),
-                  MajdoorVisual (reach signal), XFrontendVisual (density study)
+                  MajdoorVisual (reach signal)
     person/       Portrait (parallax + grain), Signature = SignatureMark
                   (authentic vector, clip-wipe draw-on + light pass)
     projects/     ProjectCard (enriched rows), CaseStudy (verified-only),
-                  SystemFlow (Saarthians pipeline), SaarthiansVisual (live layer)
+                   SystemFlow (Saarthians pipeline), SaarthiansVisual (live layer),
+                   AdhyayanVisual (recorded walkthrough film)
     sections/     Hero (Signal Chamber), CraftSequence, Story→Origin,
                   Work (worlds), Philosophy→Approach, Person, ContactSection, Loop
   hooks/          use-prefers-reduced-motion, use-pointer (rAF-friendly ref),

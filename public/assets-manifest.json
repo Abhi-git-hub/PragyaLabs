@@ -126,17 +126,21 @@
       "files": []
     },
     {
-      "name": "project-x-clone",
+      "name": "project-adhyayan",
       "assetId": "ASSET-08c",
-      "purpose": "X-clone case study hero + thumbnail",
-      "kind": "2D",
-      "format": "avif/webp",
-      "aspectRatio": "16:10 hero / 4:3 thumb",
-      "desktop": "2400×1500 hero, 1200×900 thumb",
-      "mobile": "1280×800 hero, 800×600 thumb",
-      "priority": "P2",
-      "status": "planned",
-      "files": []
+      "purpose": "Adhyayan Classes case study — recorded walkthrough of the live site",
+      "kind": "video",
+      "format": "mp4 h264 + jpg poster",
+      "aspectRatio": "20:9",
+      "desktop": "1280×576, 20.4s, 2.1MB",
+      "mobile": "same cut (gated playback)",
+      "priority": "P1",
+      "status": "production",
+      "notes": "Cut from assets/adhyayanclasses.mp4 (verified: real site UI, legible text — The Key To Excel, programs, 9311230129). Presented as recorded walkthrough, never screenshots.",
+      "files": [
+        { "path": "public/film/adhyayan--feature.mp4", "variant": "web", "required": true },
+        { "path": "public/film/adhyayan--feature--poster.jpg", "variant": "poster", "required": true }
+      ]
     },
     {
       "name": "portal-environment",
