@@ -40,6 +40,8 @@ export type Project = {
   category: string;
   /** Honest build status — always visible on cards and case pages. */
   classification: ProjectClassification;
+  /** What the studio actually did — design, engineering, scope. */
+  role: string;
   year: string;
   status: ProjectStatus;
   /** One-line entry framing (PRD §6.4). */
@@ -76,6 +78,7 @@ export const projects: Project[] = [
     title: "Saarthians",
     category: "Education Platform",
     classification: "In progress",
+    role: "Architecture / Engineering / Interaction",
     year: "2025–2026",
     status: "in-progress",
     summary:
@@ -150,6 +153,7 @@ export const projects: Project[] = [
     title: "Stock / RAG System",
     category: "AI / Data / Retrieval",
     classification: "R&D experiment",
+    role: "Pipeline / Evaluation",
     year: "2025",
     status: "experiment",
     summary:
@@ -182,6 +186,7 @@ export const projects: Project[] = [
     title: "Majdoor Haq",
     category: "Mobile Platform",
     classification: "In progress",
+    role: "Design / Engineering",
     year: "2026",
     status: "in-progress",
     summary: "A Flutter-built mobile app whose name states the mission: the labourer's right.",
@@ -226,6 +231,7 @@ export const projects: Project[] = [
     title: "Adhyayan Classes",
     category: "Education Website",
     classification: "Client work",
+    role: "Design / Engineering / Deployment",
     year: "2023–2026",
     status: "shipped",
     summary: "MERN-stack website for a coaching institute — programs, admissions, and contact, live in production.",
@@ -265,6 +271,7 @@ export const projects: Project[] = [
     title: "Interface Study — Social Feed",
     category: "Frontend Engineering",
     classification: "Interface study",
+    role: "Frontend study",
     year: "2024",
     status: "experiment",
     summary:

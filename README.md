@@ -1,14 +1,10 @@
-# Pragya Labs — Studio Build: A Physical Place for Digital Work
+# Pragya Labs — Grounded Intelligence
 
-**Thesis:** digital systems engineered with intelligence. **Status:** recomposed
-as a serious digital studio experience — Signal Chamber hero from acquired
-raw materials, craft sequence from recorded footage, Saarthians world grounded
-in its real repository, four project worlds, no demo galleries, no HUD.
-The work is the protagonist; the studio is the world.
+Independent digital systems studio: custom AI systems, RAG applications, web applications, and interactive digital experiences. Next.js + TypeScript + Tailwind + GSAP ScrollTrigger + React Three Fiber (hero chamber only).
 
-## Quickstart
+## Setup
 
-Requires **Node ≥ 22** (see docs/TECHNICAL-ARCHITECTURE.md).
+Requires Node >= 22.
 
 ```powershell
 npm install
@@ -19,46 +15,41 @@ npm run assets:check
 npm run build
 ```
 
-## What's inside
+## Architecture
 
-- `src/app/` — routes: `/`, `/work`, `/work/saarthians`, `/work/[project]`,
-  `/about`, `/contact` (+ in-voice 404). `/lab` redirects to `/work`.
-- `src/components/` — layout, navigation, typography, motion, 3D, lab systems,
-  person, projects, sections.
-- `src/config/` + `src/styles/tokens.css` — design tokens (single source of truth).
-- `src/data/` — typed projects (outcomes `placeholder` until verified),
-  story (owner-provided facts only), stack (evidence-linked).
-- `public/assets-manifest.json` — asset slots + naming system.
-- `docs/` — ART-DIRECTION, ASSET-BIBLE, MOTION-SYSTEM, EXPERIENCE-MAP,
-  TECHNICAL-ARCHITECTURE.
+- `src/app/` — routes: `/`, `/work`, `/work/[project]`, `/services`, `/services/[service]`, `/insights`, `/about`, `/contact`, `/privacy`, `/terms`. `/lab` redirects to `/work`.
+- `src/components/sections/` — homepage chapters (Hero, Recognition, Transformation, CapabilityModules, Method, ProofLedger, EngineeringWall, Trust, Founder, FinalCta).
+- `src/components/{layout,navigation,typography,motion,ui,seo,lab,projects,3d}/` — shell, motion primitives, case visuals, the Signal Chamber.
+- `src/lib/assets.ts` — asset registry (all production media + metadata). `src/config/tokens.ts` + `src/styles/tokens.css` — design + motion tokens.
+- `src/data/` — typed projects (with honest `classification` + `role`), services (SEO titles/metas + FAQs), articles, story.
 
-## The experience
+## Asset registry usage
 
-`/` runs one sequence: Signal Chamber arrival (procedural pipe architecture,
-instrument console, antenna dish, smoke + dust), craft studies (recorded
-machinery, interior, materials), Origin (portrait discovered, Class 10 →
-Pragya Labs), Work worlds (Saarthians narrative + live data, RAG diagram,
-Majdoor signal, X specimen), Approach, Person, Contact with a 12-hour reply
-promise, and an orbital Loop echo. `/work` hosts the worlds + index;
-`/about` the readable story with detail crops.
+Components import `assets` from `@/lib/assets` — never hardcode `/film/...` paths. Masters live in gitignored `assets/`; production cuts live in `public/` and must be registered in `public/assets-manifest.json`.
 
-## Deployment workflow (permanent rule)
+## How to add a new project
 
-GitHub `main` is production. The repo is connected to Vercel with Git
-integration: every push to `main` triggers a production deployment
-(preview deployments for other branches where applicable).
+1. Add the entry in `src/data/projects.ts` with a truthful `classification` (`Client work` / `In progress` / `R&D experiment` / `Technical exploration` / `Interface study`) and `role`.
+2. Add it to the `CARDS` list in `ProofLedger.tsx` if it belongs on the homepage.
+3. Routes, sitemap, and next-case links generate automatically.
 
-At the end of every meaningful phase:
+## How to replace project media
 
-1. `npm run lint` → 2. `npm run typecheck` → 3. tests if present →
-4. `npm run build` → 5. inspect `git diff` → 6. commit → 7. `push to main` →
-8. verify the Vercel deployment → 9. report URL + status.
+1. Cut the master: 720p, CRF 23–26, `+faststart`, no audio, plus a poster jpg.
+2. Drop files in `public/film/`, register in `assets-manifest.json` and `src/lib/assets.ts`, run `npm run assets:check`.
 
-Never claim "deployed" without a verified deployment. No secrets in the repo:
-no `.env`, no tokens, no API keys.
+## How to tune animation quality
 
-## Rules for contributors (including future us)
+- `use-device-capability` tiers (`high`/`reduced`) drive DPR, particle counts, and scene detail.
+- Scroll chapters gate on `motionAllowed()` + `prefersReducedMotion()`; each section renders a static fallback.
 
-No generic portfolio layouts, no glassmorphism soup, no fake stats/clients/
-testimonials, no invented project outcomes, no copied references, no dependency
-without a job. Every visual decision needs a purpose — see docs/ART-DIRECTION.md.
+## How to disable/reduce visual effects
+
+- Global: respect OS reduced-motion (all ambient motion, pins, magnetic, cursor stop; static fallbacks render).
+- Per-section: each chapter's `useEffect` returns early when motion is off — content stays fully readable.
+
+## How to test performance and accessibility
+
+- `npm run build` must stay green; keep film files < 3MB each.
+- Keyboard-walk every page; check focus visibility; run the inquiry form with empty fields.
+- Docs: `docs/ASSET-AUDIT.md` (media inventory), `docs/AUDIT-REUSE.md` (reuse + perf + a11y notes), `docs/JOURNEY.md` (funnel map), `docs/ART-DIRECTION.md` (mood, tokens, composition rules).

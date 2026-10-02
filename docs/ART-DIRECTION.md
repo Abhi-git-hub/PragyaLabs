@@ -1,99 +1,39 @@
-# ART DIRECTION — Pragya Labs (Phase 1, locked foundation)
+# Art direction — Grounded Intelligence (current)
 
-> Status: LOCKED for Phase 1. Changes require updating tokens (`src/styles/tokens.css`
-> + `src/config/tokens.ts`), the demos on `/`, and this document together.
+## Moodboard in writing
 
-## 1. Creative thesis
+Midnight control room at 2am: deep ink surfaces, hairline structure, one cyan
+signal line tracing through the dark, violet depth behind glass, a single amber
+marker where a human hand touched the system. Then morning: warm ivory paper,
+ink editorial type, one precise diagram. Nothing glows for fun. Everything
+luminous is either data, state, or an invitation.
 
-**PRAGYA LABS — Digital systems engineered with intelligence.**
-Internal phrase: **Enter the lab.**
+## Color / material
 
-The site is an experimental digital laboratory the visitor walks into, not a
-portfolio they scroll past. Discovery order: identity → thesis → experimentation
-→ work → technology → philosophy → person → contact. Every section must answer
-"what happens here" in one sentence or be cut.
+- Midnight `#090D1A`, surfaces `#111A33` / `#182347`, borders `#273150`.
+- Ice text `#F5F7FF`, secondary `#B7C2D9`, muted `#7E8AA6`.
+- Signal cyan `#28D7FE` (CTAs, active paths, focus, markers). Violet `#8B5CF6`
+  (transformation/intelligence accents, WebGL lights). Amber `#FFB547`
+  (human interaction highlights, sparingly). Success `#46D39A` (live status).
+- Ivory `#F8F7F2` relief chapters with deep-link cyan `#007FA3`.
+- Glass ×3: signal (nav, state panels), deep (overlays above WebGL), light
+  (ivory sections). Blur only where it separates info from motion.
 
-## 2. Visual direction — OBSIDIAN / PHOSPHOR SIGNAL
+## Typography
 
-**Base (82–88%):** obsidian `#050608`, graphite `#0B0F12` / `#12181A`,
-porcelain `#F2F1EA` for type (8–13% neutral). Rooms stay near-black.
+- Space Grotesk 600/700 headings (sentence case), Inter body 18→20px,
+  JetBrains Mono 11–13px labels (states, categories, markers — never texture).
+- Scale: XL 4.5–11rem (single words) / L 3.25–7rem (moments) / H1 3–6.5rem /
+  H2 2.2–4.75rem / H3 1.35–2.1rem.
+- Motion: signal reveal (blur→precision on entry), system mask (masked line
+  rise per chapter), data drift (background words at 2–4% scroll).
 
-**Signal (2–5%):** phosphor `#3DFFA2`, light phosphor `#7DFDC4`, deep
-phosphor `#168F62`, ice `#C9FFF0`. Green is a signal, not a background:
-it appears when something is active, responding, transforming, important.
-No blue/purple cyberpunk washes. No gold/yellow neon.
+## Composition rules
 
-**Signal accent (locked):** phosphor is the one deliberate accent —
-link hovers, one decisive word per key headline, the signature draw-on,
-active states, focus ring. Ice is reserved for live status only
-(`Live`, `in-progress`, experiment states) — never decoration, never body.
-
-**Materials:** chrome (one element per viewport max, `text-chrome`), smoked glass
-(background scrims only), crystal/polished graphite (3D surfaces).
-
-**Prohibited:** giant generic gradients, glassmorphism soup, SaaS cards, skill
-bars/percentages, stock AI imagery (robot heads, brains, laptops, businessmen,
-futuristic cities), fake stats/clients/awards/testimonials, copied layouts.
-
-## 3. Color system
-
-Tokens: `--pl-background/surface/surface-2/foreground/muted/faint/border`,
-`--pl-accent-*` (phosphor family). Usage law: 82–88% dark, 8–13% neutral,
-2–5% signal. Contrast: porcelain-on-obsidian ≈ 19:1; muted `#B3B8B3` on
-obsidian ≈ 8:1 (body-safe); faint `#737B78` is metadata-only, never body
-text. Ice-on-black for status microcopy only.
-
-## 4. Typography (evaluated, documented choice)
-
-| Voice | Face | Role |
-|---|---|---|
-| Display | **Anton** (400, condensed) | Editorial mass: hero, act titles, index rows |
-| Body | **Inter** (variable) | Quiet explanation; max 62ch |
-| Mono | **JetBrains Mono** (variable) | Technical metadata, eyebrows, coordinates |
-
-**Why this trio:** Anton's condensed uppercase mass reads "monumental instrument"
-against dark matter without needing weight range; Inter disappears correctly as
-body; JetBrains Mono gives the lab its instrument-panel voice. Considered and
-rejected: Space Grotesk (overused in AI-startup aesthetics), Archivo (needs more
-tuning to feel distinct), IBM Plex Mono (warmer, less precise at small sizes).
-Loaded via `next/font/google` (self-hosted, zero layout shift).
-PRD v2 proposed Clash Display for hero moments — declined: Anton is the
-established, approved voice and a mid-stream display swap would trade
-identity continuity for novelty. JetBrains Mono already satisfies the v2
-mono requirement.
-Components: `src/components/typography/Type.tsx` (`Display`, `Body`, `Eyebrow`).
-
-## 5. Lighting & imagery
-
-Light is motivated: key from object-emissive (cyan/violet point lights in 3D),
-type legibility via radial falloff scrims, never global brightening. Imagery
-subjects allowed: technological sculptures, computational objects, energy cores,
-orbital systems, neural structures, crystalline computation, data architecture,
-experimental interfaces. Reference `assets/NeonDigitalCrystalCore.png` (concept
-only) informed the Core prototype's chrome-ring + crystal + orbital language;
-`assets/uiLook.png` / `assets/uiLook2.png` study the arrival composition and
-lab atmosphere (see ASSET-BIBLE).
-
-## 6. Motion & interaction (summary — see MOTION-SYSTEM.md)
-
-GSAP owns scroll choreography, R3F owns 3D, CSS owns micro. Signature five
-(documented, Phase 2): cursor-reactive hero object → scroll-transforming object →
-dimensional project transitions → animated stack system → finale reconstructing
-the opening visual. Cursor states DEFAULT/VIEW/OPEN/DRAG/EXPLORE (desktop only).
-
-## 7. Responsive philosophy
-
-Not desktop-shrunk. Three composition bands: **320–430** stacked cinematic (type
-leads, 3D becomes backdrop, Lenis off, particle counts cut); **768** condensed
-dual; **1024+** full lab grid with smoothing. Touch targets ≥ 44px; mobile keeps
-cinematic feel through scale and pacing, not effects. Breakpoints live in
-`src/config/tokens.ts`.
-
-## 8. Accessibility philosophy
-
-Motion is enhancement: everything is legible and operable with JS motion off and
-under `prefers-reduced-motion` (final states render, tweens never fire).
-Semantic landmarks, one `h1` per route, visible focus ring (cyan, 2px + offset),
-skip link, keyboard-operable menu, `aria-hidden` on decorative canvases, live
-regions reserved for Phase 2 async moments. Faint token never carries meaning
-alone — status always pairs color with text.
+- Desktop: cinematic chapters, selective pins (Recognition only), hairline
+  grid, 88rem container, clamp gutters. Tablet: simplified depth, no pins.
+  Mobile: vertical editorial flow, static hero fallback, touch-first cards.
+- Depth max 3 layers. Glow behind objects, never paragraphs. Grain 2.5%.
+- One full-page WebGL scene (hero chamber). Everything else: SVG/CSS/canvas.
+- Buttons: cyan fill + ink text (hover: amber); ghost hairline (hover: cyan).
+  44px targets, visible cyan focus everywhere.

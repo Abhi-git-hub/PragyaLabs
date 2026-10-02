@@ -1,8 +1,10 @@
 import { Hero } from "@/components/sections/Hero";
 import { Recognition } from "@/components/sections/Recognition";
+import { Transformation } from "@/components/sections/Transformation";
 import { CapabilityModules } from "@/components/sections/CapabilityModules";
 import { Method } from "@/components/sections/Method";
 import { ProofLedger } from "@/components/sections/ProofLedger";
+import { EngineeringWall } from "@/components/sections/EngineeringWall";
 import { Trust } from "@/components/sections/Trust";
 import { Founder } from "@/components/sections/Founder";
 import { FinalCta } from "@/components/sections/FinalCta";
@@ -29,9 +31,11 @@ export default function HomePage() {
       <WebSiteJsonLd />
       <Hero />
       <Recognition />
+      <Transformation />
       <CapabilityModules />
       <Method />
       <ProofLedger />
+      <EngineeringWall />
       <Trust />
       <Founder />
       <FinalCta />

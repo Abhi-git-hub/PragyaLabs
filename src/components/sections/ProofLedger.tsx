@@ -6,6 +6,7 @@ import { Display } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { getProject } from "@/data/projects";
+import { assets } from "@/lib/assets";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 /**
@@ -20,14 +21,14 @@ const CARDS = [
     cta: "View system case study",
     description:
       "Secure student and teacher workspaces with a reasoning-augmented assistant, designed around grounded learning workflows.",
-    film: { src: "/film/saarthians--feature.mp4", poster: "/film/saarthians--feature--poster.jpg", label: "Saarthians concept film" },
+    film: assets.film.saarthians,
   },
   {
     slug: "adhyayan-classes",
     cta: "View client case study",
     description:
       "A coaching institute's website — programs, admissions, and contact — live in production since 2023.",
-    film: { src: "/film/adhyayan--feature.mp4", poster: "/film/adhyayan--feature--poster.jpg", label: "Adhyayan Classes recorded walkthrough" },
+    film: assets.film.adhyayan,
   },
   {
     slug: "stock-rag",
@@ -146,6 +147,24 @@ export function ProofLedger() {
                   {project.title}
                 </h3>
                 <p className="mt-3 flex-1 leading-relaxed text-muted">{c.description}</p>
+                <dl className="meta mt-6 grid grid-cols-2 gap-x-6 gap-y-2 border-t border-line pt-5 text-faint">
+                  <div>
+                    <dt className="inline">Category — </dt>
+                    <dd className="inline text-muted">{project.category}</dd>
+                  </div>
+                  <div>
+                    <dt className="inline">Status — </dt>
+                    <dd className="inline text-muted">{project.classification}</dd>
+                  </div>
+                  <div>
+                    <dt className="inline">Role — </dt>
+                    <dd className="inline text-muted">{project.role}</dd>
+                  </div>
+                  <div>
+                    <dt className="inline">Stack — </dt>
+                    <dd className="inline text-muted">{project.technologies.slice(0, 3).join(" / ")}</dd>
+                  </div>
+                </dl>
                 <Link
                   href={`/work/${project.slug}`}
                   data-cursor="OPEN CASE"

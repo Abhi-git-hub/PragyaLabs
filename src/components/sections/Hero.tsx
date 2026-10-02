@@ -113,7 +113,7 @@ export function Hero() {
             quality={capability.tier}
           />
         ) : (
-          <div className="h-full w-full [background:radial-gradient(ellipse_60%_50%_at_50%_42%,rgb(61_255_162/0.06),transparent_70%)]" />
+          <div className="h-full w-full [background:radial-gradient(ellipse_60%_50%_at_50%_42%,rgb(40_215_254/0.07),transparent_70%)]" />
         )}
       </div>
       {/* Legibility falloff + vignette — the frame holds together */}
@@ -149,7 +149,7 @@ export function Hero() {
             digital experiences around the way your data, workflows, and people
             actually work.
           </p>
-          <p className="meta mt-4 text-faint">Built for real use — not just impressive demos.</p>
+          <p className="meta mt-4 text-faint">Built for real use—not just impressive demos.</p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="/contact" data-cursor="OPEN" className="btn-primary">
               Start a project
@@ -164,6 +164,10 @@ export function Hero() {
         </div>
       </div>
 
+      {/* System state — glass readout of the chamber's three states.
+          Decorative; the H1 above carries all meaning. */}
+      <ChamberState sectionRef={sectionRef} />
+
       {/* Scroll cue — quiet, low, out of the copy's way. */}
       <div
         ref={cueRef}
@@ -171,10 +175,48 @@ export function Hero() {
       >
         <div className="flex items-center gap-4">
           <div className="cue-line" aria-hidden="true" />
-          <p className="meta text-faint">Scroll — the chamber responds</p>
+          <p className="meta text-faint">Scroll to transform</p>
         </div>
-        <p className="meta hidden text-faint sm:block">Delhi — India / 2026</p>
+        <p className="meta hidden text-faint sm:block">Seed → Knot → Signal</p>
       </div>
     </section>
+  );
+}
+
+/** Chamber state readout — FRAGMENT → STRUCTURE → SIGNAL with scroll. */
+function ChamberState({ sectionRef }: { sectionRef: React.RefObject<HTMLElement | null> }) {
+  const [phase, setPhase] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+        setPhase(p < 0.45 ? 0 : p < 0.8 ? 1 : 2);
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [sectionRef]);
+
+  const states = ["Fragment", "Structure", "Signal"] as const;
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute bottom-24 right-[var(--pl-gutter)] z-10 hidden md:block">
+      <div className="glass-deep px-5 py-4">
+        <p className="meta text-faint">
+          State — <span className="text-cyan">{states[phase]}</span>
+        </p>
+        <p className="meta mt-2 text-faint">Input — Data / Workflow / People</p>
+        <p className="meta mt-2 text-faint">Output — Useful system</p>
+      </div>
+    </div>
   );
 }

@@ -26,8 +26,8 @@ export function FinalCta() {
               down. We will help you clarify what a useful system could look like.
             </p>
             <p className="meta mt-8">
-              <Link href="/work" data-cursor="OPEN" className="text-muted transition-colors hover:text-cyan">
-                See how we work — selected systems →
+              <Link href="/#method" data-cursor="OPEN" className="text-muted transition-colors hover:text-cyan">
+                See how we work — clarity before complexity →
               </Link>
             </p>
           </Reveal>

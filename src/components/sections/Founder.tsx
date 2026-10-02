@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Display } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { assets } from "@/lib/assets";
 
 /**
  * FOUNDER — accountability as an advantage. Real workspace photograph
@@ -11,30 +12,32 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
  */
 export function Founder() {
   return (
-    <SectionContainer eyebrow="Direct collaboration">
+    <SectionContainer eyebrow="Direct collaboration / Delhi, India">
       <div className="grid gap-10 md:grid-cols-2 md:items-center">
         <Reveal>
           <div className="overflow-hidden border border-line">
             <Image
-              src="/person/workspace2--web.jpg"
-              alt="Abhi at the work desk, looking up from the screen"
-              width={1400}
-              height={933}
+              src={assets.photo.desk.src}
+              alt={assets.photo.desk.alt}
+              width={assets.photo.desk.width}
+              height={assets.photo.desk.height}
               sizes="(max-width: 768px) 100vw, 50vw"
               loading="lazy"
-              className="block aspect-[3/2] w-full object-cover"
+              className="block aspect-[4/3] w-full object-cover"
             />
           </div>
-          <p className="meta mt-3 text-faint">At the desk — Delhi, 2026</p>
+          <p className="meta mt-3 text-faint">The desk — Delhi, 2026</p>
         </Reveal>
         <Reveal>
           <Display as="h2" size="md" className="max-w-[20ch]">
-            Built with accountable technical leadership.
+            Built close to the problem.
           </Display>
           <p className="mt-6 max-w-[56ch] leading-relaxed text-muted md:text-lg">
-            Pragya Labs is led by Abhi, an engineer working across AI systems, web
-            applications, and interactive technology. You work directly with the person
-            shaping the product, architecture, and experience.
+            Pragya Labs is led by Abhi — working directly across system design,
+            product architecture, engineering, and interactive execution.
+          </p>
+          <p className="meta mt-6 text-faint">
+            Think → Model → Build → Test → Ship. One engineer, full chain.
           </p>
           <p className="meta mt-6 text-faint">
             Based in Delhi, India. Working remotely with teams wherever the work fits.

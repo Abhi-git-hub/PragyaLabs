@@ -54,11 +54,20 @@
   --pl-font-body: "Inter", system-ui, sans-serif;
   --pl-font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* Display scale (fluid, editorial). Display face is condensed; keep tight leading. */
-  --pl-text-hero: clamp(3.5rem, 12vw, 11rem);
-  --pl-text-display-lg: clamp(2.75rem, 7vw, 6rem);
-  --pl-text-display-md: clamp(2rem, 5vw, 4rem);
-  --pl-text-display-sm: clamp(1.5rem, 3.5vw, 2.5rem);
+  /* Display scale — editorial engine. Sentence case; uppercase only for short labels. */
+  --pl-text-hero: clamp(4.5rem, 10vw, 11rem); /* display XL — single powerful words only */
+  --pl-text-display-lg: clamp(3.25rem, 7vw, 7rem); /* display L — major section moments */
+  --pl-text-display-md: clamp(2.2rem, 4vw, 4.75rem); /* H2 */
+  --pl-text-display-sm: clamp(1.35rem, 2vw, 2.1rem); /* H3 */
+  --pl-text-h1: clamp(3rem, 6vw, 6.5rem);
+
+  /* ---------- Motion (one physical system: precise, calm, cinematic) ---------- */
+  --pl-duration-micro: 140ms;
+  --pl-duration-fast: 220ms;
+  --pl-duration-ui: 320ms;
+  --pl-duration-enter: 600ms;
+  --pl-duration-section: 900ms;
+  --pl-duration-cinematic: 1400ms;
 
   /* ---------- Spacing (4pt base) ---------- */
   --pl-space-0: 0;

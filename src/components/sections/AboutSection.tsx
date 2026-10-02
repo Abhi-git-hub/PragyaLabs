@@ -356,7 +356,7 @@ export function AboutSection({ standalone = false }: { standalone?: boolean }) {
                     {site.contact.email}
                   </ContactLink>
                 </p>
-                <p className="meta mt-3 text-faint">Replies within 12 hours</p>
+                <p className="meta mt-3 text-faint">Delhi, India — working worldwide</p>
               </div>
             </div>
           </div>

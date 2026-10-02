@@ -133,7 +133,7 @@ export function ServicePage({ service }: { service: Service }) {
             Start a project →
           </Link>
           <p className="meta mt-4 text-faint">
-            {site.location} — replies within 12 hours
+            {site.location} — working worldwide
           </p>
         </Reveal>
       </SectionContainer>

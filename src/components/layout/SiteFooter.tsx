@@ -13,6 +13,7 @@ export function SiteFooter() {
             systems, RAG applications, web products, and immersive digital experiences.
           </p>
           <p className="meta mt-4 text-faint">Intelligent systems, thoughtfully built.</p>
+          <p className="meta mt-2 text-faint">Digital systems engineered with intelligence.</p>
         </div>
         <nav aria-label="Footer">
           <p className="meta mb-4 text-faint">Index</p>

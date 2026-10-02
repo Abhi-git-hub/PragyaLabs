@@ -96,6 +96,29 @@ body {
   border-top: 1px solid var(--pl-border);
 }
 
+/* Glass as architecture — three intentional materials, used sparingly. */
+.glass-signal {
+  background: rgb(17 26 51 / 0.45);
+  border: 1px solid rgb(245 247 255 / 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 1px 1px 0 rgb(245 247 255 / 0.06);
+}
+.glass-deep {
+  background: rgb(9 13 26 / 0.64);
+  border: 1px solid rgb(40 215 254 / 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 1px 1px 0 rgb(245 247 255 / 0.05);
+}
+.glass-light {
+  background: rgb(255 255 255 / 0.62);
+  border: 1px solid rgb(16 24 39 / 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.5);
+}
+
 /* Chrome text treatment — use sparingly (one element per viewport max). */
 .text-chrome {
   background: var(--pl-chrome);

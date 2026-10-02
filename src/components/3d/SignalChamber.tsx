@@ -201,6 +201,8 @@ function Chamber({
   const pointer = useRef({ x: 0, y: 0 });
   const dustMat = useRef<THREE.PointsMaterial>(null!);
   const sheenMat = useRef<THREE.MeshBasicMaterial>(null!);
+  const riseMesh = useRef<THREE.Mesh>(null!);
+  const riseMat = useRef<THREE.MeshBasicMaterial>(null!);
   const reduced = useMemo(() => prefersReducedMotion(), []);
   const { gl, scene } = useThree();
   const [pipes, plaster, rubber, shutter, bluemetal, instrument] = useLoader(
@@ -294,7 +296,17 @@ function Chamber({
       // Atmosphere breathes in with the haze window — dust then sheen.
       if (dustMat.current) dustMat.current.opacity = 0.55 * haze;
       if (sheenMat.current) sheenMat.current.opacity = 0.14 * haze;
-      // Signal sweep — a slow rim light orbiting the beacon.
+      // Three states, one journey:
+      // SEED (intro 0→1): the room assembles from darkness.
+      // KNOT (intro done): relationships lock — sweep orbits the beacon.
+      // SIGNAL (scroll 0→1): a vertical energy flow rises through the system.
+      if (riseMesh.current) {
+        const sig = THREE.MathUtils.clamp(s, 0, 1);
+        riseMesh.current.scale.y = 0.12 + sig * 0.88;
+        riseMesh.current.position.y = 1.2 + sig * 1.6;
+        riseMesh.current.rotation.y = t * 0.4;
+      }
+      if (riseMat.current) riseMat.current.opacity = 0.42 * THREE.MathUtils.clamp(s * 1.4, 0, 1);
       if (sweep.current) {
         const a = t * 0.35;
         sweep.current.position.set(2.2 + Math.cos(a) * 2.8, 1.9 + Math.sin(t * 0.5) * 0.5, -0.9 + Math.sin(a) * 2.8);
@@ -407,6 +419,20 @@ function Chamber({
 
       {/* THE BEACON — the object the opening is about */}
       <Beacon pointer={pointer} introRef={introRef} scroll={scrollRef ?? { current: 0 }} beat={beatRef} />
+      {/* SIGNAL — the vertical energy flow. Grows only with scroll: the
+          system's answer to the journey. Additive, cheap, one draw call. */}
+      <mesh ref={riseMesh} position={[-0.7, 1.2, -1.8]}>
+        <cylinderGeometry args={[0.05, 0.16, 6, 12, 1, true]} />
+        <meshBasicMaterial
+          ref={riseMat}
+          color={colors.accentCyan}
+          transparent
+          opacity={0}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
       {/* Faked floor bounce under the beacon */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.2, 0.02, -0.9]}>
         <planeGeometry args={[4.5, 4.5]} />

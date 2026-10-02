@@ -49,7 +49,7 @@ export default function ContactPage() {
             <br />
             {site.contact.email}
             <br />
-            Replies within 12 hours — {site.location}
+            {site.location} — working worldwide
           </p>
         </div>
       </Reveal>

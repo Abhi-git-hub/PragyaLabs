@@ -49,8 +49,10 @@ export function SiteNav() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b border-line backdrop-blur-md transition-transform duration-300",
-        pastHero ? "bg-void/90" : "bg-void/60",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        pastHero
+          ? "glass-signal border-b border-line"
+          : "border-b border-transparent bg-transparent",
         hidden && !open ? "-translate-y-full" : "translate-y-0"
       )}
       >      <a

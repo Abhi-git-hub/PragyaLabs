@@ -20,7 +20,7 @@ const PATHS = [
   { id: "p-interface", d: "M 20 270 C 130 270, 150 200, 260 200" },
 ];
 
-const PATH_LABELS = ["Context", "Retrieval", "Workflow", "Interface"];
+const PATH_LABELS = ["Documents", "Knowledge", "Workflows", "Users", "Decisions"];
 
 /**
  * RECOGNITION — the real problem is fragmentation. Three lines land in
@@ -79,8 +79,8 @@ export function Recognition() {
             </Display>
             <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
               Information lives in documents, inboxes, spreadsheets, dashboards, and
-              people&apos;s heads. We design systems that bring the right context into
-              the right moment.
+              people&apos;s heads. Pragya Labs designs the system that brings the right
+              context into the right moment.
             </p>
           </Reveal>
           {/* Fragment sources → one system. Decorative; the copy above carries meaning. */}
@@ -90,9 +90,9 @@ export function Recognition() {
               {[60, 130, 200, 270].map((y) => (
                 <g key={y} data-rec-node>
                   <rect x={8} y={y - 22} width={56} height={44} fill="none" stroke="#7E8AA6" strokeWidth={1} opacity={0.7} />
-                  <line x1={16} y1={y - 8} x2={56} y2={y - 8} stroke="#7E8AA6" strokeWidth={1} opacity={0.5} />
-                  <line x1={16} y1={y + 2} x2={48} y2={y + 2} stroke="#7E8AA6" strokeWidth={1} opacity={0.35} />
-                  <line x1={16} y1={y + 12} x2={52} y2={y + 12} stroke="#7E8AA6" strokeWidth={1} opacity={0.25} />
+                  <path d={`M 16 ${y - 8} L 56 ${y - 8}`} stroke="#7E8AA6" strokeWidth={1} opacity={0.5} />
+                  <path d={`M 16 ${y + 2} L 48 ${y + 2}`} stroke="#7E8AA6" strokeWidth={1} opacity={0.35} />
+                  <path d={`M 16 ${y + 12} L 52 ${y + 12}`} stroke="#7E8AA6" strokeWidth={1} opacity={0.25} />
                 </g>
               ))}
               {/* drawn pathways */}

@@ -56,8 +56,8 @@ function MicroScene({ kind, accent }: { kind: string; accent: string }) {
           </g>
         ))}
         <rect x={150} y={48} width={42} height={24} fill="none" stroke="#F5F7FF" strokeWidth={1.2} />
-        <line x1={158} y1={58} x2={184} y2={58} stroke={accent} strokeWidth={1.5} />
-        <line x1={158} y1={64} x2={176} y2={64} stroke="#7E8AA6" strokeWidth={1} />
+        <path d="M 158 58 L 184 58" stroke={accent} strokeWidth={1.5} />
+        <path d="M 158 64 L 176 64" stroke="#7E8AA6" strokeWidth={1} />
       </svg>
     );
   }
@@ -100,7 +100,7 @@ export function CapabilityModules() {
     <SectionContainer eyebrow="What we build" id="capabilities" className="scroll-mt-20">
       <Reveal>
         <Display size="md" className="max-w-[20ch]">
-          From context to capability.
+          What the system can become.
         </Display>
         <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
           Every engagement is different. The systems we build usually combine one or
