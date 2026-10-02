@@ -72,6 +72,24 @@ export function WebSiteJsonLd() {
   );
 }
 
+/** FAQPage for service pages — the visible FAQ owns rich-result eligibility. */
+export function FaqJsonLd({ faq }: { faq: { q: string; a: string }[] }) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
 /** BreadcrumbList for the current trail — visible breadcrumbs required. */
 export function BreadcrumbListJsonLd({ items }: { items: { name: string; url: string }[] }) {
   const data = {

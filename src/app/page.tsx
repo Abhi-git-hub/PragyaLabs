@@ -5,6 +5,7 @@ import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { Immersive } from "@/components/sections/Immersive";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ServicesStrip } from "@/components/sections/ServicesStrip";
+import { ProofLedger } from "@/components/sections/ProofLedger";
 import { TransitionBand } from "@/components/motion/TransitionBand";
 import { SiteJsonLd, WebSiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
@@ -12,7 +13,7 @@ import { buildMetadata } from "@/lib/metadata";
 export const metadata = buildMetadata({
   title: "Pragya Labs — AI, Web & Creative Technology Studio",
   description:
-    "Pragya Labs is an independent digital systems studio building custom AI systems, web applications and immersive experiences. Proof, not promises.",
+    "Custom AI systems and web applications built around your real business data. Pragya Labs designs reliable AI workflows, retrieval-augmented generation systems, and high-performance web products for teams that need technology to work in the real world.",
   canonical: "/",
 });
 
@@ -34,6 +35,7 @@ export default function HomePage() {
       <FeaturedWork />
       <Immersive />
       <ServicesStrip />
+      <ProofLedger />
       <AboutSection />
     </>
   );

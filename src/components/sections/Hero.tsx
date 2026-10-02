@@ -159,6 +159,9 @@ export function Hero() {
                 </span>
               ))}
             </span>
+            <span className="sr-only">
+              {" "}— AI systems, web applications and immersive digital experiences
+            </span>
           </h1>
           <div
             ref={ruleRef}

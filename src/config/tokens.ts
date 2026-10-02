@@ -13,7 +13,7 @@ export const colors = {
   faint: "#737b78",
   accentCyan: "#3dffa2",
   accentBlue: "#7dfdc4",
-  accentViolet: "#168f62",
+  accentViolet: "#6f5dff",
   accentLime: "#c9fff0",
 } as const;
 

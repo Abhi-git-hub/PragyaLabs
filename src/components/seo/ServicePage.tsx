@@ -3,7 +3,7 @@ import { Display, Eyebrow } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
-import { BreadcrumbListJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbListJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/config/site";
 import type { Service } from "@/data/services";
 
@@ -25,6 +25,7 @@ export function ServicePage({ service }: { service: Service }) {
           .filter((t) => t.href)
           .map((t) => ({ name: t.label, url: `${site.url}${t.href}` }))}
       />
+      <FaqJsonLd faq={service.faq} />
       <SectionContainer>
         <Reveal>
           <Breadcrumb trail={trail} />

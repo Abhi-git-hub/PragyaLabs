@@ -91,7 +91,7 @@ export function RetrievalViz() {
       // Query pulse + answer beam
       const pulseA = cycle < 0.85 ? 0.9 : Math.max(0, 1 - (cycle - 0.85) / 0.15);
       node(qx, 0.5, 5, "#f2f1ea", pulseA);
-      node(origin.x, origin.y, 6, "#168f62", 0.9);
+      node(origin.x, origin.y, 6, "#6f5dff", 0.9);
       const beam = cycle > 0.7 ? (cycle - 0.7) / 0.3 : 0;
       node(answer.x, answer.y, 6 + beam * 4, "#c9fff0", 0.5 + beam * 0.5);
 

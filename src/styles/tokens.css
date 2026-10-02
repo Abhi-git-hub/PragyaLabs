@@ -1,13 +1,14 @@
 /**
  * PRAGYA LABS — DESIGN TOKENS (single source of truth for CSS)
- * Studio system: obsidian base, porcelain text, phosphor signal.
- * Visual ratio ≈ 82–88% dark / 8–13% neutral / 2–5% phosphor.
+ * Studio system: obsidian base, porcelain text, phosphor signal,
+ * iris ambient light. Luminous dark — depth comes from light, not paint.
+ * Visual ratio ≈ 80–86% dark / 8–13% neutral / 3–6% signal light.
  *
  * Rules:
  * - Phosphor is a signal, not paint: active / responding / transforming only.
+ * - Iris is ambient light: glows, fills, 3D lights, gradients — never body text.
  * - No giant generic gradients. No glassmorphism soup. No SaaS cards.
- * - No blue/purple cyberpunk washes. No gold/yellow neon.
- * - Surfaces stay near-black; energy arrives through light and motion.
+ * - No gold/yellow neon. Surfaces stay near-black; energy arrives through light and motion.
  */
 
 :root {
@@ -21,10 +22,10 @@
   --pl-border: rgb(242 241 234 / 0.09);
   --pl-border-strong: rgb(242 241 234 / 0.16);
 
-  /* ---------- Color: signal (phosphor family — light, not paint) ---------- */
+  /* ---------- Color: signal (phosphor) + ambient (iris) ---------- */
   --pl-accent-cyan: #3dffa2; /* phosphor — the one signal accent */
   --pl-accent-blue: #7dfdc4; /* light phosphor — secondary glow, large text */
-  --pl-accent-violet: #168f62; /* deep phosphor — fills, borders, fields */
+  --pl-accent-violet: #6f5dff; /* iris — ambient fills, 3D lights, glows */
   --pl-accent-lime: #c9fff0; /* ice highlight — live status only */
 
   /* ---------- Materials ---------- */
@@ -77,7 +78,7 @@
   /* ---------- Shadow (restrained; glow reserved for signal) ---------- */
   --pl-shadow-subtle: 0 1px 0 rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
   --pl-glow-cyan: 0 0 24px -4px rgb(61 255 162 / 0.4);
-  --pl-glow-violet: 0 0 24px -4px rgb(22 143 98 / 0.5);
+  --pl-glow-violet: 0 0 32px -4px rgb(111 93 255 / 0.55);
   --pl-glow-lime: 0 0 24px -6px rgb(201 255 240 / 0.3);
 
   /* ---------- Blur (backgrounds only, never content) ---------- */

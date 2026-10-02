@@ -95,6 +95,14 @@ body {
   color: transparent;
 }
 
+/* Luminous text — phosphor into iris. Headlines only, one per viewport max. */
+.text-luminous {
+  background: linear-gradient(100deg, #3dffa2 5%, #c9fff0 42%, #8f81ff 75%, #6f5dff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Masked-line reveal helper: parent clips, child translates. */
 .mask-line {
   display: block;
@@ -180,7 +188,7 @@ body {
 }
 .orbit-b {
   width: 95%;
-  border: 1px solid rgb(22 143 98 / 0.25);
+  border: 1px solid rgb(111 93 255 / 0.35);
 }
 .orbit-sat {
   position: absolute;

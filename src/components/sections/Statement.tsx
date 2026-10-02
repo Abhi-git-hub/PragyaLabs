@@ -93,7 +93,8 @@ export function Statement() {
           Bold ideas, <span className="text-cyan">come to life</span>.
         </h2>
         <p className="mt-6 max-w-[62ch] leading-relaxed text-muted">
-          We combine design, motion, 3D and development to create immersive web experiences.
+          Pragya Labs is an independent digital systems studio building custom AI
+          systems, web applications, and immersive digital experiences.
         </p>
       </section>
     );
@@ -133,7 +134,8 @@ export function Statement() {
           <div>
             <p className="meta text-faint">What we believe</p>
             <p className="mt-6 max-w-[46ch] leading-relaxed text-muted md:text-lg">
-              We combine design, motion, 3D and development to create immersive web experiences.
+              Pragya Labs is an independent digital systems studio building custom AI
+              systems, web applications, and immersive digital experiences.
             </p>
             <Link
               href="/work"

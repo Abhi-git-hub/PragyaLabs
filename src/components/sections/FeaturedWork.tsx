@@ -5,140 +5,79 @@ import { useEffect, useRef, useState } from "react";
 import { Display } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { Magnetic } from "@/components/motion/Magnetic";
-import { RainbowCursor } from "@/components/motion/RainbowCursor";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { getProject } from "@/data/projects";
+import type { Project } from "@/data/projects";
 import { usePrefersReducedMotion, prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
 
 /**
- * FEATURED WORK — Saarthians as cinema. A hover-reactive row (left blurs,
- * preview chases the cursor), then the concept film in a scroll-zooming
- * frame with a one-shot ripple, closing on the pipeline it covers.
- * The film is the concept cut — the case page holds the verified facts.
+ * FEATURED WORK — two systems, on screen, in perfect symmetry.
+ * Saarthians (concept film) and Adhyayan Classes (recorded walkthrough
+ * of the live site) share one grid: same frame, same scale, same motion.
+ * Text never blurs, films play on every device — tap toggles playback.
  */
 export function FeaturedWork() {
-  const project = getProject("saarthians");
-  const rowRef = useRef<HTMLDivElement | null>(null);
-  const previewRef = useRef<HTMLVideoElement | null>(null);
-  const filmRef = useRef<HTMLDivElement | null>(null);
-  const [rippled, setRippled] = useState(false);
+  const saarthians = getProject("saarthians");
+  const adhyayan = getProject("adhyayan-classes");
+  const gridRef = useRef<HTMLDivElement | null>(null);
   const reduced = usePrefersReducedMotion();
-  if (!project) return null;
+  if (!saarthians || !adhyayan) return null;
 
   useEffect(() => {
     registerMotion();
-    const el = filmRef.current;
+    const el = gridRef.current;
     if (!el || reduced || !motionAllowed()) return;
     const ctx = gsap.context(() => {
-      // Scroll zoom-in: the frame opens from 0.94 as it arrives.
+      // The pair opens together — one frame, two systems.
       gsap.fromTo(
         el,
-        { scale: 0.94 },
+        { scale: 0.97, opacity: 0.6 },
         {
           scale: 1,
+          opacity: 1,
           ease: "none",
-          scrollTrigger: { trigger: el, start: "top 95%", end: "top 45%", scrub: true },
+          scrollTrigger: { trigger: el, start: "top 92%", end: "top 55%", scrub: true },
         }
       );
-      // One ripple when the film lands — a single expanding ring.
-      gsap.to(
-        {},
-        {
-          scrollTrigger: {
-            trigger: el,
-            start: "top 60%",
-            once: true,
-            onEnter: () => setRippled(true),
-          },
-        }
-      );
-    }, filmRef);
+    }, gridRef);
     return () => ctx.revert();
   }, [reduced]);
-
-  const chase = (e: React.PointerEvent) => {
-    const row = rowRef.current;
-    const preview = previewRef.current;
-    if (!row || !preview) return;
-    const rect = row.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    preview.style.opacity = "1";
-    preview.style.transform = `translate(${x - 160}px, ${y - 100}px) rotate(${(x / rect.width - 0.5) * 6}deg)`;
-  };
-  const release = () => {
-    const preview = previewRef.current;
-    if (!preview) return;
-    preview.style.opacity = "0";
-  };
 
   return (
     <SectionContainer eyebrow="Featured work" id="featured" className="scroll-mt-20">
       <Reveal>
         <Display size="md" className="max-w-[14ch]">
-          One project, on screen.
+          Two systems, on screen.
         </Display>
       </Reveal>
 
-      {/* Hover-reactive row over the rainbow cursor field */}
-      <div
-        ref={rowRef}
-        onPointerMove={chase}
-        onPointerLeave={release}
-        data-cursor="EXPLORE"
-        className="group relative mt-10 overflow-hidden border border-line"
-      >
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <RainbowCursor />
-        </div>
-        <div className="relative grid gap-8 p-6 md:grid-cols-2 md:p-10">
-          <div className="transition-all duration-500 group-hover:blur-[3px] group-hover:opacity-70">
-            <p className="meta text-faint">product • engineering • intelligence</p>
-            <h3 className="mt-3 font-display text-4xl uppercase md:text-6xl">{project.title}</h3>
-            <p className="meta mt-3 text-faint">
-              {project.category} — {project.year} — {project.status}
-            </p>
-            <p className="mt-4 max-w-[52ch] leading-relaxed text-muted">{project.summary}</p>
-          </div>
-          <div className="relative md:min-h-[280px]" aria-hidden="true">
-            <video
-              ref={previewRef}
-              className="pointer-events-none absolute left-0 top-0 hidden h-[200px] w-[320px] border border-line-strong object-cover opacity-0 shadow-2xl transition-opacity duration-300 md:block"
-              src="/film/saarthians--feature.mp4"
-              muted
-              loop
-              playsInline
-              preload="none"
-              tabIndex={-1}
-            />
-            {/* Mobile: the film stacks in flow — nothing hidden, nothing overlapping */}
-            <div className="aspect-video w-full border border-line-strong md:hidden">
-              <Film
-                src="/film/saarthians--feature.mp4"
-                poster="/film/saarthians--feature--poster.jpg"
-                label="Saarthians concept film"
-              />
-            </div>
-            <p className="meta absolute bottom-0 right-0 hidden text-faint md:block">hover — the film follows</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Cinematic film panel */}
-      <div ref={filmRef} className="relative mt-6 overflow-hidden border border-line">
-        <div className="aspect-video w-full">
-          <Film
+      {/* Symmetric pair — identical frames, identical behavior */}
+      <div ref={gridRef} className="relative mt-10">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-8 opacity-60"
+          style={{
+            background:
+              "radial-gradient(ellipse 45% 40% at 22% 40%, rgb(111 93 255 / 0.10), transparent 70%), radial-gradient(ellipse 45% 40% at 78% 40%, rgb(61 255 162 / 0.07), transparent 70%)",
+          }}
+        />
+        <div className="relative grid gap-6 md:grid-cols-2">
+          <WorkPanel
+            project={saarthians}
             src="/film/saarthians--feature.mp4"
             poster="/film/saarthians--feature--poster.jpg"
             label="Saarthians concept film — interface explorations in motion"
-            autoPlay
+            caption="Saarthians — concept film. Verified facts live on the case page."
+          />
+          <WorkPanel
+            project={adhyayan}
+            src="/film/adhyayan--feature.mp4"
+            poster="/film/adhyayan--feature--poster.jpg"
+            label="Adhyayan Classes — recorded walkthrough of the live site"
+            caption="Adhyayan Classes — recorded walkthrough. Live since 2023."
           />
         </div>
-        {rippled && <span aria-hidden="true" className="ripple-once" />}
-        <p className="meta border-t border-line px-5 py-3 text-faint">
-          Saarthians — concept film. Verified facts live on the case page.
-        </p>
       </div>
 
       <Reveal className="relative mt-12 overflow-hidden border border-line p-6 md:p-10">
@@ -157,14 +96,16 @@ export function FeaturedWork() {
         <Display size="sm" className="relative max-w-[24ch]">
           Concept.Design.Development.Authentication.Security.Deployment.
         </Display>
-        <p className="relative mt-4 text-xl text-bone md:text-2xl">We are all covered.</p>
+        <p className="relative mt-4 max-w-[52ch] text-xl text-bone md:text-2xl">
+          One engineer owns the whole chain — from first sketch to production login.
+        </p>
         <Magnetic>
           <Link
-            href={`/work/${project.slug}`}
+            href="/contact"
             data-cursor="OPEN"
             className="meta relative mt-8 inline-block border border-line-strong px-5 py-3 text-bone transition-colors hover:border-cyan hover:text-cyan"
           >
-            Open the case study →
+            Start a project →
           </Link>
         </Magnetic>
       </Reveal>
@@ -172,17 +113,46 @@ export function FeaturedWork() {
   );
 }
 
-function Film({
+function WorkPanel({
+  project,
   src,
   poster,
   label,
-  autoPlay,
+  caption,
 }: {
+  project: Project;
   src: string;
   poster: string;
   label: string;
-  autoPlay?: boolean;
+  caption: string;
 }) {
+  return (
+    <article className="group relative overflow-hidden border border-line bg-void/60">
+      <div className="p-6 md:p-8">
+        <p className="meta text-faint">
+          {project.category} — {project.year} — {project.status}
+        </p>
+        <h3 className="mt-3 font-display text-4xl uppercase md:text-5xl">{project.title}</h3>
+        <p className="mt-4 max-w-[52ch] leading-relaxed text-muted">{project.summary}</p>
+      </div>
+      <div className="aspect-video w-full border-t border-line">
+        <Film src={src} poster={poster} label={label} />
+      </div>
+      <div className="flex items-center justify-between gap-4 border-t border-line px-6 py-4 md:px-8">
+        <p className="meta text-faint">{caption}</p>
+        <Link
+          href={`/work/${project.slug}`}
+          data-cursor="OPEN"
+          className="meta shrink-0 text-bone transition-colors hover:text-cyan"
+        >
+          Open case →
+        </Link>
+      </div>
+    </article>
+  );
+}
+
+function Film({ src, poster, label }: { src: string; poster: string; label: string }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [still, setStill] = useState(false);
 
@@ -193,25 +163,23 @@ function Film({
   useEffect(() => {
     const video = videoRef.current;
     if (!video || still) return;
-    if (autoPlay) {
-      const io = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) video.play().catch(() => undefined);
-          else video.pause();
-        },
-        { rootMargin: "200px" }
-      );
-      io.observe(video);
-      const onVis = () => {
-        if (document.hidden) video.pause();
-      };
-      document.addEventListener("visibilitychange", onVis);
-      return () => {
-        io.disconnect();
-        document.removeEventListener("visibilitychange", onVis);
-      };
-    }
-  }, [still, autoPlay]);
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => undefined);
+        else video.pause();
+      },
+      { rootMargin: "200px" }
+    );
+    io.observe(video);
+    const onVis = () => {
+      if (document.hidden) video.pause();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, [still]);
 
   if (still) {
     // eslint-disable-next-line @next/next/no-img-element
@@ -221,7 +189,7 @@ function Film({
   return (
     <video
       ref={videoRef}
-      className="h-full w-full object-cover"
+      className="h-full w-full cursor-pointer object-cover"
       src={src}
       poster={poster}
       muted
@@ -229,7 +197,14 @@ function Film({
       playsInline
       preload="metadata"
       disablePictureInPicture
-      aria-label={label}
+      controls
+      controlsList="nodownload noremoteplayback"
+      aria-label={`${label} — tap to play or pause`}
+      onClick={(e) => {
+        const video = e.currentTarget;
+        if (video.paused) video.play().catch(() => undefined);
+        else video.pause();
+      }}
     />
   );
 }

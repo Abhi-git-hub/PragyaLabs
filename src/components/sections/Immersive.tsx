@@ -54,7 +54,7 @@ export function Immersive() {
       });
       tl.fromTo("[data-zoom-line]", { scale: 0.72, y: 90, filter: "blur(12px)", opacity: 0 }, { scale: 1, y: 0, filter: "blur(0px)", opacity: 1, duration: 0.6, stagger: 0.35 }, 0);
       tl.to("[data-zoom-line]", { scale: 1.18, y: -70, filter: "blur(10px)", opacity: 0, duration: 0.9, stagger: 0.2 }, 1.1);
-      tl.fromTo(".immersive-room", { backgroundColor: "rgb(5,6,8)" }, { backgroundColor: "rgb(20,11,6)", duration: 2 }, 0);
+      tl.fromTo(".immersive-room", { backgroundColor: "rgb(5,6,8)" }, { backgroundColor: "rgb(13,9,26)", duration: 2 }, 0);
       tl.fromTo(".immersive-body", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5 }, 1.5);
     }, wrapRef);
     return () => ctx.revert();
@@ -67,9 +67,9 @@ export function Immersive() {
         <h2 className="mt-4 font-display text-4xl uppercase leading-tight md:text-6xl">
           Where creative ideas become immersive experiences.
         </h2>
-        <p className="mt-6 max-w-[62ch] leading-relaxed text-muted">
-          We produce web experiences, increase your sales, get more customers. You say we
-          cover. We do it all.
+          <p className="mt-6 max-w-[62ch] leading-relaxed text-muted">
+          One engineer in Delhi, building AI systems and websites for teams anywhere —
+          no templates, no filler. If it is on this page, it runs in production.
         </p>
       </section>
     );
@@ -102,8 +102,8 @@ export function Immersive() {
           </h2>
           <div className={cn("immersive-body mt-8 max-w-[62ch]")}>
             <p className="leading-relaxed text-muted md:text-lg">
-              We produce web experiences, increase your sales, get more customers. You say we
-              cover. We do it all.
+              One engineer in Delhi, building AI systems and websites for teams anywhere —
+              no templates, no filler. If it is on this page, it runs in production.
             </p>
             <Link
               href="/contact"
