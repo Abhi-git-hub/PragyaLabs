@@ -1,29 +1,26 @@
 import { Hero } from "@/components/sections/Hero";
-import { Trust } from "@/components/sections/Trust";
-import { Metamorphosis } from "@/components/sections/Metamorphosis";
-import { Statement } from "@/components/sections/Statement";
-import { FeaturedWork } from "@/components/sections/FeaturedWork";
-import { Immersive } from "@/components/sections/Immersive";
-import { AboutSection } from "@/components/sections/AboutSection";
-import { FinalCta } from "@/components/sections/FinalCta";
-import { ServicesStrip } from "@/components/sections/ServicesStrip";
+import { Recognition } from "@/components/sections/Recognition";
+import { CapabilityModules } from "@/components/sections/CapabilityModules";
+import { Method } from "@/components/sections/Method";
 import { ProofLedger } from "@/components/sections/ProofLedger";
-import { Process } from "@/components/sections/Process";
-import { TransitionBand } from "@/components/motion/TransitionBand";
+import { Trust } from "@/components/sections/Trust";
+import { Founder } from "@/components/sections/Founder";
+import { FinalCta } from "@/components/sections/FinalCta";
 import { SiteJsonLd, WebSiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: "Custom AI Systems & Web Applications | Pragya Labs",
+  title: "Pragya Labs | Custom AI Systems, Web Applications & Interactive Experiences",
   description:
-    "Pragya Labs builds custom AI systems, RAG applications, web products, and immersive digital experiences for teams solving real-world problems.",
+    "Pragya Labs builds grounded AI systems, RAG applications, web products, and interactive digital experiences around real data and workflows.",
   canonical: "/",
 });
 
 /**
- * HOME — one continuous system: opening world → metamorphosis →
- * statement → featured work → ember chapter → services spine → human world.
- * Cut below until earned.
+ * HOME — Grounded Intelligence spine:
+ * fragments → context → intelligence → interface → impact.
+ * Hero chamber is the single full-page WebGL scene; every later
+ * chapter earns its motion from the narrative, not decoration.
  */
 export default function HomePage() {
   return (
@@ -31,17 +28,12 @@ export default function HomePage() {
       <SiteJsonLd />
       <WebSiteJsonLd />
       <Hero />
-      <Trust />
-      <Metamorphosis />
-      <TransitionBand label="Refraction seam — chamber to belief" />
-      <Statement />
-      <TransitionBand label="Refraction seam — belief to proof" />
-      <FeaturedWork />
-      <Immersive />
-      <ServicesStrip />
+      <Recognition />
+      <CapabilityModules />
+      <Method />
       <ProofLedger />
-      <Process />
-      <AboutSection />
+      <Trust />
+      <Founder />
       <FinalCta />
     </>
   );

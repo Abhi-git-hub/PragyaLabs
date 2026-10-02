@@ -1,7 +1,7 @@
 ﻿import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Anton, Inter, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import { SiteNav } from "@/components/navigation/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { BackgroundField } from "@/components/3d/BackgroundField";
@@ -14,26 +14,33 @@ import { SmoothScroll } from "@/lib/smooth-scroll";
 import { site } from "@/config/site";
 import "@/styles/globals.css";
 
-const display = Anton({ weight: "400", subsets: ["latin"], variable: "--font-display" });
+const display = Space_Grotesk({ weight: ["400", "500", "600", "700"], subsets: ["latin"], variable: "--font-display" });
 const body = Inter({ subsets: ["latin"], variable: "--font-body" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: `${site.name} — ${site.thesis}`,
-  description: site.thesis,
+  title: "Pragya Labs | Custom AI Systems, Web Applications & Interactive Experiences",
+  description:
+    "Pragya Labs builds grounded AI systems, RAG applications, web products, and interactive digital experiences around real data and workflows.",
   authors: [{ name: site.author }],
   openGraph: {
-    title: site.name,
-    description: site.thesis,
+    title: "Pragya Labs | Custom AI Systems, Web Applications & Interactive Experiences",
+    description:
+      "Pragya Labs builds grounded AI systems, RAG applications, web products, and interactive digital experiences around real data and workflows.",
     type: "website",
     locale: "en_IN",
   },
-  twitter: { card: "summary_large_image", title: site.name, description: site.thesis },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pragya Labs | Custom AI Systems, Web Applications & Interactive Experiences",
+    description:
+      "Pragya Labs builds grounded AI systems, RAG applications, web products, and interactive digital experiences around real data and workflows.",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F4F1EA",
+  themeColor: "#090D1A",
   colorScheme: "dark",
 };
 

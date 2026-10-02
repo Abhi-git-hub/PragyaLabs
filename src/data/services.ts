@@ -36,7 +36,7 @@ export const services: Service[] = [
     forWho: [
       "Education teams needing tutors that answer from real material",
       "Businesses sitting on documents and data they cannot query",
-      "Founders who need an AI feature that survives contact with users",
+      "Founders who need custom AI development — assistants, chatbots, automation — that survives contact with users",
     ],
     problems: [
       "AI answers that sound confident but cannot be traced to source data",
@@ -92,8 +92,8 @@ export const services: Service[] = [
     lede:
       "Web products designed around the way your business actually works. Build fast, scalable portals, dashboards, internal tools, SaaS products, and customer-facing applications around your actual workflows.",
     forWho: [
-      "Founders who need a marketing site that performs like product",
-      "Teams whose interface density outgrew their frontend",
+      "Founders who need custom web application development, from marketing site to SaaS product",
+      "Operations teams that need internal tools, dashboards, and admin portals",
       "Anyone whose current site stutters, however good it looks",
     ],
     problems: [

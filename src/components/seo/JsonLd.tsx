@@ -2,14 +2,14 @@ import { site } from "@/config/site";
 import { person } from "@/data/story";
 
 /**
- * Person + ProfessionalService structured data (TRD §10).
- * Homepage and /about share the same facts — rendered as JSON-LD only.
+ * Organization + Person structured data.
+ * Homepage and /about share the same verified facts — rendered as JSON-LD only.
  */
 export function SiteJsonLd() {
   const data = [
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": "Organization",
       name: site.name,
       description: site.thesis,
       url: site.url,

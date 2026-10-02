@@ -1,7 +1,8 @@
 export const site = {
   name: "Pragya Labs",
-  thesis: "Digital systems engineered with intelligence.",
-  internalPhrase: "Enter the lab.",
+  thesis:
+    "Pragya Labs builds grounded AI systems, RAG applications, web products, and interactive digital experiences around real data and workflows.",
+  internalPhrase: "Grounded intelligence.",
   location: "Delhi — India",
   year: "2026",
   disciplines: ["Creative Engineering", "AI / Web / Interaction"] as string[],
@@ -34,7 +35,9 @@ export const routes: RouteDef[] = [
 /** Public navigation: studio destinations. Nothing else. */
 export const nav = [
   { href: "/work", label: "Work" },
-  { href: "/#approach", label: "Approach" },
+  { href: "/#capabilities", label: "Capabilities" },
+  { href: "/#method", label: "Method" },
+  { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Display } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import type { Project } from "@/data/projects";
+import { projects } from "@/data/projects";
 import { cn } from "@/lib/cn";
 
 type Section = { index: string; title: string; body: ReactNode };
@@ -152,13 +153,39 @@ export function CaseStudy({
           </article>
         ))}
       </Stagger>
+      <NextCase slug={project.slug} />
     </>
+  );
+}
+
+/** Next case study — the dossier continues. */
+function NextCase({ slug }: { slug: string }) {
+  const i = projects.findIndex((p) => p.slug === slug);
+  const next = projects[(i + 1) % projects.length];
+  if (!next || next.slug === slug) return null;
+  return (
+    <Reveal className="mt-14 border border-line p-6 md:p-10">
+      <p className="meta text-faint">Next case study — {next.classification}</p>
+      <Link
+        href={`/work/${next.slug}`}
+        data-cursor="OPEN"
+        className="group mt-4 flex items-baseline justify-between gap-4"
+      >
+        <span className="font-display text-3xl uppercase transition-transform duration-300 group-hover:translate-x-2 md:text-5xl">
+          {next.title}
+        </span>
+        <span aria-hidden="true" className="meta text-faint transition-all duration-300 group-hover:translate-x-1 group-hover:text-cyan">
+          →
+        </span>
+      </Link>
+    </Reveal>
   );
 }
 
 /** Case-study header: index, title, summary, verified status strip. */
 export function CaseStudyHeader({ project }: { project: Project }) {
   const facts = [
+    { term: "Build", value: project.classification },
     { term: "Year", value: project.year },
     { term: "Status", value: project.status },
     ...(project.liveUrl ? [{ term: "Live", value: project.liveUrl }] : []),

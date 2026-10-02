@@ -2,6 +2,7 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { ContactLink } from "@/components/seo/ContactLink";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { ProjectForm } from "@/components/sections/ProjectForm";
 import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -12,9 +13,10 @@ export const metadata = buildMetadata({
   canonical: "/contact",
 });
 
-/** Contact. One channel, no dead forms — framing matches homepage (PRD §6.7). */
+/** Contact. Inquiry form plus one clear direct channel — no dead forms. */
 export default function ContactPage() {
   return (
+    <>
     <SectionContainer eyebrow="Contact">
       <Reveal>
         <Display as="h1" size="hero">
@@ -25,6 +27,11 @@ export default function ContactPage() {
         <Body className="mt-6">
           Bring the problem and the timeline — the reply comes from the lab.
         </Body>
+      </Reveal>
+    </SectionContainer>
+    <SectionContainer eyebrow="Project inquiry">
+      <Reveal>
+        <ProjectForm />
         <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
           <ContactLink
             href={`mailto:${site.contact.email}?subject=Project%20inquiry%20—%20Pragya%20Labs`}
@@ -47,5 +54,6 @@ export default function ContactPage() {
         </div>
       </Reveal>
     </SectionContainer>
+    </>
   );
 }

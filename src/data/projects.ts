@@ -26,11 +26,20 @@ export type NarrativeBeat = {
   body: string;
 };
 
+export type ProjectClassification =
+  | "Client work"
+  | "In progress"
+  | "R&D experiment"
+  | "Technical exploration"
+  | "Interface study";
+
 export type Project = {
   slug: string;
   number: string;
   title: string;
   category: string;
+  /** Honest build status — always visible on cards and case pages. */
+  classification: ProjectClassification;
   year: string;
   status: ProjectStatus;
   /** One-line entry framing (PRD §6.4). */
@@ -66,6 +75,7 @@ export const projects: Project[] = [
     featured: true,
     title: "Saarthians",
     category: "Education Platform",
+    classification: "In progress",
     year: "2025–2026",
     status: "in-progress",
     summary:
@@ -139,6 +149,7 @@ export const projects: Project[] = [
     featured: false,
     title: "Stock / RAG System",
     category: "AI / Data / Retrieval",
+    classification: "R&D experiment",
     year: "2025",
     status: "experiment",
     summary:
@@ -170,6 +181,7 @@ export const projects: Project[] = [
     featured: false,
     title: "Majdoor Haq",
     category: "Mobile Platform",
+    classification: "In progress",
     year: "2026",
     status: "in-progress",
     summary: "A Flutter-built mobile app whose name states the mission: the labourer's right.",
@@ -213,6 +225,7 @@ export const projects: Project[] = [
     featured: true,
     title: "Adhyayan Classes",
     category: "Education Website",
+    classification: "Client work",
     year: "2023–2026",
     status: "shipped",
     summary: "MERN-stack website for a coaching institute — programs, admissions, and contact, live in production.",
@@ -243,6 +256,45 @@ export const projects: Project[] = [
     relatedServices: [
       { label: "Web development", href: "/services/web-development" },
       { label: "Software development", href: "/services/software-development" },
+    ],
+  },
+  {
+    slug: "x-interface-study",
+    number: "05",
+    featured: false,
+    title: "Interface Study — Social Feed",
+    category: "Frontend Engineering",
+    classification: "Interface study",
+    year: "2024",
+    status: "experiment",
+    summary:
+      "A front-end recreation of a high-density social feed, built to study interaction architecture, motion detail, and production performance.",
+    problem:
+      "Dense, high-frequency interfaces expose every weakness in frontend architecture: layout cost, paint budgets, and state updates under constant motion.",
+    decisions: [
+      "React feed architecture composed for density without clutter",
+      "Interaction timing treated as part of the interface — press, hover, and scroll answer in frame",
+      "Motion used only where it communicates hierarchy or state change",
+    ],
+    challenge: {
+      title: "Density without jank",
+      body: "Pixel-faithful density with responsive interaction means every frame budget gets spent deliberately — layout, paint, and state updates all measured against feel.",
+    },
+    outcome: "Study — a working reference for dense, high-frequency UI. Not a client engagement.",
+    technologies: ["React", "Frontend architecture", "Motion"],
+    breakdown: [
+      "Feed architecture built for information density without visual noise.",
+      "Interaction timing treated as part of the interface.",
+      "Motion used only where it communicates hierarchy or state change.",
+    ],
+    gallery: [],
+    heroMedia: null,
+    thumbnail: null,
+    liveUrl: null,
+    repositoryUrl: "https://github.com/Abhi-git-hub/XComHomeClone",
+    relatedServices: [
+      { label: "Web development", href: "/services/web-development" },
+      { label: "Creative technology", href: "/services/creative-technology" },
     ],
   },
 ];

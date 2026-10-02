@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { WordMachine } from "@/components/motion/WordMachine";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { duration } from "@/config/tokens";
@@ -26,7 +25,6 @@ export function Hero() {
   const typeRef = useRef<HTMLDivElement | null>(null);
   const cueRef = useRef<HTMLDivElement | null>(null);
   const ruleRef = useRef<HTMLDivElement | null>(null);
-  const machineRef = useRef<HTMLDivElement | null>(null);
   const scrollProgress = useRef({ current: 0 });
   const introProgress = useRef({ current: 0 });
   const beat = useRef(-1);
@@ -95,12 +93,6 @@ export function Hero() {
         ease: "none",
         scrollTrigger: { trigger: el, start: "top top", end: "75% top", scrub: true },
       });
-      gsap.to(machineRef.current, {
-        yPercent: -30,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: { trigger: el, start: "top top", end: "60% top", scrub: true },
-      });
     }, sectionRef);
     return () => ctx.revert();
   }, [reduced]);
@@ -130,22 +122,21 @@ export function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(180deg, rgb(17 17 17 / 0.55) 0%, rgb(17 17 17 / 0.12) 40%, rgb(17 17 17 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(17 17 17 / 0.55) 100%)",
+            "linear-gradient(180deg, rgb(9 13 26 / 0.55) 0%, rgb(9 13 26 / 0.12) 40%, rgb(9 13 26 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(9 13 26 / 0.55) 100%)",
         }}
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] flex-1 flex-col justify-end px-[var(--pl-gutter)] pb-16 pt-28">
         <div ref={typeRef}>
-          <p className="meta text-faint">Pragya Labs — Intelligent systems, thoughtfully built.</p>
-          <h1 className="mt-6 max-w-[20ch] font-display text-[clamp(2.2rem,5.5vw,4.5rem)] uppercase leading-[1.02]">
+          <p className="meta text-faint">Pragya Labs / Digital systems studio / Delhi, India</p>
+          <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.04] tracking-[-0.01em]">
             <span className="mask-line">
-              <span data-hero-line>Custom AI systems and</span>
+              <span data-hero-line>Complex systems,</span>
             </span>
             <span className="mask-line">
-              <span data-hero-line>web applications built</span>
-            </span>
-            <span className="mask-line">
-              <span data-hero-line>around your real <span className="text-cyan">business data.</span></span>
+              <span data-hero-line>
+                made <span className="text-cyan">useful.</span>
+              </span>
             </span>
           </h1>
           <div
@@ -154,35 +145,26 @@ export function Hero() {
             className="mt-7 h-px w-40 origin-left bg-cyan"
           />
           <p className="mt-8 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
-            Pragya Labs designs and develops grounded AI workflows, RAG applications,
-            custom web products, and interactive digital experiences for teams solving
-            real-world problems.
+            Pragya Labs builds grounded AI systems, web applications, and interactive
+            digital experiences around the way your data, workflows, and people
+            actually work.
           </p>
+          <p className="meta mt-4 text-faint">Built for real use — not just impressive demos.</p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="/contact" data-cursor="OPEN" className="btn-primary">
-              Discuss your project
+              Start a project
             </Link>
             <Link href="/work" data-cursor="OPEN" className="btn-ghost">
-              View case studies
+              Explore selected work
             </Link>
           </div>
+          <p className="meta mt-5 text-faint">
+            Tell us what is complex. We will help define what is worth building.
+          </p>
         </div>
       </div>
 
-      {/* The bridge — offset right of the headline, clear breathing room.
-          Static in flow on mobile, staged right-of-center on desktop. */}
-      <div
-        ref={machineRef}
-        className="relative z-[5] mx-auto mt-10 w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] lg:absolute lg:left-[57%] lg:top-[38%] lg:mx-0 lg:mt-0 lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:-translate-y-1/2 lg:px-0"
-      >
-        <WordMachine
-          onBeat={() => {
-            if (beat.current < 0) beat.current = 0;
-            beat.current = Math.min(1, beat.current + 0.85);
-          }}
-        />
-      </div>
-
+      {/* Scroll cue — quiet, low, out of the copy's way. */}
       <div
         ref={cueRef}
         className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] items-center justify-between gap-4 px-[var(--pl-gutter)] pb-8"

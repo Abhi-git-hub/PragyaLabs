@@ -20,8 +20,8 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#F4F1EA",
-          color: "#111111",
+          background: "#090D1A",
+          color: "#F5F7FF",
           padding: "64px",
           fontFamily: "sans-serif",
         }}
@@ -33,11 +33,11 @@ export default async function Image() {
             fontSize: 22,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#8B8471",
+            color: "#7E8AA6",
           }}
         >
           <span>PRAGYA LABS</span>
-          <span style={{ color: "#0A6B75" }}>{category}</span>
+          <span style={{ color: "#28D7FE" }}>{category}</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <div
@@ -51,10 +51,10 @@ export default async function Image() {
           >
             {title}
           </div>
-          <div style={{ fontSize: 28, color: "#57503F" }}>{year}</div>
+          <div style={{ fontSize: 28, color: "#B7C2D9" }}>{year}</div>
         </div>
-        <div style={{ fontSize: 20, color: "#8B8471", letterSpacing: 2, textTransform: "uppercase" }}>
-          Intelligent systems, thoughtfully built.
+        <div style={{ fontSize: 20, color: "#7E8AA6", letterSpacing: 2, textTransform: "uppercase" }}>
+          Grounded intelligence for real work.
         </div>
       </div>
     ),

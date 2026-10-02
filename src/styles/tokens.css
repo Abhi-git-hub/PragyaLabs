@@ -1,41 +1,43 @@
 /**
  * PRAGYA LABS — DESIGN TOKENS (single source of truth for CSS)
- * Editorial studio system: warm paper canvas, warm ink typography,
- * one cool signal (cyan), one restrained warm accent (coral).
- * Visual ratio ≈ 82–88% quiet neutrals / strong ink type / 2–5% accent.
+ * Grounded Intelligence system: midnight ink canvas, ice text,
+ * signal cyan, violet depth, amber warmth. Dark-first; warm ivory
+ * reserved for editorial relief via the .theme-light scope.
+ * Visual ratio ≈ 84–90% quiet dark / strong ice type / 2–5% signal.
  *
  * Rules:
- * - Accent is a signal, not paint: CTAs, active states, markers only.
- * - Neutral canvas + black typography + one strong cool accent + one
- *   restrained warm accent. Premium comes from where color is NOT used.
- * - Section rhythm alternates paper → ink → paper. Immersive/WebGL
- *   chapters keep near-black via the .theme-ink scope below.
+ * - Signal is meaning, not paint: CTAs, active states, markers only.
+ * - One H1 per page. Uppercase mono labels sparingly — states, not texture.
  * - No generic gradients, no glassmorphism soup, no SaaS cards.
+ * - Motion communicates or creates atmosphere — never decoration.
  */
 
 :root {
-  /* ---------- Color: base (paper) ---------- */
-  --pl-background: #f4f1ea; /* warm paper */
-  --pl-surface: #eae4d5; /* deep paper */
-  --pl-surface-2: #ded6bf; /* lifted warm neutral */
-  --pl-foreground: #111111; /* warm ink */
-  --pl-muted: #57503f; /* secondary text on paper */
-  --pl-faint: #8b8471; /* quiet metadata on paper */
-  --pl-border: rgb(17 17 17 / 0.12);
-  --pl-border-strong: rgb(17 17 17 / 0.24);
+  /* ---------- Color: base (midnight ink) ---------- */
+  --pl-background: #090d1a;
+  --pl-surface: #111a33;
+  --pl-surface-2: #182347;
+  --pl-foreground: #f5f7ff;
+  --pl-muted: #b7c2d9;
+  --pl-faint: #7e8aa6;
+  --pl-border: rgb(245 247 255 / 0.1);
+  --pl-border-strong: rgb(245 247 255 / 0.2);
 
-  /* ---------- Color: accents (disciplined) ---------- */
-  --pl-accent-cyan: #00a7b5; /* electric cyan, readable on paper */
-  --pl-accent-cyan-bright: #00c8d7; /* luminous cyan — fills, dark scopes */
-  --pl-accent-cyan-deep: #0a6b75; /* inline links on paper */
-  --pl-accent-coral: #ff6847; /* restrained warm accent — markers only */
-  --pl-accent-coral-deep: #c74322; /* coral text on paper */
-  --pl-accent-sage: #9ba58a; /* muted olive — composition only */
-  --pl-accent-blue: #0a6b75; /* deep cyan — secondary glow, large text */
-  --pl-accent-violet: #9ba58a; /* sage alias — ambient fills, never text */
-  --pl-accent-lime: #0a6b75; /* live status on paper */
-  --pl-ink: #111111; /* near-black warm ink */
-  --pl-paper: #f4f1ea; /* warm paper */
+  /* ---------- Color: signal ---------- */
+  --pl-accent-cyan: #28d7fe; /* primary signal — CTAs, markers, links */
+  --pl-accent-cyan-bright: #28d7fe;
+  --pl-accent-cyan-deep: #007fa3; /* links on light scopes */
+  --pl-accent-violet: #8b5cf6; /* depth — secondary signal, WebGL lights */
+  --pl-accent-blue: #8b5cf6; /* violet alias — ambient fills */
+  --pl-accent-amber: #ffb547; /* warmth — restrained highlights */
+  --pl-accent-coral: #ffb547; /* amber alias — markers only */
+  --pl-accent-coral-deep: #ffb547;
+  --pl-accent-sage: #7e8aa6; /* quiet alias — composition only */
+  --pl-accent-lime: #46d39a; /* success — live status only */
+  --pl-success: #46d39a;
+  --pl-error: #ff6b6b;
+  --pl-ink: #090d1a; /* midnight ink */
+  --pl-paper: #f8f7f2; /* warm ivory */
 
   /* ---------- Materials ---------- */
   --pl-chrome: linear-gradient(
@@ -85,9 +87,9 @@
   --pl-radius-full: 9999px;
 
   /* ---------- Shadow (restrained; glow reserved for signal) ---------- */
-  --pl-shadow-subtle: 0 1px 0 rgb(17 17 17 / 0.06), 0 16px 40px -24px rgb(17 17 17 / 0.35);
-  --pl-glow-cyan: 0 0 24px -4px rgb(0 167 181 / 0.45);
-  --pl-glow-violet: 0 0 32px -8px rgb(17 17 17 / 0.25);
+  --pl-shadow-subtle: 0 1px 0 rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
+  --pl-glow-cyan: 0 0 24px -4px rgb(40 215 254 / 0.45);
+  --pl-glow-violet: 0 0 32px -4px rgb(139 92 246 / 0.5);
   --pl-glow-lime: 0 0 24px -6px rgb(201 255 240 / 0.3);
 
   /* ---------- Blur (backgrounds only, never content) ---------- */
@@ -126,23 +128,40 @@
   --pl-bp-2xl: 120rem; /* 1920 */
 }
 
-/* ---------- Ink scope: immersive chapters stay near-black ----------
-   Wrap a section in .theme-ink to restore the dark world — hero WebGL,
-   pinned 3D journeys, film panels, footer. All token-driven components
-   follow automatically. */
+/* ---------- Ink scope: the default dark world, explicit ----------
+   Sections opt into .theme-ink (identical to :root) so intent is readable. */
 .theme-ink {
-  --pl-background: #111111;
-  --pl-surface: #1a1815;
-  --pl-surface-2: #262218;
-  --pl-foreground: #f4f1ea;
-  --pl-muted: #b9b2a1;
-  --pl-faint: #8b8471;
-  --pl-border: rgb(244 241 234 / 0.12);
-  --pl-border-strong: rgb(244 241 234 / 0.24);
-  --pl-accent-cyan: #00c8d7;
-  --pl-accent-blue: #7deef7;
-  --pl-accent-lime: #c9fff0;
+  --pl-background: #090d1a;
+  --pl-surface: #111a33;
+  --pl-surface-2: #182347;
+  --pl-foreground: #f5f7ff;
+  --pl-muted: #b7c2d9;
+  --pl-faint: #7e8aa6;
+  --pl-border: rgb(245 247 255 / 0.1);
+  --pl-border-strong: rgb(245 247 255 / 0.2);
+  --pl-accent-cyan: #28d7fe;
+  --pl-accent-blue: #8b5cf6;
+  --pl-accent-lime: #46d39a;
   --pl-shadow-subtle: 0 1px 0 rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
-  --pl-glow-cyan: 0 0 24px -4px rgb(0 200 215 / 0.5);
+  --pl-glow-cyan: 0 0 24px -4px rgb(40 215 254 / 0.45);
   color-scheme: dark;
+}
+
+/* ---------- Light scope: warm ivory editorial relief ----------
+   One calm chapter per journey. Cyan links deepen for contrast. */
+.theme-light {
+  --pl-background: #f8f7f2;
+  --pl-surface: #ffffff;
+  --pl-surface-2: #eef0f6;
+  --pl-foreground: #101827;
+  --pl-muted: #526178;
+  --pl-faint: #7e8aa6;
+  --pl-border: rgb(16 24 39 / 0.1);
+  --pl-border-strong: rgb(16 24 39 / 0.2);
+  --pl-accent-cyan: #007fa3;
+  --pl-accent-blue: #6d3df5;
+  --pl-accent-lime: #1d7a52;
+  --pl-shadow-subtle: 0 1px 0 rgb(16 24 39 / 0.05), 0 16px 40px -24px rgb(16 24 39 / 0.3);
+  --pl-glow-cyan: 0 0 24px -8px rgb(0 127 163 / 0.35);
+  color-scheme: light;
 }

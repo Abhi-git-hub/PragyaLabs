@@ -29,7 +29,16 @@ export function SiteFooter() {
         <div>
           <p className="meta mb-4 text-faint">Coordinates</p>
           <p className="meta">{site.location}</p>
-          <p className="meta mt-2">{site.year}</p>
+          <p className="meta mt-2">
+            <a href={`tel:${site.contact.phone.replace(/\s/g, "")}`} className="transition-colors hover:text-cyan">
+              {site.contact.phone}
+            </a>
+          </p>
+          <p className="meta mt-2">
+            <a href={`mailto:${site.contact.email}`} className="transition-colors hover:text-cyan">
+              {site.contact.email}
+            </a>
+          </p>
           <p className="meta mt-2 text-faint">Independent studio</p>
         </div>
       </div>

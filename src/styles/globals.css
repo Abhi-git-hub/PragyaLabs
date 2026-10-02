@@ -17,7 +17,10 @@
   --color-sage: var(--pl-accent-sage);
   --color-spectral: var(--pl-accent-blue);
   --color-ultra: var(--pl-accent-violet);
+  --color-amber: var(--pl-accent-amber);
   --color-lime: var(--pl-accent-lime);
+  --color-success: var(--pl-success);
+  --color-error: var(--pl-error);
   --color-ink: var(--pl-ink);
   --color-paper: var(--pl-paper);
 
@@ -48,8 +51,8 @@ body {
 }
 
 ::selection {
-  background: var(--pl-accent-cyan-bright);
-  color: #111111;
+  background: var(--pl-accent-cyan);
+  color: #090d1a;
 }
 
 /* Visible focus for keyboard users — never remove without replacement. */
@@ -59,7 +62,7 @@ body {
   border-radius: var(--pl-radius-sm);
 }
 
-/* Refined scrollbar: paper track, warm thumb. */
+/* Refined scrollbar: ink track, slate thumb. */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -67,11 +70,11 @@ body {
   background: var(--pl-background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #c6bda3;
+  background: #273150;
   border: 2px solid var(--pl-background);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a89d80;
+  background: #3a466e;
 }
 
 /* Editorial display defaults: condensed face, tight tracking, uppercase voice. */
@@ -101,21 +104,22 @@ body {
   color: transparent;
 }
 
-/* Editorial button pair — one strong cool fill, one quiet hairline. */
+/* Editorial button pair — signal fill, quiet hairline. */
 .btn-primary {
   display: inline-block;
-  background: var(--pl-accent-cyan-bright);
-  color: #111111;
+  background: var(--pl-accent-cyan);
+  color: #090d1a;
   font-family: var(--pl-font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 1rem 1.75rem;
-  transition: background-color 350ms cubic-bezier(0.22, 1, 0.36, 1), transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  min-height: 44px;
+  transition: background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-primary:hover {
-  background: var(--pl-accent-coral);
-  color: #111111;
+  background: var(--pl-accent-amber);
+  color: #090d1a;
 }
 .btn-ghost {
   display: inline-block;
@@ -126,14 +130,12 @@ body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 1rem 1.75rem;
-  transition: border-color 350ms cubic-bezier(0.22, 1, 0.36, 1), color 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  min-height: 44px;
+  transition: border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-ghost:hover {
-  border-color: var(--pl-accent-coral);
-  color: var(--pl-accent-coral-deep);
-}
-.theme-ink .btn-ghost:hover {
-  color: var(--pl-accent-coral);
+  border-color: var(--pl-accent-cyan);
+  color: var(--pl-accent-cyan);
 }
 
 /* Masked-line reveal helper: parent clips, child translates. */
@@ -216,12 +218,12 @@ body {
 }
 .orbit-a {
   width: 130%;
-  border: 1px solid rgb(0 167 181 / 0.3);
+  border: 1px solid rgb(40 215 254 / 0.25);
   animation: orbit-spin 26s linear infinite;
 }
 .orbit-b {
   width: 95%;
-  border: 1px solid rgb(155 165 138 / 0.45);
+  border: 1px solid rgb(139 92 246 / 0.3);
 }
 .orbit-sat {
   position: absolute;
@@ -257,13 +259,13 @@ body {
   }
 }
 
-/* Filmic cohesion — one grain layer over the whole experience. */
+/* Filmic cohesion — one grain layer over the whole experience, ≤3%. */
 .film-grain {
   position: fixed;
   inset: 0;
   z-index: 70;
   pointer-events: none;
-  opacity: 0.055;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 

@@ -6,7 +6,8 @@ import * as THREE from "three";
 import { colors } from "@/config/tokens";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import type { CapabilityTier } from "@/hooks/use-device-capability";
-import type { ScrollProgressRef, IntroProgressRef } from "./PragyaCoreScene";
+export type ScrollProgressRef = { current: number };
+export type IntroProgressRef = { current: number };
 
 const TEX_URLS = [
   "/textures/pipes--web.jpg",

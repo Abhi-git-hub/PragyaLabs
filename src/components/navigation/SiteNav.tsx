@@ -90,8 +90,15 @@ export function SiteNav() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-5 md:flex">
           <span className="meta text-faint">{site.location}</span>
+          <Link
+            href="/contact"
+            data-cursor="OPEN"
+            className="meta bg-cyan px-4 py-2 text-ink transition-colors hover:bg-amber"
+          >
+            Start a project
+          </Link>
         </div>
 
         <button
