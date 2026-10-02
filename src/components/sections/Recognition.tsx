@@ -68,9 +68,17 @@ export function Recognition() {
   return (
     <div ref={wrapRef}>
       <div className="recognition-stage">
-        <SectionContainer eyebrow="Recognition">
+        <SectionContainer id="recognition">
+          <p aria-hidden="true" className="display-ghost pointer-events-none select-none font-display text-[clamp(4.5rem,10vw,11rem)] font-bold leading-none">
+            Gap
+          </p>
           <Reveal>
-            <Display size="md" className="max-w-[20ch]">
+            <p className="meta text-faint">
+              <span className="text-cyan">02</span>
+              <span aria-hidden="true"> / </span>
+              Recognition
+            </p>
+            <Display size="md" className="mt-5 max-w-[20ch]">
               {LINES.map((l, i) => (
                 <span key={l} data-rec-line className="block">
                   {i === LINES.length - 1 ? <span className="text-cyan">{l}</span> : l}

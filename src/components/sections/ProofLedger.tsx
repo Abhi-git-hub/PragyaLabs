@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Display } from "@/components/typography/Type";
+import { ChapterHead } from "@/components/typography/ChapterHead";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { getProject } from "@/data/projects";
@@ -104,32 +104,42 @@ function CardFilm({ src, poster, label }: { src: string; poster: string; label: 
 
 export function ProofLedger() {
   return (
-    <SectionContainer eyebrow="Selected work" id="work" className="scroll-mt-20">
-      <Reveal>
-        <Display size="md" className="max-w-[20ch]">
-          Selected systems in motion.
-        </Display>
-        <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
-          Work that shows how research, design, engineering, and interaction come together.
-        </p>
-      </Reveal>
+    <SectionContainer id="work" className="scroll-mt-20">
+      <ChapterHead
+        index="05"
+        eyebrow="Selected work"
+        title="Selected systems in motion."
+        ghost="Proof"
+        lede="Work that shows how research, design, engineering, and interaction come together."
+      />
       <Stagger className="mt-12 grid gap-6 md:grid-cols-2">
         {CARDS.map((c) => {
           const project = getProject(c.slug);
           if (!project) return null;
+          const flagship = c.slug === "saarthians";
           return (
             <article
               key={c.slug}
               data-stagger-item
-              className="group flex flex-col border border-line bg-graphite"
+              className={
+                flagship
+                  ? "group flex flex-col border border-line bg-graphite md:col-span-2 md:grid md:grid-cols-5"
+                  : "group flex flex-col border border-line bg-graphite"
+              }
             >
-              <div className="aspect-video w-full overflow-hidden border-b border-line">
+              <div
+                className={
+                  flagship
+                    ? "aspect-video w-full overflow-hidden border-b border-line md:col-span-3 md:aspect-auto md:border-b-0 md:border-r"
+                    : "aspect-video w-full overflow-hidden border-b border-line"
+                }
+              >
                 {c.film ? (
-                  <div className="h-full w-full transition-transform duration-500 [clip-path:inset(0_0_0_0)] group-hover:[clip-path:inset(2%_2%_2%_2%)]">
+                  <div className="h-full w-full transition-transform duration-500 [clip-path:inset(0_0_0_0)] group-hover:scale-[1.02] group-hover:[clip-path:inset(2%_2%_2%_2%)]">
                     <CardFilm src={c.film.src} poster={c.film.poster} label={c.film.label} />
                   </div>
                 ) : (
-                  <div className="flex h-full w-full flex-col justify-between p-6 md:p-8">
+                  <div className="flex h-full min-h-[220px] w-full flex-col justify-between p-6 transition-colors duration-500 md:p-8">
                     <p className="meta text-faint">
                       {project.category} — {project.year}
                     </p>
@@ -139,7 +149,7 @@ export function ProofLedger() {
                   </div>
                 )}
               </div>
-              <div className="flex flex-1 flex-col p-6 md:p-8">
+              <div className={flagship ? "flex flex-1 flex-col p-6 md:col-span-2 md:p-10 md:justify-center" : "flex flex-1 flex-col p-6 md:p-8"}>
                 <p className="meta text-cyan">
                   {project.classification}
                 </p>
@@ -167,7 +177,7 @@ export function ProofLedger() {
                 </dl>
                 <Link
                   href={`/work/${project.slug}`}
-                  data-cursor="OPEN CASE"
+                  data-cursor="VIEW CASE"
                   className="meta mt-6 inline-flex w-fit items-center gap-2 text-bone transition-all duration-200 hover:gap-3 hover:text-cyan"
                 >
                   {c.cta} <span aria-hidden="true">→</span>

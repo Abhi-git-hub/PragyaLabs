@@ -1,4 +1,4 @@
-import { Display } from "@/components/typography/Type";
+import { ChapterHead } from "@/components/typography/ChapterHead";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 
@@ -37,16 +37,14 @@ const TRUST = ["Clear scope", "Direct technical leadership", "Production-minded 
 
 export function Method() {
   return (
-    <SectionContainer eyebrow="How the system takes shape" id="method" className="scroll-mt-20">
-      <Reveal>
-        <Display size="md" className="max-w-[20ch]">
-          Clarity before complexity.
-        </Display>
-        <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
-          We begin with the real environment: your users, data, constraints, existing
-          systems, and the decision a new product needs to improve.
-        </p>
-      </Reveal>
+    <SectionContainer id="method" className="scroll-mt-20">
+      <ChapterHead
+        index="04"
+        eyebrow="How the system takes shape"
+        title="Clarity before complexity."
+        ghost="Path"
+        lede="We begin with the real environment: your users, data, constraints, existing systems, and the decision a new product needs to improve."
+      />
       <Stagger className="mt-12 space-y-0">
         {PHASES.map((p) => (
           <div

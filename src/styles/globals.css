@@ -119,6 +119,31 @@ body {
   box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.5);
 }
 
+/* Ghost display — oversized outline type as composition, never content.
+   Always aria-hidden; the readable heading sits nearby in the DOM. */
+.display-ghost {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(245 247 255 / 0.13);
+  user-select: none;
+  pointer-events: none;
+}
+.theme-light .display-ghost {
+  -webkit-text-stroke: 1px rgb(16 24 39 / 0.14);
+}
+
+/* Inline link language — underline grows left to right. */
+.link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: left calc(100% - 1px);
+  padding-bottom: 2px;
+  transition: background-size 260ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms;
+}
+.link-line:hover {
+  background-size: 100% 1px;
+}
+
 /* Chrome text treatment — use sparingly (one element per viewport max). */
 .text-chrome {
   background: var(--pl-chrome);

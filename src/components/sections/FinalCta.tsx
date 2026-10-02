@@ -15,7 +15,12 @@ export function FinalCta() {
       <div className="orbit-ring orbit-b" aria-hidden="true" style={{ width: "85%", opacity: 0.6 }}>
         <span className="orbit-sat" />
       </div>
-      <SectionContainer eyebrow="Start">
+      <SectionContainer id="start">
+        <p className="meta mb-8 text-faint md:mb-12">
+          <span className="text-cyan">09</span>
+          <span aria-hidden="true"> / </span>
+          Start
+        </p>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <Reveal>
             <Display size="md" className="max-w-[20ch]">

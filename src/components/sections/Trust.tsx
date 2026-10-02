@@ -1,4 +1,4 @@
-import { Display } from "@/components/typography/Type";
+import { ChapterHead } from "@/components/typography/ChapterHead";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 
@@ -10,16 +10,14 @@ import { SectionContainer } from "@/components/layout/SectionContainer";
 export function Trust() {
   return (
     <div className="theme-light bg-paper text-ink">
-      <SectionContainer eyebrow="The principle">
-        <Reveal>
-          <Display as="h2" size="md" className="max-w-[24ch]">
-            Technology should reduce complexity — not create more of it.
-          </Display>
-          <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
-            We work from your actual use case, users, data, and workflow to create
-            systems that are clear, maintainable, and ready for real use.
-          </p>
-        </Reveal>
+      <SectionContainer id="principle">
+        <ChapterHead
+          index="07"
+          eyebrow="The principle"
+          title="Technology should reduce complexity — not create more of it."
+          ghost="Calm"
+          lede="We work from your actual use case, users, data, and workflow to create systems that are clear, maintainable, and ready for real use."
+        />
         <Reveal>
           <svg
             viewBox="0 0 600 160"

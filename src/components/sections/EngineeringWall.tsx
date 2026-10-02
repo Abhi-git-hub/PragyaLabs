@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Display } from "@/components/typography/Type";
-import { Reveal } from "@/components/motion/Reveal";
+import { ChapterHead } from "@/components/typography/ChapterHead";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
@@ -37,16 +36,14 @@ export function EngineeringWall() {
 
   return (
     <div ref={wrapRef}>
-      <SectionContainer eyebrow="Full-stack proof">
-        <Reveal>
-          <Display size="md" className="max-w-[22ch]">
-            From first signal to production system.
-          </Display>
-          <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
-            One engineer owns the chain — from the first model of the problem to the
-            interface, authentication, deployment, and iteration.
-          </p>
-        </Reveal>
+      <SectionContainer id="engineering">
+        <ChapterHead
+          index="06"
+          eyebrow="Full-stack proof"
+          title="From first signal to production system."
+          ghost="Signal"
+          lede="One engineer owns the chain — from the first model of the problem to the interface, authentication, deployment, and iteration."
+        />
         <div className="mt-12 border border-line bg-graphite px-6 py-10 md:px-10" aria-label="Engineering disciplines in sequence">
           {WORDS.map((w) => (
             <p key={w} data-wall-word className="font-display text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.05]">

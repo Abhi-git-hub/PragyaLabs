@@ -35,6 +35,13 @@ export const assets = {
       caption: "Adhyayan Classes — recorded walkthrough. Live since 2023.",
       credit: "Recorded from the live production site.",
     },
+    saarthiansTexture: {
+      src: "/film/saarthians--texture.mp4",
+      poster: "/film/saarthians--texture--poster.jpg",
+      label: "Saarthians material study — interface texture in motion",
+      caption: "Material study.",
+      credit: "Texture cut from concept footage.",
+    },
   } satisfies Record<string, FilmAsset>,
   photo: {
     desk: {

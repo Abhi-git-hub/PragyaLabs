@@ -12,7 +12,12 @@ import { assets } from "@/lib/assets";
  */
 export function Founder() {
   return (
-    <SectionContainer eyebrow="Direct collaboration / Delhi, India">
+    <SectionContainer id="founder">
+      <p className="meta mb-8 text-faint md:mb-12">
+        <span className="text-cyan">08</span>
+        <span aria-hidden="true"> / </span>
+        Direct collaboration / Delhi, India
+      </p>
       <div className="grid gap-10 md:grid-cols-2 md:items-center">
         <Reveal>
           <div className="overflow-hidden border border-line">

@@ -59,7 +59,17 @@ export function Cursor() {
   if (!enabled) return null;
 
   const label =
-    state === "VIEW" ? "View" : state === "OPEN" ? "Open" : state === "DRAG" ? "Drag" : state === "EXPLORE" ? "Explore" : "";
+    state === "VIEW"
+      ? "View"
+      : state === "OPEN"
+        ? "Open"
+        : state === "DRAG"
+          ? "Drag"
+          : state === "EXPLORE"
+            ? "Explore"
+            : state === "DEFAULT"
+              ? ""
+              : state;
 
   return (
     <div aria-hidden="true" className={cn("pointer-events-none fixed inset-0 z-[80]", !visible && "opacity-0")}>

@@ -20,7 +20,7 @@ export function SiteFooter() {
           <ul className="space-y-2">
             {footerNav.map((r) => (
               <li key={r.href}>
-                <Link href={r.href} className="meta transition-colors hover:text-bone">
+                <Link href={r.href} className="meta link-line text-muted transition-colors hover:text-bone">
                   {r.label}
                 </Link>
               </li>

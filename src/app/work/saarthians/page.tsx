@@ -3,6 +3,7 @@ import { Display, Eyebrow } from "@/components/typography/Type";
 import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { CaseStudy, CaseStudyHeader } from "@/components/projects/CaseStudy";
+import { SaarthiansMedia } from "@/components/projects/SaarthiansMedia";
 import { SystemFlow } from "@/components/projects/SystemFlow";
 import { SaarthiansVisual } from "@/components/projects/SaarthiansVisual";
 import { LiveStats } from "@/components/projects/LiveStats";
@@ -41,6 +42,7 @@ export default function SaarthiansPage() {
         </Reveal>
         <CaseStudyHeader project={project} />
       </SectionContainer>
+      <SaarthiansMedia />
       <SectionContainer eyebrow="How it runs">
         <Reveal>
           <Display size="sm" className="max-w-[20ch]">

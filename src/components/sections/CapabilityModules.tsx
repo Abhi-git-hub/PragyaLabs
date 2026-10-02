@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Display } from "@/components/typography/Type";
-import { Reveal, Stagger } from "@/components/motion/Reveal";
+import { ChapterHead } from "@/components/typography/ChapterHead";
+import { Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 
 /**
@@ -97,16 +97,14 @@ function MicroScene({ kind, accent }: { kind: string; accent: string }) {
 
 export function CapabilityModules() {
   return (
-    <SectionContainer eyebrow="What we build" id="capabilities" className="scroll-mt-20">
-      <Reveal>
-        <Display size="md" className="max-w-[20ch]">
-          What the system can become.
-        </Display>
-        <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
-          Every engagement is different. The systems we build usually combine one or
-          more of these capabilities.
-        </p>
-      </Reveal>
+    <SectionContainer id="capabilities" className="scroll-mt-20">
+      <ChapterHead
+        index="03"
+        eyebrow="What we build"
+        title="What the system can become."
+        ghost="Worlds"
+        lede="Every engagement is different. The systems we build usually combine one or more of these capabilities."
+      />
       <Stagger className="mt-12 grid gap-6 lg:grid-cols-3">
         {MODULES.map((m) => (
           <article
