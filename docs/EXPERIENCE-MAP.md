@@ -6,6 +6,11 @@
 
 ## Home (`/`) — the sequence
 
+> NOTE (2026 refinement): the live home sequence is now Hero → Trust →
+> Metamorphosis → Statement → FeaturedWork (dual film) → Immersive →
+> ServicesStrip → ProofLedger → Process → AboutSection → FinalCta.
+> The table below describes an earlier generation and is kept for history.
+
 | # | Chapter | Purpose | Message | Visual | Interaction | Transition |
 |---|---|---|---|---|---|---|
 | 01 | Signal Chamber | Something begins | "Pragya Labs" as place | Procedural pipe architecture, instrument console, antenna dish, smoke + dust (`Hero`) | Camera approach, pointer parallax, scroll travel | Falls into craft |

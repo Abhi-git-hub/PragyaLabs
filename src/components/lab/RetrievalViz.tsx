@@ -85,13 +85,13 @@ export function RetrievalViz() {
         const target = qx > c.x - 0.02 ? 1 : 0;
         c.lit += (target - c.lit) * (reduced ? 1 : 0.08);
         if (cycle < 0.02) c.lit = 0;
-        node(c.x, c.y, 3 + c.lit * 3, c.lit > 0.5 ? "#3dffa2" : "#737b78", 0.35 + c.lit * 0.65);
+        node(c.x, c.y, 3 + c.lit * 3, c.lit > 0.5 ? "#00A7B5" : "#8B8471", 0.35 + c.lit * 0.65);
       }
 
       // Query pulse + answer beam
       const pulseA = cycle < 0.85 ? 0.9 : Math.max(0, 1 - (cycle - 0.85) / 0.15);
-      node(qx, 0.5, 5, "#f2f1ea", pulseA);
-      node(origin.x, origin.y, 6, "#6f5dff", 0.9);
+      node(qx, 0.5, 5, "#111111", pulseA);
+      node(origin.x, origin.y, 6, "#0A6B75", 0.9);
       const beam = cycle > 0.7 ? (cycle - 0.7) / 0.3 : 0;
       node(answer.x, answer.y, 6 + beam * 4, "#c9fff0", 0.5 + beam * 0.5);
 

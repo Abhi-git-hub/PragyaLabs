@@ -84,7 +84,7 @@ export function WordMachine({ onBeat }: { onBeat?: () => void }) {
       {/* Ghost echo — the word's afterimage, trailing behind in outline */}
       <p
         aria-hidden="true"
-        className="font-display pointer-events-none absolute inset-0 -translate-x-4 uppercase leading-none tracking-wide text-transparent text-[clamp(2rem,5.2vw,4.2rem)] [-webkit-text-stroke:1px_rgb(61_255_162/0.35)]"
+        className="font-display pointer-events-none absolute inset-0 -translate-x-4 uppercase leading-none tracking-wide text-transparent text-[clamp(2rem,5.2vw,4.2rem)] [-webkit-text-stroke:1px_rgb(0_200_215/0.5)]"
       >
         {word}
         <span>.</span>

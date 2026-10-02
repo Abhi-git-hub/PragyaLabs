@@ -77,7 +77,7 @@ export function Metamorphosis() {
   }
 
   return (
-    <section ref={wrapRef} aria-label="Metamorphosis — procedural craft engine" className="relative h-[320vh]">
+    <section ref={wrapRef} aria-label="Metamorphosis — procedural craft engine" className="theme-ink relative h-[320vh] bg-ink">
       <span className="sr-only">
         A procedural WebGL system in three states: precise seed, energy knot, rising signal helix.
       </span>

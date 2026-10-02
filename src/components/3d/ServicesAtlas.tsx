@@ -12,11 +12,11 @@ import type { CapabilityTier } from "@/hooks/use-device-capability";
  * AI systems condense into a network sphere; web applications flatten
  * into a precision grid; software platforms rise as monolith stacks;
  * creative technology unwinds into a helix ring. Scroll morphs matter;
- * the pointer stirs it; color travels phosphor → ice → amber → copper
+ * the pointer stirs it; color travels cyan → deep cyan → coral → sage
  * while the studio signal never leaves the frame.
  */
 
-const STATION_COLORS = ["#3DFFA2", "#C9FFF0", "#FFB46B", "#C97B4A"];
+const STATION_COLORS = ["#00C8D7", "#0A6B75", "#FF6847", "#9BA58A"];
 
 function buildLayouts(count: number): Float32Array[] {
   const layouts: Float32Array[] = [];
@@ -144,7 +144,7 @@ function Atlas({
       pos.needsUpdate = true;
       settled.current = true;
     }
-    // Color journey — phosphor, ice, amber, copper. Signal persists.
+    // Color journey — cyan, deep cyan, coral, sage. Signal persists.
     const mm = mat.current;
     if (mm) {
       colA.set(STATION_COLORS[from]);

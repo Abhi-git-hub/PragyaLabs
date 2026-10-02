@@ -11,9 +11,15 @@
   --color-line: var(--pl-border);
   --color-line-strong: var(--pl-border-strong);
   --color-cyan: var(--pl-accent-cyan);
+  --color-cyan-deep: var(--pl-accent-cyan-deep);
+  --color-coral: var(--pl-accent-coral);
+  --color-coral-deep: var(--pl-accent-coral-deep);
+  --color-sage: var(--pl-accent-sage);
   --color-spectral: var(--pl-accent-blue);
   --color-ultra: var(--pl-accent-violet);
   --color-lime: var(--pl-accent-lime);
+  --color-ink: var(--pl-ink);
+  --color-paper: var(--pl-paper);
 
   --font-display: var(--pl-font-display);
   --font-body: var(--pl-font-body);
@@ -42,8 +48,8 @@ body {
 }
 
 ::selection {
-  background: var(--pl-accent-cyan);
-  color: #050608;
+  background: var(--pl-accent-cyan-bright);
+  color: #111111;
 }
 
 /* Visible focus for keyboard users — never remove without replacement. */
@@ -53,7 +59,7 @@ body {
   border-radius: var(--pl-radius-sm);
 }
 
-/* Refined scrollbar: graphite track, faint thumb. */
+/* Refined scrollbar: paper track, warm thumb. */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -61,11 +67,11 @@ body {
   background: var(--pl-background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #23262e;
+  background: #c6bda3;
   border: 2px solid var(--pl-background);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #333844;
+  background: #a89d80;
 }
 
 /* Editorial display defaults: condensed face, tight tracking, uppercase voice. */
@@ -95,12 +101,39 @@ body {
   color: transparent;
 }
 
-/* Luminous text — phosphor into iris. Headlines only, one per viewport max. */
-.text-luminous {
-  background: linear-gradient(100deg, #3dffa2 5%, #c9fff0 42%, #8f81ff 75%, #6f5dff 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Editorial button pair — one strong cool fill, one quiet hairline. */
+.btn-primary {
+  display: inline-block;
+  background: var(--pl-accent-cyan-bright);
+  color: #111111;
+  font-family: var(--pl-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1rem 1.75rem;
+  transition: background-color 350ms cubic-bezier(0.22, 1, 0.36, 1), transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-primary:hover {
+  background: var(--pl-accent-coral);
+  color: #111111;
+}
+.btn-ghost {
+  display: inline-block;
+  border: 1px solid var(--pl-border-strong);
+  color: var(--pl-foreground);
+  font-family: var(--pl-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1rem 1.75rem;
+  transition: border-color 350ms cubic-bezier(0.22, 1, 0.36, 1), color 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-ghost:hover {
+  border-color: var(--pl-accent-coral);
+  color: var(--pl-accent-coral-deep);
+}
+.theme-ink .btn-ghost:hover {
+  color: var(--pl-accent-coral);
 }
 
 /* Masked-line reveal helper: parent clips, child translates. */
@@ -183,12 +216,12 @@ body {
 }
 .orbit-a {
   width: 130%;
-  border: 1px solid rgb(61 255 162 / 0.15);
+  border: 1px solid rgb(0 167 181 / 0.3);
   animation: orbit-spin 26s linear infinite;
 }
 .orbit-b {
   width: 95%;
-  border: 1px solid rgb(111 93 255 / 0.35);
+  border: 1px solid rgb(155 165 138 / 0.45);
 }
 .orbit-sat {
   position: absolute;

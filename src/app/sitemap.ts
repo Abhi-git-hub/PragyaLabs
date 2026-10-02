@@ -8,7 +8,7 @@ import { getArticleSlugs } from "@/data/articles";
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.url;
   const now = new Date();
-  const staticRoutes = ["", "/work", "/about", "/contact", "/services", "/insights"].map((route) => ({
+  const staticRoutes = ["", "/work", "/about", "/contact", "/services", "/insights", "/privacy", "/terms"].map((route) => ({
     url: `${base}${route}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

@@ -36,10 +36,10 @@ const ENTRIES = [
 
 export function ProofLedger() {
   return (
-    <SectionContainer eyebrow="Proof ledger">
+    <SectionContainer eyebrow="Case studies">
       <Reveal>
-        <Display size="md" className="max-w-[16ch]">
-          Every claim links to something real.
+        <Display size="md" className="max-w-[20ch]">
+          Built from real problems, not generic templates.
         </Display>
         <p className="mt-6 max-w-[62ch] text-base leading-relaxed text-muted md:text-lg">
           No testimonials, no borrowed logos. Open the links — the work is where it

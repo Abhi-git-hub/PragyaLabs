@@ -6,9 +6,9 @@ import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: "Contact — Start a Project | Pragya Labs",
+  title: "Start Your AI or Web Project | Pragya Labs",
   description:
-    "Start a project with Pragya Labs. One clear channel, replies within 12 hours. Delhi, India — working worldwide.",
+    "Tell Pragya Labs what you want to build. Discuss custom AI systems, RAG applications, web development, automation, and interactive experiences.",
   canonical: "/contact",
 });
 

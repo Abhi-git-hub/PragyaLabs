@@ -123,8 +123,8 @@ function Engine({
 
     // The room travels too: obsidian → deep green-black → graphite lift.
     const c = bg.current;
-    if (prog < 0.5) c.lerpColors(new THREE.Color("#050608"), new THREE.Color("#07110e"), prog * 2);
-    else c.lerpColors(new THREE.Color("#07110e"), new THREE.Color("#0b0f12"), (prog - 0.5) * 2);
+    if (prog < 0.5) c.lerpColors(new THREE.Color("#111111"), new THREE.Color("#0f1a1c"), prog * 2);
+    else c.lerpColors(new THREE.Color("#0f1a1c"), new THREE.Color("#141414"), (prog - 0.5) * 2);
     scene.background = c;
     gl.setClearColor(c, 1);
 

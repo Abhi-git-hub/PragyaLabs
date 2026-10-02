@@ -26,13 +26,13 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "ai-development",
-    kicker: "AI systems",
-    title: "AI Development Services & AI Systems | Pragya Labs",
+    kicker: "AI systems & RAG",
+    title: "Custom AI Systems & RAG Development | Pragya Labs",
     metaDescription:
-      "Custom AI development: grounded RAG systems, AI assistants and retrieval pipelines engineered for production. Proof from shipped work at Pragya Labs.",
-    h1: "AI development, grounded in production",
+      "Build grounded AI assistants, RAG applications, and knowledge systems connected to your real documents, workflows, and business data.",
+    h1: "AI systems, grounded in your data",
     lede:
-      "Pragya Labs builds custom AI systems that answer from real data — retrieval pipelines, AI assistants and grounded question-answering, engineered with evaluation and production discipline from the start.",
+      "Grounded AI systems connected to your real knowledge and workflows. Turn scattered documents and business knowledge into grounded AI assistants, searchable knowledge systems, retrieval-augmented generation applications, and practical automation workflows.",
     forWho: [
       "Education teams needing tutors that answer from real material",
       "Businesses sitting on documents and data they cannot query",
@@ -84,13 +84,13 @@ export const services: Service[] = [
   },
   {
     slug: "web-development",
-    kicker: "Web applications",
-    title: "Custom Web Development & Digital Products | Pragya Labs",
+    kicker: "Custom web applications",
+    title: "Custom Web Application Development | Pragya Labs",
     metaDescription:
-      "Custom web development with Next.js and React: fast, interactive, production-grade web applications. Frontend engineering with proof, by Pragya Labs.",
-    h1: "Web development as engineering",
+      "Pragya Labs designs and develops high-performance web applications, dashboards, internal tools, and digital products tailored to your workflow.",
+    h1: "Web products around your workflow",
     lede:
-      "Pragya Labs builds modern web applications with Next.js and React — frontend architecture, interaction and motion treated as engineering disciplines, shipped to production with performance budgets enforced.",
+      "Web products designed around the way your business actually works. Build fast, scalable portals, dashboards, internal tools, SaaS products, and customer-facing applications around your actual workflows.",
     forWho: [
       "Founders who need a marketing site that performs like product",
       "Teams whose interface density outgrew their frontend",
@@ -195,13 +195,13 @@ export const services: Service[] = [
   },
   {
     slug: "creative-technology",
-    kicker: "Interactive experiences",
-    title: "Creative Technology & Interactive Web Experiences | Pragya Labs",
+    kicker: "Immersive digital experiences",
+    title: "Interactive & Immersive Web Experiences | Pragya Labs",
     metaDescription:
-      "A creative technology studio for interactive websites, motion, 3D and immersive web experiences. This site is the proof — built by Pragya Labs.",
+      "Create meaningful interactive web experiences, digital storytelling, and creative technology products with Pragya Labs.",
     h1: "Interactive work, engineered",
     lede:
-      "Pragya Labs is a creative technology studio for interactive websites, motion, 3D and immersive web experiences. This website — realtime WebGL, scroll choreography, procedural systems — is the portfolio piece that proves it.",
+      "Interactive digital experiences that make complex ideas easier to explore. We create immersive web experiences, interactive storytelling, visual interfaces, and creative technology products that help brands, products, and institutions communicate with more clarity and impact.",
     forWho: [
       "Brands that need a site people remember and send to colleagues",
       "Teams launching something that deserves a cinematic arrival",

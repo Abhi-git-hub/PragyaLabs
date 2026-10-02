@@ -165,7 +165,7 @@ function DustVeil() {
           m.x = Math.random() * w;
         }
         ctx.globalAlpha = m.a;
-        ctx.fillStyle = "#3DFFA2";
+        ctx.fillStyle = "#00C8D7";
         ctx.beginPath();
         ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
         ctx.fill();
@@ -268,7 +268,8 @@ export function AboutSection({ standalone = false }: { standalone?: boolean }) {
 
   if (reduced) {
     return (
-      <section aria-label="About" className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] py-[var(--pl-section-y)]">
+      <section aria-label="About" className="theme-ink mx-auto w-full bg-ink px-[var(--pl-gutter)] py-[var(--pl-section-y)]">
+        <div className="mx-auto w-full max-w-[var(--pl-container)]">
         <p className="meta text-faint">The engineer</p>
         <Heading className="mt-4 font-display text-4xl uppercase leading-tight md:text-6xl">
           Abhi builds.
@@ -278,12 +279,13 @@ export function AboutSection({ standalone = false }: { standalone?: boolean }) {
         </p>
         <p className="meta mt-8 text-bone">{site.contact.phone}</p>
         <p className="meta mt-2 text-bone">{site.contact.email}</p>
+        </div>
       </section>
     );
   }
 
   return (
-    <section ref={wrapRef} aria-label="About" className="relative h-[340vh]">
+    <section ref={wrapRef} aria-label="About" className="theme-ink relative h-[340vh] bg-ink">
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         {/* Photograph as living surface */}
         <div className="absolute inset-0" aria-hidden="true">

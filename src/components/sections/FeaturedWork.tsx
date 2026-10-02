@@ -45,11 +45,15 @@ export function FeaturedWork() {
   }, [reduced]);
 
   return (
-    <SectionContainer eyebrow="Featured work" id="featured" className="scroll-mt-20">
+    <SectionContainer eyebrow="Proof of work" id="featured" className="scroll-mt-20">
       <Reveal>
-        <Display size="md" className="max-w-[14ch]">
-          Two systems, on screen.
+        <Display size="md" className="max-w-[16ch]">
+          Built for the real world.
         </Display>
+        <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
+          From education platforms to intelligent digital systems, Pragya Labs builds
+          technology around the people, workflows, and problems it needs to serve.
+        </p>
       </Reveal>
 
       {/* Symmetric pair — identical frames, identical behavior */}
@@ -59,7 +63,7 @@ export function FeaturedWork() {
           className="pointer-events-none absolute -inset-8 opacity-60"
           style={{
             background:
-              "radial-gradient(ellipse 45% 40% at 22% 40%, rgb(111 93 255 / 0.10), transparent 70%), radial-gradient(ellipse 45% 40% at 78% 40%, rgb(61 255 162 / 0.07), transparent 70%)",
+              "radial-gradient(ellipse 45% 40% at 22% 40%, rgb(0 167 181 / 0.08), transparent 70%), radial-gradient(ellipse 45% 40% at 78% 40%, rgb(255 104 71 / 0.06), transparent 70%)",
           }}
         />
         <div className="relative grid gap-6 md:grid-cols-2">
@@ -135,7 +139,7 @@ function WorkPanel({
         <h3 className="mt-3 font-display text-4xl uppercase md:text-5xl">{project.title}</h3>
         <p className="mt-4 max-w-[52ch] leading-relaxed text-muted">{project.summary}</p>
       </div>
-      <div className="aspect-video w-full border-t border-line">
+      <div className="theme-ink aspect-video w-full border-t border-line bg-ink">
         <Film src={src} poster={poster} label={label} />
       </div>
       <div className="flex items-center justify-between gap-4 border-t border-line px-6 py-4 md:px-8">

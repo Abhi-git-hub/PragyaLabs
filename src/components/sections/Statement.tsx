@@ -63,13 +63,13 @@ export function Statement() {
         if (WORDS[i] !== "LIFE.") {
           tl.fromTo(
             `[data-state-word="${i}"]`,
-            { textShadow: "0 0 0px rgb(61 255 162 / 0)" },
-            { textShadow: "0 0 30px rgb(61 255 162 / 0.5)", duration: 0.35 },
+            { textShadow: "0 0 0px rgb(0 167 181 / 0)" },
+            { textShadow: "0 0 30px rgb(0 167 181 / 0.45)", duration: 0.35 },
             at
           );
           tl.to(
             `[data-state-word="${i}"]`,
-            { textShadow: "0 0 6px rgb(61 255 162 / 0.12)", duration: 0.4 },
+            { textShadow: "0 0 6px rgb(0 167 181 / 0.15)", duration: 0.4 },
             at + 0.35
           );
         }
@@ -150,7 +150,7 @@ export function Statement() {
             <div
               aria-hidden="true"
               className="statement-echo pointer-events-none absolute inset-0 select-none font-display uppercase leading-[0.95] text-transparent"
-              style={{ fontSize: "clamp(3rem,9vw,7.5rem)", WebkitTextStroke: "1px rgb(61 255 162 / 0.22)" }}
+                style={{ fontSize: "clamp(3rem,9vw,7.5rem)", WebkitTextStroke: "1px rgb(0 167 181 / 0.35)" }}
             >
               {WORDS.map((w) => (
                 <span key={w} className="block">
@@ -167,7 +167,7 @@ export function Statement() {
                       className="block will-change-transform"
                       style={{
                         fontSize: "clamp(3rem,9vw,7.5rem)",
-                        backgroundImage: "linear-gradient(100deg, #3DFFA2 10%, #C9FFF0 45%, #3DFFA2 90%)",
+                        backgroundImage: "linear-gradient(100deg, #111111 10%, #00A7B5 48%, #111111 90%)",
                         backgroundSize: "220% 100%",
                         WebkitBackgroundClip: "text",
                         backgroundClip: "text",

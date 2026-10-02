@@ -1,32 +1,41 @@
 /**
  * PRAGYA LABS — DESIGN TOKENS (single source of truth for CSS)
- * Studio system: obsidian base, porcelain text, phosphor signal,
- * iris ambient light. Luminous dark — depth comes from light, not paint.
- * Visual ratio ≈ 80–86% dark / 8–13% neutral / 3–6% signal light.
+ * Editorial studio system: warm paper canvas, warm ink typography,
+ * one cool signal (cyan), one restrained warm accent (coral).
+ * Visual ratio ≈ 82–88% quiet neutrals / strong ink type / 2–5% accent.
  *
  * Rules:
- * - Phosphor is a signal, not paint: active / responding / transforming only.
- * - Iris is ambient light: glows, fills, 3D lights, gradients — never body text.
- * - No giant generic gradients. No glassmorphism soup. No SaaS cards.
- * - No gold/yellow neon. Surfaces stay near-black; energy arrives through light and motion.
+ * - Accent is a signal, not paint: CTAs, active states, markers only.
+ * - Neutral canvas + black typography + one strong cool accent + one
+ *   restrained warm accent. Premium comes from where color is NOT used.
+ * - Section rhythm alternates paper → ink → paper. Immersive/WebGL
+ *   chapters keep near-black via the .theme-ink scope below.
+ * - No generic gradients, no glassmorphism soup, no SaaS cards.
  */
 
 :root {
-  /* ---------- Color: base ---------- */
-  --pl-background: #050608; /* obsidian */
-  --pl-surface: #0b0f12; /* graphite */
-  --pl-surface-2: #12181a; /* lifted graphite */
-  --pl-foreground: #f2f1ea; /* porcelain */
-  --pl-muted: #b3b8b3; /* secondary text */
-  --pl-faint: #737b78; /* quiet metadata */
-  --pl-border: rgb(242 241 234 / 0.09);
-  --pl-border-strong: rgb(242 241 234 / 0.16);
+  /* ---------- Color: base (paper) ---------- */
+  --pl-background: #f4f1ea; /* warm paper */
+  --pl-surface: #eae4d5; /* deep paper */
+  --pl-surface-2: #ded6bf; /* lifted warm neutral */
+  --pl-foreground: #111111; /* warm ink */
+  --pl-muted: #57503f; /* secondary text on paper */
+  --pl-faint: #8b8471; /* quiet metadata on paper */
+  --pl-border: rgb(17 17 17 / 0.12);
+  --pl-border-strong: rgb(17 17 17 / 0.24);
 
-  /* ---------- Color: signal (phosphor) + ambient (iris) ---------- */
-  --pl-accent-cyan: #3dffa2; /* phosphor — the one signal accent */
-  --pl-accent-blue: #7dfdc4; /* light phosphor — secondary glow, large text */
-  --pl-accent-violet: #6f5dff; /* iris — ambient fills, 3D lights, glows */
-  --pl-accent-lime: #c9fff0; /* ice highlight — live status only */
+  /* ---------- Color: accents (disciplined) ---------- */
+  --pl-accent-cyan: #00a7b5; /* electric cyan, readable on paper */
+  --pl-accent-cyan-bright: #00c8d7; /* luminous cyan — fills, dark scopes */
+  --pl-accent-cyan-deep: #0a6b75; /* inline links on paper */
+  --pl-accent-coral: #ff6847; /* restrained warm accent — markers only */
+  --pl-accent-coral-deep: #c74322; /* coral text on paper */
+  --pl-accent-sage: #9ba58a; /* muted olive — composition only */
+  --pl-accent-blue: #0a6b75; /* deep cyan — secondary glow, large text */
+  --pl-accent-violet: #9ba58a; /* sage alias — ambient fills, never text */
+  --pl-accent-lime: #0a6b75; /* live status on paper */
+  --pl-ink: #111111; /* near-black warm ink */
+  --pl-paper: #f4f1ea; /* warm paper */
 
   /* ---------- Materials ---------- */
   --pl-chrome: linear-gradient(
@@ -76,9 +85,9 @@
   --pl-radius-full: 9999px;
 
   /* ---------- Shadow (restrained; glow reserved for signal) ---------- */
-  --pl-shadow-subtle: 0 1px 0 rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
-  --pl-glow-cyan: 0 0 24px -4px rgb(61 255 162 / 0.4);
-  --pl-glow-violet: 0 0 32px -4px rgb(111 93 255 / 0.55);
+  --pl-shadow-subtle: 0 1px 0 rgb(17 17 17 / 0.06), 0 16px 40px -24px rgb(17 17 17 / 0.35);
+  --pl-glow-cyan: 0 0 24px -4px rgb(0 167 181 / 0.45);
+  --pl-glow-violet: 0 0 32px -8px rgb(17 17 17 / 0.25);
   --pl-glow-lime: 0 0 24px -6px rgb(201 255 240 / 0.3);
 
   /* ---------- Blur (backgrounds only, never content) ---------- */
@@ -115,4 +124,25 @@
   --pl-bp-lg: 80rem; /* 1280 */
   --pl-bp-xl: 90rem; /* 1440 */
   --pl-bp-2xl: 120rem; /* 1920 */
+}
+
+/* ---------- Ink scope: immersive chapters stay near-black ----------
+   Wrap a section in .theme-ink to restore the dark world — hero WebGL,
+   pinned 3D journeys, film panels, footer. All token-driven components
+   follow automatically. */
+.theme-ink {
+  --pl-background: #111111;
+  --pl-surface: #1a1815;
+  --pl-surface-2: #262218;
+  --pl-foreground: #f4f1ea;
+  --pl-muted: #b9b2a1;
+  --pl-faint: #8b8471;
+  --pl-border: rgb(244 241 234 / 0.12);
+  --pl-border-strong: rgb(244 241 234 / 0.24);
+  --pl-accent-cyan: #00c8d7;
+  --pl-accent-blue: #7deef7;
+  --pl-accent-lime: #c9fff0;
+  --pl-shadow-subtle: 0 1px 0 rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.7);
+  --pl-glow-cyan: 0 0 24px -4px rgb(0 200 215 / 0.5);
+  color-scheme: dark;
 }

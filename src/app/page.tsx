@@ -1,19 +1,22 @@
 import { Hero } from "@/components/sections/Hero";
+import { Trust } from "@/components/sections/Trust";
 import { Metamorphosis } from "@/components/sections/Metamorphosis";
 import { Statement } from "@/components/sections/Statement";
 import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { Immersive } from "@/components/sections/Immersive";
 import { AboutSection } from "@/components/sections/AboutSection";
+import { FinalCta } from "@/components/sections/FinalCta";
 import { ServicesStrip } from "@/components/sections/ServicesStrip";
 import { ProofLedger } from "@/components/sections/ProofLedger";
+import { Process } from "@/components/sections/Process";
 import { TransitionBand } from "@/components/motion/TransitionBand";
 import { SiteJsonLd, WebSiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: "Pragya Labs — AI, Web & Creative Technology Studio",
+  title: "Custom AI Systems & Web Applications | Pragya Labs",
   description:
-    "Custom AI systems and web applications built around your real business data. Pragya Labs designs reliable AI workflows, retrieval-augmented generation systems, and high-performance web products for teams that need technology to work in the real world.",
+    "Pragya Labs builds custom AI systems, RAG applications, web products, and immersive digital experiences for teams solving real-world problems.",
   canonical: "/",
 });
 
@@ -28,6 +31,7 @@ export default function HomePage() {
       <SiteJsonLd />
       <WebSiteJsonLd />
       <Hero />
+      <Trust />
       <Metamorphosis />
       <TransitionBand label="Refraction seam — chamber to belief" />
       <Statement />
@@ -36,7 +40,9 @@ export default function HomePage() {
       <Immersive />
       <ServicesStrip />
       <ProofLedger />
+      <Process />
       <AboutSection />
+      <FinalCta />
     </>
   );
 }

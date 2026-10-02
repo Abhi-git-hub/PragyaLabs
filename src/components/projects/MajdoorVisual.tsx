@@ -44,13 +44,13 @@ export function MajdoorVisual() {
       // Handset outline
       const pw = Math.min(w * 0.24, 120);
       const ph = pw * 2.05;
-      ctx.strokeStyle = "rgba(242,241,234,0.5)";
+      ctx.strokeStyle = "rgba(17,17,17,0.55)";
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.roundRect(cx - pw / 2, cy - ph / 2, pw, ph, 18);
       ctx.stroke();
       // Signal dot
-      ctx.fillStyle = "#3dffa2";
+      ctx.fillStyle = "#00A7B5";
       ctx.beginPath();
       ctx.arc(cx, cy, 5, 0, Math.PI * 2);
       ctx.fill();
@@ -59,7 +59,7 @@ export function MajdoorVisual() {
       for (const ring of rings) {
         const rr = ring.r * maxR;
         const alpha = Math.max(0, 0.55 * (1 - ring.r));
-        ctx.strokeStyle = `rgba(139,92,255,${alpha.toFixed(3)})`;
+        ctx.strokeStyle = `rgba(0,167,181,${alpha.toFixed(3)})`;
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.arc(cx, cy, Math.max(rr, 1), -Math.PI * 0.8, -Math.PI * 0.2);
@@ -75,7 +75,7 @@ export function MajdoorVisual() {
 
       // Labels
       ctx.font = `10px "JetBrains Mono", monospace`;
-      ctx.fillStyle = "rgba(155,160,171,0.9)";
+      ctx.fillStyle = "rgba(87,80,63,0.9)";
       ctx.textAlign = "center";
       ctx.fillText("REACH", cx, cy + ph / 2 + 24);
       void t;

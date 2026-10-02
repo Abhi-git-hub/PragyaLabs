@@ -54,7 +54,7 @@ export function Immersive() {
       });
       tl.fromTo("[data-zoom-line]", { scale: 0.72, y: 90, filter: "blur(12px)", opacity: 0 }, { scale: 1, y: 0, filter: "blur(0px)", opacity: 1, duration: 0.6, stagger: 0.35 }, 0);
       tl.to("[data-zoom-line]", { scale: 1.18, y: -70, filter: "blur(10px)", opacity: 0, duration: 0.9, stagger: 0.2 }, 1.1);
-      tl.fromTo(".immersive-room", { backgroundColor: "rgb(5,6,8)" }, { backgroundColor: "rgb(13,9,26)", duration: 2 }, 0);
+      tl.fromTo(".immersive-room", { backgroundColor: "rgb(17,17,17)" }, { backgroundColor: "rgb(19,14,10)", duration: 2 }, 0);
       tl.fromTo(".immersive-body", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5 }, 1.5);
     }, wrapRef);
     return () => ctx.revert();
@@ -62,10 +62,10 @@ export function Immersive() {
 
   if (reduced) {
     return (
-      <section aria-label="Why Pragya Labs" className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] py-[var(--pl-section-y)]">
-        <p className="meta text-faint">Why Pragya Labs</p>
+      <section aria-label="Creative technology" className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)] py-[var(--pl-section-y)]">
+        <p className="meta text-faint">Creative technology</p>
         <h2 className="mt-4 font-display text-4xl uppercase leading-tight md:text-6xl">
-          Where creative ideas become immersive experiences.
+          Technology can be useful and unforgettable.
         </h2>
           <p className="mt-6 max-w-[62ch] leading-relaxed text-muted">
           One engineer in Delhi, building AI systems and websites for teams anywhere —
@@ -76,34 +76,29 @@ export function Immersive() {
   }
 
   return (
-    <section ref={wrapRef} aria-label="Why Pragya Labs" className="relative h-[340vh]">
+    <section ref={wrapRef} aria-label="Creative technology" className="theme-ink relative h-[340vh] bg-ink">
       <div className="immersive-stage relative flex h-[100svh] flex-col overflow-hidden">
         <div className="immersive-room absolute inset-0 bg-void" aria-hidden="true">
           {live && capability.webgl && <Forms progress={progress} quality={capability.tier} />}
         </div>
         <div className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] flex-1 flex-col justify-center px-[var(--pl-gutter)]">
-          <p className="meta text-faint">Why Pragya Labs</p>
+          <p className="meta text-faint">Creative technology</p>
           <h2 className="mt-6 font-display uppercase leading-[0.95]">
             <span className="block overflow-hidden">
               <span data-zoom-line className="block text-[clamp(2.6rem,8vw,7rem)]">
-                Where Creative Ideas
+                Technology can be
               </span>
             </span>
             <span className="block overflow-hidden">
               <span data-zoom-line className="block text-[clamp(2.6rem,8vw,7rem)]">
-                Become <span className="text-cyan">immersive</span>
-              </span>
-            </span>
-            <span className="block overflow-hidden">
-              <span data-zoom-line className="block text-[clamp(2.6rem,8vw,7rem)]">
-                experiences.
+                useful and <span className="text-cyan">unforgettable.</span>
               </span>
             </span>
           </h2>
           <div className={cn("immersive-body mt-8 max-w-[62ch]")}>
             <p className="leading-relaxed text-muted md:text-lg">
-              One engineer in Delhi, building AI systems and websites for teams anywhere —
-              no templates, no filler. If it is on this page, it runs in production.
+              Interactive digital experiences that make complex ideas easy to explore —
+              designed and engineered in the open, running in production on this page.
             </p>
             <Link
               href="/contact"

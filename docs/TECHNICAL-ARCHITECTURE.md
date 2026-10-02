@@ -33,8 +33,9 @@ src/
     projects/     ProjectCard (enriched rows), CaseStudy (verified-only),
                    SystemFlow (Saarthians pipeline), SaarthiansVisual (live layer),
                    AdhyayanVisual (recorded walkthrough film)
-    sections/     Hero (Signal Chamber), CraftSequence, Story→Origin,
-                  Work (worlds), Philosophy→Approach, Person, ContactSection, Loop
+    sections/     Hero (Signal Chamber), Trust, Statement, FeaturedWork (dual film),
+                  Immersive, ServicesStrip, ProofLedger, Process, AboutSection, FinalCta
+                  (removed 2026: Work, CraftSequence, SaarthiansSpace, RainbowCursor — unreferenced)
   hooks/          use-prefers-reduced-motion, use-pointer (rAF-friendly ref),
                   use-device-capability (high/reduced tiers)
   lib/            motion (GSAP registry + gate), smooth-scroll (Lenis),

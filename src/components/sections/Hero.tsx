@@ -1,8 +1,8 @@
 ﻿"use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Display } from "@/components/typography/Type";
 import { WordMachine } from "@/components/motion/WordMachine";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -110,7 +110,7 @@ export function Hero() {
       ref={sectionRef}
       id="arrival"
       aria-label="Pragya Labs — signal chamber"
-      className="relative flex min-h-[100svh] flex-col overflow-clip bg-void"
+      className="theme-ink relative flex min-h-[100svh] flex-col overflow-clip bg-ink"
     >
       <div className="absolute inset-0" aria-hidden="true">
         {live && capability.webgl ? (
@@ -130,37 +130,22 @@ export function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(180deg, rgb(5 6 8 / 0.55) 0%, rgb(5 6 8 / 0.12) 40%, rgb(5 6 8 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(5 6 8 / 0.55) 100%)",
+            "linear-gradient(180deg, rgb(17 17 17 / 0.55) 0%, rgb(17 17 17 / 0.12) 40%, rgb(17 17 17 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(17 17 17 / 0.55) 100%)",
         }}
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] flex-1 flex-col justify-end px-[var(--pl-gutter)] pb-16 pt-28">
         <div ref={typeRef}>
-          <h1 className="font-display uppercase leading-[0.92]" aria-label="Pragya Labs">
-            <span className="mask-line" aria-hidden="true">
-              {"Pragya".split("").map((ch, i) => (
-                <span
-                  key={i}
-                  data-hero-char
-                  className="inline-block text-[clamp(3.8rem,13vw,11rem)] will-change-transform"
-                >
-                  {ch}
-                </span>
-              ))}
+          <p className="meta text-faint">Pragya Labs — Intelligent systems, thoughtfully built.</p>
+          <h1 className="mt-6 max-w-[20ch] font-display text-[clamp(2.2rem,5.5vw,4.5rem)] uppercase leading-[1.02]">
+            <span className="mask-line">
+              <span data-hero-line>Custom AI systems and</span>
             </span>
-            <span className="mask-line" aria-hidden="true">
-              {"Labs".split("").map((ch, i) => (
-                <span
-                  key={i}
-                  data-hero-char
-                  className="text-chrome inline-block text-[clamp(3.8rem,13vw,11rem)] will-change-transform"
-                >
-                  {ch}
-                </span>
-              ))}
+            <span className="mask-line">
+              <span data-hero-line>web applications built</span>
             </span>
-            <span className="sr-only">
-              {" "}— AI systems, web applications and immersive digital experiences
+            <span className="mask-line">
+              <span data-hero-line>around your real <span className="text-cyan">business data.</span></span>
             </span>
           </h1>
           <div
@@ -168,19 +153,19 @@ export function Hero() {
             aria-hidden="true"
             className="mt-7 h-px w-40 origin-left bg-cyan"
           />
-          <Display as="p" size="md" className="mt-10 max-w-[16ch]">
-            <span className="mask-line">
-              <span data-hero-line>Digital systems</span>
-            </span>
-            <span className="mask-line">
-              <span data-hero-line>engineered with</span>
-            </span>
-            <span className="mask-line">
-              <span data-hero-line>
-                intelligence<span className="text-cyan [text-shadow:0_0_28px_rgb(61_255_162/0.55)]">.</span>
-              </span>
-            </span>
-          </Display>
+          <p className="mt-8 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
+            Pragya Labs designs and develops grounded AI workflows, RAG applications,
+            custom web products, and interactive digital experiences for teams solving
+            real-world problems.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Link href="/contact" data-cursor="OPEN" className="btn-primary">
+              Discuss your project
+            </Link>
+            <Link href="/work" data-cursor="OPEN" className="btn-ghost">
+              View case studies
+            </Link>
+          </div>
         </div>
       </div>
 

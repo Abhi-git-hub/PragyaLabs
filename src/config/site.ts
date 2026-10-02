@@ -38,3 +38,16 @@ export const nav = [
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
+
+/** Footer index: commercial destinations plus legal. */
+export const footerNav = [
+  { href: "/services/ai-development", label: "AI Systems" },
+  { href: "/services/web-development", label: "Web Applications" },
+  { href: "/services/creative-technology", label: "Immersive Experiences" },
+  { href: "/work", label: "Case Studies" },
+  { href: "/insights", label: "Insights" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms" },
+];

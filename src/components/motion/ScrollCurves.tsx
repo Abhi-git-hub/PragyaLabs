@@ -50,14 +50,14 @@ export function ScrollCurves() {
         <path
           ref={aRef}
           d="M 1180 -50 C 980 400, 1380 700, 1150 1100 C 920 1500, 1300 1800, 1120 2200 C 940 2600, 1260 3000, 1100 3400 C 1020 3600, 1080 3800, 1060 4050"
-          stroke="#3DFFA2"
+          stroke="#00A7B5"
           strokeOpacity="0.16"
           strokeWidth="2"
         />
         <path
           ref={bRef}
           d="M 260 -50 C 460 500, 80 800, 300 1200 C 520 1600, 140 2000, 330 2400 C 520 2800, 180 3200, 340 3600 C 400 3760, 360 3920, 380 4050"
-          stroke="#F2F1EA"
+          stroke="#111111"
           strokeOpacity="0.07"
           strokeWidth="1.5"
         />

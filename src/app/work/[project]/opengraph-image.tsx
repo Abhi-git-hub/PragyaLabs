@@ -20,16 +20,16 @@ export default function ProjectOgImage({ params }: { params: { project: string }
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#050608",
-          color: "#F2F1EA",
+          background: "#F4F1EA",
+          color: "#111111",
           fontFamily: "Arial, sans-serif",
         }}
       >
-        <div style={{ fontSize: 28, letterSpacing: 6, color: "#3DFFA2" }}>
+        <div style={{ fontSize: 28, letterSpacing: 6, color: "#0A6B75" }}>
           {category.toUpperCase()}
         </div>
         <div style={{ fontSize: 96, fontWeight: 700, marginTop: 16 }}>{title}</div>
-        <div style={{ fontSize: 28, marginTop: 16, color: "#B3B8B3" }}>Pragya Labs — case study</div>
+        <div style={{ fontSize: 28, marginTop: 16, color: "#57503F" }}>Pragya Labs — case study</div>
       </div>
     ),
     { ...size }

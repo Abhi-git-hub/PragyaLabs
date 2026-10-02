@@ -6,9 +6,9 @@ import { projects } from "@/data/projects";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
-  title: "Selected Work — Systems & Case Studies | Pragya Labs",
+  title: "AI & Web Development Case Studies | Pragya Labs",
   description:
-    "Shipped systems with evidence: AI platforms, retrieval experiments and frontend engineering — each with its dossier.",
+    "Explore Pragya Labs projects in AI systems, custom web applications, interactive experiences, and data-driven digital products.",
   canonical: "/work",
 });
 

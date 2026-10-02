@@ -1,35 +1,29 @@
 import Link from "next/link";
-import { nav, site } from "@/config/site";
+import { footerNav, site } from "@/config/site";
 
 /** Global page shell: skip link target, nav offset, footer with real data only. */
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line">
+    <footer className="theme-ink border-t border-line bg-ink text-bone">
       <div className="mx-auto grid w-full max-w-[var(--pl-container)] gap-10 px-[var(--pl-gutter)] py-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <p className="font-display text-2xl uppercase">Pragya Labs</p>
-          <p className="meta mt-3">{site.thesis}</p>
+          <p className="mt-4 max-w-[38ch] text-sm leading-relaxed text-muted">
+            Pragya Labs is an independent digital systems studio building custom AI
+            systems, RAG applications, web products, and immersive digital experiences.
+          </p>
+          <p className="meta mt-4 text-faint">Intelligent systems, thoughtfully built.</p>
         </div>
         <nav aria-label="Footer">
           <p className="meta mb-4 text-faint">Index</p>
           <ul className="space-y-2">
-            {nav.map((r) => (
+            {footerNav.map((r) => (
               <li key={r.href}>
                 <Link href={r.href} className="meta transition-colors hover:text-bone">
                   {r.label}
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/services" className="meta transition-colors hover:text-bone">
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link href="/insights" className="meta transition-colors hover:text-bone">
-                Insights
-              </Link>
-            </li>
           </ul>
         </nav>
         <div>
