@@ -12,7 +12,7 @@
 | `assets/adhyayanclasses.mp4` | 1350×608, 20.4s, 9MB | Master for the Adhyayan cut. Keep on disk. |
 
 ## Atmosphere (used, keep)
-`smoke/rain/lathe/drop/black/interior/saarthians--texture` cuts + posters (~6MB, orphaned after CraftSequence removal — retained for future chapters, all under manifest), `public/textures/*` (6 diffuse maps, in-manifest), `public/person/workspace*.jpg` (About page), `signature.svg` (About).
+`smoke/rain/lathe/drop/black/interior/saarthians--texture` cuts + posters (craft studies + transition band — back in the homepage flow), `public/textures/*` (6 diffuse maps, in-manifest), `public/person/workspace*.jpg` (About page), `signature.svg` (About).
 
 ## Decorative / non-proof (do not present as evidence)
 `portrait--*.jpg` (AI-stylized portrait — never a founder headshot), `detail--*.jpg`, `antenna--web.jpg`, `signature--detail.jpg`, `pragya-core--concept.png` (2.2MB concept render, unused), `assets/me_11/12.png`, `landscape.jpg` (6.5MB), `industrial_interior.mp4`, `abstract_movement/city_at_night.mp4` (4K stock-scale, never ship as-is — cut to ≤720p if ever used).

@@ -104,7 +104,7 @@ function CardFilm({ src, poster, label }: { src: string; poster: string; label: 
 
 export function ProofLedger() {
   return (
-    <SectionContainer eyebrow="Selected work">
+    <SectionContainer eyebrow="Selected work" id="work" className="scroll-mt-20">
       <Reveal>
         <Display size="md" className="max-w-[20ch]">
           Selected systems in motion.

@@ -1,13 +1,17 @@
 import { Hero } from "@/components/sections/Hero";
 import { Recognition } from "@/components/sections/Recognition";
-import { Transformation } from "@/components/sections/Transformation";
+import { Metamorphosis } from "@/components/sections/Metamorphosis";
 import { CapabilityModules } from "@/components/sections/CapabilityModules";
+import { ServicesStrip } from "@/components/sections/ServicesStrip";
 import { Method } from "@/components/sections/Method";
 import { ProofLedger } from "@/components/sections/ProofLedger";
+import { CraftSequence } from "@/components/sections/CraftSequence";
 import { EngineeringWall } from "@/components/sections/EngineeringWall";
+import { Immersive } from "@/components/sections/Immersive";
 import { Trust } from "@/components/sections/Trust";
 import { Founder } from "@/components/sections/Founder";
 import { FinalCta } from "@/components/sections/FinalCta";
+import { TransitionBand } from "@/components/motion/TransitionBand";
 import { SiteJsonLd, WebSiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -19,10 +23,12 @@ export const metadata = buildMetadata({
 });
 
 /**
- * HOME — Grounded Intelligence spine:
- * fragments → context → intelligence → interface → impact.
- * Hero chamber is the single full-page WebGL scene; every later
- * chapter earns its motion from the narrative, not decoration.
+ * HOME — Grounded Intelligence spine, fully immersive:
+ * fragments → context → craft → capability → method → proof →
+ * engineering → creative technology → relief → founder → final.
+ * Hero chamber is the hero WebGL scene; Metamorphosis, the services
+ * atlas, and the ember world carry the pinned chapters; films and
+ * canvas carry the proof. Every effect advances the funnel.
  */
 export default function HomePage() {
   return (
@@ -31,11 +37,15 @@ export default function HomePage() {
       <WebSiteJsonLd />
       <Hero />
       <Recognition />
-      <Transformation />
+      <Metamorphosis />
+      <TransitionBand label="Fragments to craft — the engine room" />
       <CapabilityModules />
+      <ServicesStrip />
       <Method />
       <ProofLedger />
+      <CraftSequence />
       <EngineeringWall />
+      <Immersive />
       <Trust />
       <Founder />
       <FinalCta />
