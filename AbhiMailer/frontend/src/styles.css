@@ -1,0 +1,49 @@
+:root {
+  --bg: #0e1116; --panel: #171c24; --panel2: #1e2530; --line: #2a3342;
+  --txt: #e8edf3; --mut: #9aa6b8; --acc: #4f8cff; --ok: #35c26e; --warn: #e5a13d; --bad: #e5534b;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--txt); font: 14px/1.5 "Inter", system-ui, sans-serif; }
+a { color: var(--acc); }
+.layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+.side { background: var(--panel); border-right: 1px solid var(--line); padding: 18px 12px; display: flex; flex-direction: column; gap: 4px; }
+.brand { font-size: 20px; font-weight: 800; padding: 4px 10px 14px; letter-spacing: .3px; }
+.brand span { color: var(--acc); }
+.nav button { display: block; width: 100%; text-align: left; background: none; border: 0; color: var(--txt); padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+.nav button:hover { background: var(--panel2); }
+.nav button.on { background: var(--panel2); border-left: 3px solid var(--acc); }
+.main { padding: 0; }
+.top { display: flex; gap: 10px; align-items: center; padding: 12px 22px; border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; }
+.pill { font-size: 12px; padding: 3px 10px; border-radius: 20px; background: var(--panel2); border: 1px solid var(--line); color: var(--mut); }
+.pill b { color: var(--txt); }
+.body { padding: 22px; max-width: 1100px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 14px 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+.card .k { color: var(--mut); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+.card .v { font-size: 24px; font-weight: 700; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin: 12px 0; }
+h2 { margin: 6px 0 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--mut); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: .4px; }
+input, select, textarea { width: 100%; background: var(--panel2); border: 1px solid var(--line); color: var(--txt); border-radius: 8px; padding: 9px 10px; font-size: 13px; }
+textarea { min-height: 120px; font-family: ui-monospace, monospace; }
+label { display: grid; gap: 5px; margin: 8px 0; font-size: 13px; color: var(--mut); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.btn { background: var(--acc); color: #fff; border: 0; border-radius: 8px; padding: 9px 14px; cursor: pointer; font-weight: 600; }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: var(--panel2); border: 1px solid var(--line); color: var(--txt); }
+.btn.danger { background: var(--bad); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.badge { display: inline-block; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+.b.queued { background: #2b3a55; color: #9cc2ff; } .b.sent { background: #123d27; color: #5fe39a; }
+.b.failed { background: #4a1d1a; color: #ff9b94; } .b.running { background: #123d27; color: #5fe39a; }
+.b.paused, .b.ready, .b.draft { background: #3a3320; color: #ffd479; }
+.b.stopped, .b.completed { background: #2c2f36; color: #c6cdd8; }
+.b.suppressed, .b.skipped { background: #3a2b3d; color: #d9a7e6; }
+.bar { height: 12px; background: var(--panel2); border-radius: 8px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--acc); }
+.log { background: #0a0d12; border: 1px solid var(--line); border-radius: 10px; padding: 12px; font-family: ui-monospace, monospace; font-size: 12px; max-height: 320px; overflow: auto; white-space: pre-wrap; }
+.err { color: var(--bad); } .ok { color: var(--ok); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 800px) { .layout { grid-template-columns: 1fr; } .side { flex-direction: row; flex-wrap: wrap; } .row, .grid2 { grid-template-columns: 1fr; } }
