@@ -15,7 +15,11 @@ import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/metadata";
 
 export function generateStaticParams(): Array<{ project: string }> {
-  return getProjectSlugs().map((project) => ({ project }));
+  // Saarthians owns a dedicated flagship route; the dynamic template skips it
+  // so the two never compete for /work/saarthians at build time.
+  return getProjectSlugs()
+    .filter((slug) => slug !== "saarthians")
+    .map((project) => ({ project }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ project: string }> }) {

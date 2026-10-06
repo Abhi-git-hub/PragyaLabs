@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { site } from "@/config/site";
 
 /**
- * ProjectForm — concise inquiry without backend theatre. Validates inline,
- * then opens the visitor's own email client with the brief composed —
- * nothing is stored, nothing is faked. Confirmation is explicit.
+ * ProjectForm — concise inquiry delivered straight to WhatsApp.
+ * Validates inline, saves the brief on this device (local copy),
+ * then opens WhatsApp addressed to the studio with every detail
+ * prefilled — the visitor presses send there. Confirmation is explicit.
  */
+const WHATSAPP = "919311230129";
+const STORE_KEY = "pragya-inquiries";
 const BUDGETS = ["Exploring — no fixed budget yet", "Under ₹50k", "₹50k – ₹2L", "₹2L+", "Ongoing collaboration"];
 
 export function ProjectForm() {
@@ -27,11 +29,24 @@ export function ProjectForm() {
     if (detail.trim().length < 20) next.detail = "A sentence or two helps — 20 characters minimum.";
     setErrors(next);
     if (Object.keys(next).length > 0) return;
-    const subject = encodeURIComponent(`Project inquiry — ${name.trim()}${company.trim() ? ` (${company.trim()})` : ""}`);
-    const body = encodeURIComponent(
-      `Name: ${name.trim()}\nEmail: ${email.trim()}\nCompany / project: ${company.trim() || "—"}\nBudget / stage: ${budget}\n\nWhat are you trying to improve?\n${detail.trim()}`
+    const entry = {
+      name: name.trim(),
+      email: email.trim(),
+      company: company.trim(),
+      budget,
+      detail: detail.trim(),
+      at: new Date().toISOString(),
+    };
+    try {
+      const prev = JSON.parse(window.localStorage.getItem(STORE_KEY) ?? "[]");
+      window.localStorage.setItem(STORE_KEY, JSON.stringify([...prev, entry]));
+    } catch {
+      /* private mode — WhatsApp delivery still works */
+    }
+    const text = encodeURIComponent(
+      `New project inquiry — Pragya Labs\nName: ${entry.name}\nEmail: ${entry.email}\nCompany / project: ${entry.company || "—"}\nBudget / stage: ${entry.budget}\n\nWhat I'm trying to improve:\n${entry.detail}`
     );
-    window.location.href = `mailto:${site.contact.email}?subject=${subject}&body=${body}`;
+    window.open(`https://wa.me/${WHATSAPP}?text=${text}`, "_blank", "noopener");
     setComposed(true);
   };
 
@@ -76,11 +91,11 @@ export function ProjectForm() {
       </div>
       {composed && (
         <p role="status" className="meta mt-5 border border-line bg-graphite px-4 py-3 text-bone">
-          Your email app should have opened with the brief addressed to {site.contact.email} — press send there and it reaches the studio directly.
+          WhatsApp should have opened with your brief addressed to +91 93112 30129 — press send there and it reaches the studio directly. A copy is saved on this device.
         </p>
       )}
       <p className="meta mt-5 text-faint">
-        No accounts, no newsletters, no sharing. What you write goes only into that email. See the{" "}
+        No accounts, no newsletters, no sharing. What you write goes only into that WhatsApp message (plus a copy on your own device). See the{" "}
         <a href="/privacy" className="text-muted underline decoration-line-strong underline-offset-4 transition-colors hover:text-cyan">
           privacy policy
         </a>

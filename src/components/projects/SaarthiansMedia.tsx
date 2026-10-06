@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/motion/Reveal";
+import { ImageReveal } from "@/components/motion/ImageReveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { assets } from "@/lib/assets";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -18,13 +19,13 @@ export function SaarthiansMedia() {
     <SectionContainer eyebrow="In motion">
       <Reveal>
         <div className="group relative overflow-hidden border border-line">
-          <div className="aspect-[16/10] w-full md:aspect-[21/10]">
+          <ImageReveal className="aspect-[16/10] w-full md:aspect-[21/10]">
             <Film
               src={assets.film.saarthians.src}
               poster={assets.film.saarthians.poster}
               label={assets.film.saarthians.label}
             />
-          </div>
+          </ImageReveal>
           {/* Material study — layered fragment, lower right */}
           <div className="glass-deep absolute bottom-4 right-4 hidden w-56 overflow-hidden border border-line sm:block md:bottom-6 md:right-6 md:w-72">
             <div className="aspect-video w-full">

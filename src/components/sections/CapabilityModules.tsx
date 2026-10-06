@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import { ChapterHead } from "@/components/typography/ChapterHead";
 import { Stagger } from "@/components/motion/Reveal";
 import { useSpotlight } from "@/components/motion/Spotlight";
+import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 
 /**
@@ -119,13 +121,34 @@ export function CapabilityModules() {
 
 function ModuleCard({ module: m }: { module: (typeof MODULES)[number] }) {
   const { ref, onPointerMove } = useSpotlight<HTMLElement>();
+  const tiltRef = useRef<HTMLDivElement | null>(null);
+
+  // Restrained 3D tilt — max ~5deg, fine pointers only, eased return.
+  const onTilt = (e: React.PointerEvent) => {
+    onPointerMove(e);
+    const el = tiltRef.current;
+    if (!el || prefersReducedMotion()) return;
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    el.style.transform = `perspective(900px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 5).toFixed(2)}deg) translateY(-6px)`;
+  };
+  const offTilt = () => {
+    const el = tiltRef.current;
+    if (!el) return;
+    el.style.transform = "";
+  };
+
   return (
     <article
       ref={ref}
-      onPointerMove={onPointerMove}
+      onPointerMove={onTilt}
+      onPointerLeave={offTilt}
       data-stagger-item
-      className="module-card spot glass-signal group flex flex-col p-6 transition-colors duration-300 md:p-8"
+      className="module-card spot glass-card group flex flex-col p-6 transition-colors duration-300 md:p-8"
     >
+      <div ref={tiltRef} className="flex flex-1 flex-col will-change-transform" style={{ transform: "perspective(900px)" }}>
       <div className="flex items-baseline justify-between">
         <p className="meta" style={{ color: m.accent }}>
           {m.index} / {m.label}
@@ -146,6 +169,7 @@ function ModuleCard({ module: m }: { module: (typeof MODULES)[number] }) {
       >
         {m.link} <span aria-hidden="true">→</span>
       </Link>
+      </div>
     </article>
   );
 }

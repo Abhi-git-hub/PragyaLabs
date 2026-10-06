@@ -14,7 +14,7 @@ import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
 /**
  * PROOF — selected systems in motion, staged as an exhibition journey.
  * Desktop (capable, motion allowed): the chapter pins and travels
- * horizontally — flagship Saarthians first, full-bleed, then the rest.
+ * horizontally — two equal cinematic panels, Saarthians then Adhyayan.
  * Everywhere else: the same cards in a calm vertical stack.
  * Same DOM, same copy, same links either way.
  */
@@ -124,16 +124,11 @@ function ProofCard({
   const project = getProject(slug);
   const { ref, onPointerMove } = useSpotlight<HTMLElement>();
   if (!project) return null;
-  const flagship = slug === "saarthians";
   return (
     <article
       ref={ref}
       onPointerMove={onPointerMove}
-      className={
-        flagship
-          ? "spot group flex shrink-0 flex-col border border-line glass-signal lg:w-[68vw] lg:max-w-[1000px]"
-          : "spot group flex shrink-0 flex-col border border-line glass-signal lg:w-[42vw] lg:max-w-[560px]"
-      }
+      className="spot glass-card group flex shrink-0 flex-col lg:w-[54vw] lg:max-w-[720px]"
     >
       <div className="aspect-video w-full overflow-hidden border-b border-line">
         {film ? (

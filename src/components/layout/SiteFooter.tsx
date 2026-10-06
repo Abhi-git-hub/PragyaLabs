@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { footerNav, site } from "@/config/site";
 import { Reveal } from "@/components/motion/Reveal";
+import { IstClock } from "@/components/seo/IstClock";
 
 /** Global page shell: skip link target, nav offset, footer with real data only. */
 export function SiteFooter() {
@@ -39,7 +40,7 @@ export function SiteFooter() {
         <Reveal delay={0.2}>
         <div>
           <p className="meta mb-4 text-faint">Coordinates</p>
-          <p className="meta">{site.location}</p>
+          <p className="meta">{site.location}<IstClock /></p>
           <p className="meta mt-2">
             <a href={`tel:${site.contact.phone.replace(/\s/g, "")}`} className="transition-colors hover:text-cyan">
               {site.contact.phone}
@@ -59,6 +60,14 @@ export function SiteFooter() {
           <p className="meta text-faint">© {site.year} {site.name}</p>
           <p className="meta text-faint">{site.internalPhrase}</p>
         </div>
+      </div>
+      {/* Finale — the name, cropped by the viewport edge. Solid, low, memorable. */}
+      <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
+        <Reveal>
+          <p className="translate-y-[28%] whitespace-nowrap text-center font-display text-[clamp(4rem,14.5vw,13rem)] font-bold leading-[0.85] text-bone/[0.07]">
+            Pragya Labs
+          </p>
+        </Reveal>
       </div>
     </footer>
   );
