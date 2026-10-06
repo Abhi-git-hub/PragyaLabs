@@ -11,8 +11,8 @@ import nodemailer from 'nodemailer';
 // campaign.csv → Import → mapping → template → sender → preflight →
 // started → worker → SMTP accepts → SENT → COMPLETED. Fake SMTP only.
 const MODE_A_CSV = `company_name,email,first_name,industry,email_subject,email_body
-Acme Dental,owner@acme.com,John,Dental,PragyaLabs/Acme Dental,"Hi John, I came across Acme Dental and noticed something interesting. Best, Abhi"
-Bright Smiles,hello@bright.example,Priya,Dental,PragyaLabs/Bright Smiles,"Hi Priya, quick idea for Bright Smiles. Best, Abhi"
+Acme Dental,owner@acme.com,John,Dental,Quick idea for Acme Dental,"Hi John, I came across Acme Dental and noticed something interesting. Best, Abhi"
+Bright Smiles,hello@bright.example,Priya,Dental,Quick idea for Bright Smiles,"Hi Priya, quick idea for Bright Smiles. Best, Abhi"
 Evil Co,evil@example.com,Evil,Dental,Hello Evil,"<script>alert(1)</script>Hi Evil"
 Bad Row,not-an-email,Bad,Dental,S,B
 Dup Row,owner@acme.com,Johnny,Dental,S2,B2
@@ -68,7 +68,7 @@ describe('CSV CAMPAIGN ACCEPTANCE (fake SMTP)', () => {
     expect(preview.sendable).toBe(3);
     expect(preview.suggestedMode).toBe('row');
     // Per-row preview rendering from the CSV content columns:
-    expect(preview.previews[0]?.subject).toBe('PragyaLabs/Acme Dental');
+    expect(preview.previews[0]?.subject).toBe('Quick idea for Acme Dental');
     expect(preview.previews[0]?.text).toContain('Hi John');
     // No secrets leak into preview payloads:
     expect(JSON.stringify(preview)).not.toContain('password_enc');
@@ -117,7 +117,7 @@ describe('CSV CAMPAIGN ACCEPTANCE (fake SMTP)', () => {
     // Broken template: references a column the CSV does not contain
     const bad = await importCsvCampaign(store, MODE_B_CSV, {
       name: 'Outreach B bad', accountId: acc.id, mode: 'template',
-      subject: 'PragyaLabs/{{company_name}}', bodyText: 'Hi {{nope}}, welcome',
+      subject: 'Quick idea for {{company_name}}', bodyText: 'Hi {{nope}}, welcome',
     });
     const preBad = await runPreflight(store, (await store.getCampaign(bad.campaign.id))!);
     expect(preBad.ok).toBe(false);
@@ -127,7 +127,7 @@ describe('CSV CAMPAIGN ACCEPTANCE (fake SMTP)', () => {
     // Fixed template: full journey to COMPLETED
     const good = await importCsvCampaign(store, MODE_B_CSV, {
       name: 'Outreach B', accountId: acc.id, mode: 'template',
-      subject: 'PragyaLabs/{{company_name}}', bodyText: 'Hi {{first_name}}, I came across {{company_name}} ({{industry}}). Best, Abhi',
+      subject: 'Quick idea for {{company_name}}', bodyText: 'Hi {{first_name}}, I came across {{company_name}} ({{industry}}). Best, Abhi',
     });
     const pre = await runPreflight(store, (await store.getCampaign(good.campaign.id))!);
     expect(pre.ok).toBe(true);
@@ -135,7 +135,7 @@ describe('CSV CAMPAIGN ACCEPTANCE (fake SMTP)', () => {
     await store.updateCampaign(good.campaign.id, { status: 'RUNNING', started_at: new Date().toISOString() });
     await runWorker(store, { maxIterations: 60, pollMs: 5 });
     expect(fake.received).toHaveLength(2);
-    expect(fake.for('ana@example.com')[0]?.subject).toBe('PragyaLabs/Ana Salon');
+    expect(fake.for('ana@example.com')[0]?.subject).toBe('Quick idea for Ana Salon');
     expect(fake.for('ana@example.com')[0]?.raw).toContain('Hi Ana');
     expect((await store.getCampaign(good.campaign.id))!.status).toBe('COMPLETED');
   });
@@ -181,7 +181,7 @@ describe('CSV CAMPAIGN ACCEPTANCE (fake SMTP)', () => {
   it('manual-path regression: one-row Mode-A CSV → lead → campaign_lead → preflight passes', async () => {
     // Mirrors Leads-page import + Campaigns-page create + Detail validate.
     // Before the mapping fix this yielded 0 recipients → "No ready recipients".
-    const ONE_ROW = `company_name,email,email_subject,message\nTest Company,recipient@example.test,PragyaLabs/Test Company,"Hi, this is a test email."`;
+    const ONE_ROW = `company_name,email,email_subject,message\nTest Company,recipient@example.test,Quick idea for Test Company,"Hi, this is a test email."`;
     const { analyzeCsv, defaultMapping, mapRowToLead } = await import('../../src/leads/csv.js');
     const { isValidEmail } = await import('../../src/email/validation.js');
     const analysis = analyzeCsv(ONE_ROW);
@@ -203,7 +203,7 @@ describe('CSV CAMPAIGN ACCEPTANCE (fake SMTP)', () => {
     const acc = await makeAccount();
     const campaign = await store.createCampaign({
       name: 'Manual One-Row', account_id: acc.id,
-      subject_template: 'PragyaLabs/{{company}}', body_text_template: 'Hi, a test for {{company}} ({{email}})',
+      subject_template: 'Quick idea for {{company}}', body_text_template: 'Hi, a test for {{company}} ({{email}})',
       body_html_template: null, reply_to: null, unsubscribe_footer: true,
       daily_limit: null, delay_seconds: null, status: 'DRAFT',
       start_at: null, end_at: null, started_at: null, completed_at: null, preflight: null,

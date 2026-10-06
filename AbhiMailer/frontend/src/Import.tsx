@@ -98,7 +98,7 @@ export default function ImportWizard({ openCampaign }: { openCampaign: (id: stri
   const [roles, setRoles] = useState<Record<string, Role>>({});
   const [emailChoice, setEmailChoice] = useState('');
   const [mode, setMode] = useState<'row' | 'template'>('template');
-  const [subject, setSubject] = useState('PragyaLabs/{{company}}');
+  const [subject, setSubject] = useState('Quick idea for {{company}}');
   const [bodyText, setBodyText] = useState('Hi {{first_name}},\n\nI came across {{company}} and wanted to reach out.\n\nBest,\nAbhi');
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [accountId, setAccountId] = useState('');
@@ -289,7 +289,7 @@ export default function ImportWizard({ openCampaign }: { openCampaign: (id: stri
       {preview && (
         <div className="panel">
           <h3>Subject</h3>
-          <input value={subject} onChange={(e) => setSubject(e.target.value)} placeholder="PragyaLabs/{{company}}" />
+          <input value={subject} onChange={(e) => setSubject(e.target.value)} placeholder="Quick idea for {{company}}" />
           <h3 style={{ marginTop: 12 }}>Message</h3>
           <textarea value={bodyText} onChange={(e) => setBodyText(e.target.value)} style={{ minHeight: 150 }}
             placeholder={'Hi {{first_name}},\n\nI came across {{company}} and wanted to reach out.'} />

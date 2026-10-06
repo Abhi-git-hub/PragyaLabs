@@ -73,7 +73,7 @@ You'll immediately see `2 contacts · 2 valid`, the detected fields (`Email → 
 
 ### 3. Subject + message
 ```
-Subject: PragyaLabs/{{company}}
+Subject: Quick idea for {{company}}
 
 Hi {{first_name}},
 
@@ -187,3 +187,7 @@ The product is **Mail Mania**. A few internal identifiers predate the rename and
 ---
 
 Built to send real, personalized email reliably — and to tell you the truth when something's wrong. Happy sending! 📬
+
+---
+
+*Made by Pragya Labs.*

@@ -8,7 +8,7 @@ import { renderStrict, buildLeadContext, sanitizeSubject } from '../../src/email
 import { sanitizeEmailHtml } from '../../src/email/sanitize.js';
 
 const ROW_CSV = `company_name,email,first_name,industry,website,email_subject,email_body
-Acme Dental,owner@acme.com,John,Dental,https://acme.example.com,PragyaLabs/Acme Dental,"Hi John, thanks for your time"
+Acme Dental,owner@acme.com,John,Dental,https://acme.example.com,Quick idea for Acme Dental,"Hi John, thanks for your time"
 ,missing-name@example.com,NoCo,,,"No company subject","Body here"
 bad-email,not-an-email,Bad,,,"S","B"
 dup1@example.com,DUP1@example.com,Dup,,,"S2","B2"`;
@@ -87,16 +87,16 @@ describe('lead building preserves everything', () => {
     const roles = detectRoles(['company_name', 'email', 'first_name', 'industry', 'website', 'email_subject', 'email_body']).roles;
     const lead = buildImportLead({
       company_name: 'Acme', email: 'o@acme.com', first_name: 'John', industry: 'Dental',
-      website: 'https://acme.example.com', email_subject: 'PragyaLabs/Acme', email_body: 'Hi John',
+      website: 'https://acme.example.com', email_subject: 'Quick idea for Acme', email_body: 'Hi John',
     }, roles);
     expect(lead?.company).toBe('Acme');
     expect(lead?.raw_data.company_name).toBe('Acme');
     expect(lead?.raw_data.industry).toBe('Dental');
-    expect(lead?.raw_data[CSV_SUBJECT_KEY]).toBe('PragyaLabs/Acme');
+    expect(lead?.raw_data[CSV_SUBJECT_KEY]).toBe('Quick idea for Acme');
     expect(lead?.raw_data[CSV_BODY_KEY]).toBe('Hi John');
     // Template can use any CSV column dynamically:
     const ctx = buildLeadContext({ ...lead, raw_data: lead?.raw_data });
-    expect(renderStrict('PragyaLabs/{{company_name}} — {{industry}}', ctx)).toBe('PragyaLabs/Acme — Dental');
+    expect(renderStrict('Quick idea for {{company_name}} — {{industry}}', ctx)).toBe('Quick idea for Acme — Dental');
   });
   it('returns null for unmappable rows', () => {
     const roles = detectRoles(['email']).roles;
@@ -106,8 +106,8 @@ describe('lead building preserves everything', () => {
 
 describe('template + security', () => {
   it('per-row personalization renders', () => {
-    const ctx = buildLeadContext({ email: 'o@a.com', first_name: 'John', raw_data: { company_name: 'Acme', [CSV_SUBJECT_KEY]: 'PragyaLabs/Acme' } });
-    expect(sanitizeSubject(renderStrict('{{_csv_subject}}', ctx))).toBe('PragyaLabs/Acme');
+    const ctx = buildLeadContext({ email: 'o@a.com', first_name: 'John', raw_data: { company_name: 'Acme', [CSV_SUBJECT_KEY]: 'Quick idea for Acme' } });
+    expect(sanitizeSubject(renderStrict('{{_csv_subject}}', ctx))).toBe('Quick idea for Acme');
   });
   it('subject newlines are stripped (header-injection guard)', () => {
     expect(sanitizeSubject('Hello\r\nBcc: evil@x.com')).toBe('Hello Bcc: evil@x.com');
@@ -133,7 +133,7 @@ describe('manual-path mapping regression: content columns must never steal the e
   const VALUES = {
     company_name: 'Test Company',
     email: 'recipient@example.test',
-    email_subject: 'PragyaLabs/Test Company',
+    email_subject: 'Quick idea for Test Company',
     message: 'Hi, this is a test email.',
   };
   it('defaultMapping keeps the true email column', () => {
@@ -147,7 +147,7 @@ describe('manual-path mapping regression: content columns must never steal the e
     expect(lead.email).toBe('recipient@example.test');
     expect(lead.company).toBe('Test Company');
     // Per-row content stays available under its own column names.
-    expect(lead.raw_data.email_subject).toBe('PragyaLabs/Test Company');
+    expect(lead.raw_data.email_subject).toBe('Quick idea for Test Company');
     expect(lead.raw_data.message).toBe('Hi, this is a test email.');
   });
   it('preview and import agree on the email column (single shared predicate)', () => {
@@ -155,7 +155,7 @@ describe('manual-path mapping regression: content columns must never steal the e
     const m = defaultMapping(HEADERS);
     expect(m[emailCol]).toBe('email');
     const analysis = analyzeCsv(
-      `company_name,email,email_subject,message\nTest Company,recipient@example.test,PragyaLabs/Test Company,"Hi"`,
+      `company_name,email,email_subject,message\nTest Company,recipient@example.test,Quick idea for Test Company,"Hi"`,
     );
     expect(analysis.emailColumn).toBe('email');
     expect(analysis.valid).toBe(1);
