@@ -7,7 +7,11 @@ export function SiteFooter() {
     <footer className="theme-ink border-t border-line bg-ink text-bone">
       <div className="mx-auto grid w-full max-w-[var(--pl-container)] gap-10 px-[var(--pl-gutter)] py-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <p className="font-display text-2xl uppercase">Pragya Labs</p>
+          <p className="flex items-center gap-3 font-display text-2xl uppercase">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="" aria-hidden="true" className="block h-9 w-9 object-contain" />
+            Pragya Labs
+          </p>
           <p className="mt-4 max-w-[38ch] text-sm leading-relaxed text-muted">
             Pragya Labs is an independent digital systems studio building custom AI
             systems, RAG applications, web products, and immersive digital experiences.

@@ -236,7 +236,12 @@
       "mobile": "192×192",
       "priority": "P0",
       "status": "production",
-      "files": [{ "path": "src/app/icon.svg", "variant": "source", "required": true }]
+      "files": [
+        { "path": "src/app/icon.png", "variant": "source", "required": true },
+        { "path": "src/app/apple-icon.png", "variant": "source", "required": true },
+        { "path": "public/person/founder--web.jpg", "variant": "web", "required": true },
+        { "path": "public/logo.png", "variant": "vector", "required": true }
+      ]
     }
   ]
 }

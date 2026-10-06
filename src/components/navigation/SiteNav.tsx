@@ -73,8 +73,12 @@ export function SiteNav() {
         aria-label="Primary"
         className="mx-auto flex h-14 w-full max-w-[var(--pl-container)] items-center justify-between px-[var(--pl-gutter)]"
       >
-        <Link href="/" className="font-display text-sm uppercase tracking-[0.08em]" aria-label="Pragya Labs home">
-          Pragya<span className="text-cyan">—</span>Labs
+        <Link href="/" className="flex items-center gap-3" aria-label="Pragya Labs home">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="" aria-hidden="true" className="block h-8 w-8 object-contain" />
+          <span className="font-display text-sm uppercase tracking-[0.08em]">
+            Pragya<span className="text-cyan">—</span>Labs
+          </span>
         </Link>
 
         <ul className="hidden items-center gap-7 md:flex">
@@ -99,7 +103,7 @@ export function SiteNav() {
           <Link
             href="/contact"
             data-cursor="OPEN"
-            className="meta bg-cyan px-4 py-2 text-ink transition-colors hover:bg-lime"
+            className="btn-nav meta bg-cyan px-4 py-2 transition-colors hover:bg-lime"
           >
             Start a project
           </Link>

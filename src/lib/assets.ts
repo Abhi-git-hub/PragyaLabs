@@ -57,5 +57,15 @@ export const assets = {
       width: 1400,
       height: 1052,
     },
+    founder: {
+      src: "/person/founder--web.jpg",
+      alt: "Abhi at his desk in Delhi — the engineer behind Pragya Labs",
+      width: 1200,
+      height: 1500,
+    },
   } satisfies Record<string, PhotoAsset>,
+  brand: {
+    logo: "/logo.png",
+    alt: "Pragya Labs monogram",
+  },
 } as const;

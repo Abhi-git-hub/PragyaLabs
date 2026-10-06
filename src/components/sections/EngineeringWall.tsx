@@ -43,7 +43,7 @@ export function EngineeringWall() {
           title="From first signal to production system."
           lede="One engineer owns the chain — from the first model of the problem to the interface, authentication, deployment, and iteration."
         />
-        <div className="mt-12 border border-line bg-graphite px-6 py-10 md:px-10" aria-label="Engineering disciplines in sequence">
+        <div className="glass-signal mt-12 px-6 py-10 text-center md:px-10" aria-label="Engineering disciplines in sequence">
           {WORDS.map((w) => (
             <p key={w} data-wall-word className="font-display text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.05]">
               {w}
@@ -55,7 +55,7 @@ export function EngineeringWall() {
           <div className="h-px w-full bg-line" aria-hidden="true">
             <div data-wall-line className="h-px w-full origin-left bg-cyan" />
           </div>
-          <ol className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+          <ol className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-center">
             {STAGES.map((s) => (
               <li key={s} data-wall-stage className="meta text-muted">
                 {s}

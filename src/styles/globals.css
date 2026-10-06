@@ -119,6 +119,66 @@ body {
   box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.5);
 }
 
+/* Hero copy legibility — soft obsidian halo behind text over WebGL. */
+.hero-copy {
+  text-shadow: 0 1px 2px rgb(5 6 8 / 0.9), 0 2px 18px rgb(5 6 8 / 0.85), 0 0 44px rgb(5 6 8 / 0.6);
+}
+
+/* Nav CTA — ink text on signal, immune to .meta color. */
+.btn-nav {
+  color: #050608;
+}
+.btn-nav:hover {
+  color: #050608;
+}
+
+/* Capability module cards — glass, lift, and micro-scenes that wake on hover.
+   Copy and links work untouched without hover; reduced motion stills all. */
+.module-card {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s, box-shadow 0.5s;
+}
+.module-card:hover,
+.module-card:focus-within {
+  transform: translateY(-6px);
+  border-color: rgb(61 255 162 / 0.35);
+  box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.8), 0 0 32px -8px rgb(61 255 162 / 0.25);
+}
+.module-card .accent-pulse {
+  opacity: 0.55;
+  transition: opacity 0.4s;
+}
+.module-card:hover .accent-pulse,
+.module-card:focus-within .accent-pulse {
+  opacity: 1;
+}
+
+/* Trust schematic — slow signal flow, looped and subtle. */
+.flow-loop {
+  stroke-dasharray: 6 14;
+  animation: flow-drift 6s linear infinite;
+}
+@keyframes flow-drift {
+  to {
+    stroke-dashoffset: -80;
+  }
+}
+.pulse-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-pulse 4s ease-in-out infinite;
+}
+@keyframes node-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.7;
+  }
+}
+
 /* Inline link language — underline grows left to right. */
 .link-line {
   background-image: linear-gradient(currentColor, currentColor);

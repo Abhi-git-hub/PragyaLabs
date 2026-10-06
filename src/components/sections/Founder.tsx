@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Display } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
-import { assets } from "@/lib/assets";
 
 /**
  * FOUNDER — accountability as an advantage. Real workspace photograph
@@ -20,18 +19,23 @@ export function Founder() {
       </p>
       <div className="grid gap-10 md:grid-cols-2 md:items-center">
         <Reveal>
-          <div className="overflow-hidden border border-line">
+          <div className="group relative overflow-hidden border border-line">
             <Image
-              src={assets.photo.desk.src}
-              alt={assets.photo.desk.alt}
-              width={assets.photo.desk.width}
-              height={assets.photo.desk.height}
+              src="/person/founder--web.jpg"
+              alt="Abhi at his desk in Delhi — the engineer behind Pragya Labs"
+              width={1200}
+              height={1500}
               sizes="(max-width: 768px) 100vw, 50vw"
               loading="lazy"
-              className="block aspect-[4/3] w-full object-cover"
+              className="block aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{ background: "linear-gradient(180deg, transparent 55%, rgb(5 6 8 / 0.55) 100%)" }}
             />
           </div>
-          <p className="meta mt-3 text-faint">The desk — Delhi, 2026</p>
+          <p className="meta mt-3 text-faint">Abhi — Delhi, 2026</p>
         </Reveal>
         <Reveal>
           <Display as="h2" size="md" className="max-w-[20ch]">

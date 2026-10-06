@@ -52,11 +52,11 @@ function MicroScene({ kind, accent }: { kind: string; accent: string }) {
         {[18, 48, 78].map((y) => (
           <g key={y}>
             <rect x={10} y={y - 10} width={34} height={20} fill="none" stroke="#737B78" strokeWidth={1} opacity={0.7} />
-            <path d={`M 44 ${y} C 90 ${y}, 100 60, 150 60`} fill="none" stroke={accent} strokeWidth={1.2} opacity={0.8} />
+            <path d={`M 44 ${y} C 90 ${y}, 100 60, 150 60`} fill="none" stroke={accent} strokeWidth={1.2} opacity={0.8} className="accent-pulse" />
           </g>
         ))}
         <rect x={150} y={48} width={42} height={24} fill="none" stroke="#F2F1EA" strokeWidth={1.2} />
-        <path d="M 158 58 L 184 58" stroke={accent} strokeWidth={1.5} />
+        <path d="M 158 58 L 184 58" stroke={accent} strokeWidth={1.5} className="accent-pulse" />
         <path d="M 158 64 L 176 64" stroke="#737B78" strokeWidth={1} />
       </svg>
     );
@@ -76,6 +76,7 @@ function MicroScene({ kind, accent }: { kind: string; accent: string }) {
               height={30}
               fill="none"
               stroke={c === 1 && r === 0 ? accent : "#737B78"}
+              className={c === 1 && r === 0 ? "accent-pulse" : undefined}
               strokeWidth={c === 1 && r === 0 ? 1.5 : 1}
               opacity={c === 1 && r === 0 ? 1 : 0.6}
             />
@@ -88,9 +89,9 @@ function MicroScene({ kind, accent }: { kind: string; accent: string }) {
   return (
     <svg viewBox="0 0 200 120" className="block h-28 w-full" aria-hidden="true">
       <ellipse cx={100} cy={60} rx={62} ry={40} fill="none" stroke="#737B78" strokeWidth={1} opacity={0.6} />
-      <ellipse cx={100} cy={60} rx={42} ry={27} fill="none" stroke={accent} strokeWidth={1.2} opacity={0.85} />
+      <ellipse cx={100} cy={60} rx={42} ry={27} fill="none" stroke={accent} strokeWidth={1.2} opacity={0.85} className="accent-pulse" />
       <ellipse cx={100} cy={60} rx={22} ry={14} fill="none" stroke="#F2F1EA" strokeWidth={1.2} />
-      <circle cx={100} cy={60} r={3.5} fill={accent} />
+      <circle cx={100} cy={60} r={3.5} fill={accent} className="accent-pulse" />
     </svg>
   );
 }
@@ -109,7 +110,7 @@ export function CapabilityModules() {
           <article
             key={m.index}
             data-stagger-item
-            className="group flex flex-col border border-line bg-graphite p-6 transition-colors duration-300 hover:border-line-strong md:p-8"
+            className="module-card glass-signal group flex flex-col p-6 transition-colors duration-300 md:p-8"
           >
             <div className="flex items-baseline justify-between">
               <p className="meta" style={{ color: m.accent }}>

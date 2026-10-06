@@ -127,14 +127,14 @@ export function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(180deg, rgb(5 6 8 / 0.55) 0%, rgb(5 6 8 / 0.12) 40%, rgb(5 6 8 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(5 6 8 / 0.55) 100%)",
+            "linear-gradient(180deg, rgb(5 6 8 / 0.55) 0%, rgb(5 6 8 / 0.12) 40%, rgb(5 6 8 / 0.42) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(5 6 8 / 0.55) 100%), linear-gradient(100deg, rgb(5 6 8 / 0.72) 0%, rgb(5 6 8 / 0.45) 34%, transparent 62%)",
         }}
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] flex-1 flex-col justify-end px-[var(--pl-gutter)] pb-16 pt-28">
         <div ref={typeRef}>
           <p className="meta text-faint">Pragya Labs / Digital systems studio / Delhi, India</p>
-          <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.04] tracking-[-0.01em]">
+          <h1 className="hero-copy mt-6 max-w-[16ch] font-display text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.04] tracking-[-0.01em]">
             <span className="mask-line">
               <span data-hero-line>Complex systems,</span>
             </span>
@@ -149,12 +149,12 @@ export function Hero() {
             aria-hidden="true"
             className="mt-7 h-px w-40 origin-left bg-cyan"
           />
-          <p className="mt-8 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
+          <p className="hero-copy mt-8 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
             Pragya Labs builds grounded AI systems, web applications, and interactive
             digital experiences around the way your data, workflows, and people
             actually work.
           </p>
-          <p className="meta mt-4 text-faint">Built for real use—not just impressive demos.</p>
+          <p className="hero-copy meta mt-4 text-faint">Built for real use—not just impressive demos.</p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="/contact" data-cursor="OPEN" className="btn-primary">
               Start a project
@@ -163,7 +163,7 @@ export function Hero() {
               Explore selected work
             </Link>
           </div>
-          <p className="meta mt-5 text-faint">
+          <p className="hero-copy meta mt-5 text-faint">
             Tell us what is complex. We will help define what is worth building.
           </p>
         </div>

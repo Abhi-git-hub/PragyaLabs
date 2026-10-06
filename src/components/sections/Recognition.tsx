@@ -43,12 +43,12 @@ export function Recognition() {
         scrollTrigger: {
           trigger: el,
           start: "top top",
-          end: "+=90%",
+          end: "+=120%",
           scrub: 0.6,
           pin: ".recognition-stage",
         },
       });
-      tl.fromTo("[data-rec-line]", { opacity: 0.1, y: 60, scale: 0.86 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.55 }, 0);
+      tl.fromTo("[data-rec-line]", { opacity: 0.08, y: 70, scale: 0.84, filter: "blur(10px)", letterSpacing: "0.05em" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", letterSpacing: "0em", duration: 0.7, stagger: 0.6 }, 0);
       tl.fromTo("[data-rec-path]", { strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 1.4, stagger: 0.25 }, 0.3);
       tl.fromTo("[data-rec-label]", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.25 }, 0.8);
       tl.fromTo("[data-rec-node]", { opacity: 0.25 }, { opacity: 1, duration: 0.6, stagger: 0.15 }, 0.3);
@@ -58,7 +58,7 @@ export function Recognition() {
         defaults: { ease: "none" },
         scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 45%", scrub: 0.6 },
       });
-      tl.fromTo("[data-rec-line]", { opacity: 0.1, y: 46, scale: 0.88 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.45 }, 0);
+      tl.fromTo("[data-rec-line]", { opacity: 0.08, y: 54, scale: 0.86, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.5 }, 0);
       tl.fromTo("[data-rec-path]", { strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 1.2, stagger: 0.2 }, 0.2);
       tl.fromTo("[data-rec-label]", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.2 }, 0.6);
     });
@@ -67,7 +67,9 @@ export function Recognition() {
 
   return (
     <div ref={wrapRef}>
-      <div className="recognition-stage">
+      <div className="recognition-stage relative">
+        {/* Ambient breath behind the lines — transform-only drift */}
+        <div className="orb orb-cyan left-1/2 top-[6%] h-[380px] w-[380px] -translate-x-1/2" aria-hidden="true" />
         <SectionContainer id="recognition">
           <Reveal className="text-center">
             <p className="meta text-faint">
@@ -75,10 +77,10 @@ export function Recognition() {
               <span aria-hidden="true"> / </span>
               Recognition
             </p>
-            <Display size="lg" className="mx-auto mt-6 max-w-[24ch]">
+            <Display size="lg" className="mx-auto mt-6 max-w-[26ch]">
               {LINES.map((l, i) => (
                 <span key={l} data-rec-line className="block origin-center will-change-transform">
-                  {i === LINES.length - 1 ? <span className="text-cyan">{l}</span> : l}
+                  {i === LINES.length - 1 ? <span className="text-cyan [text-shadow:0_0_36px_rgb(61_255_162/0.4)]">{l}</span> : l}
                 </span>
               ))}
             </Display>
@@ -117,7 +119,29 @@ export function Recognition() {
               <g data-rec-node>
                 <circle cx={292} cy={155} r={34} fill="none" stroke="#F2F1EA" strokeWidth={1.5} />
                 <circle cx={292} cy={155} r={20} fill="none" stroke="#168F62" strokeWidth={1.5} />
-                <circle cx={292} cy={155} r={5} fill="#3DFFA2" />
+                <circle cx={292} cy={155} r={5} fill="#3DFFA2">
+                  {!reduced && (
+                    <animate attributeName="r" values="5;7;5" dur="3.2s" repeatCount="indefinite" />
+                  )}
+                </circle>
+                {!reduced && (
+                  <g>
+                    <circle cx={292} cy={155} r={46} fill="none" stroke="#3DFFA2" strokeWidth={1} strokeDasharray="4 10" opacity={0.5}>
+                      <animateTransform attributeName="transform" type="rotate" from="0 292 155" to="360 292 155" dur="18s" repeatCount="indefinite" />
+                    </circle>
+                    {[
+                      { x: 60, y: 40, dx: 8, dur: "7s" },
+                      { x: 150, y: 250, dx: -10, dur: "9s" },
+                      { x: 250, y: 60, dx: 6, dur: "8s" },
+                      { x: 40, y: 300, dx: 9, dur: "10s" },
+                      { x: 200, y: 300, dx: -7, dur: "7.5s" },
+                    ].map((s, i) => (
+                      <circle key={i} cx={s.x} cy={s.y} r={1.6} fill="#3DFFA2" opacity={0.55}>
+                        <animateTransform attributeName="transform" type="translate" values={`0 0; ${s.dx} -10; 0 0`} dur={s.dur} repeatCount="indefinite" />
+                      </circle>
+                    ))}
+                  </g>
+                )}
               </g>
             </svg>
             {/* pathway legend — the labels live in HTML, not canvas */}

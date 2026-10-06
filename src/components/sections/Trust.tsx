@@ -41,12 +41,13 @@ export function Trust() {
                 stroke="#3DFFA2"
                 strokeWidth={1.4}
                 opacity={0.75}
+                className="flow-loop"
               />
             </g>
           ))}
           <circle cx={470} cy={65} r={30} fill="none" stroke="#F2F1EA" strokeWidth={1.5} />
           <circle cx={470} cy={65} r={16} fill="none" stroke="#168F62" strokeWidth={1.5} />
-          <circle cx={470} cy={65} r={4.5} fill="#3DFFA2" />
+          <circle cx={470} cy={65} r={4.5} fill="#3DFFA2" className="pulse-node" />
         </svg>
         <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2" aria-label="One system">
           <li className="meta text-faint">
