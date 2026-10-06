@@ -15,8 +15,8 @@ export function Magnetic({ children, strength = 8 }: { children: ReactNode; stre
     if (!el || prefersReducedMotion()) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
     let raf = 0;
-    const target = { x: 0, y: 0 };
-    const cur = { x: 0, y: 0 };
+    const target = { x: 0, y: 0, s: 1 };
+    const cur = { x: 0, y: 0, s: 1 };
     const onMove = (e: PointerEvent) => {
       const rect = el.getBoundingClientRect();
       const dx = e.clientX - (rect.left + rect.width / 2);
@@ -26,19 +26,23 @@ export function Magnetic({ children, strength = 8 }: { children: ReactNode; stre
       if (dist < range) {
         target.x = (dx / range) * strength;
         target.y = (dy / range) * strength;
+        target.s = 1.04;
       } else {
         target.x = 0;
         target.y = 0;
+        target.s = 1;
       }
     };
     const onLeave = () => {
       target.x = 0;
       target.y = 0;
+      target.s = 1;
     };
     const loop = () => {
       cur.x += (target.x - cur.x) * 0.14;
       cur.y += (target.y - cur.y) * 0.14;
-      el.style.transform = `translate(${cur.x.toFixed(2)}px, ${cur.y.toFixed(2)}px)`;
+      cur.s += (target.s - cur.s) * 0.14;
+      el.style.transform = `translate(${cur.x.toFixed(2)}px, ${cur.y.toFixed(2)}px) scale(${cur.s.toFixed(3)})`;
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);

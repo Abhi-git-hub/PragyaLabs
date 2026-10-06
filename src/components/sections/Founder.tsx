@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Display } from "@/components/typography/Type";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
+import { Parallax } from "@/components/motion/Parallax";
 
 /**
  * FOUNDER — accountability as an advantage. Real workspace photograph
@@ -19,10 +20,10 @@ export function Founder() {
       </p>
       <div className="grid gap-10 md:grid-cols-2 md:items-center">
         <Reveal>
-          <div className="group relative overflow-hidden border border-line">
+          <Parallax className="group relative overflow-hidden border border-line">
             <Image
               src="/person/founder--web.jpg"
-              alt="Abhi at his desk in Delhi — the engineer behind Pragya Labs"
+              alt="Abhi at his desk in Delhi - the engineer behind Pragya Labs"
               width={1200}
               height={1500}
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -34,7 +35,7 @@ export function Founder() {
               className="pointer-events-none absolute inset-0"
               style={{ background: "linear-gradient(180deg, transparent 55%, rgb(5 6 8 / 0.55) 100%)" }}
             />
-          </div>
+          </Parallax>
           <p className="meta mt-3 text-faint">Abhi — Delhi, 2026</p>
         </Reveal>
         <Reveal>

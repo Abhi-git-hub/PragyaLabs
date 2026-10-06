@@ -179,6 +179,50 @@ body {
   }
 }
 
+/* Nav entrance — fades/slides in after the preloader lifts. */
+.nav-enter {
+  animation: nav-in 600ms cubic-bezier(0.22, 1, 0.36, 1) 1.05s both;
+}
+@keyframes nav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Active nav link — underline rests in place. */
+.link-line-active {
+  background-size: 100% 1px;
+  color: var(--pl-foreground);
+}
+
+/* Spotlight — soft material light following the pointer inside cards. */
+.spot {
+  position: relative;
+}
+.spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(61 255 162 / 0.09),
+    transparent 70%
+  );
+}
+.spot:hover::before,
+.spot:focus-within::before {
+  opacity: 1;
+}
+
 /* Inline link language — underline grows left to right. */
 .link-line {
   background-image: linear-gradient(currentColor, currentColor);

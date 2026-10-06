@@ -20,6 +20,7 @@ export function SiteNav() {
   const [hidden, setHidden] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const lastY = useRef(0);
   const reduced = usePrefersReducedMotion();
   const reduceMotion = useReducedMotion();
@@ -48,10 +49,33 @@ export function SiteNav() {
     };
   }, [reduced, open ]);
 
+  // Active section indicator — homepage anchors only.
+  useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection(null);
+      return;
+    }
+    const ids = ["capabilities", "method", "work", "start"];
+    const els = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (els.length === 0) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(`/#${entry.target.id}`);
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [pathname]);
+
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        "nav-enter fixed inset-x-0 top-0 z-50 transition-all duration-500",
         pastHero
           ? "glass-signal border-b border-line"
           : "border-b border-transparent bg-transparent",
@@ -82,20 +106,23 @@ export function SiteNav() {
         </Link>
 
         <ul className="hidden items-center gap-7 md:flex">
-          {nav.map((r) => (
-            <li key={r.href}>
-              <Link
-                href={r.href}
-                aria-current={pathname === r.href ? "page" : undefined}
-                className={cn(
-                  "meta transition-colors hover:text-bone",
-                  pathname === r.href ? "text-bone" : "text-faint"
-                )}
-              >
-                {r.label}
-              </Link>
-            </li>
-          ))}
+          {nav.map((r) => {
+            const isActive = pathname === r.href || (pathname === "/" && activeSection === r.href);
+            return (
+              <li key={r.href}>
+                <Link
+                  href={r.href}
+                  aria-current={isActive ? (r.href.startsWith("/#") ? "true" : "page") : undefined}
+                  className={cn(
+                    "meta link-line transition-colors hover:text-bone",
+                    isActive ? "link-line-active" : "text-faint"
+                  )}
+                >
+                  {r.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="hidden items-center gap-5 md:flex">

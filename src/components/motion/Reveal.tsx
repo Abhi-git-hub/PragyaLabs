@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
-import { distance, duration, stagger } from "@/config/tokens";
+import { distance } from "@/config/tokens";
+import { D, EASE_OUT, revealRise, staggerChildren, enterTrigger } from "@/lib/motion-presets";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
 
@@ -34,16 +35,14 @@ export function Reveal({
     const el = ref.current;
     if (!el || reduced || !motionAllowed()) return;
 
+    const preset = revealRise(travel);
     const tween = gsap.fromTo(
       el,
-      { y: travel, opacity: 0 },
+      preset.from,
       {
-        y: 0,
-        opacity: 1,
-        duration: duration.slow,
+        ...preset.to,
         delay,
-        ease: "expo.out",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: enterTrigger(el),
       }
     );
     return () => {
@@ -88,9 +87,9 @@ export function Stagger({
       {
         y: 0,
         opacity: 1,
-        duration: duration.base,
-        stagger: stagger.base,
-        ease: "expo.out",
+        duration: D.ui,
+        stagger: staggerChildren(0.07).each,
+        ease: EASE_OUT,
         scrollTrigger: { trigger: el, start: "top 85%", once: true },
       }
     );

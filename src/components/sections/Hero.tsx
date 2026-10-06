@@ -25,6 +25,8 @@ export function Hero() {
   const typeRef = useRef<HTMLDivElement | null>(null);
   const cueRef = useRef<HTMLDivElement | null>(null);
   const ruleRef = useRef<HTMLDivElement | null>(null);
+  const orbSlowRef = useRef<HTMLDivElement | null>(null);
+  const orbFastRef = useRef<HTMLDivElement | null>(null);
   const scrollProgress = useRef({ current: 0 });
   const introProgress = useRef({ current: 0 });
   const beat = useRef(-1);
@@ -93,6 +95,17 @@ export function Hero() {
         ease: "none",
         scrollTrigger: { trigger: el, start: "top top", end: "75% top", scrub: true },
       });
+      // Depth layers — background drifts slow, foreground detail faster.
+      gsap.to(orbSlowRef.current, {
+        yPercent: 22,
+        ease: "none",
+        scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
+      });
+      gsap.to(orbFastRef.current, {
+        yPercent: -30,
+        ease: "none",
+        scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, [reduced]);
@@ -104,10 +117,10 @@ export function Hero() {
       aria-label="Pragya Labs — signal chamber"
       className="theme-ink relative flex min-h-[100svh] flex-col overflow-clip bg-ink"
     >
-      {/* Ambient atmosphere — two slow orbs, transform-only, aria-hidden */}
+      {/* Ambient atmosphere — orbs drift on scroll at different depths */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="orb orb-cyan left-[8%] top-[18%] h-[420px] w-[420px]" />
-        <div className="orb orb-violet right-[4%] top-[42%] h-[520px] w-[520px]" />
+        <div ref={orbSlowRef} className="orb orb-cyan left-[8%] top-[18%] h-[420px] w-[420px] will-change-transform" />
+        <div ref={orbFastRef} className="orb orb-violet right-[4%] top-[42%] h-[520px] w-[520px] will-change-transform" />
       </div>
       <div className="absolute inset-0" aria-hidden="true">
         {live && capability.webgl ? (

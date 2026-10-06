@@ -4,12 +4,13 @@ import { useEffect, useRef } from "react";
 import { colors } from "@/config/tokens";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
-/**
- * Ambient particle field (2D canvas, GPU-conscious).
- * - Capped DPR (1.5), ~90 particles desktop / ~35 mobile.
- * - Slow drift + faint cyan/violet specks; pointer creates gentle repulsion.
- * - Paused when tab hidden or reduced-motion is requested.
- */
+  /**
+   * Ambient particle field (2D canvas, GPU-conscious).
+   * - Capped DPR (1.5), ~90 particles desktop / ~35 mobile.
+   * - Slow drift + faint cyan/violet specks; pointer creates gentle repulsion.
+   * - Scroll velocity adds subtle inertia (energy rises, then settles).
+   * - Paused when tab hidden or reduced-motion is requested.
+   */
 export function BackgroundField({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -30,6 +31,9 @@ export function BackgroundField({ className }: { className?: string }) {
     const palette = [colors.accentCyan, colors.accentViolet, colors.foreground];
     let particles: P[] = [];
     const pointer = { x: -9999, y: -9999 };
+    // Scroll-velocity inertia — decays every frame toward rest.
+    let energy = 0;
+    let lastY = window.scrollY;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -54,6 +58,8 @@ export function BackgroundField({ className }: { className?: string }) {
 
     const tick = () => {
       ctx.clearRect(0, 0, w, h);
+      energy *= 0.94;
+      const boost = 1 + Math.min(energy, 3);
       for (const p of particles) {
         const dx = p.x - pointer.x;
         const dy = p.y - pointer.y;
@@ -63,8 +69,8 @@ export function BackgroundField({ className }: { className?: string }) {
           p.x += (dx / d) * 0.6;
           p.y += (dy / d) * 0.6;
         }
-        p.x += p.vx;
-        p.y += p.vy;
+        p.x += p.vx * boost;
+        p.y += p.vy * boost;
         if (p.x < -8) p.x = w + 8;
         if (p.x > w + 8) p.x = -8;
         if (p.y < -8) p.y = h + 8;
@@ -89,6 +95,11 @@ export function BackgroundField({ className }: { className?: string }) {
       pointer.x = -9999;
       pointer.y = -9999;
     };
+    const onScroll = () => {
+      const y = window.scrollY;
+      energy = Math.min(3, energy + Math.abs(y - lastY) / 240);
+      lastY = y;
+    };
     const onVisibility = () => {
       if (document.hidden) cancelAnimationFrame(raf);
       else raf = requestAnimationFrame(tick);
@@ -100,6 +111,7 @@ export function BackgroundField({ className }: { className?: string }) {
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onPointer);
     window.addEventListener("pointerleave", onLeave);
+    window.addEventListener("scroll", onScroll, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
@@ -107,6 +119,7 @@ export function BackgroundField({ className }: { className?: string }) {
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("scroll", onScroll);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);

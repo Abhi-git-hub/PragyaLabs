@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { ChapterHead } from "@/components/typography/ChapterHead";
 import { Stagger } from "@/components/motion/Reveal";
+import { useSpotlight } from "@/components/motion/Spotlight";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 
 /**
@@ -107,34 +110,42 @@ export function CapabilityModules() {
       />
       <Stagger className="mt-12 grid gap-6 lg:grid-cols-3">
         {MODULES.map((m) => (
-          <article
-            key={m.index}
-            data-stagger-item
-            className="module-card glass-signal group flex flex-col p-6 transition-colors duration-300 md:p-8"
-          >
-            <div className="flex items-baseline justify-between">
-              <p className="meta" style={{ color: m.accent }}>
-                {m.index} / {m.label}
-              </p>
-            </div>
-            <h3 className="mt-4 font-display text-2xl font-semibold leading-tight md:text-3xl">
-              {m.title}
-            </h3>
-            <div className="mt-6 border-t border-line pt-6" aria-hidden="true">
-              <MicroScene kind={m.visual} accent={m.accent} />
-            </div>
-            <p className="mt-6 flex-1 leading-relaxed text-muted">{m.copy}</p>
-            <p className="meta mt-6 text-faint">{m.tags}</p>
-            <Link
-              href={m.href}
-              data-cursor="OPEN"
-              className="meta mt-6 inline-flex w-fit items-center gap-2 text-bone transition-all duration-200 hover:gap-3 hover:text-cyan"
-            >
-              {m.link} <span aria-hidden="true">→</span>
-            </Link>
-          </article>
+          <ModuleCard key={m.index} module={m} />
         ))}
       </Stagger>
     </SectionContainer>
+  );
+}
+
+function ModuleCard({ module: m }: { module: (typeof MODULES)[number] }) {
+  const { ref, onPointerMove } = useSpotlight<HTMLElement>();
+  return (
+    <article
+      ref={ref}
+      onPointerMove={onPointerMove}
+      data-stagger-item
+      className="module-card spot glass-signal group flex flex-col p-6 transition-colors duration-300 md:p-8"
+    >
+      <div className="flex items-baseline justify-between">
+        <p className="meta" style={{ color: m.accent }}>
+          {m.index} / {m.label}
+        </p>
+      </div>
+      <h3 className="mt-4 font-display text-2xl font-semibold leading-tight md:text-3xl">
+        {m.title}
+      </h3>
+      <div className="mt-6 border-t border-line pt-6" aria-hidden="true">
+        <MicroScene kind={m.visual} accent={m.accent} />
+      </div>
+      <p className="mt-6 flex-1 leading-relaxed text-muted">{m.copy}</p>
+      <p className="meta mt-6 text-faint">{m.tags}</p>
+      <Link
+        href={m.href}
+        data-cursor="OPEN"
+        className="meta mt-6 inline-flex w-fit items-center gap-2 text-bone transition-all duration-200 hover:gap-3 hover:text-cyan"
+      >
+        {m.link} <span aria-hidden="true">→</span>
+      </Link>
+    </article>
   );
 }

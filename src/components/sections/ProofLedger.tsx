@@ -7,6 +7,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { getProject } from "@/data/projects";
 import { assets } from "@/lib/assets";
+import { useSpotlight } from "@/components/motion/Spotlight";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
 
@@ -83,76 +84,9 @@ export function ProofLedger() {
             ref={trackRef}
             className="flex flex-col gap-6 pb-[var(--pl-section-y)] lg:w-max lg:flex-row lg:items-stretch lg:gap-8 lg:pb-0"
           >
-            {CARDS.map((c) => {
-              const project = getProject(c.slug);
-              if (!project) return null;
-              const flagship = c.slug === "saarthians";
-              return (
-                <article
-                  key={c.slug}
-                  className={
-                    flagship
-                      ? "group flex shrink-0 flex-col border border-line glass-signal lg:w-[68vw] lg:max-w-[1000px]"
-                      : "group flex shrink-0 flex-col border border-line glass-signal lg:w-[42vw] lg:max-w-[560px]"
-                  }
-                >
-                  <div
-                    className={
-                      flagship
-                        ? "aspect-video w-full overflow-hidden border-b border-line"
-                        : "aspect-video w-full overflow-hidden border-b border-line"
-                    }
-                  >
-                    {c.film ? (
-                      <div className="h-full w-full transition-transform duration-500 [clip-path:inset(0_0_0_0)] group-hover:scale-[1.02] group-hover:[clip-path:inset(2%_2%_2%_2%)]">
-                        <CardFilm src={c.film.src} poster={c.film.poster} label={c.film.label} />
-                      </div>
-                    ) : (
-                      <div className="flex h-full min-h-[220px] w-full flex-col justify-between p-6 transition-colors duration-500 md:p-8">
-                        <p className="meta text-faint">
-                          {project.category} — {project.year}
-                        </p>
-                        <p className="font-display text-4xl font-semibold uppercase leading-none text-muted/40 transition-colors duration-500 group-hover:text-muted/70 md:text-5xl">
-                          {project.title}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-1 flex-col p-6 md:p-8">
-                    <p className="meta text-cyan">{project.classification}</p>
-                    <h3 className="mt-3 font-display text-2xl font-semibold uppercase md:text-3xl">
-                      {project.title}
-                    </h3>
-                    <p className="mt-3 flex-1 leading-relaxed text-muted">{c.description}</p>
-                    <dl className="meta mt-6 grid grid-cols-2 gap-x-6 gap-y-2 border-t border-line pt-5 text-faint">
-                      <div>
-                        <dt className="inline">Category — </dt>
-                        <dd className="inline text-muted">{project.category}</dd>
-                      </div>
-                      <div>
-                        <dt className="inline">Status — </dt>
-                        <dd className="inline text-muted">{project.classification}</dd>
-                      </div>
-                      <div>
-                        <dt className="inline">Role — </dt>
-                        <dd className="inline text-muted">{project.role}</dd>
-                      </div>
-                      <div>
-                        <dt className="inline">Stack — </dt>
-                        <dd className="inline text-muted">{project.technologies.slice(0, 3).join(" / ")}</dd>
-                      </div>
-                    </dl>
-                    <Link
-                      href={`/work/${project.slug}`}
-                      data-cursor="VIEW CASE"
-                      className="meta mt-6 inline-flex w-fit items-center gap-2 text-bone transition-all duration-200 hover:gap-3 hover:text-cyan"
-                    >
-                      {c.cta} <span aria-hidden="true">→</span>
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
+            {CARDS.map((c) => (
+              <ProofCard key={c.slug} slug={c.slug} cta={c.cta} description={c.description} film={c.film} />
+            ))}
           </div>
           <div className="mt-8 hidden lg:block" aria-hidden="true">
             <div className="h-px w-full bg-line">
@@ -173,6 +107,83 @@ export function ProofLedger() {
         </div>
       </div>
     </div>
+  );
+}
+
+function ProofCard({
+  slug,
+  cta,
+  description,
+  film,
+}: {
+  slug: string;
+  cta: string;
+  description: string;
+  film: { src: string; poster: string; label: string } | null;
+}) {
+  const project = getProject(slug);
+  const { ref, onPointerMove } = useSpotlight<HTMLElement>();
+  if (!project) return null;
+  const flagship = slug === "saarthians";
+  return (
+    <article
+      ref={ref}
+      onPointerMove={onPointerMove}
+      className={
+        flagship
+          ? "spot group flex shrink-0 flex-col border border-line glass-signal lg:w-[68vw] lg:max-w-[1000px]"
+          : "spot group flex shrink-0 flex-col border border-line glass-signal lg:w-[42vw] lg:max-w-[560px]"
+      }
+    >
+      <div className="aspect-video w-full overflow-hidden border-b border-line">
+        {film ? (
+          <div className="h-full w-full transition-transform duration-500 [clip-path:inset(0_0_0_0)] group-hover:scale-[1.02] group-hover:[clip-path:inset(2%_2%_2%_2%)]">
+            <CardFilm src={film.src} poster={film.poster} label={film.label} />
+          </div>
+        ) : (
+          <div className="flex h-full min-h-[220px] w-full flex-col justify-between p-6 transition-colors duration-500 md:p-8">
+            <p className="meta text-faint">
+              {project.category} — {project.year}
+            </p>
+            <p className="font-display text-4xl font-semibold uppercase leading-none text-muted/40 transition-colors duration-500 group-hover:text-muted/70 md:text-5xl">
+              {project.title}
+            </p>
+          </div>
+        )}
+      </div>
+      <div className="flex flex-1 flex-col p-6 md:p-8">
+        <p className="meta text-cyan">{project.classification}</p>
+        <h3 className="mt-3 font-display text-2xl font-semibold uppercase md:text-3xl">
+          {project.title}
+        </h3>
+        <p className="mt-3 flex-1 leading-relaxed text-muted">{description}</p>
+        <dl className="meta mt-6 grid grid-cols-2 gap-x-6 gap-y-2 border-t border-line pt-5 text-faint">
+          <div>
+            <dt className="inline">Category — </dt>
+            <dd className="inline text-muted">{project.category}</dd>
+          </div>
+          <div>
+            <dt className="inline">Status — </dt>
+            <dd className="inline text-muted">{project.classification}</dd>
+          </div>
+          <div>
+            <dt className="inline">Role — </dt>
+            <dd className="inline text-muted">{project.role}</dd>
+          </div>
+          <div>
+            <dt className="inline">Stack — </dt>
+            <dd className="inline text-muted">{project.technologies.slice(0, 3).join(" / ")}</dd>
+          </div>
+        </dl>
+        <Link
+          href={`/work/${project.slug}`}
+          data-cursor="VIEW CASE"
+          className="meta mt-6 inline-flex w-fit items-center gap-2 text-bone transition-all duration-200 hover:gap-3 hover:text-cyan"
+        >
+          {cta} <span aria-hidden="true">→</span>
+        </Link>
+      </div>
+    </article>
   );
 }
 

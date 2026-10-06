@@ -18,6 +18,7 @@ export function Cursor() {
   const ringRef = useRef<HTMLDivElement | null>(null);
   const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [pressed, setPressed] = useState(false);
   const pos = useRef({ x: -100, y: -100, rx: -100, ry: -100 });
 
   useEffect(() => {
@@ -38,6 +39,8 @@ export function Cursor() {
       setState(((target?.getAttribute("data-cursor") as CursorState) || "DEFAULT"));
     };
     const onLeave = () => setVisible(false);
+    const onDown = () => setPressed(true);
+    const onUp = () => setPressed(false);
     const loop = () => {
       const p = pos.current;
       p.rx += (p.x - p.rx) * 0.16;
@@ -48,10 +51,14 @@ export function Cursor() {
     };
     raf = requestAnimationFrame(loop);
     window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointerup", onUp);
     document.documentElement.addEventListener("pointerleave", onLeave);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointerup", onUp);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };
   }, [enabled, setState]);
@@ -82,7 +89,8 @@ export function Cursor() {
             "flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border transition-all duration-300",
             label
               ? "size-20 border-cyan/70 bg-void/60 backdrop-blur-[2px]"
-              : "size-7 border-bone/30"
+              : "size-7 border-bone/30",
+            pressed && "scale-75"
           )}
         >
           {label && <span className="meta text-bone">{label}</span>}

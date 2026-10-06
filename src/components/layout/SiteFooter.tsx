@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { footerNav, site } from "@/config/site";
+import { Reveal } from "@/components/motion/Reveal";
 
 /** Global page shell: skip link target, nav offset, footer with real data only. */
 export function SiteFooter() {
   return (
     <footer className="theme-ink border-t border-line bg-ink text-bone">
       <div className="mx-auto grid w-full max-w-[var(--pl-container)] gap-10 px-[var(--pl-gutter)] py-12 md:grid-cols-[1.2fr_1fr_1fr]">
-        <div>
-          <p className="flex items-center gap-3 font-display text-2xl uppercase">
+        <Reveal>
+          <div>
+            <p className="flex items-center gap-3 font-display text-2xl uppercase">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="" aria-hidden="true" className="block h-9 w-9 object-contain" />
             Pragya Labs
@@ -18,7 +20,9 @@ export function SiteFooter() {
           </p>
           <p className="meta mt-4 text-faint">Intelligent systems, thoughtfully built.</p>
           <p className="meta mt-2 text-faint">Digital systems engineered with intelligence.</p>
-        </div>
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
         <nav aria-label="Footer">
           <p className="meta mb-4 text-faint">Index</p>
           <ul className="space-y-2">
@@ -31,6 +35,8 @@ export function SiteFooter() {
             ))}
           </ul>
         </nav>
+        </Reveal>
+        <Reveal delay={0.2}>
         <div>
           <p className="meta mb-4 text-faint">Coordinates</p>
           <p className="meta">{site.location}</p>
@@ -46,6 +52,7 @@ export function SiteFooter() {
           </p>
           <p className="meta mt-2 text-faint">Independent studio</p>
         </div>
+        </Reveal>
       </div>
       <div className="border-t border-line">
         <div className="mx-auto flex w-full max-w-[var(--pl-container)] items-center justify-between px-[var(--pl-gutter)] py-4">
