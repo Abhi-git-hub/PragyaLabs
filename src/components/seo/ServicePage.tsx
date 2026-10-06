@@ -4,6 +4,7 @@ import { Reveal, Stagger } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { BreadcrumbListJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
+import { FaqAccordion } from "@/components/seo/FaqAccordion";
 import { site } from "@/config/site";
 import type { Service } from "@/data/services";
 
@@ -102,14 +103,7 @@ export function ServicePage({ service }: { service: Service }) {
       </SectionContainer>
 
       <SectionContainer eyebrow="Honest answers">
-        <Stagger className="max-w-[880px]">
-          {service.faq.map((f) => (
-            <div key={f.q} data-stagger-item className="border-t border-line py-6 last:border-b">
-              <h2 className="text-lg text-bone">{f.q}</h2>
-              <p className="mt-2 max-w-[62ch] leading-relaxed text-muted">{f.a}</p>
-            </div>
-          ))}
-        </Stagger>
+        <FaqAccordion faq={service.faq} />
       </SectionContainer>
 
       <SectionContainer>

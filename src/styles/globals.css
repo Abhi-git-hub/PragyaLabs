@@ -294,9 +294,63 @@ body {
   }
 }
 
+/* Ambient orbs — slow, nearly imperceptible atmospheric drift.
+   Transform + opacity only; paused under reduced motion. */
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: orb-drift 22s ease-in-out infinite alternate;
+}
+.orb-cyan {
+  background: rgb(40 215 254 / 0.1);
+}
+.orb-violet {
+  background: rgb(139 92 246 / 0.12);
+  animation-duration: 28s;
+  animation-delay: -8s;
+}
+@keyframes orb-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: translate3d(4vw, -3vh, 0) scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Primary CTA press — subtle signal ripple, no decoration sprawl. */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgb(9 13 26 / 0.25), transparent 70%);
+  opacity: 0;
+  transition: opacity 220ms;
+  pointer-events: none;
+}
+.btn-primary:active::after {
+  opacity: 1;
+}
+
 /* Marquee current — steady typographic drift. */
 .marquee-track {
-  animation: marquee-drift 28s linear infinite;
+  animation: marquee-drift 36s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }
 @keyframes marquee-drift {
   from {

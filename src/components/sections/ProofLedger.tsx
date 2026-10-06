@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ChapterHead } from "@/components/typography/ChapterHead";
-import { Reveal, Stagger } from "@/components/motion/Reveal";
+import { Reveal } from "@/components/motion/Reveal";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { getProject } from "@/data/projects";
 import { assets } from "@/lib/assets";
 import { prefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { motionAllowed, registerMotion, gsap } from "@/lib/motion";
 
 /**
- * PROOF — selected systems in motion. Every card states its classification
- * honestly: client work, in progress, R&D, interface study, studio R&D.
- * Real recordings where they exist; typographic panels where they don't —
- * never fabricated screenshots.
+ * PROOF — selected systems in motion, staged as an exhibition journey.
+ * Desktop (capable, motion allowed): the chapter pins and travels
+ * horizontally — flagship Saarthians first, full-bleed, then the rest.
+ * Everywhere else: the same cards in a calm vertical stack.
+ * Same DOM, same copy, same links either way.
  */
 const CARDS = [
   {
@@ -44,6 +46,149 @@ const CARDS = [
     film: null,
   },
 ];
+
+export function ProofLedger() {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const barRef = useRef<HTMLDivElement | null>(null);
+  const reduced = prefersReducedMotion();
+
+  useEffect(() => {
+    registerMotion();
+    const wrap = wrapRef.current;
+    const track = trackRef.current;
+    if (!wrap || !track || reduced || !motionAllowed()) return;
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px)", () => {
+      const distance = () => track.scrollWidth - window.innerWidth;
+      gsap.to(track, {
+        x: () => -distance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: wrap,
+          start: "top top",
+          end: () => `+=${distance()}`,
+          scrub: 1,
+          pin: true,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            if (barRef.current) barRef.current.style.transform = `scaleX(${self.progress})`;
+          },
+        },
+      });
+    });
+    return () => mm.revert();
+  }, [reduced]);
+
+  return (
+    <div ref={wrapRef}>
+      <div className="proof-stage lg:overflow-hidden">
+        <SectionContainer id="work" className="scroll-mt-20 lg:py-10">
+          <ChapterHead
+            index="05"
+            eyebrow="Selected work"
+            title="Selected systems in motion."
+            ghost="Proof"
+            lede="Work that shows how research, design, engineering, and interaction come together."
+          />
+        </SectionContainer>
+        <div className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)]">
+          <div
+            ref={trackRef}
+            className="flex flex-col gap-6 pb-[var(--pl-section-y)] lg:w-max lg:flex-row lg:items-stretch lg:gap-8 lg:pb-0"
+          >
+            {CARDS.map((c) => {
+              const project = getProject(c.slug);
+              if (!project) return null;
+              const flagship = c.slug === "saarthians";
+              return (
+                <article
+                  key={c.slug}
+                  className={
+                    flagship
+                      ? "group flex shrink-0 flex-col border border-line bg-graphite lg:w-[68vw] lg:max-w-[1000px]"
+                      : "group flex shrink-0 flex-col border border-line bg-graphite lg:w-[42vw] lg:max-w-[560px]"
+                  }
+                >
+                  <div
+                    className={
+                      flagship
+                        ? "aspect-video w-full overflow-hidden border-b border-line"
+                        : "aspect-video w-full overflow-hidden border-b border-line"
+                    }
+                  >
+                    {c.film ? (
+                      <div className="h-full w-full transition-transform duration-500 [clip-path:inset(0_0_0_0)] group-hover:scale-[1.02] group-hover:[clip-path:inset(2%_2%_2%_2%)]">
+                        <CardFilm src={c.film.src} poster={c.film.poster} label={c.film.label} />
+                      </div>
+                    ) : (
+                      <div className="flex h-full min-h-[220px] w-full flex-col justify-between p-6 transition-colors duration-500 md:p-8">
+                        <p className="meta text-faint">
+                          {project.category} — {project.year}
+                        </p>
+                        <p className="font-display text-4xl font-semibold uppercase leading-none text-muted/40 transition-colors duration-500 group-hover:text-muted/70 md:text-5xl">
+                          {project.title}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col p-6 md:p-8">
+                    <p className="meta text-cyan">{project.classification}</p>
+                    <h3 className="mt-3 font-display text-2xl font-semibold uppercase md:text-3xl">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 flex-1 leading-relaxed text-muted">{c.description}</p>
+                    <dl className="meta mt-6 grid grid-cols-2 gap-x-6 gap-y-2 border-t border-line pt-5 text-faint">
+                      <div>
+                        <dt className="inline">Category — </dt>
+                        <dd className="inline text-muted">{project.category}</dd>
+                      </div>
+                      <div>
+                        <dt className="inline">Status — </dt>
+                        <dd className="inline text-muted">{project.classification}</dd>
+                      </div>
+                      <div>
+                        <dt className="inline">Role — </dt>
+                        <dd className="inline text-muted">{project.role}</dd>
+                      </div>
+                      <div>
+                        <dt className="inline">Stack — </dt>
+                        <dd className="inline text-muted">{project.technologies.slice(0, 3).join(" / ")}</dd>
+                      </div>
+                    </dl>
+                    <Link
+                      href={`/work/${project.slug}`}
+                      data-cursor="VIEW CASE"
+                      className="meta mt-6 inline-flex w-fit items-center gap-2 text-bone transition-all duration-200 hover:gap-3 hover:text-cyan"
+                    >
+                      {c.cta} <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <div className="mt-8 hidden lg:block" aria-hidden="true">
+            <div className="h-px w-full bg-line">
+              <div ref={barRef} className="h-px w-full origin-left bg-cyan" style={{ transform: "scaleX(0)" }} />
+            </div>
+          </div>
+        </div>
+        <div className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)]">
+          <Reveal>
+            <p className="meta pb-[var(--pl-section-y)] pt-8 text-faint lg:pb-0">
+              Studio R&D — this website is a real-time experiment in procedural visuals and
+              narrative interface design.{" "}
+              <Link href="/" className="link-line text-muted transition-colors hover:text-cyan">
+                You are inside it →
+              </Link>
+            </p>
+          </Reveal>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function CardFilm({ src, poster, label }: { src: string; poster: string; label: string }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -99,103 +244,5 @@ function CardFilm({ src, poster, label }: { src: string; poster: string; label: 
         else video.pause();
       }}
     />
-  );
-}
-
-export function ProofLedger() {
-  return (
-    <SectionContainer id="work" className="scroll-mt-20">
-      <ChapterHead
-        index="05"
-        eyebrow="Selected work"
-        title="Selected systems in motion."
-        ghost="Proof"
-        lede="Work that shows how research, design, engineering, and interaction come together."
-      />
-      <Stagger className="mt-12 grid gap-6 md:grid-cols-2">
-        {CARDS.map((c) => {
-          const project = getProject(c.slug);
-          if (!project) return null;
-          const flagship = c.slug === "saarthians";
-          return (
-            <article
-              key={c.slug}
-              data-stagger-item
-              className={
-                flagship
-                  ? "group flex flex-col border border-line bg-graphite md:col-span-2 md:grid md:grid-cols-5"
-                  : "group flex flex-col border border-line bg-graphite"
-              }
-            >
-              <div
-                className={
-                  flagship
-                    ? "aspect-video w-full overflow-hidden border-b border-line md:col-span-3 md:aspect-auto md:border-b-0 md:border-r"
-                    : "aspect-video w-full overflow-hidden border-b border-line"
-                }
-              >
-                {c.film ? (
-                  <div className="h-full w-full transition-transform duration-500 [clip-path:inset(0_0_0_0)] group-hover:scale-[1.02] group-hover:[clip-path:inset(2%_2%_2%_2%)]">
-                    <CardFilm src={c.film.src} poster={c.film.poster} label={c.film.label} />
-                  </div>
-                ) : (
-                  <div className="flex h-full min-h-[220px] w-full flex-col justify-between p-6 transition-colors duration-500 md:p-8">
-                    <p className="meta text-faint">
-                      {project.category} — {project.year}
-                    </p>
-                    <p className="font-display text-4xl font-semibold uppercase leading-none text-muted/40 transition-colors duration-500 group-hover:text-muted/70 md:text-5xl">
-                      {project.title}
-                    </p>
-                  </div>
-                )}
-              </div>
-              <div className={flagship ? "flex flex-1 flex-col p-6 md:col-span-2 md:p-10 md:justify-center" : "flex flex-1 flex-col p-6 md:p-8"}>
-                <p className="meta text-cyan">
-                  {project.classification}
-                </p>
-                <h3 className="mt-3 font-display text-2xl font-semibold uppercase md:text-3xl">
-                  {project.title}
-                </h3>
-                <p className="mt-3 flex-1 leading-relaxed text-muted">{c.description}</p>
-                <dl className="meta mt-6 grid grid-cols-2 gap-x-6 gap-y-2 border-t border-line pt-5 text-faint">
-                  <div>
-                    <dt className="inline">Category — </dt>
-                    <dd className="inline text-muted">{project.category}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline">Status — </dt>
-                    <dd className="inline text-muted">{project.classification}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline">Role — </dt>
-                    <dd className="inline text-muted">{project.role}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline">Stack — </dt>
-                    <dd className="inline text-muted">{project.technologies.slice(0, 3).join(" / ")}</dd>
-                  </div>
-                </dl>
-                <Link
-                  href={`/work/${project.slug}`}
-                  data-cursor="VIEW CASE"
-                  className="meta mt-6 inline-flex w-fit items-center gap-2 text-bone transition-all duration-200 hover:gap-3 hover:text-cyan"
-                >
-                  {c.cta} <span aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </article>
-          );
-        })}
-      </Stagger>
-      <Reveal>
-        <p className="meta mt-8 text-faint">
-          Studio R&D — this website is a real-time experiment in procedural visuals and
-          narrative interface design.{" "}
-          <Link href="/" className="text-muted transition-colors hover:text-cyan">
-            You are inside it →
-          </Link>
-        </p>
-      </Reveal>
-    </SectionContainer>
   );
 }

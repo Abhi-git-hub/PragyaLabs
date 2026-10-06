@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { nav, site } from "@/config/site";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { cn } from "@/lib/cn";
@@ -21,6 +22,7 @@ export function SiteNav() {
   const [progress, setProgress] = useState(0);
   const lastY = useRef(0);
   const reduced = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (reduced) return;
@@ -114,27 +116,41 @@ export function SiteNav() {
         </button>
       </nav>
 
-      {open && (
-        <div id="mobile-menu" className="border-t border-line bg-void md:hidden">
-          <ul className="space-y-1 px-[var(--pl-gutter)] py-4">
-            {nav.map((r) => (
-              <li key={r.href}>
-                <Link
-                  href={r.href}
-                  onClick={() => setOpen(false)}
-                  aria-current={pathname === r.href ? "page" : undefined}
-                  className={cn(
-                    "flex items-baseline gap-3 py-2 font-display text-2xl uppercase",
-                    pathname === r.href ? "text-bone" : "text-muted"
-                  )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="mobile-menu"
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="border-t border-line bg-void md:hidden"
+          >
+            <ul className="space-y-1 px-[var(--pl-gutter)] py-4">
+              {nav.map((r, i) => (
+                <motion.li
+                  key={r.href}
+                  initial={reduceMotion ? false : { opacity: 0, x: -14 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.32, delay: 0.05 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  {r.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+                  <Link
+                    href={r.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={pathname === r.href ? "page" : undefined}
+                    className={cn(
+                      "flex items-baseline gap-3 py-2 font-display text-2xl uppercase",
+                      pathname === r.href ? "text-bone" : "text-muted"
+                    )}
+                  >
+                    {r.label}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

@@ -112,6 +112,11 @@ export function Hero() {
       aria-label="Pragya Labs — signal chamber"
       className="theme-ink relative flex min-h-[100svh] flex-col overflow-clip bg-ink"
     >
+      {/* Ambient atmosphere — two slow orbs, transform-only, aria-hidden */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="orb orb-cyan left-[8%] top-[18%] h-[420px] w-[420px]" />
+        <div className="orb orb-violet right-[4%] top-[42%] h-[520px] w-[520px]" />
+      </div>
       <div className="absolute inset-0" aria-hidden="true">
         {live && capability.webgl ? (
           <Chamber

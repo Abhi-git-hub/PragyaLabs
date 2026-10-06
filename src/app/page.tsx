@@ -12,6 +12,7 @@ import { Trust } from "@/components/sections/Trust";
 import { Founder } from "@/components/sections/Founder";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { TransitionBand } from "@/components/motion/TransitionBand";
+import { SignalTicker } from "@/components/motion/SignalTicker";
 import { SiteJsonLd, WebSiteJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -36,6 +37,7 @@ export default function HomePage() {
       <SiteJsonLd />
       <WebSiteJsonLd />
       <Hero />
+      <SignalTicker />
       <Recognition />
       <Metamorphosis />
       <TransitionBand label="Fragments to craft — the engine room" />
