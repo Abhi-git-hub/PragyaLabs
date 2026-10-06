@@ -73,10 +73,8 @@ export function ProofLedger() {
       <div className="proof-stage lg:overflow-hidden">
         <SectionContainer id="work" className="scroll-mt-20 lg:py-10">
           <ChapterHead
-            index="05"
             eyebrow="Selected work"
-        title="Selected systems in motion."
-        lede="Work that shows how research, design, engineering, and interaction come together."
+            lede="Work that shows how research, design, engineering, and interaction come together."
           />
         </SectionContainer>
         <div className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)]">

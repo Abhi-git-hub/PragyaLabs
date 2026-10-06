@@ -70,7 +70,7 @@ export function Method() {
     <div ref={wrapRef}>
     <SectionContainer id="method" className="scroll-mt-20">
       <ChapterHead
-        index="04"
+
         eyebrow="How the system takes shape"
         title="Clarity before complexity."
         lede="We begin with the real environment: your users, data, constraints, existing systems, and the decision a new product needs to improve."

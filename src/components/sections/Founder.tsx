@@ -13,11 +13,7 @@ import { Parallax } from "@/components/motion/Parallax";
 export function Founder() {
   return (
     <SectionContainer id="founder">
-      <p className="meta mb-8 text-faint md:mb-12">
-        <span className="text-cyan">08</span>
-        <span aria-hidden="true"> / </span>
-        Direct collaboration / Delhi, India
-      </p>
+      <p className="meta mb-8 text-faint md:mb-12">Direct collaboration / Delhi, India</p>
       <div className="grid gap-10 md:grid-cols-2 md:items-center">
         <Reveal>
           <Parallax className="group relative overflow-hidden border border-line">

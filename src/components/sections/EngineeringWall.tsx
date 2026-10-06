@@ -38,7 +38,7 @@ export function EngineeringWall() {
     <div ref={wrapRef}>
       <SectionContainer id="engineering">
         <ChapterHead
-          index="06"
+
           eyebrow="Full-stack proof"
           title="From first signal to production system."
           lede="One engineer owns the chain — from the first model of the problem to the interface, authentication, deployment, and iteration."

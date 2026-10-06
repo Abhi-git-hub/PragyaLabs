@@ -105,7 +105,7 @@ export function CapabilityModules() {
   return (
     <SectionContainer id="capabilities" className="scroll-mt-20">
       <ChapterHead
-        index="03"
+
         eyebrow="What we build"
         title="What the system can become."
         lede="Every engagement is different. The systems we build usually combine one or more of these capabilities."

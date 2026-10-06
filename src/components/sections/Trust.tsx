@@ -11,7 +11,7 @@ export function Trust() {
   return (
     <SectionContainer id="principle">
       <ChapterHead
-        index="07"
+
         eyebrow="The principle"
         title="Technology should reduce complexity — not create more of it."
         lede="We work from your actual use case, users, data, and workflow to create systems that are clear, maintainable, and ready for real use."

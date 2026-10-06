@@ -167,7 +167,6 @@ export function Hero() {
             digital experiences around the way your data, workflows, and people
             actually work.
           </p>
-          <p className="hero-copy meta mt-4 text-faint">Built for real use—not just impressive demos.</p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="/contact" data-cursor="OPEN" className="btn-primary">
               Start a project
@@ -193,7 +192,7 @@ export function Hero() {
       >
         <div className="flex items-center gap-4">
           <div className="cue-line" aria-hidden="true" />
-          <p className="meta text-faint">Scroll to transform</p>
+          <p className="meta text-faint">Scroll</p>
         </div>
         <p className="meta hidden text-faint sm:block">Seed → Knot → Signal</p>
       </div>

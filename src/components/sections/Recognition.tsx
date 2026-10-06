@@ -43,15 +43,16 @@ export function Recognition() {
         scrollTrigger: {
           trigger: el,
           start: "top top",
-          end: "+=120%",
-          scrub: 0.6,
+          end: "+=140%",
+          scrub: 0.8,
           pin: ".recognition-stage",
         },
       });
-      tl.fromTo("[data-rec-line]", { opacity: 0.08, y: 70, scale: 0.84, filter: "blur(10px)", letterSpacing: "0.05em" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", letterSpacing: "0em", duration: 0.7, stagger: 0.6 }, 0);
-      tl.fromTo("[data-rec-path]", { strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 1.4, stagger: 0.25 }, 0.3);
-      tl.fromTo("[data-rec-label]", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.25 }, 0.8);
-      tl.fromTo("[data-rec-node]", { opacity: 0.25 }, { opacity: 1, duration: 0.6, stagger: 0.15 }, 0.3);
+      // Each line fully resolves before the next begins — never overlapping.
+      tl.fromTo("[data-rec-line]", { opacity: 0, y: 80, scale: 0.86, filter: "blur(12px)", letterSpacing: "0.04em" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", letterSpacing: "0em", duration: 0.9, stagger: 1.0 }, 0);
+      tl.fromTo("[data-rec-path]", { strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 1.6, stagger: 0.3 }, 1.2);
+      tl.fromTo("[data-rec-label]", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.3 }, 1.8);
+      tl.fromTo("[data-rec-node]", { opacity: 0.2 }, { opacity: 1, duration: 0.7, stagger: 0.2 }, 1.2);
     });
     mm.add("(max-width: 1023px)", () => {
       const tl = gsap.timeline({
@@ -72,12 +73,8 @@ export function Recognition() {
         <div className="orb orb-cyan left-1/2 top-[6%] h-[380px] w-[380px] -translate-x-1/2" aria-hidden="true" />
         <SectionContainer id="recognition">
           <Reveal className="text-center">
-            <p className="meta text-faint">
-              <span className="text-cyan">02</span>
-              <span aria-hidden="true"> / </span>
-              Recognition
-            </p>
-            <Display size="lg" className="mx-auto mt-6 max-w-[26ch]">
+            <p className="meta text-faint">Recognition</p>
+            <Display size="lg" className="mx-auto mt-6 max-w-[26ch] space-y-6 md:space-y-8">
               {LINES.map((l, i) => (
                 <span key={l} data-rec-line className="block origin-center will-change-transform">
                   {i === LINES.length - 1 ? <span className="text-cyan [text-shadow:0_0_36px_rgb(61_255_162/0.4)]">{l}</span> : l}
@@ -154,9 +151,6 @@ export function Recognition() {
               ))}
             </ul>
           </div>
-          <p className="meta mt-4 text-center text-faint">
-            Fragments → Context → Intelligence → Interface → Impact
-          </p>
         </SectionContainer>
       </div>
     </div>
