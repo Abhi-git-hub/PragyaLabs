@@ -12,21 +12,14 @@ export function ChapterHead({
   eyebrow,
   title,
   lede,
-  ghost,
 }: {
   index: string;
   eyebrow: string;
   title: ReactNode;
   lede?: ReactNode;
-  ghost?: string;
 }) {
   return (
     <div className="relative">
-      {ghost && (
-        <p aria-hidden="true" className="display-ghost pointer-events-none absolute -top-[0.9em] left-0 select-none font-display text-[clamp(4.5rem,10vw,11rem)] font-bold leading-none">
-          {ghost}
-        </p>
-      )}
       <Reveal>
         <p className="meta text-faint">
           <span className="text-cyan">{index}</span>

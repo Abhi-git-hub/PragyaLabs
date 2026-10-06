@@ -41,7 +41,6 @@ export function EngineeringWall() {
           index="06"
           eyebrow="Full-stack proof"
           title="From first signal to production system."
-          ghost="Signal"
           lede="One engineer owns the chain — from the first model of the problem to the interface, authentication, deployment, and iteration."
         />
         <div className="mt-12 border border-line bg-graphite px-6 py-10 md:px-10" aria-label="Engineering disciplines in sequence">

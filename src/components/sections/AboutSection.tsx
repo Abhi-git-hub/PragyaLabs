@@ -165,7 +165,7 @@ function DustVeil() {
           m.x = Math.random() * w;
         }
         ctx.globalAlpha = m.a;
-        ctx.fillStyle = "#00C8D7";
+        ctx.fillStyle = "#3DFFA2";
         ctx.beginPath();
         ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
         ctx.fill();

@@ -99,7 +99,7 @@ export function SiteNav() {
           <Link
             href="/contact"
             data-cursor="OPEN"
-            className="meta bg-cyan px-4 py-2 text-ink transition-colors hover:bg-amber"
+            className="meta bg-cyan px-4 py-2 text-ink transition-colors hover:bg-lime"
           >
             Start a project
           </Link>

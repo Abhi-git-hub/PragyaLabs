@@ -5,16 +5,16 @@
  */
 
 export const colors = {
-  background: "#090d1a",
-  surface: "#111a33",
-  surface2: "#182347",
-  foreground: "#f5f7ff",
-  muted: "#b7c2d9",
-  faint: "#7e8aa6",
-  accentCyan: "#28d7fe",
-  accentBlue: "#8b5cf6",
-  accentViolet: "#8b5cf6",
-  accentLime: "#46d39a",
+  background: "#050608",
+  surface: "#0b0f12",
+  surface2: "#12181a",
+  foreground: "#f2f1ea",
+  muted: "#b3b8b3",
+  faint: "#737b78",
+  accentCyan: "#3dffa2",
+  accentBlue: "#7dfdc4",
+  accentViolet: "#168f62",
+  accentLime: "#c9fff0",
 } as const;
 
 export const duration = {

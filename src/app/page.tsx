@@ -5,7 +5,6 @@ import { CapabilityModules } from "@/components/sections/CapabilityModules";
 import { ServicesStrip } from "@/components/sections/ServicesStrip";
 import { Method } from "@/components/sections/Method";
 import { ProofLedger } from "@/components/sections/ProofLedger";
-import { CraftSequence } from "@/components/sections/CraftSequence";
 import { EngineeringWall } from "@/components/sections/EngineeringWall";
 import { Immersive } from "@/components/sections/Immersive";
 import { Trust } from "@/components/sections/Trust";
@@ -45,7 +44,6 @@ export default function HomePage() {
       <ServicesStrip />
       <Method />
       <ProofLedger />
-      <CraftSequence />
       <EngineeringWall />
       <Immersive />
       <Trust />

@@ -23,7 +23,6 @@ const Chamber = dynamic(
 export function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const typeRef = useRef<HTMLDivElement | null>(null);
-  const ghostRef = useRef<HTMLParagraphElement | null>(null);
   const cueRef = useRef<HTMLDivElement | null>(null);
   const ruleRef = useRef<HTMLDivElement | null>(null);
   const scrollProgress = useRef({ current: 0 });
@@ -94,13 +93,6 @@ export function Hero() {
         ease: "none",
         scrollTrigger: { trigger: el, start: "top top", end: "75% top", scrub: true },
       });
-      // Ghost word drifts at a fraction of scroll — data drift, 3%.
-      gsap.to(ghostRef.current, {
-        yPercent: 34,
-        opacity: 0.4,
-        ease: "none",
-        scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
-      });
     }, sectionRef);
     return () => ctx.revert();
   }, [reduced]);
@@ -135,22 +127,14 @@ export function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(180deg, rgb(9 13 26 / 0.55) 0%, rgb(9 13 26 / 0.12) 40%, rgb(9 13 26 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(9 13 26 / 0.55) 100%)",
+            "linear-gradient(180deg, rgb(5 6 8 / 0.55) 0%, rgb(5 6 8 / 0.12) 40%, rgb(5 6 8 / 0.28) 68%, var(--pl-background) 100%), radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(5 6 8 / 0.55) 100%)",
         }}
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[var(--pl-container)] flex-1 flex-col justify-end px-[var(--pl-gutter)] pb-16 pt-28">
         <div ref={typeRef}>
           <p className="meta text-faint">Pragya Labs / Digital systems studio / Delhi, India</p>
-          <div className="relative">
-            <p
-              ref={ghostRef}
-              aria-hidden="true"
-              className="display-ghost pointer-events-none absolute -top-[1.1em] left-0 select-none font-display text-[clamp(4.5rem,10vw,11rem)] font-bold leading-none"
-            >
-              Useful
-            </p>
-            <h1 className="relative mt-6 max-w-[16ch] font-display text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.04] tracking-[-0.01em]">
+          <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[1.04] tracking-[-0.01em]">
             <span className="mask-line">
               <span data-hero-line>Complex systems,</span>
             </span>
@@ -160,7 +144,6 @@ export function Hero() {
               </span>
             </span>
           </h1>
-          </div>
           <div
             ref={ruleRef}
             aria-hidden="true"

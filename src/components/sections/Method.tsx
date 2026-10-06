@@ -42,7 +42,6 @@ export function Method() {
         index="04"
         eyebrow="How the system takes shape"
         title="Clarity before complexity."
-        ghost="Path"
         lede="We begin with the real environment: your users, data, constraints, existing systems, and the decision a new product needs to improve."
       />
       <Stagger className="mt-12 space-y-0">

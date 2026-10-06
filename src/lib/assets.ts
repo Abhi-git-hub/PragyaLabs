@@ -42,6 +42,13 @@ export const assets = {
       caption: "Material study.",
       credit: "Texture cut from concept footage.",
     },
+    smokeAtmos: {
+      src: "/film/smoke--atmos.mp4",
+      poster: "/film/smoke--atmos--poster.jpg",
+      label: "Atmospheric smoke study",
+      caption: "Atmosphere.",
+      credit: "Recorded volumetric study, used as ambient texture.",
+    },
   } satisfies Record<string, FilmAsset>,
   photo: {
     desk: {

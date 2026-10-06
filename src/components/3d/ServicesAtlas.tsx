@@ -16,7 +16,7 @@ import type { CapabilityTier } from "@/hooks/use-device-capability";
  * while the studio signal never leaves the frame.
  */
 
-const STATION_COLORS = ["#00C8D7", "#0A6B75", "#FF6847", "#9BA58A"];
+const STATION_COLORS = ["#3DFFA2", "#C9FFF0", "#FFB46B", "#C97B4A"];
 
 function buildLayouts(count: number): Float32Array[] {
   const layouts: Float32Array[] = [];

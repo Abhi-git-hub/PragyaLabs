@@ -32,19 +32,6 @@ const CARDS = [
       "A coaching institute's website — programs, admissions, and contact — live in production since 2023.",
     film: assets.film.adhyayan,
   },
-  {
-    slug: "stock-rag",
-    cta: "Explore the experiment",
-    description: "A retrieval experiment exploring source-grounded financial information workflows.",
-    film: null,
-  },
-  {
-    slug: "x-interface-study",
-    cta: "View interface study",
-    description:
-      "A front-end recreation used to study interaction architecture, motion detail, and production performance.",
-    film: null,
-  },
 ];
 
 export function ProofLedger() {
@@ -87,9 +74,8 @@ export function ProofLedger() {
           <ChapterHead
             index="05"
             eyebrow="Selected work"
-            title="Selected systems in motion."
-            ghost="Proof"
-            lede="Work that shows how research, design, engineering, and interaction come together."
+        title="Selected systems in motion."
+        lede="Work that shows how research, design, engineering, and interaction come together."
           />
         </SectionContainer>
         <div className="mx-auto w-full max-w-[var(--pl-container)] px-[var(--pl-gutter)]">
@@ -106,8 +92,8 @@ export function ProofLedger() {
                   key={c.slug}
                   className={
                     flagship
-                      ? "group flex shrink-0 flex-col border border-line bg-graphite lg:w-[68vw] lg:max-w-[1000px]"
-                      : "group flex shrink-0 flex-col border border-line bg-graphite lg:w-[42vw] lg:max-w-[560px]"
+                      ? "group flex shrink-0 flex-col border border-line glass-signal lg:w-[68vw] lg:max-w-[1000px]"
+                      : "group flex shrink-0 flex-col border border-line glass-signal lg:w-[42vw] lg:max-w-[560px]"
                   }
                 >
                   <div

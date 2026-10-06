@@ -52,7 +52,7 @@ body {
 
 ::selection {
   background: var(--pl-accent-cyan);
-  color: #090d1a;
+  color: #050608;
 }
 
 /* Visible focus for keyboard users — never remove without replacement. */
@@ -62,7 +62,7 @@ body {
   border-radius: var(--pl-radius-sm);
 }
 
-/* Refined scrollbar: ink track, slate thumb. */
+/* Refined scrollbar: graphite track, faint thumb. */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -70,11 +70,11 @@ body {
   background: var(--pl-background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #273150;
+  background: #23262e;
   border: 2px solid var(--pl-background);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a466e;
+  background: #333844;
 }
 
 /* Editorial display defaults: condensed face, tight tracking, uppercase voice. */
@@ -105,8 +105,8 @@ body {
   box-shadow: inset 1px 1px 0 rgb(245 247 255 / 0.06);
 }
 .glass-deep {
-  background: rgb(9 13 26 / 0.64);
-  border: 1px solid rgb(40 215 254 / 0.14);
+  background: rgb(5 6 8 / 0.64);
+  border: 1px solid rgb(61 255 162 / 0.14);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: inset 1px 1px 0 rgb(245 247 255 / 0.05);
@@ -117,18 +117,6 @@ body {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.5);
-}
-
-/* Ghost display — oversized outline type as composition, never content.
-   Always aria-hidden; the readable heading sits nearby in the DOM. */
-.display-ghost {
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(245 247 255 / 0.13);
-  user-select: none;
-  pointer-events: none;
-}
-.theme-light .display-ghost {
-  -webkit-text-stroke: 1px rgb(16 24 39 / 0.14);
 }
 
 /* Inline link language — underline grows left to right. */
@@ -156,7 +144,7 @@ body {
 .btn-primary {
   display: inline-block;
   background: var(--pl-accent-cyan);
-  color: #090d1a;
+  color: #050608;
   font-family: var(--pl-font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.14em;
@@ -166,8 +154,8 @@ body {
   transition: background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-primary:hover {
-  background: var(--pl-accent-amber);
-  color: #090d1a;
+  background: var(--pl-accent-lime);
+  color: #050608;
 }
 .btn-ghost {
   display: inline-block;
@@ -266,12 +254,12 @@ body {
 }
 .orbit-a {
   width: 130%;
-  border: 1px solid rgb(40 215 254 / 0.25);
+  border: 1px solid rgb(61 255 162 / 0.15);
   animation: orbit-spin 26s linear infinite;
 }
 .orbit-b {
   width: 95%;
-  border: 1px solid rgb(139 92 246 / 0.3);
+  border: 1px solid rgb(22 143 98 / 0.25);
 }
 .orbit-sat {
   position: absolute;
@@ -304,10 +292,10 @@ body {
   animation: orb-drift 22s ease-in-out infinite alternate;
 }
 .orb-cyan {
-  background: rgb(40 215 254 / 0.1);
+  background: rgb(61 255 162 / 0.08);
 }
 .orb-violet {
-  background: rgb(139 92 246 / 0.12);
+  background: rgb(22 143 98 / 0.12);
   animation-duration: 28s;
   animation-delay: -8s;
 }
@@ -334,7 +322,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgb(9 13 26 / 0.25), transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgb(5 6 8 / 0.25), transparent 70%);
   opacity: 0;
   transition: opacity 220ms;
   pointer-events: none;

@@ -225,7 +225,7 @@ function Chamber({
       env.add(m);
     };
     strip("#c9fff0", 5.5, 6, 1.6, -6, 3.5, 1); // ice key, left
-    strip("#ff6847", 3.2, 4, 1.2, 6, 2, -1); // coral kicker, right
+    strip("#168f62", 3.2, 4, 1.2, 6, 2, -1); // deep phosphor kicker, right
     strip("#3a4a44", 1.6, 8, 2, 0, 7, 0); // dim cold top
     const pmrem = new THREE.PMREMGenerator(gl);
     const envTex = pmrem.fromScene(env, 0.04).texture;

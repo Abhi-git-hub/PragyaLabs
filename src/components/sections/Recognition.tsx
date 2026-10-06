@@ -23,9 +23,9 @@ const PATHS = [
 const PATH_LABELS = ["Documents", "Knowledge", "Workflows", "Users", "Decisions"];
 
 /**
- * RECOGNITION — the real problem is fragmentation. Three lines land in
- * sequence while scattered sources connect into one system: scroll-scrubbed
- * paths labelled CONTEXT / RETRIEVAL / WORKFLOW / INTERFACE. Pinned briefly
+ * RECOGNITION — the real problem is fragmentation. Three large centered
+ * lines zoom in sequence while scattered sources connect into one system:
+ * scroll-scrubbed paths labelled DOCUMENTS through DECISIONS. Pinned briefly
  * on capable desktop only; a calm flowing section everywhere else.
  */
 export function Recognition() {
@@ -48,7 +48,7 @@ export function Recognition() {
           pin: ".recognition-stage",
         },
       });
-      tl.fromTo("[data-rec-line]", { opacity: 0.12, y: 40 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.5 }, 0);
+      tl.fromTo("[data-rec-line]", { opacity: 0.1, y: 60, scale: 0.86 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.55 }, 0);
       tl.fromTo("[data-rec-path]", { strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 1.4, stagger: 0.25 }, 0.3);
       tl.fromTo("[data-rec-label]", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.25 }, 0.8);
       tl.fromTo("[data-rec-node]", { opacity: 0.25 }, { opacity: 1, duration: 0.6, stagger: 0.15 }, 0.3);
@@ -58,7 +58,7 @@ export function Recognition() {
         defaults: { ease: "none" },
         scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 45%", scrub: 0.6 },
       });
-      tl.fromTo("[data-rec-line]", { opacity: 0.12, y: 30 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.4 }, 0);
+      tl.fromTo("[data-rec-line]", { opacity: 0.1, y: 46, scale: 0.88 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.45 }, 0);
       tl.fromTo("[data-rec-path]", { strokeDashoffset: 320 }, { strokeDashoffset: 0, duration: 1.2, stagger: 0.2 }, 0.2);
       tl.fromTo("[data-rec-label]", { opacity: 0 }, { opacity: 1, duration: 0.4, stagger: 0.2 }, 0.6);
     });
@@ -69,23 +69,20 @@ export function Recognition() {
     <div ref={wrapRef}>
       <div className="recognition-stage">
         <SectionContainer id="recognition">
-          <p aria-hidden="true" className="display-ghost pointer-events-none select-none font-display text-[clamp(4.5rem,10vw,11rem)] font-bold leading-none">
-            Gap
-          </p>
-          <Reveal>
+          <Reveal className="text-center">
             <p className="meta text-faint">
               <span className="text-cyan">02</span>
               <span aria-hidden="true"> / </span>
               Recognition
             </p>
-            <Display size="md" className="mt-5 max-w-[20ch]">
+            <Display size="lg" className="mx-auto mt-6 max-w-[24ch]">
               {LINES.map((l, i) => (
-                <span key={l} data-rec-line className="block">
+                <span key={l} data-rec-line className="block origin-center will-change-transform">
                   {i === LINES.length - 1 ? <span className="text-cyan">{l}</span> : l}
                 </span>
               ))}
             </Display>
-            <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
+            <p className="mx-auto mt-8 max-w-[58ch] text-base leading-relaxed text-muted md:text-lg">
               Information lives in documents, inboxes, spreadsheets, dashboards, and
               people&apos;s heads. Pragya Labs designs the system that brings the right
               context into the right moment.
@@ -97,10 +94,10 @@ export function Recognition() {
               {/* source fragments */}
               {[60, 130, 200, 270].map((y) => (
                 <g key={y} data-rec-node>
-                  <rect x={8} y={y - 22} width={56} height={44} fill="none" stroke="#7E8AA6" strokeWidth={1} opacity={0.7} />
-                  <path d={`M 16 ${y - 8} L 56 ${y - 8}`} stroke="#7E8AA6" strokeWidth={1} opacity={0.5} />
-                  <path d={`M 16 ${y + 2} L 48 ${y + 2}`} stroke="#7E8AA6" strokeWidth={1} opacity={0.35} />
-                  <path d={`M 16 ${y + 12} L 52 ${y + 12}`} stroke="#7E8AA6" strokeWidth={1} opacity={0.25} />
+                  <rect x={8} y={y - 22} width={56} height={44} fill="none" stroke="#737B78" strokeWidth={1} opacity={0.7} />
+                  <path d={`M 16 ${y - 8} L 56 ${y - 8}`} stroke="#737B78" strokeWidth={1} opacity={0.5} />
+                  <path d={`M 16 ${y + 2} L 48 ${y + 2}`} stroke="#737B78" strokeWidth={1} opacity={0.35} />
+                  <path d={`M 16 ${y + 12} L 52 ${y + 12}`} stroke="#737B78" strokeWidth={1} opacity={0.25} />
                 </g>
               ))}
               {/* drawn pathways */}
@@ -110,7 +107,7 @@ export function Recognition() {
                   data-rec-path
                   d={p.d}
                   fill="none"
-                  stroke="#28D7FE"
+                  stroke="#3DFFA2"
                   strokeWidth={1.5}
                   strokeDasharray={320}
                   strokeDashoffset={320}
@@ -118,13 +115,13 @@ export function Recognition() {
               ))}
               {/* system node */}
               <g data-rec-node>
-                <circle cx={292} cy={155} r={34} fill="none" stroke="#F5F7FF" strokeWidth={1.5} />
-                <circle cx={292} cy={155} r={20} fill="none" stroke="#8B5CF6" strokeWidth={1.5} />
-                <circle cx={292} cy={155} r={5} fill="#28D7FE" />
+                <circle cx={292} cy={155} r={34} fill="none" stroke="#F2F1EA" strokeWidth={1.5} />
+                <circle cx={292} cy={155} r={20} fill="none" stroke="#168F62" strokeWidth={1.5} />
+                <circle cx={292} cy={155} r={5} fill="#3DFFA2" />
               </g>
             </svg>
             {/* pathway legend — the labels live in HTML, not canvas */}
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 px-5 py-4">
+            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 px-5 py-4">
               {PATH_LABELS.map((l) => (
                 <li key={l} data-rec-label className="meta text-faint">
                   <span aria-hidden="true" className="mr-2 inline-block h-px w-5 bg-cyan align-middle" />
@@ -133,7 +130,7 @@ export function Recognition() {
               ))}
             </ul>
           </div>
-          <p className="meta mt-4 text-faint">
+          <p className="meta mt-4 text-center text-faint">
             Fragments → Context → Intelligence → Interface → Impact
           </p>
         </SectionContainer>
